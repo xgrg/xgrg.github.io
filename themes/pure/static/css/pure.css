@@ -1,7 +1,11 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic|Open+Sans:300,300italic);
+
+
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
 a {
@@ -134,7 +138,7 @@ pre {
     color: #fff;
     border-bottom: 1px solid rgba(255,255,255,0.3);
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    font-family: "freight-sans-pro","Myriad Pro","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
+    font-family: "Source Sans Pro","freight-sans-pro","Myriad Pro","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
 }
 
 .tagline {
@@ -159,7 +163,7 @@ pre {
 .links a {
     font-size: 15px;
     padding-left: 15px;
-    font-family: sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
     letter-spacing: 2px;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     text-decoration: none;

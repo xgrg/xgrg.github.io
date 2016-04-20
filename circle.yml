@@ -8,7 +8,7 @@ general:
 
 dependencies:
   pre:
-    - pip install pelican markdown
+     - pip install pelican markdown ghp-import
 
 test:
    override:
