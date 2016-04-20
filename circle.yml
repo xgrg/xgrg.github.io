@@ -1,0 +1,21 @@
+machine:
+  python:
+    version: 2.7.5
+general:
+  branches:
+    ignore:
+      - master
+
+dependencies:
+  pre:
+    - pip install pelican markdown
+
+test:
+   override:
+      - "true"
+
+deployment:
+  production:
+     branch: source
+     commands:
+       - ./build.sh
