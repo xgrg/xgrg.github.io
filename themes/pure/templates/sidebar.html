@@ -1,22 +1,21 @@
-<div class="sidebar pure-u">
-    <div class="cover-img" style="background-image: url('{{ COVER_IMG_URL }}')">
-        <div class="cover-body">
-            <header class="header">
-                <hgroup>
-                    <h1 class="brand-main"><a href="/">{{ SITENAME }}</a></h1>
-                    <p class="tagline">{{ TAGLINE }}</p>
-                {% for title, link in MENUITEMS %}
-                    <p class="links"><a href="{{ link }}">{{ title }}</a></p>
-                {% endfor %}
-                    <p class="social">
-                {% for title, link in SOCIAL %}
-                        <a href="{{ link }}">
-                            <i class="fa fa-{{ title }} fa-3x"></i>
-                        </a>
-                {% endfor %}
-                    <p>
-                </hgroup>
-            </header>
+<section>
+	<div class="portrait">
+			<img src="/theme/images/go.jpg" />
+	</div>
+    <div class="name-cv">
+        <div class="name">Grégory Operto, PhD</div>
+        <div class="cv">
+            <a href="/pdfs/cv.pdf"><i class="fa fa-file-pdf-o"></i> CV</a>
         </div>
     </div>
-</div>
+    <div class="clear"></div>
+      <div class="sub-name">brain imaging | scientific computing</div>
+	<div class="contact">goperto@gmail.com</div>
+	<div class="location">Saclay, France</div>
+</section>
+
+<section class="tags">
+{% for tag in [ ] %}
+    <span class="tag"><a href="/tag/{{ tag }}/">#{{ tag }}</a></span>
+{% endfor %}
+</section>
