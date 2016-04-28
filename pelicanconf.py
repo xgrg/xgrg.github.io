@@ -7,6 +7,21 @@ SITENAME = u'Gr\xe9gory Operto'
 SITEURL = ''
 STATIC_PATHS = ['images', 'pdfs', 'widgets']
 THEME = 'pure'
+DISPLAY_CATEGORIES_ON_MENU = False
+DISPLAY_PAGES_ON_MENU = False
+DIRECT_TEMPLATES = ('index', 'archives')
+ARCHIVES_SAVE_AS = 'archives/index.html'
+ARTICLE_URL = '{slug}/'
+ARTICLE_SAVE_AS = '{slug}/index.html'
+PAGE_URL = '{slug}/'
+PAGE_SAVE_AS = '{slug}/index.html'
+TAG_URL = 'tag/{slug}/'
+TAG_SAVE_AS = 'tag/{slug}/index.html'
+TAGS_SAVE_AS = ''
+AUTHOR_URL = ''
+AUTHOR_SAVE_AS = ''
+CATEGORY_URL = ''
+CATEGORY_SAVE_AS = ''
 
 PATH = 'content'
 
@@ -31,7 +46,6 @@ TWITTER_USERNAME = 'xgrg'
 GITHUB_USERNAME = 'xgrg'
 LINKEDIN_USERNAME = 'neuroimaging'
 MENUITEMS = [('Home', '/'),
-             ('Projects', '/projects/'),
              ('About', '/about/'),
              ]
 
