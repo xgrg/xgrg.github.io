@@ -9,6 +9,7 @@ STATIC_PATHS = ['images', 'pdfs', 'widgets']
 THEME = 'pure'
 DISPLAY_CATEGORIES_ON_MENU = False
 DISPLAY_PAGES_ON_MENU = False
+FILENAME_METADATA = '(?P<date>\d{4}-\d{2}-\d{2})-(?P<slug>.*)'
 DIRECT_TEMPLATES = ('index', 'archives')
 ARCHIVES_SAVE_AS = 'archives/index.html'
 ARTICLE_URL = '{slug}/'
@@ -24,9 +25,10 @@ CATEGORY_URL = ''
 CATEGORY_SAVE_AS = ''
 
 PATH = 'content'
-
+DATE_FORMATS = {
+    'en': '%Y-%m-%d',
+}
 TIMEZONE = 'Europe/Paris'
-
 DEFAULT_LANG = u'en'
 
 # Feed generation is usually not desired when developing
@@ -51,6 +53,8 @@ MENUITEMS = [('Home', '/'),
 
 DEFAULT_PAGINATION = 5
 GOOGLE_ANALYTICS = 'UA-17275957-2'
+DISQUS_SITENAME = 'xgrg'
+
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
