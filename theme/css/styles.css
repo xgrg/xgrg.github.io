@@ -236,6 +236,9 @@ iframe {
 
 #post {
 }
+#post p {
+   text-align: justify;
+}
 
 code {
     /*font-size: .9em;*/
