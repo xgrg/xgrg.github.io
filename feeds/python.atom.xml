@@ -12,28 +12,86 @@ After going all the way down from the plateau of Verrières, the crossing of Ign
 &lt;h2&gt;2016:&lt;/h2&gt;
 &lt;p&gt;Only runners showed up on the start line (1 lady 6 gentlemen) that day of 22 april and just one bike was to join them on the few last kilometers. This was maybe the fastest group across years globally, leaving from Porte de Vanves at 7:45am and arriving around 9:55, hence making it in &lt;strong&gt;just above 2 hours&lt;/strong&gt;. That year was the first to provide a &lt;strong&gt;refreshment point&lt;/strong&gt;, in the &lt;em&gt;Forêt de Verrières&lt;/em&gt; to be precise. The works on the roads next to the CEA have made things not so convenient on the last section. Like the previous year, Philippe Ciuciu and Jean-Robert Deverre made it easily, ranking 1st and 2nd. Victor Delattre ranked 3rd in a brave final sprint.
 Edouard Duchesnay also deserves a special mention for forfeiting just on the day before so as to achieve a noble &lt;strong&gt;rescue mission&lt;/strong&gt; in a distant civilization.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="PNS2016-01" src="http://xgrg.github.io/images/pns/pns2016-01.jpg" /&gt;
-&lt;img alt="PNS2016-02" src="http://xgrg.github.io/images/pns/pns2016-02.jpg" /&gt;
-&lt;img alt="PNS2016-03" src="http://xgrg.github.io/images/pns/pns2016-03.jpg" /&gt;&lt;/p&gt;
+&lt;div class="rslides_container"&gt;
+   &lt;ul class="rslides" id="slides1"&gt;
+     &lt;li&gt;&lt;img src="/images/pns/pns2016-01.jpg" alt=""&gt;&lt;p class="caption"&gt;Across the &lt;i&gt;Forêt de Verrières&lt;/i&gt;&lt;/p&gt;&lt;/li&gt;
+     &lt;li&gt;&lt;img src="/images/pns/pns2016-02.jpg" alt=""&gt;&lt;p class="caption"&gt;Across the &lt;i&gt;Forêt de Verrières&lt;/i&gt;&lt;/p&gt;&lt;/li&gt;
+     &lt;li&gt;&lt;img src="/images/pns/pns2016-05.jpg" alt=""&gt;&lt;p class="caption"&gt;The winner of the year &lt;i&gt;(credits: C. Doublé)&lt;/i&gt;&lt;/p&gt;&lt;/li&gt;
+     &lt;li&gt;&lt;img src="/images/pns/pns2016-09.jpg" alt=""&gt;&lt;p class="caption"&gt;Number 2 &lt;i&gt;(credits: C. Doublé)&lt;/i&gt;&lt;/p&gt;&lt;/li&gt;
+     &lt;li&gt;&lt;img src="/images/pns/pns2016-06.jpg" alt=""&gt;&lt;p class="caption"&gt;Number 3 &lt;i&gt;(credits: C. Doublé)&lt;/i&gt;&lt;/p&gt;&lt;/li&gt;
+     &lt;li&gt;&lt;img src="/images/pns/pns2016-07.jpg" alt=""&gt;&lt;p class="caption"&gt;Number 4 &lt;i&gt;(credits: C. Doublé)&lt;/i&gt;&lt;/p&gt;&lt;/li&gt;
+     &lt;li&gt;&lt;img src="/images/pns/pns2016-08.jpg" alt=""&gt;&lt;p class="caption"&gt;Number 5 and 6 &lt;i&gt;(credits: C. Doublé)&lt;/i&gt;&lt;/p&gt;&lt;/li&gt;
+     &lt;li&gt;&lt;img src="/images/pns/pns2016-12.jpg" alt=""&gt;&lt;p class="caption"&gt;Number 7 &lt;i&gt;(credits: C. Doublé)&lt;/i&gt;&lt;/p&gt;&lt;/li&gt;
+     &lt;li&gt;&lt;img src="/images/pns/pns2016-10.jpg" alt=""&gt;&lt;p class="caption"&gt;Finishers &lt;i&gt;(credits: C. Doublé)&lt;/i&gt;&lt;/p&gt;&lt;/li&gt;
+   &lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/TPzIuWkjGp8" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;img alt="PNS2015-02 (credits: M. Bouin)" src="http://xgrg.github.io/images/pns/pns2016-17.jpg" /&gt;
+&lt;span style="font-size:11pt; float:right"&gt; &lt;em&gt;photo and video credits: M. Bouin&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;script&gt;
+  $(function() {
+    $("#slides1").responsiveSlides({
+     auto: true,             // Boolean: Animate automatically, true or false
+     pager: true,
+     nav: true,
+     namespace: "centered-btns"
+   });
+  });
+&lt;/script&gt;
+
 &lt;h2&gt;2015:&lt;/h2&gt;
 &lt;p&gt;This year sets a record in terms of number of participants: 13 finishers (5 ladies 8 gentlemen) - 8 runners 3 run &amp;amp; bikes and 2 bikes. In an almost traditional manner, Philippe Ciuciu ranked 1st, then followed by Augustin Duval and Jean-Robert Deverre. A curious yet unexplained fact about the rankings is that the runners crossed the finish line before the bikes. That year was also the year of the &lt;em&gt;Paris-NeuroSpin&lt;/em&gt; tee-shirts.
 That same year Nicolas Souedet inaugurated a new type of event: the &lt;em&gt;Paris-Fontenay-aux-Roses&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="PNS2015-02" src="http://xgrg.github.io/images/pns/pns2015-02.jpg" /&gt;
+&lt;div class="rslides_container"&gt;
+   &lt;ul class="rslides" id="slides2"&gt;
+     &lt;li&gt;&lt;img src="/images/pns/pns2015-02.jpg" alt=""&gt;&lt;p class="caption"&gt;The winner of the year &lt;i&gt;(credits: L. Labruna)&lt;/i&gt;&lt;/p&gt;&lt;/li&gt;
+     &lt;li&gt;&lt;img src="/images/pns/pns2015-03.jpg" alt=""&gt;&lt;p class="caption"&gt;Number 2 &lt;i&gt;(credits: L. Labruna)&lt;/i&gt;&lt;/p&gt;&lt;/li&gt;
+     &lt;li&gt;&lt;img src="/images/pns/pns2015-04.jpg" alt=""&gt;&lt;p class="caption"&gt;Number 3 &lt;i&gt;(credits: L. Labruna)&lt;/i&gt;&lt;/p&gt;&lt;/li&gt;
+     &lt;li&gt;&lt;img src="/images/pns/pns2015-05.jpg" alt=""&gt;&lt;p class="caption"&gt;Number 4 &lt;i&gt;(credits: L. Labruna)&lt;/i&gt; and 5&lt;/p&gt;&lt;/li&gt;
+     &lt;li&gt;&lt;img src="/images/pns/pns2015-06.jpg" alt=""&gt;&lt;p class="caption"&gt;Number 6 and 7 &lt;i&gt;(credits: L. Labruna)&lt;/i&gt;&lt;/p&gt;&lt;/li&gt;
+     &lt;li&gt;&lt;img src="/images/pns/pns2015-07.jpg" alt=""&gt;&lt;p class="caption"&gt;Number 8 &lt;i&gt;(credits: L. Labruna)&lt;/i&gt;&lt;/p&gt;&lt;/li&gt;
+     &lt;li&gt;&lt;img src="/images/pns/pns2015-08.jpg" alt=""&gt;&lt;p class="caption"&gt;Number 9 &lt;i&gt;(credits: L. Labruna)&lt;/i&gt;&lt;/p&gt;&lt;/li&gt;
+     &lt;li&gt;&lt;img src="/images/pns/pns2015-09.jpg" alt=""&gt;&lt;p class="caption"&gt;Bikes &lt;i&gt;(credits: L. Labruna)&lt;/i&gt;&lt;/p&gt;&lt;/li&gt;
+     &lt;li&gt;&lt;img src="/images/pns/pns2015-10.jpg" alt=""&gt;&lt;p class="caption"&gt;Finishers &lt;i&gt;(credits: L. Labruna)&lt;/i&gt;&lt;/p&gt;&lt;/li&gt;
+   &lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  $(function() {
+    $("#slides2").responsiveSlides({
+     auto: true,             // Boolean: Animate automatically, true or false
+     pager: true,
+     nav: true,
+     namespace: "centered-btns"
+   });
+  });
+&lt;/script&gt;
+
+&lt;p&gt;
 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/_laBv3qGyu4" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
-&lt;img alt="PNS2015-01" src="http://xgrg.github.io/images/pns/pns2015-01.jpg" /&gt;
+&lt;span style="font-size:11pt; float:right"&gt; &lt;i&gt;video credits: P. Ciuciu&lt;/i&gt;&lt;/span&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="PNS2015-01" src="http://xgrg.github.io/images/pns/pns2015-01.jpg" /&gt;
 &lt;p style="text-align:center"&gt;&lt;a href="https://www.youtube.com/watch?v=Gh1scg_cLyo"&gt;&lt;img src="/images/pns/pns2015-03.png" alt="ad" style="width: 300px;"/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/p&gt;
 &lt;h2&gt;2014:&lt;/h2&gt;
 &lt;p&gt;First year with bikes.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="PNS2014-01" src="http://xgrg.github.io/images/pns/pns2014-01.jpg" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="PNS2014-01" src="http://xgrg.github.io/images/pns/pns2014-01.jpg" /&gt;
+&lt;span style="font-size:11pt; float:right"&gt; &lt;em&gt;photo credits: U. Thoprakarn&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;h2&gt;2013:&lt;/h2&gt;
 &lt;p&gt;First year along the Coulée Verte, a much more pleasant route than before. The number of participants keeps on going up. "Hesitating" in the Forêt de Verrières. First year with nice supporting fellows acclaiming the finishers.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="PNS2013-01" src="http://xgrg.github.io/images/pns/pns2013-01.jpg" /&gt;
-&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/aK3Ymuvxpw0" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/aK3Ymuvxpw0" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+&lt;span style="font-size:11pt; float:right"&gt; &lt;em&gt;video credits: P. Ciuciu&lt;/em&gt;&lt;/span&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2&gt;2012:&lt;/h2&gt;
 &lt;p&gt;First year with Philippe. It would be the first of his unshared victories. That year the same route was selected as the year before, meaning long road sections in the beginning.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="PNS2012-01" src="http://xgrg.github.io/images/pns/pns2012-01.jpg" /&gt;&lt;/p&gt;
 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/2n_u61pvlUM" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
 
+&lt;p&gt;&lt;span style="font-size:11pt; float:right"&gt; &lt;em&gt;video credits: P. Ciuciu&lt;/em&gt;&lt;/span&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2&gt;2011:&lt;/h2&gt;
 &lt;p&gt;The first &lt;em&gt;proof-of-concept&lt;/em&gt;, of which no photograph remains. Only this stats sheet clearly showing that some improvements needed to be carried out. That year only two participants did go for it: François De Guio and myself. We headed for the most direct route we could figure, hence ending by following long roads especially in the first part. We also started from &lt;em&gt;Porte d'Orléans&lt;/em&gt;. We made it in 2:39 hours.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="PNS2011-01" src="http://xgrg.github.io/images/pns/pns2011-01.jpg" /&gt;&lt;/p&gt;</summary><category term="running"></category><category term="neurospin"></category></entry></feed>
