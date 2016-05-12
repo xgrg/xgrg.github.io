@@ -3,12 +3,9 @@
 {% block title %}{{ SITENAME }} - {{ article.title }}{% endblock title %}
 
 {% block head_js %}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $(".content").fitVids();
-        });
-    </script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script src="/js/responsiveslides.min.js"></script>
     {% if article and article.latex %}
         {{ article.latex }}
     {% endif %}

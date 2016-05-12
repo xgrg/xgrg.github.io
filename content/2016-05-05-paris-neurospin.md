@@ -27,9 +27,34 @@ History and major events:
 Only runners showed up on the start line (1 lady 6 gentlemen) that day of 22 april and just one bike was to join them on the few last kilometers. This was maybe the fastest group across years globally, leaving from Porte de Vanves at 7:45am and arriving around 9:55, hence making it in **just above 2 hours**. That year was the first to provide a **refreshment point**, in the _Forêt de Verrières_ to be precise. The works on the roads next to the CEA have made things not so convenient on the last section. Like the previous year, Philippe Ciuciu and Jean-Robert Deverre made it easily, ranking 1st and 2nd. Victor Delattre ranked 3rd in a brave final sprint.
 Edouard Duchesnay also deserves a special mention for forfeiting just on the day before so as to achieve a noble **rescue mission** in a distant civilization.
 
-![PNS2016-01]({filename}images/pns/pns2016-01.jpg)
-![PNS2016-02]({filename}images/pns/pns2016-02.jpg)
-![PNS2016-03]({filename}images/pns/pns2016-03.jpg)
+<div class="rslides_container">
+   <ul class="rslides" id="slides1">
+     <li><img src="/images/pns/pns2016-01.jpg" alt=""><p class="caption">Across the <i>Forêt de Verrières</i></p></li>
+     <li><img src="/images/pns/pns2016-02.jpg" alt=""><p class="caption">Across the <i>Forêt de Verrières</i></p></li>
+     <li><img src="/images/pns/pns2016-05.jpg" alt=""><p class="caption">The winner of the year <i>(credits: C. Doublé)</i></p></li>
+     <li><img src="/images/pns/pns2016-09.jpg" alt=""><p class="caption">Number 2 <i>(credits: C. Doublé)</i></p></li>
+     <li><img src="/images/pns/pns2016-06.jpg" alt=""><p class="caption">Number 3 <i>(credits: C. Doublé)</i></p></li>
+     <li><img src="/images/pns/pns2016-07.jpg" alt=""><p class="caption">Number 4 <i>(credits: C. Doublé)</i></p></li>
+     <li><img src="/images/pns/pns2016-08.jpg" alt=""><p class="caption">Number 5 and 6 <i>(credits: C. Doublé)</i></p></li>
+     <li><img src="/images/pns/pns2016-12.jpg" alt=""><p class="caption">Number 7 <i>(credits: C. Doublé)</i></p></li>
+     <li><img src="/images/pns/pns2016-10.jpg" alt=""><p class="caption">Finishers <i>(credits: C. Doublé)</i></p></li>
+   </ul>
+</div>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/TPzIuWkjGp8" frameborder="0" allowfullscreen></iframe>
+
+![PNS2015-02 (credits: M. Bouin)]({filename}images/pns/pns2016-17.jpg)
+<span style="font-size:11pt; float:right"> _photo and video credits: M. Bouin_</span>
+
+<script>
+  $(function() {
+    $("#slides1").responsiveSlides({
+     auto: true,             // Boolean: Animate automatically, true or false
+     pager: true,
+     nav: true,
+     namespace: "centered-btns"
+   });
+  });
+</script>
 
 
 ## 2015:
@@ -37,8 +62,36 @@ Edouard Duchesnay also deserves a special mention for forfeiting just on the day
 This year sets a record in terms of number of participants: 13 finishers (5 ladies 8 gentlemen) - 8 runners 3 run & bikes and 2 bikes. In an almost traditional manner, Philippe Ciuciu ranked 1st, then followed by Augustin Duval and Jean-Robert Deverre. A curious yet unexplained fact about the rankings is that the runners crossed the finish line before the bikes. That year was also the year of the _Paris-NeuroSpin_ tee-shirts.
 That same year Nicolas Souedet inaugurated a new type of event: the _Paris-Fontenay-aux-Roses_.
 
-![PNS2015-02]({filename}images/pns/pns2015-02.jpg)
+<div class="rslides_container">
+   <ul class="rslides" id="slides2">
+     <li><img src="/images/pns/pns2015-02.jpg" alt=""><p class="caption">The winner of the year <i>(credits: L. Labruna)</i></p></li>
+     <li><img src="/images/pns/pns2015-03.jpg" alt=""><p class="caption">Number 2 <i>(credits: L. Labruna)</i></p></li>
+     <li><img src="/images/pns/pns2015-04.jpg" alt=""><p class="caption">Number 3 <i>(credits: L. Labruna)</i></p></li>
+     <li><img src="/images/pns/pns2015-05.jpg" alt=""><p class="caption">Number 4 <i>(credits: L. Labruna)</i> and 5</p></li>
+     <li><img src="/images/pns/pns2015-06.jpg" alt=""><p class="caption">Number 6 and 7 <i>(credits: L. Labruna)</i></p></li>
+     <li><img src="/images/pns/pns2015-07.jpg" alt=""><p class="caption">Number 8 <i>(credits: L. Labruna)</i></p></li>
+     <li><img src="/images/pns/pns2015-08.jpg" alt=""><p class="caption">Number 9 <i>(credits: L. Labruna)</i></p></li>
+     <li><img src="/images/pns/pns2015-09.jpg" alt=""><p class="caption">Bikes <i>(credits: L. Labruna)</i></p></li>
+     <li><img src="/images/pns/pns2015-10.jpg" alt=""><p class="caption">Finishers <i>(credits: L. Labruna)</i></p></li>
+   </ul>
+</div>
+<script>
+  $(function() {
+    $("#slides2").responsiveSlides({
+     auto: true,             // Boolean: Animate automatically, true or false
+     pager: true,
+     nav: true,
+     namespace: "centered-btns"
+   });
+  });
+</script>
+
+<p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/_laBv3qGyu4" frameborder="0" allowfullscreen></iframe>
+<span style="font-size:11pt; float:right"> <i>video credits: P. Ciuciu</i></span>
+</p>
+<br>
+
 ![PNS2015-01]({filename}images/pns/pns2015-01.jpg)
 <p style="text-align:center"><a href="https://www.youtube.com/watch?v=Gh1scg_cLyo"><img src="/images/pns/pns2015-03.png" alt="ad" style="width: 300px;"/></a></p>
 
@@ -47,12 +100,14 @@ That same year Nicolas Souedet inaugurated a new type of event: the _Paris-Fonte
 First year with bikes.
 
 ![PNS2014-01]({filename}images/pns/pns2014-01.jpg)
+<span style="font-size:11pt; float:right"> _photo credits: U. Thoprakarn_</span>
 
 ## 2013:
 First year along the Coulée Verte, a much more pleasant route than before. The number of participants keeps on going up. "Hesitating" in the Forêt de Verrières. First year with nice supporting fellows acclaiming the finishers.
 
 ![PNS2013-01]({filename}images/pns/pns2013-01.jpg)
 <iframe width="560" height="315" src="https://www.youtube.com/embed/aK3Ymuvxpw0" frameborder="0" allowfullscreen></iframe>
+<span style="font-size:11pt; float:right"> _video credits: P. Ciuciu_</span><br>
 
 ## 2012:
 First year with Philippe. It would be the first of his unshared victories. That year the same route was selected as the year before, meaning long road sections in the beginning.
@@ -60,6 +115,7 @@ First year with Philippe. It would be the first of his unshared victories. That 
 ![PNS2012-01]({filename}images/pns/pns2012-01.jpg)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/2n_u61pvlUM" frameborder="0" allowfullscreen></iframe>
+<span style="font-size:11pt; float:right"> _video credits: P. Ciuciu_</span><br>
 
 ## 2011:
 The first _proof-of-concept_, of which no photograph remains. Only this stats sheet clearly showing that some improvements needed to be carried out. That year only two participants did go for it: François De Guio and myself. We headed for the most direct route we could figure, hence ending by following long roads especially in the first part. We also started from _Porte d'Orléans_. We made it in 2:39 hours.

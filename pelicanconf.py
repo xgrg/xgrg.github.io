@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 AUTHOR = u'Gr\xe9gory Operto'
 SITENAME = u'Gr\xe9gory Operto'
 SITEURL = ''
-STATIC_PATHS = ['images', 'pdfs', 'widgets']
+STATIC_PATHS = ['images', 'pdfs', 'widgets', 'js']
 THEME = 'pure'
 DISPLAY_CATEGORIES_ON_MENU = False
 DISPLAY_PAGES_ON_MENU = False
