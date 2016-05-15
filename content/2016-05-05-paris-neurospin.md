@@ -24,7 +24,7 @@ History and major events:
 
 ## 2016:
 
-Only runners showed up on the start line (1 lady 6 gentlemen) that day of 22 april and just one bike was to join them on the few last kilometers. This was maybe the fastest group across years globally, leaving from Porte de Vanves at 7:45am and arriving around 9:55, hence making it in **just above 2 hours**. That year was the first to provide a **refreshment point**, in the _Forêt de Verrières_ to be precise. The works on the roads next to the CEA have made things not so convenient on the last section. Like the previous year, Philippe Ciuciu and Jean-Robert Deverre made it easily, ranking 1st and 2nd. Victor Delattre ranked 3rd in a brave final sprint.
+Only runners showed up on the start line (1 lady 6 gentlemen) that day of 22 april and just one bike was to join them on the few last kilometers. This was maybe the fastest group across years globally, leaving from Porte de Vanves at 7:45am and arriving around 9:55, hence making it in **just above 2 hours**. That year was the first to provide a **refreshment point**, in the _Forêt de Verrières_ to be precise. The works on the roads next to the CEA required to be more careful on the last section. Like the previous year, Philippe Ciuciu and Jean-Robert Deverre made it easily, ranking 1st and 2nd. Victor Delattre ranked 3rd in a brave final sprint.
 Edouard Duchesnay also deserves a special mention for forfeiting just on the day before so as to achieve a noble **rescue mission** in a distant civilization.
 
 <div class="rslides_container">
