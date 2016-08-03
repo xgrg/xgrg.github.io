@@ -2,11 +2,15 @@
 Title: About
 ---
 
-Grégory Operto has been involved in neuroimaging since 2004. After graduating in 2005 from the Ecole Supérieure d’Ingénieurs de Luminy (now Polytech-Marseille) with a major in Biomedical Engineering, he received his PhD in Computer Science from Aix-Marseille University in 2009. He then joined NeuroSpin, the high-field MRI center of the Commissariat à l’Energie Atomique (Atomic Energy Commission). His research interests focus on brain intersubject variability in adults and early development, and more recently the aging brain using large cohort studies. Since 2011, he manages the production unit in charge of computing biomarkers in CATI, the French platform for multicenter neuroimaging studies.
+Grégory Operto has been involved in neuroimaging since 2004. After graduating in 2005 from the Ecole Supérieure d’Ingénieurs de Luminy (now Polytech-Marseille) with a major in Biomedical Engineering, he received his PhD in Computer Science from Aix-Marseille University in 2009. He then joined NeuroSpin, the high-field MRI center of the Commissariat à l’Energie Atomique (Atomic Energy Commission). His research interests focus on brain intersubject variability in adults and early development, and the aging brain using large cohort studies. Between 2011 and 2016, he managed the production unit in charge of computing biomarkers in CATI, the French platform for multicenter neuroimaging studies. He is now holding a research associate position in the neuroimaging team of the BarcelonaBeta Brain Research Center to explore imaging early markers of Alzheimer's disease in large cohorts of presymptomatic subjects.
 
 ## Professional experience
 
-* 2011-now: **Research Engineer / Production Manager** in CATI (director: J-F. Mangin, PhD), NeuroSpin
+* 2016-now: **Research Associate** in BarcelonaBeta Brain Research Center (with J.D. Gispert-López) - Fundació Pasqual Maragall, Barcelona, Spain
+
+> Exploring neuroimaging early markers of Alzheimer's disease in large cohorts of presymptomatic subjects. ([http://barcelonabeta.org](http://barcelonabeta.org)).
+
+* 2011-2016: **Research Engineer / Production Manager** in CATI (director: J-F. Mangin, PhD), NeuroSpin
 
 > Creation of a national infrastructure for the support of cohort studies on Alzheimer's patients and related dementias ([http://cati-neuroimaging.com](http://cati-neuroimaging.com)).  Multi-site coordination of analyses performed on massive collections of images.  Member of the project executive committee.  Supervision of a software development team (3) focused on quality control.  Frequent interactions with teams in charge of national and international research projects.  Supervision of training engineers (2).
 
