@@ -1,5 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/python.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2016-05-05T00:00:00+02:00</updated><entry><title>Paris - NeuroSpin: a retrospective study</title><link href="http://xgrg.github.io/paris-neurospin/" rel="alternate"></link><published>2016-05-05T00:00:00+02:00</published><updated>2016-05-05T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2016-05-05:paris-neurospin/</id><summary type="html">&lt;p&gt;The &lt;em&gt;Paris-NeuroSpin&lt;/em&gt; is an unofficial annual running event that has been organized five times consecutively between 2012 and 2016. The itinerary starts from Paris Porte de Vanves and ends in Saclay at the doors of &lt;strong&gt;NeuroSpin&lt;/strong&gt; the high-field brain research center of the &lt;em&gt;French Atomic Commission&lt;/em&gt; &lt;em&gt;(CEA)&lt;/em&gt;. The total distance is just above &lt;em&gt;22 kilometers&lt;/em&gt;. Along the different years the event has counted from 4 to 13 participants, mostly runners but also bikes. The concept of the event drives the participants to progress as a unique group generally, hence arriving together after 2-2.5 hours of efforts.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto - Python</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/python.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2018-02-05T00:00:00+01:00</updated><entry><title>Collecting image statistics from Regions-of-Interest over many subjects</title><link href="http://xgrg.github.io/collecting-roi-values/" rel="alternate"></link><published>2018-02-05T00:00:00+01:00</published><updated>2018-02-05T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2018-02-05:/collecting-roi-values/</id><summary type="html">&lt;p&gt;Collecting basic image statistics (&lt;em&gt;e.g.&lt;/em&gt; mean, std) from ROIs over a set of images can be done easily in Python.&lt;/p&gt;
+&lt;!-- PELICAN_END_SUMMARY --&gt;
+
+&lt;p&gt;The function &lt;code&gt;regions_values&lt;/code&gt; will take at least the&lt;/p&gt;
+&lt;p&gt;:::python
+   import numpy as np
+   import nibabel as nib
+   import logging as log
+   from glob import glob
+   import pandas as pd …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Collecting basic image statistics (&lt;em&gt;e.g.&lt;/em&gt; mean, std) from ROIs over a set of images can be done easily in Python.&lt;/p&gt;
+&lt;!-- PELICAN_END_SUMMARY --&gt;
+
+&lt;p&gt;The function &lt;code&gt;regions_values&lt;/code&gt; will take at least the&lt;/p&gt;
+&lt;p&gt;:::python
+   import numpy as np
+   import nibabel as nib
+   import logging as log
+   from glob import glob
+   import pandas as pd
+   from joblib import Parallel, delayed
+   import argparse&lt;/p&gt;
+&lt;p&gt;def &lt;strong&gt;region_values&lt;/strong&gt;(map_fp, atlas, func):
+       m = np.array(nib.load(map_fp).dataobj)
+       n_labels = len(np.unique(atlas))
+       label_values = [func(m[atlas==label]) for label in range(1, n_labels)]
+       return label_values&lt;/p&gt;
+&lt;p&gt;def regions_values(atlas_fp, maps_fp, subjects=None, labels=None, func=np.mean,
+           n_jobs=7):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;   atlas_res = nib.load(atlas_fp).header[&amp;#39;pixdim&amp;#39;][:4]
+   log.info(&amp;#39;Atlas resolution: %s&amp;#39;%str(atlas_res))
+   atlas = np.array(nib.load(atlas_fp).dataobj)
+
+   n_labels = len(np.unique(atlas))
+   log.info(&amp;#39;%s labels in %s&amp;#39;%(n_labels, atlas_fp))
+
+
+   df = Parallel(n_jobs=n_jobs, verbose=1)(\
+       delayed(__region_values__)(maps_fp[i], atlas, func)\
+       for i in xrange(len(maps_fp)))
+
+   columns = labels if not labels is None \
+           else [str(e) for e in range(1, n_labels)]
+
+   res = pd.DataFrame(df, columns=columns)
+
+   res[&amp;#39;subject&amp;#39;] = xrange(len(maps_fp)) if subjects is None else subjects
+   res = res.set_index(&amp;#39;subject&amp;#39;)
+
+   return res
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This will be the result.&lt;/p&gt;
+&lt;h2&gt;Test:&lt;/h2&gt;
+&lt;p&gt;:::python
+   atlas_fp = '/home/grg/SPM/2016-2017/ROIapoE/ROI_DARTEL/csf5/rois.nii.gz'
+   maps_fp = glob('/home/grg/data/ALFA_DWI/dartel_ALFA_DWI/dartel_csf.5/rswr*.nii')
+   subjects = [e.split('/')[-1][4:9] for e in maps_fp]
+   names = {1: 'Middle cerebellar peduncle', 2: 'Pontine crossing tract (a part of MCP)',  3: 'Genu of corpus callosum',
+    4: 'Body of corpus callosum', 5: 'Splenium of corpus callosum',  6: 'Fornix (column and body of fornix)',
+    7: 'Corticospinal tract R',  8: 'Corticospinal tract L',  9: 'Medial lemniscus R'}
+   df = regions_values(atlas_fp, maps_fp, subjects=subjects, labels=names.values())&lt;/p&gt;</content><category term="python"></category><category term="image"></category></entry><entry><title>Paris - NeuroSpin: a retrospective study</title><link href="http://xgrg.github.io/paris-neurospin/" rel="alternate"></link><published>2016-05-05T00:00:00+02:00</published><updated>2016-05-05T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2016-05-05:/paris-neurospin/</id><summary type="html">&lt;p&gt;The &lt;em&gt;Paris-NeuroSpin&lt;/em&gt; is an unofficial annual running event that has been organized five times consecutively between 2012 and 2016. The itinerary starts from Paris Porte de Vanves and ends in Saclay at the doors of &lt;strong&gt;NeuroSpin&lt;/strong&gt; the high-field brain research center of the &lt;em&gt;French Atomic Commission&lt;/em&gt; &lt;em&gt;(CEA)&lt;/em&gt;. The total distance …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The &lt;em&gt;Paris-NeuroSpin&lt;/em&gt; is an unofficial annual running event that has been organized five times consecutively between 2012 and 2016. The itinerary starts from Paris Porte de Vanves and ends in Saclay at the doors of &lt;strong&gt;NeuroSpin&lt;/strong&gt; the high-field brain research center of the &lt;em&gt;French Atomic Commission&lt;/em&gt; &lt;em&gt;(CEA)&lt;/em&gt;. The total distance is just above &lt;em&gt;22 kilometers&lt;/em&gt;. Along the different years the event has counted from 4 to 13 participants, mostly runners but also bikes. The concept of the event drives the participants to progress as a unique group generally, hence arriving together after 2-2.5 hours of efforts.&lt;/p&gt;
 &lt;!-- PELICAN_END_SUMMARY --&gt;
 
 &lt;h2&gt;Itinerary:&lt;/h2&gt;
@@ -28,7 +89,7 @@ Edouard Duchesnay also deserves a special mention for forfeiting just on the day
 
 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/TPzIuWkjGp8" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
 
-&lt;p&gt;&lt;img alt="PNS2015-02 (credits: M. Bouin)" src="http://xgrg.github.io/images/pns/pns2016-17.jpg" /&gt;
+&lt;p&gt;&lt;img alt="PNS2015-02 (credits: M. Bouin)" src="http://xgrg.github.io/images/pns/pns2016-17.jpg"&gt;
 &lt;span style="font-size:11pt; float:right"&gt; &lt;em&gt;photo and video credits: M. Bouin&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;script&gt;
   $(function() {
@@ -75,23 +136,23 @@ That same year Nicolas Souedet inaugurated a new type of event: the &lt;em&gt;Pa
 &lt;/p&gt;
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img alt="PNS2015-01" src="http://xgrg.github.io/images/pns/pns2015-01.jpg" /&gt;
+&lt;p&gt;&lt;img alt="PNS2015-01" src="http://xgrg.github.io/images/pns/pns2015-01.jpg"&gt;
 &lt;p style="text-align:center"&gt;&lt;a href="https://www.youtube.com/watch?v=Gh1scg_cLyo"&gt;&lt;img src="/images/pns/pns2015-03.png" alt="ad" style="width: 300px;"/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/p&gt;
 &lt;h2&gt;2014:&lt;/h2&gt;
 &lt;p&gt;First year with bikes.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="PNS2014-01" src="http://xgrg.github.io/images/pns/pns2014-01.jpg" /&gt;
+&lt;p&gt;&lt;img alt="PNS2014-01" src="http://xgrg.github.io/images/pns/pns2014-01.jpg"&gt;
 &lt;span style="font-size:11pt; float:right"&gt; &lt;em&gt;photo credits: U. Thoprakarn&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;h2&gt;2013:&lt;/h2&gt;
 &lt;p&gt;First year along the Coulée Verte, a much more pleasant route than before. The number of participants keeps on going up. "Hesitating" in the Forêt de Verrières. First year with nice supporting fellows acclaiming the finishers.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="PNS2013-01" src="http://xgrg.github.io/images/pns/pns2013-01.jpg" /&gt;
+&lt;p&gt;&lt;img alt="PNS2013-01" src="http://xgrg.github.io/images/pns/pns2013-01.jpg"&gt;
 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/aK3Ymuvxpw0" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
 &lt;span style="font-size:11pt; float:right"&gt; &lt;em&gt;video credits: P. Ciuciu&lt;/em&gt;&lt;/span&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2&gt;2012:&lt;/h2&gt;
 &lt;p&gt;First year with Philippe. It would be the first of his unshared victories. That year the same route was selected as the year before, meaning long road sections in the beginning.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="PNS2012-01" src="http://xgrg.github.io/images/pns/pns2012-01.jpg" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="PNS2012-01" src="http://xgrg.github.io/images/pns/pns2012-01.jpg"&gt;&lt;/p&gt;
 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/2n_u61pvlUM" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
 
 &lt;p&gt;&lt;span style="font-size:11pt; float:right"&gt; &lt;em&gt;video credits: P. Ciuciu&lt;/em&gt;&lt;/span&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2&gt;2011:&lt;/h2&gt;
 &lt;p&gt;The first &lt;em&gt;proof-of-concept&lt;/em&gt;, of which no photograph remains. Only this stats sheet clearly showing that some improvements needed to be carried out. That year only two participants did go for it: François De Guio and myself. We headed for the most direct route we could figure, hence ending by following long roads especially in the first part. We also started from &lt;em&gt;Porte d'Orléans&lt;/em&gt;. We made it in 2:39 hours.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="PNS2011-01" src="http://xgrg.github.io/images/pns/pns2011-01.jpg" /&gt;&lt;/p&gt;</summary><category term="running"></category><category term="neurospin"></category></entry></feed>
+&lt;p&gt;&lt;img alt="PNS2011-01" src="http://xgrg.github.io/images/pns/pns2011-01.jpg"&gt;&lt;/p&gt;</content><category term="running"></category><category term="neurospin"></category></entry></feed>
