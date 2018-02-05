@@ -1,6 +1,6 @@
 machine:
   python:
-    version: 3.3.3
+    version: 2.7.6
 general:
   branches:
     ignore:
@@ -8,7 +8,8 @@ general:
 
 dependencies:
   pre:
-     #- pip install --upgrade setuptools
+     - pip install --upgrade pip
+     - pip install --upgrade setuptools
      - pip install pelican markdown ghp-import
 
 test:
