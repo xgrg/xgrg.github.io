@@ -12,32 +12,34 @@ Collecting basic image statistics (_e.g._ mean, std) from ROIs over a set of ima
 
 See the example in this [**Jupyter Notebook**](https://github.com/xgrg/alfa/blob/master/notebooks/Collecting%20image%20statistics%20from%20Regions-of-Interest%20over%20many%20subjects.ipynb)
 
-      import numpy as np
-      import nibabel as nib
-      import pandas as pd
-      from joblib import Parallel, delayed
+	import numpy as np
+	import nibabel as nib
+	from glob import glob
+	import pandas as pd
+	from joblib import Parallel, delayed
 
-      def map_values(map_fp, atlas, func):
+	def roistats_from_map(map_fp, atlas, func):
 	     m = np.array(nib.load(map_fp).dataobj)
-	     n_labels = len(np.unique(atlas))
-	     label_values = [func(m[atlas==label]) for label in range(1, n_labels)]
+	     n_labels = list(np.unique(atlas))
+	     n_labels.remove(0)
+	     label_values = [func(m[atlas==label]) for label in n_labels]
 	     return label_values
 
-      def regions_values(atlas_fp, maps_fp, subjects=None, labels=None, func=np.mean,
-	      n_jobs=7):
+	def roistats_from_maps(atlas_fp, maps_fp, subjects=None, labels=None,
+		func=np.mean, n_jobs=7):
 
-	     atlas_res = nib.load(atlas_fp).header['pixdim'][:4]
-	     atlas = np.array(nib.load(atlas_fp).dataobj)
+	     atlas_im = nib.load(atlas_fp)
+	     atlas = np.array(atlas_im.dataobj)
 
-	     n_labels = len(np.unique(atlas))
+	     n_labels = list(np.unique(atlas))
+	     n_labels.remove(0)
 
 	     df = Parallel(n_jobs=n_jobs, verbose=1)(\
-		    delayed(map_values)(maps_fp[i], atlas, func)\
-		    for i in xrange(len(maps_fp)))
+	         delayed(roistats_from_map)(maps_fp[i], atlas, func)\
+	         for i in xrange(len(maps_fp)))
 
 	     columns = labels if not labels is None \
-		     else [str(e) for e in range(1, n_labels)]
-
+	             else [int(e) for e in n_labels]
 	     res = pd.DataFrame(df, columns=columns)
 
 	     res['subject'] = xrange(len(maps_fp)) if subjects is None else subjects
@@ -45,17 +47,15 @@ See the example in this [**Jupyter Notebook**](https://github.com/xgrg/alfa/blob
 
 	     return res
 
-
-`regions_values` takes a path to the label map defining the ROIS and a
-list of filepaths to the images to compute the stats from. `map_values` returns
-a single-row table with the computed values for one single map and is basically used
-by `regions_values` to iterate over images and compile the different rows into one
-single table, adding it a list of subject identifiers (if argument `subjects` is
-given) and naming the columns with `labels` (if given).
+`roistats_from_maps` takes a path to the label map defining the ROIS and a
+list of filepaths to the images to compute the stats from. `roistats_from_map` returns
+a list of values from one single map, while `roistats_from_maps` parallelizes it
+(using [joblib](https://pythonhosted.org/joblib/)) over images and compiles the
+returned rows into one single table, adding it a list of subject identifiers
+(if argument `subjects` is given) and naming the columns with `labels` (if given).
 
 By default, the mean is computed for every region but any other NumPy function
-can be passed as `func` argument. Last but not least, [joblib](https://pythonhosted.org/joblib/) is used to
-send multiple jobs simultaneously.
+can be passed as `func` argument. Last but not least, is used for parallel processing.
 
 Example:
 ----------
@@ -70,7 +70,7 @@ Example:
 		7: 'Corticospinal tract R',  8: 'Corticospinal tract L',
 		9: 'Medial lemniscus R'}
 
-	df = regions_values(atlas_fp, maps_fp, subjects=subjects, labels=names.values())
+	df = roistats_from_maps(atlas_fp, maps_fp, subjects=subjects, labels=names.values())
 	#df.to_excel('/path/to/excelfile.xls')
 
 
