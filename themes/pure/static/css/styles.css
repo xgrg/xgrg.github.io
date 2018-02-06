@@ -10,7 +10,12 @@ html, button, input, select, textarea,
     font-family: "Source Sans Pro", sans-serif;
     font-size: 18px;
     font-weight: 300;
-    color: #000;
+    color: white;
+    background: #111111;
+}
+
+.pure-menu.pure-menu-open, .pure-menu.pure-menu-horizontal li .pure-menu-children{
+   background:inherit;
 }
 
 strong {
