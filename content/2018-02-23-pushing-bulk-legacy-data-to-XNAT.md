@@ -1,5 +1,5 @@
 Title: Pushing bulk legacy data to XNAT
-Category: Python
+Category: XNAT
 Status: Published
 Tags: xnat, dicom
 Authors: Grégory Operto
