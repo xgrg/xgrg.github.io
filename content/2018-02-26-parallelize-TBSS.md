@@ -17,6 +17,15 @@ Nevertheless my ambition was quite humble at this point: allow `randomise` to
 use `N` available CPUs to estimate a set of `M` contrasts - in parallel - using the
 traditional threshold-free permutation scheme.
 
+## Preamble:
+
+> <div style="padding:20px; text-align:justify; background-color:#222222">
+> The easiest way is probably by creating as many `.con` files as contrasts and
+> to run `randomise` separately on each of them setting adecuate options to name
+> the generated files in output. The workaround proposed below is nothing but a
+> variation around this, with the advantage of preserving the contrast
+> numbering given by `randomise` in normal conditions.</div>
+
 ## Concept:
 
 The typical `randomise` command looks like:
