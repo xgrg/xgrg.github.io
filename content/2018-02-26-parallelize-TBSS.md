@@ -1,5 +1,5 @@
 Title: How to parallelize TBSS / randomise (sort of)
-Category: Miscellaneous
+Category: TBSS
 Status: Published
 Tags: tbss
 Authors: Grégory Operto

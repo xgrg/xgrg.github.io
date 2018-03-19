@@ -1,5 +1,5 @@
 Title: Paris - NeuroSpin: a retrospective study
-Category: Python
+Category: Miscellaneous
 Status: Published
 Tags: running, neurospin
 Authors: Grégory Operto
