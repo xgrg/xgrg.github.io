@@ -26,6 +26,8 @@ traditional threshold-free permutation scheme.
 > variation around this, with the advantage of preserving the contrast
 > numbering given by `randomise` in normal conditions.</div>
 
+See [this repository](https://github.com/xgrg/tbss/) for an actual implementation.
+
 ## Concept:
 
 The typical `randomise` command looks like:
