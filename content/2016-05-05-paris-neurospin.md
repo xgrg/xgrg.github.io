@@ -8,6 +8,9 @@ The _Paris-NeuroSpin_ is an unofficial annual running event that has been organi
 
 <!-- PELICAN_END_SUMMARY -->
 
+> <div style="padding:20px; text-align:justify; background-color:#8e453e; color:white"> **Note:** next **July 3** will be **the next _Paris-NeuroSpin_ 2018 Edition**. François Leroy has now taken charge of organizing the event. Registrations are open!
+> </div>
+
 Itinerary:
 ----------
 
@@ -21,6 +24,10 @@ After going all the way down from the plateau of Verrières, the crossing of Ign
 
 History and major events:
 ------------------------
+## 2017: The 6th _Paris-NeuroSpin_ edition took place on June 15. A video montage captured a selection of the good moments from that day.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1vSF1tWx-Rg" frameborder="0" allowfullscreen></iframe>
+<span style="font-size:11pt; float:right"> _video credits: C. Doublé_</span>
 
 ## 2016:
 
