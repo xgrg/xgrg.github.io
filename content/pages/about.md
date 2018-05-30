@@ -2,7 +2,7 @@
 Title: About
 ---
 
-Grégory Operto has been involved in neuroimaging since 2004. After graduating in 2005 from the Ecole Supérieure d’Ingénieurs de Luminy (now Polytech-Marseille) with a major in Biomedical Engineering, he received his PhD in Computer Science from Aix-Marseille University in 2009. He then joined NeuroSpin, the high-field MRI center of the Commissariat à l’Energie Atomique (Atomic Energy Commission). His research interests focus on brain intersubject variability in adults and early development, and the aging brain using large cohort studies. Between 2011 and 2016, he managed the production unit in charge of computing biomarkers in CATI, the French platform for multicenter neuroimaging studies. He is now holding a staff scientist position in the neuroimaging team of the [BarcelonaBeta Brain Research Center](http://barcelonabeta.org) to explore imaging early markers of Alzheimer's disease in large cohorts of presymptomatic subjects.
+Grégory Operto has been have been dedicating more than 10 years to studying the human brain using advanced techniques and developing new methods in medical image processing. After graduating in 2005 from Polytech-Marseille (by then Ecole Supérieure d'Ingénieurs de Luminy) with a major in Biomedical Engineering, he received his PhD in Computer Science from Aix-Marseille University in 2009. He then joined NeuroSpin, the high-field MRI center of the Commissariat à l’Energie Atomique (Atomic Energy Commission). His research interests focus on early detection in Alzheimer's Disease and the aging brain. Between 2011 and 2016, he managed the production unit in charge of computing biomarkers in CATI, the French platform for multicenter neuroimaging studies. He is now holding a staff scientist position in the neuroimaging team of the [BarcelonaBeta Brain Research Center](http://barcelonabeta.org) to explore imaging early markers of Alzheimer's disease in large cohorts of presymptomatic subjects. By his experience both as a researcher and as an engineer, he has been building practical know-how in addressing not only the fundamental questions related to the study of Alzheimer’s disease but also the many technical challenges raised by data of ever-increasing complexity.
 
 ## Professional experience
 
@@ -38,6 +38,8 @@ Grégory Operto has been involved in neuroimaging since 2004. After graduating i
 
 ## Teaching
 
+* 2016-2018: **Part-time associate professor** in _Diagnostic imaging_ at [Pompeu Fabra University](http://www.upf.edu)
+
 * 2005-2009: **Teaching assistant** in computer science at Université Aix-Marseille - Faculté des Sciences de Luminy (Bachelor and Master levels): Computer Science, Algorithmics, Visualization in Scientific Computing, Geometric Modeling, Pattern Recognition, Image Analysis
 
 ## Supervision of students
@@ -54,10 +56,10 @@ Grégory Operto has been involved in neuroimaging since 2004. After graduating i
 
 ## Research interests
 
+> Alzheimer's Disease and the aging brain -
 > Intersubject variability -
 > Computational anatomy -
 > Cortical folding process, brain development, cortical morphology -
-> Aging process and neurodegenerative diseases -
 > Imaging markers -
 > Multisite studies -
 > Optimization of image processing dataÏows over large cohorts -
@@ -82,7 +84,13 @@ Grégory Operto has been involved in neuroimaging since 2004. After graduating i
 
 ### Peer-reviewed publications :
 
+* **G. Operto**, R. Cacciaglia, O. Grau-Rivera, C. Falcon, A. Brugulat-Serrat, P. Ródenas, R. Ramos, S. Morán, M. Esteller, N. Bargalló, J.L. Molinuevo, J.D. Gispert for the ALFA Study, [White matter microstructure is altered in cognitively normal middle-aged APOE-ε4 homozygotes](http://dx.doi.org/10.1186/s13195-018-0375-x), Alzheimer’s Research & Therapy, 2018 [doi:10.1186/s13195-018-0375-x](http://dx.doi.org/10.1186/s13195-018-0375-x)
+
+* Falcon, C., Tucholka, A., Monté-Rubio, G.C., Cacciaglia, R., **Operto, G.**, Rami, L., Gispert, J.D., Molinuevo, J.L., for the Alzheimer's Disease Neuroimaging Initiative, [Longitudinal structural cerebral changes related to core CSF biomarkers in preclinical Alzheimer's disease: A study of two independent datasets](http://dx.doi.org/10.1016/j.nicl.2018.04.016), _NeuroImage: Clinical_, 2018 [doi:10.1016/j.nicl.2018.04.016](http://dx.doi.org/10.1016/j.nicl.2018.04.016)
+
 * **G. Operto**, M. Chupin, B. Batrancourt, M.O Habert, O. Colliot, H. Benali, C. Poupon, C. Champseix, C. Delmaire, S. Marie, D.  Rivière, M.Pélégrini-Issac, V. Perlbarg, R. Trebossen, M. Bottlaender, V. Frouin, A. Grigis, D. Papadopoulos Orfanos, H. Dary, L. Fillon, C. Azouani, A. Bouyahia, C. Fischer, L. Edward, M. Bouin, U. Thoprakarn, J. Li, L. Makkaoui, S. Poret, C. Dufouil, V.  Bouteloup, G. Chételat, B. Dubois, S. Lehéricy, J.F. Mangin, Y. Cointepas and the CATI Consortium, [CATI: A Large Distributed Infrastructure for the Neuroimaging of Cohorts](http://dx.doi.org/10.1007/s12021-016-9295-8), _Neuroinformatics_, 2016 [doi:10.1007/s12021-016-9295-8](http://dx.doi.org/10.1007/s12021-016-9295-8)
+
+* Dufouil, C., Dubois, B., Vellas, B., Pasquier, F., Blanc, F., Hugon, J., Hanon, O., Dartigues, J.-F., Harston, S., Gabelle, A., Ceccaldi, M., Beauchet, O., Krolak-Salmon, P., David, R., Rouaud, O., Godefroy, O., Belin, C., Rouch, I., Auguste, N., Wallon, D., Benetos, A., Pariente, J., Paccalin, M., Moreaud, O., Hommet, C., Sellal, F., Boutoleau-Bretonniére, C., Jalenques, I., Gentric, A., Vandel, P., Azouani, C., Fillon, L., Fischer, C., Savarieau, H., **Operto, G.**, Bertin, H., Chupin, M., Bouteloup, V., Habert, M.-O., Mangin, J.-F., Chêne, G., [Cognitive and imaging markers in non-demented subjects attending a memory clinic: Study design and baseline findings of the MEMENTO cohort](http://dx.doi.org/10.1186/s13195-017-0288-0), _Alzheimer's Research and Therapy_, 2017 [doi:10.1186/s13195-017-0288-0](http://dx.doi.org/10.1186/s13195-017-0288-0)
 
 * D. Germanaud, J. Lefèvre, C. Fischer, M. Bintner, A. Curie, V. des Portes, S. Eliez, M. Elmaleh-Bergès, D. Lamblin, S. Passemard, **G. Operto**, M. Schaer, A. Verloes, R. Toro, J.F. Mangin, L. Hertz-Pannier, Simplified gyral pattern in severe developmental microcephalies? New insights from allometric modeling for spatial and spectral analysis of gyrification, _Neuroimage_, 2014
 
@@ -112,11 +120,15 @@ Grégory Operto has been involved in neuroimaging since 2004. After graduating i
 
 ### Book chapters :
 
+* Falcon, C., **Operto, G.**, Molinuevo, J.L., Gispert, J.D., [Neuroimaging methods for MRI analysis in CSF biomarkers studies](http://dx.doi.org/10.1007/978-1-4939-7704-8_11), _Methods in Molecular Biology_, 2018 [doi:10.1007/978-1-4939-7704-8_11](http://dx.doi.org/10.1007/978-1-4939-7704-8_11)
+
 * J-F. Mangin, M. Perrot, **G. Operto**, C. Fischer, J. Lefèvre, D. Rivière, [Sulcus Identification and Labeling](http://dx.doi.org/10.1016/B978-0-12-397025-1.00307-9), In **Brain Mapping**, edited by Arthur W. Toga, _Academic Press_, Waltham, 2015, Pages 365-371, ISBN 9780123973160 [doi:10.1016/B978-0-12-397025-1.00307-9](http://dx.doi.org/10.1016/B978-0-12-397025-1.00307-9)
 
 ### Abstracts and posters :
 
-* C. Dufouil, J-F Mangin, **G. Operto**, P. Amouyel, B. Dubois, B. Vellas, F. Pasquier, J-F Dartigues, M. Ceccaldi, F. Blanc, A. Gabelle, P. Krolak-Salmon, J. Hugon, O. Hanon, O. Rouaud, R. David, M. Chupin, G. Chêne for the Memento Study group, Are Alzheimer’s Disease Risk Genes related to markers of brain pathology? The Memento cohort, _Alzheimer's Association International Conference_, 2016 (submitted)
+* **Operto, G.**, Cacciaglia, R., Falcon, C., Sánchez-Benavides, G., Gramunt, N., Moran, S., Esteller M., Crous-Bou M., Molinuevo J.L., Gispert, J. D. (2017). Effect of age and ApoE genotypes on brain microstructure in cognitively healthy subject as measured by diffusion-weighted imaging, _Alzheimer's & Dementia: The Journal of the Alzheimer's Association_, 2017
+
+* C. Dufouil, J-F Mangin, **G. Operto**, P. Amouyel, B. Dubois, B. Vellas, F. Pasquier, J-F Dartigues, M. Ceccaldi, F. Blanc, A. Gabelle, P. Krolak-Salmon, J. Hugon, O. Hanon, O. Rouaud, R. David, M. Chupin, G. Chêne for the Memento Study group, Are Alzheimer’s Disease Risk Genes related to markers of brain pathology? The Memento cohort, _Alzheimer's Association International Conference_, 2016
 
 * **G. Operto**, C. Fischer, S. David, M. Bouin, L. Fillon, C. Champseix, J-F. Mangin, SnapBase/SnapCheck: Assisting Quality Control of Post-processing Results over Large Cohorts, _Human Brain Mapping annual meeting_, Honolulu, 2015
 
