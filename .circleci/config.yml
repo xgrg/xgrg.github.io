@@ -1,0 +1,25 @@
+workflows:
+   version: 2
+   build:
+     filters:
+       branches:
+         only: source
+
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:2.7.15-stretch-node-browsers-legacy
+    filters:
+      branches:
+        only: source
+    steps:
+      - checkout
+      - run:
+          command: |
+            python -m venv env
+            source ./env/bin/activate
+            python -m pip install --upgrade pip
+            python -m pip install --upgrade setuptools
+            python -m pip install pelican markdown ghp-import
+            ./build.sh
