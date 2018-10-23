@@ -18,7 +18,7 @@ jobs:
       - run:
           command: |
             python -m venv env
-            source ./env/bin/activate
+            source ./env/bin/activate 
             python -m pip install --upgrade pip
             python -m pip install --upgrade setuptools
             python -m pip install pelican markdown ghp-import
