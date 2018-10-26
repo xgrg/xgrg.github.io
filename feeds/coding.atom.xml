@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto - Coding</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/coding.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2016-04-20T10:20:00+02:00</updated><entry><title>Publishing a blog on GitHub using Pelican</title><link href="http://xgrg.github.io/publishing-on-github-with-pelican/" rel="alternate"></link><published>2016-04-19T10:20:00+02:00</published><updated>2016-04-20T10:20:00+02:00</updated><author><name>chris</name></author><id>tag:xgrg.github.io,2016-04-19:/publishing-on-github-with-pelican/</id><summary type="html">&lt;p&gt;Probably not the cleanest way... and totally inspired from &lt;a href="http://cyrille.rossant.net/pelican-github/"&gt;Setting up a blog with Pelican and GitHub Pages&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://github.com"&gt;GitHub&lt;/a&gt; allows to store websites for your project or your user account. This post gives a rough description of how to :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;setup a simple blog using &lt;a href="http://docs.getpelican.com/en/3.6.3/"&gt;Pelican&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;make &lt;a href="https://circleci.com/"&gt;CircleCI&lt;/a&gt; automatically generate and …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Probably not the cleanest way... and totally inspired from &lt;a href="http://cyrille.rossant.net/pelican-github/"&gt;Setting up a blog with Pelican and GitHub Pages&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://github.com"&gt;GitHub&lt;/a&gt; allows to store websites for your project or your user account. This post gives a rough description of how to :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;setup a simple blog using &lt;a href="http://docs.getpelican.com/en/3.6.3/"&gt;Pelican&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;make &lt;a href="https://circleci.com/"&gt;CircleCI&lt;/a&gt; automatically generate and deploy your pages&lt;/li&gt;
+&lt;li&gt;using &lt;code&gt;git&lt;/code&gt; for source version control and GitHub for hosting source and the built pages&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Each of these is quite clearly described over multiple &lt;a href="http://docs.getpelican.com/en/3.0/tips.html"&gt;posts&lt;/a&gt; and &lt;a href="https://help.github.com/articles/user-organization-and-project-pages/"&gt;articles&lt;/a&gt;.
+The basic idea consists in :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;creating the adequate repository like &lt;code&gt;username.github.io&lt;/code&gt; with two branches &lt;code&gt;master&lt;/code&gt; and &lt;code&gt;source&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;setting up accounts on CircleCI and GitHub for access rights (see &lt;a href="https://circleci.com/docs/adding-read-write-deployment-key/"&gt;Adding deployments keys&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;writing the adequate &lt;code&gt;circle.yml&lt;/code&gt; that will command the build using Pelican and push the result to the &lt;code&gt;master&lt;/code&gt; branch of the GitHub repository&lt;/li&gt;
+&lt;li&gt;pushing website source to the &lt;code&gt;source&lt;/code&gt; branch and see the magic&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="https://github.com/davisp/ghp-import"&gt;&lt;code&gt;ghp-import&lt;/code&gt;&lt;/a&gt; can come in handy to import pages on &lt;code&gt;gh-pages&lt;/code&gt; or &lt;code&gt;master&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Here I wrote this simple &lt;code&gt;build.sh&lt;/code&gt; that is called in the deployment stage of &lt;code&gt;circle.yml&lt;/code&gt;. That seems to do the job :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pelican content -o /tmp/output
+git config --local user.name pluralparallel
+git config --local user.email pluralparallel@circleci.com
+git checkout master
+git reset --hard 7ed15ee136 &lt;span class="c1"&gt;# back to the initial commit&lt;/span&gt;
+git push origin master --force
+mv LICENSE /tmp
+rm -rf *
+mv /tmp/LICENSE .
+cp -rf /tmp/output/* .
+git add --all
+git commit -m &lt;span class="s1"&gt;&amp;#39;Update documentation&amp;#39;&lt;/span&gt;
+git push origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now &lt;code&gt;circle.yml&lt;/code&gt; :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;machine&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+  &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;version&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mf"&gt;2.7&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;
+&lt;span class="n"&gt;general&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+  &lt;span class="n"&gt;branches&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;ignore&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+      &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt;
+
+&lt;span class="n"&gt;dependencies&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+  &lt;span class="n"&gt;pre&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+     &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;upgrade&lt;/span&gt; &lt;span class="n"&gt;pip&lt;/span&gt;
+     &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;upgrade&lt;/span&gt; &lt;span class="n"&gt;setuptools&lt;/span&gt;
+     &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt; &lt;span class="n"&gt;markdown&lt;/span&gt; &lt;span class="n"&gt;ghp&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;import&lt;/span&gt;
+
+&lt;span class="nn"&gt;test&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+   &lt;span class="kd"&gt;override&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+      &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;true&amp;quot;&lt;/span&gt;
+
+&lt;span class="n"&gt;deployment&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+  &lt;span class="n"&gt;production&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+     &lt;span class="n"&gt;branch&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;
+     &lt;span class="n"&gt;commands&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+       &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="o"&gt;./&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;sh&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now each commit on the &lt;code&gt;source&lt;/code&gt; branch will trigger Pelican on CircleCI and the resulting build is pushed to the &lt;code&gt;master&lt;/code&gt; branch and get visible on &lt;code&gt;http://username.github.io&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;There should be a much cleaner way to manage the git work.&lt;/p&gt;
+&lt;p&gt;Now blogging from anywhere just requires these few steps:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;virtualenv .
+. bin/activate
+pip install pelican markdown
+git clone https://github.com/username/username.github.io.git
+git checkout source
+pelican content # to check out the result before publication
+./develop_server.sh start # open a browser at http://localhost:8000
+# add/modify contents and commit/push
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;References links:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://cyrille.rossant.net/pelican-github/"&gt;Setting up a blog with Pelican and GitHub Pages&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><category term="pelican"></category><category term="publishing"></category><category term="python"></category></entry></feed>

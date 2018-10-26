@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto - TBSS</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/tbss.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2018-02-26T00:00:00+01:00</updated><entry><title>How to parallelize TBSS / randomise (sort of)</title><link href="http://xgrg.github.io/parallelize-TBSS/" rel="alternate"></link><published>2018-02-26T00:00:00+01:00</published><updated>2018-02-26T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2018-02-26:/parallelize-TBSS/</id><summary type="html">&lt;p&gt;Lots of resources - which I surely have not exhausted - are available on how
+to make optimal use of TBSS and in particular of the lengthy repetitive
+&lt;code&gt;randomise&lt;/code&gt; part and the way to reduce costs in execution time.
+I confess I may have not tried hard after my first issues with …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Lots of resources - which I surely have not exhausted - are available on how
+to make optimal use of TBSS and in particular of the lengthy repetitive
+&lt;code&gt;randomise&lt;/code&gt; part and the way to reduce costs in execution time.
+I confess I may have not tried hard after my first issues with &lt;a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Randomise/UserGuide#Parallelising_Randomise"&gt;&lt;code&gt;randomise_parallel&lt;/code&gt;&lt;/a&gt;
+and despite being a big fan of &lt;a href="http://nipype.readthedocs.io/en"&gt;Nipype&lt;/a&gt;
+I could not find my heart's desire (if only there &lt;a href="https://neurostars.org/t/fsl-randomise-parallel/268"&gt;would be a way&lt;/a&gt; to it).&lt;/p&gt;
+&lt;!-- PELICAN_END_SUMMARY --&gt;
+
+&lt;p&gt;Nevertheless my ambition was quite humble at this point: allow &lt;code&gt;randomise&lt;/code&gt; to
+use &lt;code&gt;N&lt;/code&gt; available CPUs to estimate a set of &lt;code&gt;M&lt;/code&gt; contrasts - in parallel - using the
+traditional threshold-free permutation scheme.&lt;/p&gt;
+&lt;h2&gt;TL;DR&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;div style="padding:20px; text-align:justify; background-color:#222222"&gt;
+The easiest way is probably by creating as many &lt;code&gt;.con&lt;/code&gt; files as contrasts and
+to run &lt;code&gt;randomise&lt;/code&gt; separately on each of them setting adecuate options to name
+the generated files in output. The workaround proposed below is nothing but a
+variation around this, with the advantage of preserving the contrast
+numbering given by &lt;code&gt;randomise&lt;/code&gt; in normal conditions.&lt;/div&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;See &lt;a href="https://github.com/xgrg/tbss/"&gt;this repository&lt;/a&gt; for a proposed implementation.&lt;/p&gt;
+&lt;h2&gt;Concept:&lt;/h2&gt;
+&lt;p&gt;The typical &lt;code&gt;randomise&lt;/code&gt; command looks like:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;randomise -i &amp;lt;skeletonized_data&amp;gt; -o &amp;lt;output_basename&amp;gt; -m &amp;lt;mean_FA_skeleton_mask&amp;gt;&lt;span class="se"&gt;\&lt;/span&gt;
+   -d &amp;lt;design.mat&amp;gt; -t &amp;lt;design.con&amp;gt; -n &amp;lt;n_permutations&amp;gt; &lt;span class="o"&gt;[&lt;/span&gt;--T2&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;-V&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This will start estimating every given contrast from the &lt;code&gt;.con&lt;/code&gt; file, one after
+the other, using a single processor and will generally take a substantial
+amount of time, multiplied by the number of contrasts.&lt;/p&gt;
+&lt;p&gt;One dirty way to divide this time would then consist in splitting the &lt;code&gt;.con&lt;/code&gt; file in
+various smaller ones and to run various instances of &lt;code&gt;randomise&lt;/code&gt; in parallel on them.
+&lt;code&gt;randomise&lt;/code&gt; names the produced statistical maps &lt;em&gt;after the rank/number of the corresponding
+contrast in the &lt;code&gt;.con&lt;/code&gt; file&lt;/em&gt; so it will be important that the ranks/numbers are
+&lt;strong&gt;consistent&lt;/strong&gt; between the initial file and the small bits.&lt;/p&gt;
+&lt;p&gt;For example, with &lt;code&gt;M=16&lt;/code&gt; contrasts and &lt;code&gt;N=6&lt;/code&gt; CPUs, we could make 6 mini-batches of
+3, 3, 3, 3, 3 and 1 contrast(s) each, respectively. The first batch (call it
+&lt;code&gt;part1.con&lt;/code&gt;) will take the 3 first contrasts, &lt;code&gt;part2.con&lt;/code&gt; the 3
+following ones, etc. Now to make sure that the numbers do match between the
+initial &lt;code&gt;design.con&lt;/code&gt; file and the small &lt;code&gt;part*.con&lt;/code&gt;, the trick consists in
+adding as many &lt;em&gt;dummy contrasts&lt;/em&gt; as necessary &lt;em&gt;before&lt;/em&gt; the "real ones". For instance,
+&lt;code&gt;part2.con&lt;/code&gt; will contain 6 contrasts in total, 3 dummy contrasts + 3 genuine
+ones (#4, #5, #6) from &lt;code&gt;design.con&lt;/code&gt;. Then &lt;code&gt;randomise&lt;/code&gt; has a hidden special &lt;code&gt;skipTo&lt;/code&gt;
+option to ignore the first contrasts of a file and to &lt;a href="https://www.jiscmail.ac.uk/cgi-bin/webadmin?A2=fsl;91ea4524.1402"&gt;start from a given one&lt;/a&gt;
+directly. This will be conveniently used to skip the initial &lt;em&gt;dummy contrasts&lt;/em&gt;
+in every &lt;code&gt;.con&lt;/code&gt; file.&lt;/p&gt;
+&lt;h2&gt;Splitting the contrast file (&lt;em&gt;aka the &lt;code&gt;.con&lt;/code&gt; trick&lt;/em&gt;):&lt;/h2&gt;
+&lt;p&gt;In short, we can adapt a function from a previous post on &lt;a href="../building-design-matrices-for-tbss/"&gt;building design
+matrices and contrast for TBSS in Python&lt;/a&gt;
+to create these mock contrasts as wished.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;build_tbss_contrasts&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contrasts&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;mock&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;con&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/NumWaves &lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contrasts&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;])]&lt;/span&gt;
+
+    &lt;span class="n"&gt;contrasts2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;xrange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mock&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;contrasts2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;mock&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contrasts&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;])))&lt;/span&gt;
+    &lt;span class="n"&gt;contrasts2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;extend&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contrasts&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;contrast&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;enumerate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contrasts2&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;con&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/ContrastName&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s1"&gt; &lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="n"&gt;nb_contrasts&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contrasts2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;con&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/NumContrasts &lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nb_contrasts&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="n"&gt;con&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/Matrix&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;enumerate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contrasts2&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;con&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;each&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;con&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This function may then be wrapped in one which will split the contrasts and
+generate the small files appropriately.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;math&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;dump&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contrasts&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;fp&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;chunks&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;l&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;l&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+            &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;l&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+    &lt;span class="n"&gt;chunk_size&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;math&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ceil&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contrasts&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fp&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;enumerate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;zip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;chunks&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contrasts&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;chunk_size&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;fp&lt;/span&gt;&lt;span class="p"&gt;)):&lt;/span&gt;
+        &lt;span class="n"&gt;w&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;w&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;build_tbss_contrasts&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;mock&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;chunk_size&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+        &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;dump&lt;/code&gt; will take a list of contrasts (following the format from that &lt;a href="../building-design-matrices-for-tbss/"&gt;previous post&lt;/a&gt;)
+and will dispatch them into as many files as passed in &lt;code&gt;fp&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;Example #1: just creating mock contrasts with some design matrix:&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;contrasts&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tbss_covariates_simple_contrasts&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;age&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;gender&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;apoe&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;span class="n"&gt;con&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;build_tbss_contrasts&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contrasts&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;mock&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;con&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This adds 3 dummy contrasts (full of zeros) before the 6 &lt;em&gt;main effects&lt;/em&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;/NumWaves 3
+/ContrastName1 mock1
+/ContrastName2 mock2
+/ContrastName3 mock3
+/ContrastName4 age(+)
+/ContrastName5 age(-)
+/ContrastName6 gender(+)
+/ContrastName7 gender(-)
+/ContrastName8 apoe(+)
+/ContrastName9 apoe(-)
+/NumContrasts 9
+/Matrix
+0 0 0
+0 0 0
+0 0 0
+1 0 0
+-1 0 0
+0 1 0
+0 -1 0
+0 0 1
+0 0 -1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Example #2: build the contrasts and split them into several files:&lt;/h3&gt;
+&lt;p&gt;In this one, we have &lt;code&gt;M=6&lt;/code&gt; contrasts and &lt;code&gt;N=6&lt;/code&gt; processors available. The contrasts
+hence can be divided into 6 "batches" of 1 contrast each.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;n_cpus&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;
+&lt;span class="n"&gt;contrasts&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tbss_covariates_simple_contrasts&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;age&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;gender&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;apoe&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;span class="n"&gt;con&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;build_tbss_contrasts&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contrasts&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;design.con&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;w&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+   &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;con&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;dump&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contrasts&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/tmp/part&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s1"&gt;.con&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;xrange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n_cpus&lt;/span&gt;&lt;span class="p"&gt;)])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;design.con&lt;/code&gt; contains the original full list of contrasts (the file as it would
+be running &lt;code&gt;randomise&lt;/code&gt; the usual way). It would look like:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;/NumWaves 3
+/ContrastName1 age(+)
+/ContrastName2 age(-)
+/ContrastName3 gender(+)
+/ContrastName4 gender(-)
+/ContrastName5 apoe(+)
+/ContrastName6 apoe(-)
+/NumContrasts 6
+/Matrix
+1 0 0
+-1 0 0
+0 1 0
+0 -1 0
+0 0 1
+0 0 -1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Each &lt;code&gt;part*.con&lt;/code&gt; would then contain a single contrast from the 6 preceded by a
+right number of dummy constrasts. For instance, &lt;code&gt;/tmp/part5.con&lt;/code&gt; would look like:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;/NumWaves 3
+/ContrastName1 mock1
+/ContrastName2 mock2
+/ContrastName3 mock3
+/ContrastName4 mock4
+/ContrastName5 apoe(+)
+/NumContrasts 5
+/Matrix
+0 0 0
+0 0 0
+0 0 0
+0 0 0
+0 0 1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Building the proper &lt;code&gt;randomise&lt;/code&gt; commands:&lt;/h2&gt;
+&lt;p&gt;Now that the &lt;code&gt;M=6&lt;/code&gt; contrasts are all in &lt;code&gt;N=6&lt;/code&gt; files, the final part consists in
+building the commands that will run &lt;code&gt;randomise&lt;/code&gt; over these &lt;code&gt;N&lt;/code&gt; files,
+using the right &lt;code&gt;skipTo&lt;/code&gt; option. Let us assume that all the &lt;code&gt;&amp;lt;arguments&amp;gt;&lt;/code&gt; will be
+replaced with correct paths to the actual data.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;math&lt;/span&gt;
+
+&lt;span class="n"&gt;nb_contrasts&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contrasts&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;n_cpus&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;
+&lt;span class="n"&gt;chunk_size&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;math&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ceil&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nb_contrasts&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;n_cpus&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;skipto&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;xrange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n_cpus&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;cmd&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;randomise -i &amp;lt;skeletonized_data&amp;gt; -o &amp;lt;output_basename&amp;gt; -m &amp;lt;mean_FA_skeleton_mask&amp;gt; &amp;#39;&lt;/span&gt;\
+    &lt;span class="s1"&gt;&amp;#39;-d &amp;lt;design.mat&amp;gt; -t /tmp/part&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s1"&gt;.con -n 5000 --T2 --skipTo=&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s1"&gt; -V &amp;amp;&amp;gt; /tmp/log&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s1"&gt;.log&amp;#39;&lt;/span&gt;\
+        &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;skipto&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;skipto&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;skipto&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;chunk_size&lt;/span&gt;
+    &lt;span class="n"&gt;commands&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cmd&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;each&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;commands&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;each&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;randomise -i &amp;lt;skeletonized_data&amp;gt; -o &amp;lt;output_basename&amp;gt; -m &amp;lt;mean_FA_skeleton_mask&amp;gt;\
+   -d &amp;lt;design.mat&amp;gt; -t /tmp/part1.con -n 5000 --T2 --skipTo=1 -V &amp;amp;&amp;gt; /tmp/log1.log
+
+randomise -i &amp;lt;skeletonized_data&amp;gt; -o &amp;lt;output_basename&amp;gt; -m &amp;lt;mean_FA_skeleton_mask&amp;gt;\
+   -d &amp;lt;design.mat&amp;gt; -t /tmp/part2.con -n 5000 --T2 --skipTo=2 -V &amp;amp;&amp;gt; /tmp/log2.log
+
+randomise -i &amp;lt;skeletonized_data&amp;gt; -o &amp;lt;output_basename&amp;gt; -m &amp;lt;mean_FA_skeleton_mask&amp;gt;\
+   -d &amp;lt;design.mat&amp;gt; -t /tmp/part3.con -n 5000 --T2 --skipTo=3 -V &amp;amp;&amp;gt; /tmp/log3.log
+
+randomise -i &amp;lt;skeletonized_data&amp;gt; -o &amp;lt;output_basename&amp;gt; -m &amp;lt;mean_FA_skeleton_mask&amp;gt;\
+   -d &amp;lt;design.mat&amp;gt; -t /tmp/part4.con -n 5000 --T2 --skipTo=4 -V &amp;amp;&amp;gt; /tmp/log4.log
+
+randomise -i &amp;lt;skeletonized_data&amp;gt; -o &amp;lt;output_basename&amp;gt; -m &amp;lt;mean_FA_skeleton_mask&amp;gt;\
+   -d &amp;lt;design.mat&amp;gt; -t /tmp/part5.con -n 5000 --T2 --skipTo=5 -V &amp;amp;&amp;gt; /tmp/log5.log
+
+randomise -i &amp;lt;skeletonized_data&amp;gt; -o &amp;lt;output_basename&amp;gt; -m &amp;lt;mean_FA_skeleton_mask&amp;gt;\
+   -d &amp;lt;design.mat&amp;gt; -t /tmp/part6.con -n 5000 --T2 --skipTo=6 -V &amp;amp;&amp;gt; /tmp/log6.log
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Eventually these lines may be saved in a script and passed to any tool like &lt;a href="https://www.gnu.org/software/parallel/"&gt;GNU parallel&lt;/a&gt;
+for execution, as in the following example:&lt;/p&gt;
+&lt;h3&gt;Example:&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cat /tmp/script.sh &lt;span class="p"&gt;|&lt;/span&gt; parallel -j &amp;lt;n_cpus&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Writing this post will have taken the actual time of running &lt;code&gt;randomise&lt;/code&gt; in
+background over a dataset of 500 subjects including 12 contrasts with 5000
+permutations each "in parallel" following this same strategy. Much shorter
+than the original &lt;em&gt;vanilla&lt;/em&gt; way.&lt;/p&gt;
+&lt;p&gt;Please comment if you have different experience or feedback to share.&lt;/p&gt;</content><category term="tbss"></category></entry></feed>

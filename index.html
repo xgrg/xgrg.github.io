@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="/theme/css/slides.css">
     <link rel="stylesheet" href="/theme/css/pygments.css">
     <!-- <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'> -->
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,500" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
 
@@ -71,7 +72,7 @@
         </div>
     </div>
     <div class="clear"></div>
-      <div class="sub-name">brain imaging | scientific computing</div>
+      <div class="sub-name">brain imaging | data science</div>
 	<div class="contact">goperto@gmail.com</div>
 	<div class="location">Barcelona, Spain</div>
 </section>
@@ -87,8 +88,91 @@
             <h1>Grégory Operto</h1>
         </header>
 
-<<<<<<< HEAD
-=======
+    <section class="post">
+        <header class="post-header">
+            <h3><a href="http://xgrg.github.io/NIfTIs-on-XNAT/">Pushing NIfTIs to XNAT</a></h3>
+            <p class="sub-header-3">2018-10-22</p>
+            <p class="post-summary"><p>The primary data format with which XNAT works has been and is still DICOM. XNAT
+can work with NIfTI but it generally has to be using secondary resources attached
+to subjects, experiments or scans.</p>
+<!-- PELICAN_END_SUMMARY -->
+
+<p>This example shows how to get a dataset made of NIfTIs uploaded to XNAT without
+their …</p></p>
+        </header>
+        <!--
+        <div class="read-more">
+            <a class="pure-button" href="http://xgrg.github.io/NIfTIs-on-XNAT/">
+                read on
+            </a>
+        </div>
+        --!>
+    </section>
+        <hr />
+    <section class="post">
+        <header class="post-header">
+            <h3><a href="http://xgrg.github.io/parallelize-TBSS/">How to parallelize TBSS / randomise (sort of)</a></h3>
+            <p class="sub-header-3">2018-02-26</p>
+            <p class="post-summary"><p>Lots of resources - which I surely have not exhausted - are available on how
+to make optimal use of TBSS and in particular of the lengthy repetitive
+<code>randomise</code> part and the way to reduce costs in execution time.
+I confess I may have not tried hard after my first issues with …</p></p>
+        </header>
+        <!--
+        <div class="read-more">
+            <a class="pure-button" href="http://xgrg.github.io/parallelize-TBSS/">
+                read on
+            </a>
+        </div>
+        --!>
+    </section>
+        <hr />
+    <section class="post">
+        <header class="post-header">
+            <h3><a href="http://xgrg.github.io/pushing-bulk-legacy-data-to-XNAT/">Pushing bulk legacy data to XNAT</a></h3>
+            <p class="sub-header-3">2018-02-23</p>
+            <p class="post-summary"><p>This is not intended to be a tutorial on the subject, rather some feedback from a
+recent experience dealing with an old and half-remembered <del>dream.</del> dataset.</p>
+<!-- PELICAN_END_SUMMARY -->
+
+<p>There are already plenty of useful resources out there e.g. from the XNAT
+<a href="https://wiki.xnat.org/documentation/how-to-use-xnat/image-session-upload-methods-in-xnat/">documentation</a>, <a href="https://groups.google.com/forum/#!forum/xnat_discussion">discussion group</a>.
+For instance, the <a href="https://wiki.xnat.org/documentation/how-to-use-xnat/image-session-upload-methods-in-xnat/using-the-desktop-upload-assistant">Desktop Upload Assistant</a>
+is …</p></p>
+        </header>
+        <!--
+        <div class="read-more">
+            <a class="pure-button" href="http://xgrg.github.io/pushing-bulk-legacy-data-to-XNAT/">
+                read on
+            </a>
+        </div>
+        --!>
+    </section>
+        <hr />
+    <section class="post">
+        <header class="post-header">
+            <h3><a href="http://xgrg.github.io/building-design-matrices-for-tbss/">Building design matrices for TBSS Randomise</a></h3>
+            <p class="sub-header-3">2018-02-14</p>
+            <p class="post-summary"><p>Creating design matrices by hand for TBSS can be done in different ways
+(explained
+<a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/GLM/CreatingDesignMatricesByHand">here</a>),
+either using the FSL Wizard Gui or exporting it from a text file or an Excel
+table.</p>
+<!-- PELICAN_END_SUMMARY -->
+
+<p>A design matrix in TBSS is nothing but another text file using its own (Vest)
+format.
+This shows …</p></p>
+        </header>
+        <!--
+        <div class="read-more">
+            <a class="pure-button" href="http://xgrg.github.io/building-design-matrices-for-tbss/">
+                read on
+            </a>
+        </div>
+        --!>
+    </section>
+        <hr />
     <section class="post">
         <header class="post-header">
             <h3><a href="http://xgrg.github.io/collecting-roi-values/">Collecting image statistics from Regions-of-Interest over many subjects</a></h3>
@@ -96,13 +180,14 @@
             <p class="post-summary"><p>Collecting basic image statistics (<em>e.g.</em> mean, std) from ROIs over a set of images can be done easily in Python.</p>
 <!-- PELICAN_END_SUMMARY -->
 
-<p>The function <code>regions_values</code> will take at least the</p>
-<p>:::python
-   import numpy as np
-   import nibabel as nib
-   import logging as log
-   from glob import glob
-   import pandas as pd …</p></p>
+<p>See the example in this <a href="https://github.com/xgrg/alfa/blob/master/notebooks/Collecting%20image%20statistics%20from%20Regions-of-Interest%20over%20many%20subjects.ipynb"><strong>Jupyter Notebook</strong></a></p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">nibabel</span> <span class="kn">as</span> <span class="nn">nib</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
+
+<span class="k">def …</span></pre></div></p>
         </header>
         <!--
         <div class="read-more">
@@ -112,30 +197,15 @@
         </div>
         --!>
     </section>
-        <hr />
-    <section class="post">
-        <header class="post-header">
-            <h3><a href="http://xgrg.github.io/paris-neurospin/">Paris - NeuroSpin: a retrospective study</a></h3>
-            <p class="sub-header-3">2016-05-05</p>
-            <p class="post-summary"><p>The <em>Paris-NeuroSpin</em> is an unofficial annual running event that has been organized five times consecutively between 2012 and 2016. The itinerary starts from Paris Porte de Vanves and ends in Saclay at the doors of <strong>NeuroSpin</strong> the high-field brain research center of the <em>French Atomic Commission</em> <em>(CEA)</em>. The total distance …</p></p>
-        </header>
-        <!--
-        <div class="read-more">
-            <a class="pure-button" href="http://xgrg.github.io/paris-neurospin/">
-                read on
-            </a>
-        </div>
-        --!>
-    </section>
->>>>>>> 17c260d5ba79ece44a721e92b831a933e29b9d4e
 
 <nav class="pagination-wrapper">
     <div class="pagination">
         <div class="pagination-left">
                 &nbsp;
         </div>
-        <span>Page 1 / 1 &nbsp; (<a href="http://xgrg.github.io/archives/">all</a>)</span>
+        <span>Page 1 / 2 &nbsp; (<a href="http://xgrg.github.io/archives/">all</a>)</span>
         <div class="pagination-right">
+                <a href="http://xgrg.github.io/index2.html">next&nbsp;&rarr;</a>
         </div>
     </div>
 </nav>    </section>

@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="/theme/css/slides.css">
     <link rel="stylesheet" href="/theme/css/pygments.css">
     <!-- <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'> -->
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,500" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
 
@@ -74,7 +75,7 @@
         </div>
     </div>
     <div class="clear"></div>
-      <div class="sub-name">brain imaging | scientific computing</div>
+      <div class="sub-name">brain imaging | data science</div>
 	<div class="contact">goperto@gmail.com</div>
 	<div class="location">Barcelona, Spain</div>
 </section>
@@ -103,56 +104,158 @@
         <p>Collecting basic image statistics (<em>e.g.</em> mean, std) from ROIs over a set of images can be done easily in Python.</p>
 <!-- PELICAN_END_SUMMARY -->
 
-<p>The function <code>regions_values</code> will take at least the</p>
-<p>:::python
-   import numpy as np
-   import nibabel as nib
-   import logging as log
-   from glob import glob
-   import pandas as pd
-   from joblib import Parallel, delayed
-   import argparse</p>
-<p>def <strong>region_values</strong>(map_fp, atlas, func):
-       m = np.array(nib.load(map_fp).dataobj)
-       n_labels = len(np.unique(atlas))
-       label_values = [func(m[atlas==label]) for label in range(1, n_labels)]
-       return label_values</p>
-<p>def regions_values(atlas_fp, maps_fp, subjects=None, labels=None, func=np.mean,
-           n_jobs=7):</p>
-<div class="highlight"><pre><span></span>   atlas_res = nib.load(atlas_fp).header[&#39;pixdim&#39;][:4]
-   log.info(&#39;Atlas resolution: %s&#39;%str(atlas_res))
-   atlas = np.array(nib.load(atlas_fp).dataobj)
+<p>See the example in this <a href="https://github.com/xgrg/alfa/blob/master/notebooks/Collecting%20image%20statistics%20from%20Regions-of-Interest%20over%20many%20subjects.ipynb"><strong>Jupyter Notebook</strong></a></p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">nibabel</span> <span class="kn">as</span> <span class="nn">nib</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
 
-   n_labels = len(np.unique(atlas))
-   log.info(&#39;%s labels in %s&#39;%(n_labels, atlas_fp))
+<span class="k">def</span> <span class="nf">roistats_from_map</span><span class="p">(</span><span class="n">map_fp</span><span class="p">,</span> <span class="n">atlas</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+     <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">array</span><span class="p">(</span><span class="n">nib</span><span class="o">.</span><span class="kp">load</span><span class="p">(</span><span class="n">map_fp</span><span class="p">)</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span>
+     <span class="n">n_labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="kp">unique</span><span class="p">(</span><span class="n">atlas</span><span class="p">))</span>
+     <span class="n">n_labels</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+     <span class="n">label_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">func</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="n">atlas</span><span class="o">==</span><span class="n">label</span><span class="p">])</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">n_labels</span><span class="p">]</span>
+     <span class="k">return</span> <span class="n">label_values</span>
 
+<span class="k">def</span> <span class="nf">roistats_from_maps</span><span class="p">(</span><span class="n">atlas_fp</span><span class="p">,</span> <span class="n">maps_fp</span><span class="p">,</span> <span class="n">subjects</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="kp">mean</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">7</span><span class="p">):</span>
 
-   df = Parallel(n_jobs=n_jobs, verbose=1)(\
-       delayed(__region_values__)(maps_fp[i], atlas, func)\
-       for i in xrange(len(maps_fp)))
+     <span class="n">atlas_im</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="kp">load</span><span class="p">(</span><span class="n">atlas_fp</span><span class="p">)</span>
+     <span class="n">atlas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">array</span><span class="p">(</span><span class="n">atlas_im</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span>
 
-   columns = labels if not labels is None \
-           else [str(e) for e in range(1, n_labels)]
+     <span class="n">n_labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="kp">unique</span><span class="p">(</span><span class="n">atlas</span><span class="p">))</span>
+     <span class="n">n_labels</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-   res = pd.DataFrame(df, columns=columns)
+     <span class="n">df</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)(</span>\
+         <span class="n">delayed</span><span class="p">(</span><span class="n">roistats_from_map</span><span class="p">)(</span><span class="n">maps_fp</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">atlas</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>\
+         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">maps_fp</span><span class="p">)))</span>
 
-   res[&#39;subject&#39;] = xrange(len(maps_fp)) if subjects is None else subjects
-   res = res.set_index(&#39;subject&#39;)
+     <span class="n">columns</span> <span class="o">=</span> <span class="n">labels</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">labels</span> <span class="ow">is</span> <span class="bp">None</span> \
+             <span class="k">else</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">n_labels</span><span class="p">]</span>
+     <span class="n">res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
 
-   return res
+     <span class="n">res</span><span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">maps_fp</span><span class="p">))</span> <span class="k">if</span> <span class="n">subjects</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">subjects</span>
+     <span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span>
+
+     <span class="k">return</span> <span class="n">res</span>
 </pre></div>
 
 
-<p>This will be the result.</p>
-<h2>Test:</h2>
-<p>:::python
-   atlas_fp = '/home/grg/SPM/2016-2017/ROIapoE/ROI_DARTEL/csf5/rois.nii.gz'
-   maps_fp = glob('/home/grg/data/ALFA_DWI/dartel_ALFA_DWI/dartel_csf.5/rswr*.nii')
-   subjects = [e.split('/')[-1][4:9] for e in maps_fp]
-   names = {1: 'Middle cerebellar peduncle', 2: 'Pontine crossing tract (a part of MCP)',  3: 'Genu of corpus callosum',
-    4: 'Body of corpus callosum', 5: 'Splenium of corpus callosum',  6: 'Fornix (column and body of fornix)',
-    7: 'Corticospinal tract R',  8: 'Corticospinal tract L',  9: 'Medial lemniscus R'}
-   df = regions_values(atlas_fp, maps_fp, subjects=subjects, labels=names.values())</p>
+<p><code>roistats_from_maps</code> takes a path to the label map defining the ROIS and a
+list of filepaths to the images to compute the stats from. <code>roistats_from_map</code> returns
+a list of values from one single map, while <code>roistats_from_maps</code> parallelizes it
+(using <a href="https://pythonhosted.org/joblib/">joblib</a>) over images and compiles the
+returned rows into one single table, adding it a list of subject identifiers
+(if argument <code>subjects</code> is given) and naming the columns with <code>labels</code> (if given).</p>
+<p>By default, the mean is computed for every region but any other NumPy function
+can be passed as <code>func</code> argument. Last but not least, is used for parallel processing.</p>
+<h2>Example:</h2>
+<div class="highlight"><pre><span></span><span class="n">atlas_fp</span> <span class="o">=</span> <span class="s1">&#39;/path/to/rois.nii.gz&#39;</span>
+<span class="n">maps_fp</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;/path/to/images*.nii.gz&#39;</span><span class="p">)</span>
+<span class="n">subjects</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10538</span><span class="p">,</span> <span class="mi">12252</span><span class="p">,</span> <span class="mi">55708</span><span class="p">,</span> <span class="mi">12121</span><span class="p">,</span> <span class="mi">11015</span><span class="p">]</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;Middle cerebellar peduncle&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;Pontine crossing tract&#39;</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;Genu of corpus callosum&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s1">&#39;Body of corpus callosum&#39;</span><span class="p">,</span>
+    <span class="mi">5</span><span class="p">:</span> <span class="s1">&#39;Splenium of corpus callosum&#39;</span><span class="p">,</span>  <span class="mi">6</span><span class="p">:</span> <span class="s1">&#39;Fornix&#39;</span><span class="p">,</span>
+    <span class="mi">7</span><span class="p">:</span> <span class="s1">&#39;Corticospinal tract R&#39;</span><span class="p">,</span>  <span class="mi">8</span><span class="p">:</span> <span class="s1">&#39;Corticospinal tract L&#39;</span><span class="p">,</span>
+    <span class="mi">9</span><span class="p">:</span> <span class="s1">&#39;Medial lemniscus R&#39;</span><span class="p">}</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">roistats_from_maps</span><span class="p">(</span><span class="n">atlas_fp</span><span class="p">,</span> <span class="n">maps_fp</span><span class="p">,</span> <span class="n">subjects</span><span class="o">=</span><span class="n">subjects</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">names</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="c1">#df.to_excel(&#39;/path/to/excelfile.xls&#39;)</span>
+</pre></div>
+
+
+<p>Will return a table like:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Middle cerebellar peduncle</th>
+<th>Pontine crossing tract</th>
+<th>Genu of corpus callosum</th>
+<th>Body of corpus callosum</th>
+<th>Splenium of corpus callosum</th>
+<th>Fornix</th>
+<th>Corticospinal tract R</th>
+<th>Corticospinal tract L</th>
+<th>Medial lemniscus R</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>subject</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>10538</td>
+<td>0.000817</td>
+<td>0.000895</td>
+<td>0.000757</td>
+<td>0.000818</td>
+<td>0.000833</td>
+<td>0.000849</td>
+<td>0.000819</td>
+<td>0.000834</td>
+<td>0.000716</td>
+</tr>
+<tr>
+<td>12252</td>
+<td>0.000850</td>
+<td>0.000896</td>
+<td>0.000719</td>
+<td>0.000816</td>
+<td>0.000817</td>
+<td>0.000850</td>
+<td>0.000843</td>
+<td>0.000834</td>
+<td>0.000743</td>
+</tr>
+<tr>
+<td>55708</td>
+<td>0.000853</td>
+<td>0.000929</td>
+<td>0.000732</td>
+<td>0.000851</td>
+<td>0.000795</td>
+<td>0.000922</td>
+<td>0.000839</td>
+<td>0.000872</td>
+<td>0.000786</td>
+</tr>
+<tr>
+<td>12121</td>
+<td>0.000842</td>
+<td>0.000926</td>
+<td>0.000810</td>
+<td>0.000846</td>
+<td>0.000826</td>
+<td>0.000868</td>
+<td>0.000810</td>
+<td>0.000822</td>
+<td>0.000723</td>
+</tr>
+<tr>
+<td>11015</td>
+<td>0.000847</td>
+<td>0.000879</td>
+<td>0.000805</td>
+<td>0.000877</td>
+<td>0.000856</td>
+<td>0.000839</td>
+<td>0.000814</td>
+<td>0.000792</td>
+<td>0.000831</td>
+</tr>
+</tbody>
+</table>
     </section>
 
 
