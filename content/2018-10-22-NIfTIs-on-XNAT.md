@@ -43,7 +43,7 @@ subjects_dict = dict([(v['label'], e) \
   for e, v in c.get_subjects('MY_PROJECT').items()])
 ```
 
-### Step 2: create experiments
+### Step 2: create experiments 
 
 ```python
 experiments = {}
