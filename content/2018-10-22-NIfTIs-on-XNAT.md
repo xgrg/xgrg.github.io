@@ -14,118 +14,105 @@ This example shows how to get a dataset made of NIfTIs uploaded to XNAT without
 their corresponding DICOM versions.
 
 > <div style="padding:20px; text-align:justify; background-color:#222222">
-> **Note**: We will be using the [`bxl`](https://pypi.org/project/bxl/) library
-> to make all our REST API calls from Python code.</div>
+> **Note**: We will be using the [`pyxnat`](https://pypi.org/project/pyxnat/) library
+> to make REST API calls from Python code.</div>
 
 ### Step 1: create subjects
 
 ```python
-from bxl import xnat
-from bxl import utils
+from pyxnat import Interface
 
 config_file = '/home/grg/.xnat_bsc.cfg'
 subjects = ['subject01', 'subject02', 'subject03']
+project = 'MY_PROJECT'
 
 # setup an XNAT connection
-c = utils.setup_xnat(config_file)
+c = Interface(config=config_file)
 
 # create subjects
 for subject in subjects:
 
-   uri =  c.host + '/data/projects/MY_PROJECT/subjects/%s'%subject
+   uri =  '/data/projects/%s/subjects/%s'%(project, subject)
 
-   response = c._put_resource(URI=uri)
+   response = c.put(uri)
    subject_uid = response.content
    print 'New subject %s created!' %subject_uid
 
-# build a dict with XNAT_IDs
-subjects_dict = dict([(v['label'], e) \
-  for e, v in c.get_subjects('MY_PROJECT').items()])
+
 ```
 
-### Step 2: create experiments 
+### Step 2: create experiments
 
 ```python
 experiments = {}
-for subject in subjects.keys():
-     xnat_id = subjects[subject]
+for subject in c.select.project(project).subjects():
+     s = c.select.project(project).subject(subject.id())
+     e = s.experiment('%s_MR2'%subject.label())
 
-     uri = c.host + '/data/projects/MY_PROJECT/subjects/%s/experiments/%s_MR1/'\
-          %(xnat_id, subject)
      options = {'xsiType':'xnat:mrSessionData'}
-
-     response = c._put_resource(URI=uri, options=options)
-     experiment_uid = response.content
-     print 'New experiment %s created!' %experiment_uid
-     experiments[subject] = experiment_uid
+     e.create(**options)
+     print 'New experiment %s created!' %e.id()
+     experiments[subject] = e
 ```
 
 ### Step 3: create scans
 
 ```python
-for subject, experiment_uid in experiments.items():
-     xnat_id = subjects[subject]
-
+scans = {}
+for subject, experiment in experiments.items():
      options = {'xsiType':'xnat:mrScanData',
                 'type':'DWI',
                 'series_description':'DWI',
                 'quality':'usable'}
-     uri = c.host + '/data/experiments/%s/scans/1/'%experiment_uid
+     sc = experiment.scan('1')
 
-     response = c._put_resource(URI=uri, options=options)
-     scan_uid = response.content
-     print 'New scan %s created!' %scan_uid
+     sc.create(**options)     
+     print 'New scan %s created!' %scan.id()
+     scans[subject] = sc
 ```
 
 ### Step 4: create resources
 
 ```python
-for subject, experiment_uid in experiments.items():
-    xnat_id = subjects[subject]
-
-    uri = c.host + '/data/experiments/%s/scans/1/resources/NIFTI'%experiment_uid
-
-    response = c._put_resource(URI=uri)
-    resource_uid = response.content
-    print 'New resource %s created!' %resource_uid
+resources = {}
+for subject, scan in scans.items():
+    res = scan.resource('NIFTI')
+    res.create()
+    print 'New resource %s created!' %res.id()
+    resources[subject.label()] = res
 ```
 
 ### Step 5: add files to just created resources
 
 ```python
-# NIfTIs files given in order matching with alphabetically-sorted subjects
+# NIfTIs files given in order matching with subjects
 files = ['subject01.nii', 'subject02.nii', 'subject03.nii']
 
-for subject, fp in zip(sorted(subjects.keys()), files):
-     xnat_id = subjects[subject]
+for subject, filename in zip(subjects, files):    
+    resource = resources[subject]
 
-     uri = c.host + \
-        '/data/experiments/%s/scans/1/resources/NIFTI/files/%s.nii.gz'\
-        %(experiment_uid, subject)
-     options = {'format':'NIFTI',
-                'content':'NIFTI',
-                'extract':'false',
-                'overwrite':'true'} #optional
+     f = resource.file(filename)
+     response = f.put(src=filename, format='NIFTI', content='NIFTI',
+       extract=False, overwrite=True)
 
-     response = c._put_file(URI=uri, filename=fp, options=options)
      file_uid = response.content
      print 'File %s added!' %file_uid
 ```
 
 
-`bxl` has a function to remove a resource from XNAT:
+`pyxnat` has a function to remove a resource from XNAT:
 
 ```python
-xnat_id = subjects[subject]
-uri = c.host + '/data/project/MY_PROJECT/subjects/%s/experiments/%s/'%(xnat_id, experiment_uid)
-response = c.delete_resource(uri, options={'removeFiles':True})
+uri = '/data/project/%s/subjects/%s/experiments/%s/'\
+  %(project, subject_id, experiment_uid)
+response = c.select(uri).delete(uri, delete_files=True)
 ```
 
-The `removeFiles` option deletes the files that come associated to the removed
+The `delete_files` option deletes the files that come associated to the removed
 resources.
 
-Note that for security reasons, the URI should contain both the subject's ID
-and the experiment's ID in order to proceed.
+Note that for security reasons, the URI should contain both the **subject's ID
+and the experiment's ID** in order to proceed. Same goes for the **upload** step.
 
 Many thanks to [Jordi Huguet](https://github.com/jhuguetn) from
 [BarcelonaBeta](https://barcelonabrainimaging.org) for such valuable and

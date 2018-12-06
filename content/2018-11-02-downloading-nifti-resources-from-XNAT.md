@@ -19,65 +19,57 @@ In this example, for every subject of a given list `subjects`, we need to
 
 
 > <div style="padding:20px; text-align:justify; background-color:#222222">
-> **Note**: We will be using the [`bxl`](https://pypi.org/project/bxl/) library
-> to make all our REST API calls from Python code.</div>
+> **Note**: We will be using the [`pyxnat`](https://pypi.org/project/pyxnat/) library
+> to make REST API calls from Python code.</div>
 
 ```
-config_file = '/home/grg/git/bxl/.xnat.cfg'
-dest_dir = '/tmp/test'
+config_file = '/home/grg/git/bbrc-validator/.xnat.cfg'
+dest_dir = '/tmp/'
 subjects = ['SUBJ_003']
-projects = 'testenv'
+project = 'testenv'
 scantypes = {'DWI': ['DWI_ALFA1'],
              'rDWI': ['rDWI_ALFA1']}
 
 import logging as log
-from bxl import utils
+from pyxnat import Interface
 import os.path as op
 log.getLogger().setLevel(log.INFO)
 log.info('* configuration file: %s'%config_file)
 
-c = utils.setup_xnat(config_file)
+c = Interface(config=config_file)
 experiments_id = {}
 subjects_id = {}
 
 # Fetching subjects from project
-subjects_pr = c.get_subjects(project)
-sid = {v['label'] : k for k, v in subjects_pr.items()}
-for e in subjects:
-    if e in sid.keys():
-        subjects_id[e] = sid[e]
+subjects_pr = c.select.project(project).subjects()
+subjects_id = [e for e in subjects_pr if e.label() in subjects]
 
-for k, v in subjects_id.items():
+for subject in subjects_id:
+    log.info('Project: %s Subject: %s'%(project, subject.label()))
+
     # For each subject we assume there is one MRsession only
-    experiments = c.get_subject_experiments(project, v)
-    exp_id = experiments.items()[0][0]
+    exp = c.array.experiments(project_id=project, subject_id=subject.id()).data
+    exp_id = exp[0]['ID']
 
     # Fetching scans
-    options = {'columns': 'ID,type'}
-    scans = c.get_mrscans(exp_id, options)
-
-    log.info('Project: %s Subject: %s'%(project, k))
-
+    scans = c.array.scans(experiment_id=exp_id,
+      columns=['xnat:mrscandata/type']).data
     for m, st in scantypes.items():
-        items = [v['URI'] for e, v in scans.items() \
-                    if v['type'] in st]
+        items = [sc['xnat:mrscandata/id'] for sc in scans \
+                 if sc['xnat:mrscandata/type'] in st]
         log.info('Type %s: %s'%(m, items))
         if len(items) == 1:
              # Building the NIFTI resource URL
-             url = c.host + items[0] + '/resources/NIFTI/files'
-             # Fetching the URI of the first contained file
-             uri = c.host + c._query_data(url)[0]['URI']     
+             res = [e for e in x.select.experiment(exp_id).scan(items[0]).resources()\
+                if e.label() == 'NIFTI']
 
-             # Downloading it
-             fp = op.join(dest_dir, '%s_%s.nii.gz'%(k, m))
-             log.info('* Downloading %s...(%s)'%(k, m))
-             res = c.download_resource(uri)
-             log.info('* Saving %s...'%fp)
-             with open(fp, 'w') as w:
-                 w.write(res)       
+             # Downloading it             
+             log.info('* Downloading %s in %s...(%s)'\
+              %(subject.label(), op.join(dest_dir, e.id()), m))
+             res = res[0].get(dest_dir)
+
         else:
-            log.info('Found duplicates.')
-
+            log.info('Found duplicates. %s'%items)
 ```
 
 Many thanks to [Jordi Huguet](https://github.com/jhuguetn) from
