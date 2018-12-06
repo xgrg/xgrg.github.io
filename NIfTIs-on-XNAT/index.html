@@ -111,110 +111,99 @@ to subjects, experiments or scans.</p>
 their corresponding DICOM versions.</p>
 <blockquote>
 <p><div style="padding:20px; text-align:justify; background-color:#222222">
-<strong>Note</strong>: We will be using the <a href="https://pypi.org/project/bxl/"><code>bxl</code></a> library
-to make all our REST API calls from Python code.</div></p>
+<strong>Note</strong>: We will be using the <a href="https://pypi.org/project/pyxnat/"><code>pyxnat</code></a> library
+to make REST API calls from Python code.</div></p>
 </blockquote>
 <h3>Step 1: create subjects</h3>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bxl</span> <span class="kn">import</span> <span class="n">xnat</span>
-<span class="kn">from</span> <span class="nn">bxl</span> <span class="kn">import</span> <span class="n">utils</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyxnat</span> <span class="kn">import</span> <span class="n">Interface</span>
 
 <span class="n">config_file</span> <span class="o">=</span> <span class="s1">&#39;/home/grg/.xnat_bsc.cfg&#39;</span>
 <span class="n">subjects</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject01&#39;</span><span class="p">,</span> <span class="s1">&#39;subject02&#39;</span><span class="p">,</span> <span class="s1">&#39;subject03&#39;</span><span class="p">]</span>
+<span class="n">project</span> <span class="o">=</span> <span class="s1">&#39;MY_PROJECT&#39;</span>
 
 <span class="c1"># setup an XNAT connection</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">setup_xnat</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">Interface</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_file</span><span class="p">)</span>
 
 <span class="c1"># create subjects</span>
 <span class="k">for</span> <span class="n">subject</span> <span class="ow">in</span> <span class="n">subjects</span><span class="p">:</span>
 
-   <span class="n">uri</span> <span class="o">=</span>  <span class="n">c</span><span class="o">.</span><span class="n">host</span> <span class="o">+</span> <span class="s1">&#39;/data/projects/MY_PROJECT/subjects/</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">subject</span>
+   <span class="n">uri</span> <span class="o">=</span>  <span class="s1">&#39;/data/projects/</span><span class="si">%s</span><span class="s1">/subjects/</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
 
-   <span class="n">response</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_put_resource</span><span class="p">(</span><span class="n">URI</span><span class="o">=</span><span class="n">uri</span><span class="p">)</span>
+   <span class="n">response</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
    <span class="n">subject_uid</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
    <span class="k">print</span> <span class="s1">&#39;New subject </span><span class="si">%s</span><span class="s1"> created!&#39;</span> <span class="o">%</span><span class="n">subject_uid</span>
-
-<span class="c1"># build a dict with XNAT_IDs</span>
-<span class="n">subjects_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">],</span> <span class="n">e</span><span class="p">)</span> \
-  <span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">get_subjects</span><span class="p">(</span><span class="s1">&#39;MY_PROJECT&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
 </pre></div>
 
 
 <h3>Step 2: create experiments</h3>
 <div class="highlight"><pre><span></span><span class="n">experiments</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">subject</span> <span class="ow">in</span> <span class="n">subjects</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-     <span class="n">xnat_id</span> <span class="o">=</span> <span class="n">subjects</span><span class="p">[</span><span class="n">subject</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">subject</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">select</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">project</span><span class="p">)</span><span class="o">.</span><span class="n">subjects</span><span class="p">():</span>
+     <span class="n">s</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">select</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">project</span><span class="p">)</span><span class="o">.</span><span class="n">subject</span><span class="p">(</span><span class="n">subject</span><span class="o">.</span><span class="n">id</span><span class="p">())</span>
+     <span class="n">e</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">experiment</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_MR2&#39;</span><span class="o">%</span><span class="n">subject</span><span class="o">.</span><span class="n">label</span><span class="p">())</span>
 
-     <span class="n">uri</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">host</span> <span class="o">+</span> <span class="s1">&#39;/data/projects/MY_PROJECT/subjects/</span><span class="si">%s</span><span class="s1">/experiments/</span><span class="si">%s</span><span class="s1">_MR1/&#39;</span>\
-          <span class="o">%</span><span class="p">(</span><span class="n">xnat_id</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
      <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;xsiType&#39;</span><span class="p">:</span><span class="s1">&#39;xnat:mrSessionData&#39;</span><span class="p">}</span>
+     <span class="n">response</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
 
-     <span class="n">response</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_put_resource</span><span class="p">(</span><span class="n">URI</span><span class="o">=</span><span class="n">uri</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
      <span class="n">experiment_uid</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
      <span class="k">print</span> <span class="s1">&#39;New experiment </span><span class="si">%s</span><span class="s1"> created!&#39;</span> <span class="o">%</span><span class="n">experiment_uid</span>
-     <span class="n">experiments</span><span class="p">[</span><span class="n">subject</span><span class="p">]</span> <span class="o">=</span> <span class="n">experiment_uid</span>
+     <span class="n">experiments</span><span class="p">[</span><span class="n">subject</span><span class="p">]</span> <span class="o">=</span> <span class="n">e</span>
 </pre></div>
 
 
 <h3>Step 3: create scans</h3>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">subject</span><span class="p">,</span> <span class="n">experiment_uid</span> <span class="ow">in</span> <span class="n">experiments</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-     <span class="n">xnat_id</span> <span class="o">=</span> <span class="n">subjects</span><span class="p">[</span><span class="n">subject</span><span class="p">]</span>
-
+<div class="highlight"><pre><span></span><span class="n">scans</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">subject</span><span class="p">,</span> <span class="n">experiment</span> <span class="ow">in</span> <span class="n">experiments</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
      <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;xsiType&#39;</span><span class="p">:</span><span class="s1">&#39;xnat:mrScanData&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;type&#39;</span><span class="p">:</span><span class="s1">&#39;DWI&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;series_description&#39;</span><span class="p">:</span><span class="s1">&#39;DWI&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;quality&#39;</span><span class="p">:</span><span class="s1">&#39;usable&#39;</span><span class="p">}</span>
-     <span class="n">uri</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">host</span> <span class="o">+</span> <span class="s1">&#39;/data/experiments/</span><span class="si">%s</span><span class="s1">/scans/1/&#39;</span><span class="o">%</span><span class="n">experiment_uid</span>
+     <span class="n">sc</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
 
-     <span class="n">response</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_put_resource</span><span class="p">(</span><span class="n">URI</span><span class="o">=</span><span class="n">uri</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+     <span class="n">response</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
      <span class="n">scan_uid</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
      <span class="k">print</span> <span class="s1">&#39;New scan </span><span class="si">%s</span><span class="s1"> created!&#39;</span> <span class="o">%</span><span class="n">scan_uid</span>
+     <span class="n">scans</span><span class="p">[</span><span class="n">subject</span><span class="p">]</span> <span class="o">=</span> <span class="n">sc</span>
 </pre></div>
 
 
 <h3>Step 4: create resources</h3>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">subject</span><span class="p">,</span> <span class="n">experiment_uid</span> <span class="ow">in</span> <span class="n">experiments</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">xnat_id</span> <span class="o">=</span> <span class="n">subjects</span><span class="p">[</span><span class="n">subject</span><span class="p">]</span>
-
-    <span class="n">uri</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">host</span> <span class="o">+</span> <span class="s1">&#39;/data/experiments/</span><span class="si">%s</span><span class="s1">/scans/1/resources/NIFTI&#39;</span><span class="o">%</span><span class="n">experiment_uid</span>
-
-    <span class="n">response</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_put_resource</span><span class="p">(</span><span class="n">URI</span><span class="o">=</span><span class="n">uri</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">resources</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">subject</span><span class="p">,</span> <span class="n">scan</span> <span class="ow">in</span> <span class="n">scans</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">scan</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s1">&#39;NIFTI&#39;</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">_uri</span><span class="p">)</span>
     <span class="n">resource_uid</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
     <span class="k">print</span> <span class="s1">&#39;New resource </span><span class="si">%s</span><span class="s1"> created!&#39;</span> <span class="o">%</span><span class="n">resource_uid</span>
+    <span class="n">resources</span><span class="p">[</span><span class="n">subject</span><span class="o">.</span><span class="n">label</span><span class="p">()]</span> <span class="o">=</span> <span class="n">res</span>
 </pre></div>
 
 
 <h3>Step 5: add files to just created resources</h3>
-<div class="highlight"><pre><span></span><span class="c1"># NIfTIs files given in order matching with alphabetically-sorted subjects</span>
+<div class="highlight"><pre><span></span><span class="c1"># NIfTIs files given in order matching with subjects</span>
 <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject01.nii&#39;</span><span class="p">,</span> <span class="s1">&#39;subject02.nii&#39;</span><span class="p">,</span> <span class="s1">&#39;subject03.nii&#39;</span><span class="p">]</span>
 
-<span class="k">for</span> <span class="n">subject</span><span class="p">,</span> <span class="n">fp</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">subjects</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">files</span><span class="p">):</span>
-     <span class="n">xnat_id</span> <span class="o">=</span> <span class="n">subjects</span><span class="p">[</span><span class="n">subject</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">subject</span><span class="p">,</span> <span class="n">filename</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">subjects</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span>    
+    <span class="n">resource</span> <span class="o">=</span> <span class="n">resources</span><span class="p">[</span><span class="n">subject</span><span class="p">]</span>
 
-     <span class="n">uri</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">host</span> <span class="o">+</span> \
-        <span class="s1">&#39;/data/experiments/</span><span class="si">%s</span><span class="s1">/scans/1/resources/NIFTI/files/</span><span class="si">%s</span><span class="s1">.nii.gz&#39;</span>\
-        <span class="o">%</span><span class="p">(</span><span class="n">experiment_uid</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
-     <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;format&#39;</span><span class="p">:</span><span class="s1">&#39;NIFTI&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;content&#39;</span><span class="p">:</span><span class="s1">&#39;NIFTI&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;extract&#39;</span><span class="p">:</span><span class="s1">&#39;false&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;overwrite&#39;</span><span class="p">:</span><span class="s1">&#39;true&#39;</span><span class="p">}</span> <span class="c1">#optional</span>
+     <span class="n">f</span> <span class="o">=</span> <span class="n">resource</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+     <span class="n">response</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;NIFTI&#39;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s1">&#39;NIFTI&#39;</span><span class="p">,</span>
+       <span class="n">extract</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
-     <span class="n">response</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_put_file</span><span class="p">(</span><span class="n">URI</span><span class="o">=</span><span class="n">uri</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">fp</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
      <span class="n">file_uid</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
      <span class="k">print</span> <span class="s1">&#39;File </span><span class="si">%s</span><span class="s1"> added!&#39;</span> <span class="o">%</span><span class="n">file_uid</span>
 </pre></div>
 
 
-<p><code>bxl</code> has a function to remove a resource from XNAT:</p>
-<div class="highlight"><pre><span></span><span class="n">xnat_id</span> <span class="o">=</span> <span class="n">subjects</span><span class="p">[</span><span class="n">subject</span><span class="p">]</span>
-<span class="n">uri</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">host</span> <span class="o">+</span> <span class="s1">&#39;/data/project/MY_PROJECT/subjects/</span><span class="si">%s</span><span class="s1">/experiments/</span><span class="si">%s</span><span class="s1">/&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">xnat_id</span><span class="p">,</span> <span class="n">experiment_uid</span><span class="p">)</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">delete_resource</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;removeFiles&#39;</span><span class="p">:</span><span class="bp">True</span><span class="p">})</span>
+<p><code>pyxnat</code> has a function to remove a resource from XNAT:</p>
+<div class="highlight"><pre><span></span><span class="n">uri</span> <span class="o">=</span> <span class="s1">&#39;/data/project/</span><span class="si">%s</span><span class="s1">/subjects/</span><span class="si">%s</span><span class="s1">/experiments/</span><span class="si">%s</span><span class="s1">/&#39;</span>\
+  <span class="o">%</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">subject_id</span><span class="p">,</span> <span class="n">experiment_uid</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">delete_files</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 
 
-<p>The <code>removeFiles</code> option deletes the files that come associated to the removed
+<p>The <code>delete_files</code> option deletes the files that come associated to the removed
 resources.</p>
-<p>Note that for security reasons, the URI should contain both the subject's ID
-and the experiment's ID in order to proceed.</p>
+<p>Note that for security reasons, the URI should contain both the <strong>subject's ID
+and the experiment's ID</strong> in order to proceed. Same goes for the <strong>upload</strong> step.</p>
 <p>Many thanks to <a href="https://github.com/jhuguetn">Jordi Huguet</a> from
 <a href="https://barcelonabrainimaging.org">BarcelonaBeta</a> for such valuable and
 continuous help with this matter.</p>

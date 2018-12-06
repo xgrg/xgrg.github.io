@@ -114,63 +114,56 @@ In this context, NIFTI resources are stored at the <em>scan</em> level
    <em><code>rDWI_ALFA1</code></em> but may be anything else).</p>
 <blockquote>
 <p><div style="padding:20px; text-align:justify; background-color:#222222">
-<strong>Note</strong>: We will be using the <a href="https://pypi.org/project/bxl/"><code>bxl</code></a> library
-to make all our REST API calls from Python code.</div></p>
+<strong>Note</strong>: We will be using the <a href="https://pypi.org/project/pyxnat/"><code>pyxnat</code></a> library
+to make REST API calls from Python code.</div></p>
 </blockquote>
-<div class="highlight"><pre><span></span><span class="n">config_file</span> <span class="o">=</span> <span class="s1">&#39;/home/grg/git/bxl/.xnat.cfg&#39;</span>
-<span class="n">dest_dir</span> <span class="o">=</span> <span class="s1">&#39;/tmp/test&#39;</span>
+<div class="highlight"><pre><span></span><span class="n">config_file</span> <span class="o">=</span> <span class="s1">&#39;/home/grg/git/bbrc-validator/.xnat.cfg&#39;</span>
+<span class="n">dest_dir</span> <span class="o">=</span> <span class="s1">&#39;/tmp/&#39;</span>
 <span class="n">subjects</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SUBJ_003&#39;</span><span class="p">]</span>
-<span class="n">projects</span> <span class="o">=</span> <span class="s1">&#39;testenv&#39;</span>
+<span class="n">project</span> <span class="o">=</span> <span class="s1">&#39;testenv&#39;</span>
 <span class="n">scantypes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;DWI&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;DWI_ALFA1&#39;</span><span class="p">],</span>
              <span class="s1">&#39;rDWI&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;rDWI_ALFA1&#39;</span><span class="p">]}</span>
 
 <span class="kn">import</span> <span class="nn">logging</span> <span class="kn">as</span> <span class="nn">log</span>
-<span class="kn">from</span> <span class="nn">bxl</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">pyxnat</span> <span class="kn">import</span> <span class="n">Interface</span>
 <span class="kn">import</span> <span class="nn">os.path</span> <span class="kn">as</span> <span class="nn">op</span>
 <span class="n">log</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">log</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
 <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;* configuration file: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">config_file</span><span class="p">)</span>
 
-<span class="n">c</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">setup_xnat</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">Interface</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_file</span><span class="p">)</span>
 <span class="n">experiments_id</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">subjects_id</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="c1"># Fetching subjects from project</span>
-<span class="n">subjects_pr</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get_subjects</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
-<span class="n">sid</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">subjects_pr</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
-<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">subjects</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">sid</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="n">subjects_id</span><span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">=</span> <span class="n">sid</span><span class="p">[</span><span class="n">e</span><span class="p">]</span>
+<span class="n">subjects_pr</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">select</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">project</span><span class="p">)</span><span class="o">.</span><span class="n">subjects</span><span class="p">()</span>
+<span class="n">subjects_id</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">subjects_pr</span> <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">label</span><span class="p">()</span> <span class="ow">in</span> <span class="n">subjects</span><span class="p">]</span>
 
-<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">subjects_id</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="k">for</span> <span class="n">subject</span> <span class="ow">in</span> <span class="n">subjects_id</span><span class="p">:</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Project: </span><span class="si">%s</span><span class="s1"> Subject: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">subject</span><span class="o">.</span><span class="n">label</span><span class="p">()))</span>
+
     <span class="c1"># For each subject we assume there is one MRsession only</span>
-    <span class="n">experiments</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get_subject_experiments</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-    <span class="n">exp_id</span> <span class="o">=</span> <span class="n">experiments</span><span class="o">.</span><span class="n">items</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">exp</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">experiments</span><span class="p">(</span><span class="n">project_id</span><span class="o">=</span><span class="n">project</span><span class="p">,</span> <span class="n">subject_id</span><span class="o">=</span><span class="n">subject</span><span class="o">.</span><span class="n">id</span><span class="p">())</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">exp_id</span> <span class="o">=</span> <span class="n">exp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span>
 
     <span class="c1"># Fetching scans</span>
-    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;columns&#39;</span><span class="p">:</span> <span class="s1">&#39;ID,type&#39;</span><span class="p">}</span>
-    <span class="n">scans</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get_mrscans</span><span class="p">(</span><span class="n">exp_id</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
-
-    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Project: </span><span class="si">%s</span><span class="s1"> Subject: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
-
+    <span class="n">scans</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">scans</span><span class="p">(</span><span class="n">experiment_id</span><span class="o">=</span><span class="n">exp_id</span><span class="p">,</span>
+      <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;xnat:mrscandata/type&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">data</span>
     <span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">st</span> <span class="ow">in</span> <span class="n">scantypes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;URI&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">scans</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> \
-                    <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">st</span><span class="p">]</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="n">sc</span><span class="p">[</span><span class="s1">&#39;xnat:mrscandata/id&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">sc</span> <span class="ow">in</span> <span class="n">scans</span> \
+                 <span class="k">if</span> <span class="n">sc</span><span class="p">[</span><span class="s1">&#39;xnat:mrscandata/type&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">st</span><span class="p">]</span>
         <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Type </span><span class="si">%s</span><span class="s1">: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">items</span><span class="p">))</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
              <span class="c1"># Building the NIFTI resource URL</span>
-             <span class="n">url</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">host</span> <span class="o">+</span> <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/resources/NIFTI/files&#39;</span>
-             <span class="c1"># Fetching the URI of the first contained file</span>
-             <span class="n">uri</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">host</span> <span class="o">+</span> <span class="n">c</span><span class="o">.</span><span class="n">_query_data</span><span class="p">(</span><span class="n">url</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;URI&#39;</span><span class="p">]</span>     
+             <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">select</span><span class="o">.</span><span class="n">experiment</span><span class="p">(</span><span class="n">exp_id</span><span class="p">)</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">resources</span><span class="p">()</span>\
+                <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">label</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;NIFTI&#39;</span><span class="p">]</span>
 
-             <span class="c1"># Downloading it</span>
-             <span class="n">fp</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dest_dir</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">.nii.gz&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span>
-             <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;* Downloading </span><span class="si">%s</span><span class="s1">...(</span><span class="si">%s</span><span class="s1">)&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span>
-             <span class="n">res</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">download_resource</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
-             <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;* Saving </span><span class="si">%s</span><span class="s1">...&#39;</span><span class="o">%</span><span class="n">fp</span><span class="p">)</span>
-             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">w</span><span class="p">:</span>
-                 <span class="n">w</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>       
+             <span class="c1"># Downloading it             </span>
+             <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;* Downloading </span><span class="si">%s</span><span class="s1"> in </span><span class="si">%s</span><span class="s1">...(</span><span class="si">%s</span><span class="s1">)&#39;</span>\
+              <span class="o">%</span><span class="p">(</span><span class="n">subject</span><span class="o">.</span><span class="n">label</span><span class="p">(),</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dest_dir</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">id</span><span class="p">()),</span> <span class="n">m</span><span class="p">))</span>
+             <span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dest_dir</span><span class="p">)</span>
+
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Found duplicates.&#39;</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Found duplicates. </span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">items</span><span class="p">)</span>
 </pre></div>
 
 
