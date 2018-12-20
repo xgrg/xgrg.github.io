@@ -8,7 +8,8 @@ Collecting basic image statistics (_e.g._ mean, std) from ROIs over a set of ima
 
 <!-- PELICAN_END_SUMMARY -->
 
-
+**EDIT (23-11-2018): check [roistats](https://github.com/xgrg/roistats) for a
+module with this code**
 
 See the example in this [**Jupyter Notebook**](https://github.com/xgrg/alfa/blob/master/notebooks/Collecting%20image%20statistics%20from%20Regions-of-Interest%20over%20many%20subjects.ipynb)
 
@@ -84,5 +85,3 @@ Will return a table like:
 | 55708   | 0.000853                   | 0.000929               | 0.000732                | 0.000851                | 0.000795                    | 0.000922 | 0.000839              | 0.000872              | 0.000786           |
 | 12121   | 0.000842                   | 0.000926               | 0.000810                | 0.000846                | 0.000826                    | 0.000868 | 0.000810              | 0.000822              | 0.000723           |
 | 11015   | 0.000847                   | 0.000879               | 0.000805                | 0.000877                | 0.000856                    | 0.000839 | 0.000814              | 0.000792              | 0.000831           |
-
-
