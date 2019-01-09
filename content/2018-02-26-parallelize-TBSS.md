@@ -143,14 +143,17 @@ Since we have `M=8` contrasts and `N=4` files (for, say, `N=4` processors
 0 0 0 0 0 0 0 -1 0
 ```
 
+There is also a function called `main_effects` to generate all the contrasts
+corresponding to the main effects of all the variables contained in the design
+matrix.
 
 ## Building the right `randomise` commands:
 
 Say we want the `M=8` contrasts to run on `N=4` processors. We need to build
-  `N` `randomise` commands over `N` contrast files. Let us assume in the following
-  that all the `<arguments>` will be replaced with correct paths to the actual
-  data.
-The `randomise_parallel` function takes care of all this.
+  `N` `randomise` commands over `N` contrast files.
+The `randomise_parallel` function takes care of all this as shown hereafter.
+ (Let us assume in the following that all the `<arguments>` will be replaced
+   with correct paths to the actual data)
 
 
 ```python
