@@ -223,12 +223,15 @@ set of 8 contrasts over 9 independent variables.</p>
 </pre></div>
 
 
+<p>There is also a function called <code>main_effects</code> to generate all the contrasts
+corresponding to the main effects of all the variables contained in the design
+matrix.</p>
 <h2>Building the right <code>randomise</code> commands:</h2>
 <p>Say we want the <code>M=8</code> contrasts to run on <code>N=4</code> processors. We need to build
-  <code>N</code> <code>randomise</code> commands over <code>N</code> contrast files. Let us assume in the following
-  that all the <code>&lt;arguments&gt;</code> will be replaced with correct paths to the actual
-  data.
-The <code>randomise_parallel</code> function takes care of all this.</p>
+  <code>N</code> <code>randomise</code> commands over <code>N</code> contrast files.
+The <code>randomise_parallel</code> function takes care of all this as shown hereafter.
+ (Let us assume in the following that all the <code>&lt;arguments&gt;</code> will be replaced
+   with correct paths to the actual data)</p>
 <div class="highlight"><pre><span></span><span class="n">num_perm</span> <span class="o">=</span> <span class="mi">5000</span>
 <span class="n">n_cpus</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">sleep_interval</span> <span class="o">=</span> <span class="mi">0</span>
