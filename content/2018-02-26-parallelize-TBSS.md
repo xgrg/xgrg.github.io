@@ -154,7 +154,7 @@ The `randomise_parallel` function takes care of all this.
 
 
 ```python
-num_perm = 1000
+num_perm = 5000
 n_cpus = 4
 sleep_interval = 0
 commands = contrasts.randomise_parallel('<skeletonized_data>',
