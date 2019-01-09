@@ -110,17 +110,20 @@ I could not find my heart's desire (if only there <a href="https://neurostars.or
 
 <p>Nevertheless my ambition was quite humble at this point: allow <code>randomise</code> to
 use <code>N</code> available CPUs to estimate a set of <code>M</code> contrasts - in parallel - using the
-traditional threshold-free permutation scheme.</p>
+traditional threshold-free permutation scheme. Instead of losing time running
+one contrast after the other.</p>
 <h2>TL;DR</h2>
 <blockquote>
 <p><div style="padding:20px; text-align:justify; background-color:#222222">
-The easiest way is probably by creating as many <code>.con</code> files as contrasts and
-to run <code>randomise</code> separately on each of them setting adecuate options to name
-the generated files in output. The workaround proposed below is nothing but a
-variation around this, with the advantage of preserving the contrast
-numbering given by <code>randomise</code> in normal conditions.</div></p>
+The following method is probably the dumbest way to parallelize <code>randomise</code>
+as it actually splits a <code>.con</code> file into various smaller files and returns
+a set of <code>randomise</code> commands ready to run. Instead of running all the
+contrasts sequentially one after the other, multiple jobs are used, hence
+dividing execution time while preserving the numbering of the contrasts as
+given in the original <code>.con</code> file.
+ </div></p>
 </blockquote>
-<p>See <a href="https://github.com/xgrg/tbss/">this repository</a> for a proposed implementation.</p>
+<p>The following recipe is implemented in this <a href="https://github.com/xgrg/tbss/">module</a>.</p>
 <h2>Concept:</h2>
 <p>The typical <code>randomise</code> command looks like:</p>
 <div class="highlight"><pre><span></span><span class="sb">`</span>randomise -i &lt;skeletonized_data&gt; -o &lt;output_basename&gt; -m &lt;mean_FA_skeleton_mask&gt;<span class="se">\</span>
@@ -128,10 +131,10 @@ numbering given by <code>randomise</code> in normal conditions.</div></p>
 </pre></div>
 
 
-<p>This will start estimating every given contrast from the <code>.con</code> file, one after
-the other, using a single processor and will generally take a substantial
+<p>This will estimate every given contrast from the <code>.con</code> file, sequentially,
+ using a single processor and will generally take a substantial
 amount of time, multiplied by the number of contrasts.</p>
-<p>One dirty way to divide this time would then consist in splitting the <code>.con</code> file in
+<p>One dirty way to divide this time consists in splitting the <code>.con</code> file in
 various smaller ones and to run various instances of <code>randomise</code> in parallel on them.
 <code>randomise</code> names the produced statistical maps <em>after the rank/number of the corresponding
 contrast in the <code>.con</code> file</em> so it will be important that the ranks/numbers are
@@ -141,159 +144,103 @@ contrast in the <code>.con</code> file</em> so it will be important that the ran
 <code>part1.con</code>) will take the 3 first contrasts, <code>part2.con</code> the 3
 following ones, etc. Now to make sure that the numbers do match between the
 initial <code>design.con</code> file and the small <code>part*.con</code>, the trick consists in
-adding as many <em>dummy contrasts</em> as necessary <em>before</em> the "real ones". For instance,
+adding as many dummy contrasts as necessary <em>before</em> the "real ones". For instance,
 <code>part2.con</code> will contain 6 contrasts in total, 3 dummy contrasts + 3 genuine
-ones (#4, #5, #6) from <code>design.con</code>. Then <code>randomise</code> has a hidden special <code>skipTo</code>
+ones (#4, #5, #6) from <code>design.con</code>. Then we use <code>randomise</code>'s hidden <code>skipTo</code>
 option to ignore the first contrasts of a file and to <a href="https://www.jiscmail.ac.uk/cgi-bin/webadmin?A2=fsl;91ea4524.1402">start from a given one</a>
-directly. This will be conveniently used to skip the initial <em>dummy contrasts</em>
+directly. This will conveniently skip the initial dummy contrasts
 in every <code>.con</code> file.</p>
 <h2>Splitting the contrast file (<em>aka the <code>.con</code> trick</em>):</h2>
 <p>In short, we can adapt a function from a previous post on <a href="../building-design-matrices-for-tbss/">building design
 matrices and contrast for TBSS in Python</a>
-to create these mock contrasts as wished.</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_tbss_contrasts</span><span class="p">(</span><span class="n">contrasts</span><span class="p">,</span> <span class="n">mock</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="n">con</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;/NumWaves </span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="n">contrasts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])]</span>
+to create these mock contrasts as wished. In the following example, we defined a
+set of 8 contrasts over 9 independent variables.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><span class="n">con</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;age(+)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
+       <span class="p">(</span><span class="s1">&#39;age(-)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
+       <span class="p">(</span><span class="s1">&#39;sex(m&gt;f)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
+       <span class="p">(</span><span class="s1">&#39;sex(f&gt;m)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
+       <span class="p">(</span><span class="s1">&#39;apoe4(+)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+       <span class="p">(</span><span class="s1">&#39;apoe4(-)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+       <span class="p">(</span><span class="s1">&#39;sleep(+)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
+       <span class="p">(</span><span class="s1">&#39;sleep(-)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])]</span>
 
-    <span class="n">contrasts2</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">mock</span><span class="p">):</span>
-        <span class="n">contrasts2</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s1">&#39;mock</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">contrasts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])))</span>
-    <span class="n">contrasts2</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">contrasts</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">contrast</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">contrasts2</span><span class="p">):</span>
-        <span class="n">con</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/ContrastName</span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
-    <span class="n">nb_contrasts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">contrasts2</span><span class="p">)</span>
-    <span class="n">con</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/NumContrasts </span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="nb">str</span><span class="p">(</span><span class="n">nb_contrasts</span><span class="p">))</span>
-    <span class="n">con</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/Matrix&#39;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">contrasts2</span><span class="p">):</span>
-        <span class="n">con</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">each</span><span class="p">)</span> <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">c</span><span class="p">]))</span>
-
-    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">con</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">tbss</span> <span class="kn">import</span> <span class="n">contrasts</span>
+<span class="n">contrasts</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="s1">&#39;/tmp/contrasts.con&#39;</span><span class="p">)</span>       
 </pre></div>
 
 
-<p>This function may then be wrapped in one which will split the contrasts and
-generate the small files appropriately.</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
-
-<span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="n">contrasts</span><span class="p">,</span> <span class="n">fp</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">chunks</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">),</span> <span class="n">n</span><span class="p">):</span>
-            <span class="k">yield</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">n</span><span class="p">]</span>
-
-    <span class="n">chunk_size</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contrasts</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">fp</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">each</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">chunks</span><span class="p">(</span><span class="n">contrasts</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">),</span> <span class="n">fp</span><span class="p">)):</span>
-        <span class="n">w</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
-        <span class="n">w</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">build_tbss_contrasts</span><span class="p">(</span><span class="n">each</span><span class="p">,</span> <span class="n">mock</span><span class="o">=</span><span class="n">i</span><span class="o">*</span><span class="n">chunk_size</span><span class="p">))</span>
-        <span class="n">w</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</pre></div>
-
-
-<p><code>dump</code> will take a list of contrasts (following the format from that <a href="../building-design-matrices-for-tbss/">previous post</a>)
-and will dispatch them into as many files as passed in <code>fp</code>.</p>
-<h3>Example #1: just creating mock contrasts with some design matrix:</h3>
-<div class="highlight"><pre><span></span><span class="n">contrasts</span> <span class="o">=</span> <span class="n">tbss_covariates_simple_contrasts</span><span class="p">([</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;apoe&#39;</span><span class="p">])</span>
-<span class="n">con</span> <span class="o">=</span> <span class="n">build_tbss_contrasts</span><span class="p">(</span><span class="n">contrasts</span><span class="p">,</span> <span class="n">mock</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">con</span><span class="p">)</span>
-</pre></div>
-
-
-<p>This adds 3 dummy contrasts (full of zeros) before the 6 <em>main effects</em>.</p>
-<div class="highlight"><pre><span></span>/NumWaves 3
-/ContrastName1 mock1
-/ContrastName2 mock2
-/ContrastName3 mock3
-/ContrastName4 age(+)
-/ContrastName5 age(-)
-/ContrastName6 gender(+)
-/ContrastName7 gender(-)
-/ContrastName8 apoe(+)
-/ContrastName9 apoe(-)
-/NumContrasts 9
-/Matrix
-0 0 0
-0 0 0
-0 0 0
-1 0 0
--1 0 0
-0 1 0
-0 -1 0
-0 0 1
-0 0 -1
-</pre></div>
-
-
-<h3>Example #2: build the contrasts and split them into several files:</h3>
-<p>In this one, we have <code>M=6</code> contrasts and <code>N=6</code> processors available. The contrasts
-hence can be divided into 6 "batches" of 1 contrast each.</p>
-<div class="highlight"><pre><span></span><span class="n">n_cpus</span> <span class="o">=</span> <span class="mi">6</span>
-<span class="n">contrasts</span> <span class="o">=</span> <span class="n">tbss_covariates_simple_contrasts</span><span class="p">([</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;apoe&#39;</span><span class="p">])</span>
-<span class="n">con</span> <span class="o">=</span> <span class="n">build_tbss_contrasts</span><span class="p">(</span><span class="n">contrasts</span><span class="p">)</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;design.con&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">w</span><span class="p">:</span>
-   <span class="n">w</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">con</span><span class="p">)</span>
-
-<span class="n">dump</span><span class="p">(</span><span class="n">contrasts</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;/tmp/part</span><span class="si">%s</span><span class="s1">.con&#39;</span><span class="o">%</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">n_cpus</span><span class="p">)])</span>
-</pre></div>
-
-
-<p><code>design.con</code> contains the original full list of contrasts (the file as it would
-be running <code>randomise</code> the usual way). It would look like:</p>
-<div class="highlight"><pre><span></span>/NumWaves 3
+<p>The contents of the generated file (following the format from that <a href="../building-design-matrices-for-tbss/">previous post</a> will be the following:</p>
+<div class="highlight"><pre><span></span>/NumWaves 9
 /ContrastName1 age(+)
 /ContrastName2 age(-)
-/ContrastName3 gender(+)
-/ContrastName4 gender(-)
-/ContrastName5 apoe(+)
-/ContrastName6 apoe(-)
-/NumContrasts 6
+/ContrastName3 sex(m&gt;f)
+/ContrastName4 sex(f&gt;m)
+/ContrastName5 apoe4(+)
+/ContrastName6 apoe4(-)
+/ContrastName7 sleep(+)
+/ContrastName8 sleep(-)
+/NumContrasts 8
 /Matrix
-1 0 0
--1 0 0
-0 1 0
-0 -1 0
-0 0 1
-0 0 -1
+0 0 1 0 0 0 0 0 0
+0 0 -1 0 0 0 0 0 0
+0 0 0 1 0 0 0 0 0
+0 0 0 -1 0 0 0 0 0
+0 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 0 -1
+0 0 0 0 0 0 0 1 0
+0 0 0 0 0 0 0 -1 0
 </pre></div>
 
 
-<p>Each <code>part*.con</code> would then contain a single contrast from the 6 preceded by a
-right number of dummy constrasts. For instance, <code>/tmp/part5.con</code> would look like:</p>
-<div class="highlight"><pre><span></span>/NumWaves 3
+<p>Now, let us provide a list of filepaths instead of a single one.</p>
+<p><code>python
+ fp = ['/tmp/part1.con', '/tmp/part2.con', '/tmp/part3.con', '/tmp/part4.con']
+ contrasts.dump(con, fp)</code></p>
+<p>Since we have <code>M=8</code> contrasts and <code>N=4</code> files (for, say, <code>N=4</code> processors
+  available), <code>part*.con</code> would then contain two contrasts from the 8 preceded
+  by the right number of dummy constrasts. For  example, the contents of the
+  last one will be:</p>
+<div class="highlight"><pre><span></span>/NumWaves 9
 /ContrastName1 mock1
 /ContrastName2 mock2
 /ContrastName3 mock3
 /ContrastName4 mock4
-/ContrastName5 apoe(+)
-/NumContrasts 5
+/ContrastName5 mock5
+/ContrastName6 mock6
+/ContrastName7 sleep(+)
+/ContrastName8 sleep(-)
+/NumContrasts 8
 /Matrix
-0 0 0
-0 0 0
-0 0 0
-0 0 0
-0 0 1
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 1 0
+0 0 0 0 0 0 0 -1 0
 </pre></div>
 
 
-<h2>Building the proper <code>randomise</code> commands:</h2>
-<p>Now that the <code>M=6</code> contrasts are all in <code>N=6</code> files, the final part consists in
-building the commands that will run <code>randomise</code> over these <code>N</code> files,
-using the right <code>skipTo</code> option. Let us assume that all the <code>&lt;arguments&gt;</code> will be
-replaced with correct paths to the actual data.</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
-
-<span class="n">nb_contrasts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">contrasts</span><span class="p">)</span>
-<span class="n">n_cpus</span> <span class="o">=</span> <span class="mi">6</span>
-<span class="n">chunk_size</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">nb_contrasts</span> <span class="o">/</span> <span class="n">n_cpus</span><span class="p">)</span>
-<span class="n">skipto</span> <span class="o">=</span> <span class="mi">1</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">n_cpus</span><span class="p">):</span>
-    <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;randomise -i &lt;skeletonized_data&gt; -o &lt;output_basename&gt; -m &lt;mean_FA_skeleton_mask&gt; &#39;</span>\
-    <span class="s1">&#39;-d &lt;design.mat&gt; -t /tmp/part</span><span class="si">%s</span><span class="s1">.con -n 5000 --T2 --skipTo=</span><span class="si">%s</span><span class="s1"> -V &amp;&gt; /tmp/log</span><span class="si">%s</span><span class="s1">.log&#39;</span>\
-        <span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">skipto</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">skipto</span> <span class="o">=</span> <span class="n">skipto</span> <span class="o">+</span> <span class="n">chunk_size</span>
-    <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">commands</span><span class="p">:</span>
-    <span class="k">print</span> <span class="n">each</span>
+<h2>Building the right <code>randomise</code> commands:</h2>
+<p>Say we want the <code>M=8</code> contrasts to run on <code>N=4</code> processors. We need to build
+  <code>N</code> <code>randomise</code> commands over <code>N</code> contrast files. Let us assume in the following
+  that all the <code>&lt;arguments&gt;</code> will be replaced with correct paths to the actual
+  data.
+The <code>randomise_parallel</code> function takes care of all this.</p>
+<div class="highlight"><pre><span></span><span class="n">num_perm</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">n_cpus</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">sleep_interval</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">commands</span> <span class="o">=</span> <span class="n">contrasts</span><span class="o">.</span><span class="n">randomise_parallel</span><span class="p">(</span><span class="s1">&#39;&lt;skeletonized_data&gt;&#39;</span><span class="p">,</span>
+                                        <span class="s1">&#39;&lt;output_basename&gt;&#39;</span><span class="p">,</span>
+                                        <span class="s1">&#39;&lt;design.mat&gt;&#39;</span><span class="p">,</span>
+                                        <span class="s1">&#39;&lt;mean_FA_skeleton_mask&gt;&#39;</span><span class="p">,</span>
+                                        <span class="s1">&#39;&lt;contrasts.con&gt;&#39;</span><span class="p">,</span> <span class="n">num_perm</span><span class="o">=</span><span class="n">num_perm</span><span class="p">,</span>
+                                        <span class="n">n_cpus</span><span class="o">=</span><span class="n">n_cpus</span><span class="p">,</span>
+                                        <span class="n">sleep_interval</span><span class="o">=</span><span class="n">sleep_interval</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">commands</span><span class="p">[:]:</span>
+    <span class="k">print</span> <span class="n">e</span>
 </pre></div>
 
 
@@ -301,19 +248,13 @@ replaced with correct paths to the actual data.</p>
    -d &lt;design.mat&gt; -t /tmp/part1.con -n 5000 --T2 --skipTo=1 -V &amp;&gt; /tmp/log1.log
 
 randomise -i &lt;skeletonized_data&gt; -o &lt;output_basename&gt; -m &lt;mean_FA_skeleton_mask&gt;\
-   -d &lt;design.mat&gt; -t /tmp/part2.con -n 5000 --T2 --skipTo=2 -V &amp;&gt; /tmp/log2.log
+   -d &lt;design.mat&gt; -t /tmp/part2.con -n 5000 --T2 --skipTo=3 -V &amp;&gt; /tmp/log2.log
 
 randomise -i &lt;skeletonized_data&gt; -o &lt;output_basename&gt; -m &lt;mean_FA_skeleton_mask&gt;\
-   -d &lt;design.mat&gt; -t /tmp/part3.con -n 5000 --T2 --skipTo=3 -V &amp;&gt; /tmp/log3.log
+   -d &lt;design.mat&gt; -t /tmp/part3.con -n 5000 --T2 --skipTo=5 -V &amp;&gt; /tmp/log3.log
 
 randomise -i &lt;skeletonized_data&gt; -o &lt;output_basename&gt; -m &lt;mean_FA_skeleton_mask&gt;\
-   -d &lt;design.mat&gt; -t /tmp/part4.con -n 5000 --T2 --skipTo=4 -V &amp;&gt; /tmp/log4.log
-
-randomise -i &lt;skeletonized_data&gt; -o &lt;output_basename&gt; -m &lt;mean_FA_skeleton_mask&gt;\
-   -d &lt;design.mat&gt; -t /tmp/part5.con -n 5000 --T2 --skipTo=5 -V &amp;&gt; /tmp/log5.log
-
-randomise -i &lt;skeletonized_data&gt; -o &lt;output_basename&gt; -m &lt;mean_FA_skeleton_mask&gt;\
-   -d &lt;design.mat&gt; -t /tmp/part6.con -n 5000 --T2 --skipTo=6 -V &amp;&gt; /tmp/log6.log
+   -d &lt;design.mat&gt; -t /tmp/part4.con -n 5000 --T2 --skipTo=7 -V &amp;&gt; /tmp/log4.log
 </pre></div>
 
 
@@ -327,7 +268,7 @@ for execution, as in the following example:</p>
 <p>Writing this post will have taken the actual time of running <code>randomise</code> in
 background over a dataset of 500 subjects including 12 contrasts with 5000
 permutations each "in parallel" following this same strategy. Much shorter
-than the original <em>vanilla</em> way.</p>
+than the original way.</p>
 <p>Please comment if you have different experience or feedback to share.</p>
     </section>
 
