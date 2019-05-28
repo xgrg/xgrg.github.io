@@ -131,7 +131,7 @@ to make REST API calls from Python code.</div></p>
 
    <span class="n">response</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
    <span class="n">subject_uid</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
-   <span class="k">print</span> <span class="s1">&#39;New subject </span><span class="si">%s</span><span class="s1"> created!&#39;</span> <span class="o">%</span><span class="n">subject_uid</span>
+   <span class="k">print</span><span class="p">(</span><span class="s1">&#39;New subject </span><span class="si">%s</span><span class="s1"> created!&#39;</span> <span class="o">%</span><span class="n">subject_uid</span><span class="p">)</span>
 </pre></div>
 
 
@@ -139,11 +139,11 @@ to make REST API calls from Python code.</div></p>
 <div class="highlight"><pre><span></span><span class="n">experiments</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">subject</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">select</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">project</span><span class="p">)</span><span class="o">.</span><span class="n">subjects</span><span class="p">():</span>
      <span class="n">s</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">select</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">project</span><span class="p">)</span><span class="o">.</span><span class="n">subject</span><span class="p">(</span><span class="n">subject</span><span class="o">.</span><span class="n">id</span><span class="p">())</span>
-     <span class="n">e</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">experiment</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_MR2&#39;</span><span class="o">%</span><span class="n">subject</span><span class="o">.</span><span class="n">label</span><span class="p">())</span>
+     <span class="n">e</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">experiment</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_MR1&#39;</span><span class="o">%</span><span class="n">subject</span><span class="o">.</span><span class="n">label</span><span class="p">())</span>
 
      <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;xsiType&#39;</span><span class="p">:</span><span class="s1">&#39;xnat:mrSessionData&#39;</span><span class="p">}</span>
      <span class="n">e</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
-     <span class="k">print</span> <span class="s1">&#39;New experiment </span><span class="si">%s</span><span class="s1"> created!&#39;</span> <span class="o">%</span><span class="n">e</span><span class="o">.</span><span class="n">id</span><span class="p">()</span>
+     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;New experiment </span><span class="si">%s</span><span class="s1"> created!&#39;</span> <span class="o">%</span><span class="n">e</span><span class="o">.</span><span class="n">id</span><span class="p">())</span>
      <span class="n">experiments</span><span class="p">[</span><span class="n">subject</span><span class="p">]</span> <span class="o">=</span> <span class="n">e</span>
 </pre></div>
 
@@ -158,7 +158,7 @@ to make REST API calls from Python code.</div></p>
      <span class="n">sc</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
 
      <span class="n">sc</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>     
-     <span class="k">print</span> <span class="s1">&#39;New scan </span><span class="si">%s</span><span class="s1"> created!&#39;</span> <span class="o">%</span><span class="n">scan</span><span class="o">.</span><span class="n">id</span><span class="p">()</span>
+     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;New scan </span><span class="si">%s</span><span class="s1"> created!&#39;</span> <span class="o">%</span><span class="n">scan</span><span class="o">.</span><span class="n">id</span><span class="p">())</span>
      <span class="n">scans</span><span class="p">[</span><span class="n">subject</span><span class="p">]</span> <span class="o">=</span> <span class="n">sc</span>
 </pre></div>
 
@@ -168,7 +168,7 @@ to make REST API calls from Python code.</div></p>
 <span class="k">for</span> <span class="n">subject</span><span class="p">,</span> <span class="n">scan</span> <span class="ow">in</span> <span class="n">scans</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">scan</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s1">&#39;NIFTI&#39;</span><span class="p">)</span>
     <span class="n">res</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-    <span class="k">print</span> <span class="s1">&#39;New resource </span><span class="si">%s</span><span class="s1"> created!&#39;</span> <span class="o">%</span><span class="n">res</span><span class="o">.</span><span class="n">id</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;New resource </span><span class="si">%s</span><span class="s1"> created!&#39;</span> <span class="o">%</span><span class="n">res</span><span class="o">.</span><span class="n">id</span><span class="p">())</span>
     <span class="n">resources</span><span class="p">[</span><span class="n">subject</span><span class="o">.</span><span class="n">label</span><span class="p">()]</span> <span class="o">=</span> <span class="n">res</span>
 </pre></div>
 
@@ -185,7 +185,7 @@ to make REST API calls from Python code.</div></p>
        <span class="n">extract</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
      <span class="n">file_uid</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
-     <span class="k">print</span> <span class="s1">&#39;File </span><span class="si">%s</span><span class="s1"> added!&#39;</span> <span class="o">%</span><span class="n">file_uid</span>
+     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;File </span><span class="si">%s</span><span class="s1"> added!&#39;</span> <span class="o">%</span><span class="n">file_uid</span><span class="p">)</span>
 </pre></div>
 
 

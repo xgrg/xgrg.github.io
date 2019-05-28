@@ -171,25 +171,25 @@ set of 8 contrasts over 9 independent variables.</p>
 
 
 <p>The contents of the generated file (following the format from that <a href="../building-design-matrices-for-tbss/">previous post</a> will be the following:</p>
-<div class="highlight"><pre><span></span>/NumWaves 9
-/ContrastName1 age(+)
-/ContrastName2 age(-)
-/ContrastName3 sex(m&gt;f)
-/ContrastName4 sex(f&gt;m)
-/ContrastName5 apoe4(+)
-/ContrastName6 apoe4(-)
-/ContrastName7 sleep(+)
-/ContrastName8 sleep(-)
-/NumContrasts 8
-/Matrix
-0 0 1 0 0 0 0 0 0
-0 0 -1 0 0 0 0 0 0
-0 0 0 1 0 0 0 0 0
-0 0 0 -1 0 0 0 0 0
-0 0 0 0 0 0 0 0 1
-0 0 0 0 0 0 0 0 -1
-0 0 0 0 0 0 0 1 0
-0 0 0 0 0 0 0 -1 0
+<div class="highlight"><pre><span></span><span class="o">/</span><span class="n">NumWaves</span> <span class="mi">9</span>
+<span class="o">/</span><span class="n">ContrastName1</span> <span class="n">age</span><span class="p">(</span><span class="o">+</span><span class="p">)</span>
+<span class="o">/</span><span class="n">ContrastName2</span> <span class="n">age</span><span class="p">(</span><span class="o">-</span><span class="p">)</span>
+<span class="o">/</span><span class="n">ContrastName3</span> <span class="n">sex</span><span class="p">(</span><span class="n">m</span><span class="o">&gt;</span><span class="n">f</span><span class="p">)</span>
+<span class="o">/</span><span class="n">ContrastName4</span> <span class="n">sex</span><span class="p">(</span><span class="n">f</span><span class="o">&gt;</span><span class="n">m</span><span class="p">)</span>
+<span class="o">/</span><span class="n">ContrastName5</span> <span class="n">apoe4</span><span class="p">(</span><span class="o">+</span><span class="p">)</span>
+<span class="o">/</span><span class="n">ContrastName6</span> <span class="n">apoe4</span><span class="p">(</span><span class="o">-</span><span class="p">)</span>
+<span class="o">/</span><span class="n">ContrastName7</span> <span class="n">sleep</span><span class="p">(</span><span class="o">+</span><span class="p">)</span>
+<span class="o">/</span><span class="n">ContrastName8</span> <span class="n">sleep</span><span class="p">(</span><span class="o">-</span><span class="p">)</span>
+<span class="o">/</span><span class="n">NumContrasts</span> <span class="mi">8</span>
+<span class="o">/</span><span class="n">Matrix</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">0</span>
 </pre></div>
 
 
@@ -201,25 +201,25 @@ set of 8 contrasts over 9 independent variables.</p>
   available), <code>part*.con</code> would then contain two contrasts from the 8 preceded
   by the right number of dummy constrasts. For  example, the contents of the
   last one will be:</p>
-<div class="highlight"><pre><span></span>/NumWaves 9
-/ContrastName1 mock1
-/ContrastName2 mock2
-/ContrastName3 mock3
-/ContrastName4 mock4
-/ContrastName5 mock5
-/ContrastName6 mock6
-/ContrastName7 sleep(+)
-/ContrastName8 sleep(-)
-/NumContrasts 8
-/Matrix
-0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 1 0
-0 0 0 0 0 0 0 -1 0
+<div class="highlight"><pre><span></span><span class="o">/</span><span class="n">NumWaves</span> <span class="mi">9</span>
+<span class="o">/</span><span class="n">ContrastName1</span> <span class="n">mock1</span>
+<span class="o">/</span><span class="n">ContrastName2</span> <span class="n">mock2</span>
+<span class="o">/</span><span class="n">ContrastName3</span> <span class="n">mock3</span>
+<span class="o">/</span><span class="n">ContrastName4</span> <span class="n">mock4</span>
+<span class="o">/</span><span class="n">ContrastName5</span> <span class="n">mock5</span>
+<span class="o">/</span><span class="n">ContrastName6</span> <span class="n">mock6</span>
+<span class="o">/</span><span class="n">ContrastName7</span> <span class="n">sleep</span><span class="p">(</span><span class="o">+</span><span class="p">)</span>
+<span class="o">/</span><span class="n">ContrastName8</span> <span class="n">sleep</span><span class="p">(</span><span class="o">-</span><span class="p">)</span>
+<span class="o">/</span><span class="n">NumContrasts</span> <span class="mi">8</span>
+<span class="o">/</span><span class="n">Matrix</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">0</span>
 </pre></div>
 
 
@@ -243,21 +243,21 @@ The <code>randomise_parallel</code> function takes care of all this as shown her
                                         <span class="n">n_cpus</span><span class="o">=</span><span class="n">n_cpus</span><span class="p">,</span>
                                         <span class="n">sleep_interval</span><span class="o">=</span><span class="n">sleep_interval</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">commands</span><span class="p">[:]:</span>
-    <span class="k">print</span> <span class="n">e</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 </pre></div>
 
 
-<div class="highlight"><pre><span></span>randomise -i &lt;skeletonized_data&gt; -o &lt;output_basename&gt; -m &lt;mean_FA_skeleton_mask&gt;\
-   -d &lt;design.mat&gt; -t /tmp/part1.con -n 5000 --T2 --skipTo=1 -V &amp;&gt; /tmp/log1.log
+<div class="highlight"><pre><span></span><span class="n">randomise</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">skeletonized_data</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">output_basename</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">m</span> <span class="o">&lt;</span><span class="n">mean_FA_skeleton_mask</span><span class="o">&gt;</span><span class="err">\</span>
+   <span class="o">-</span><span class="n">d</span> <span class="o">&lt;</span><span class="n">design</span><span class="p">.</span><span class="n">mat</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">t</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">part1</span><span class="p">.</span><span class="n">con</span> <span class="o">-</span><span class="n">n</span> <span class="mi">5000</span> <span class="c1">--T2 --skipTo=1 -V &amp;&gt; /tmp/log1.log</span>
 
-randomise -i &lt;skeletonized_data&gt; -o &lt;output_basename&gt; -m &lt;mean_FA_skeleton_mask&gt;\
-   -d &lt;design.mat&gt; -t /tmp/part2.con -n 5000 --T2 --skipTo=3 -V &amp;&gt; /tmp/log2.log
+<span class="n">randomise</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">skeletonized_data</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">output_basename</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">m</span> <span class="o">&lt;</span><span class="n">mean_FA_skeleton_mask</span><span class="o">&gt;</span><span class="err">\</span>
+   <span class="o">-</span><span class="n">d</span> <span class="o">&lt;</span><span class="n">design</span><span class="p">.</span><span class="n">mat</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">t</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">part2</span><span class="p">.</span><span class="n">con</span> <span class="o">-</span><span class="n">n</span> <span class="mi">5000</span> <span class="c1">--T2 --skipTo=3 -V &amp;&gt; /tmp/log2.log</span>
 
-randomise -i &lt;skeletonized_data&gt; -o &lt;output_basename&gt; -m &lt;mean_FA_skeleton_mask&gt;\
-   -d &lt;design.mat&gt; -t /tmp/part3.con -n 5000 --T2 --skipTo=5 -V &amp;&gt; /tmp/log3.log
+<span class="n">randomise</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">skeletonized_data</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">output_basename</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">m</span> <span class="o">&lt;</span><span class="n">mean_FA_skeleton_mask</span><span class="o">&gt;</span><span class="err">\</span>
+   <span class="o">-</span><span class="n">d</span> <span class="o">&lt;</span><span class="n">design</span><span class="p">.</span><span class="n">mat</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">t</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">part3</span><span class="p">.</span><span class="n">con</span> <span class="o">-</span><span class="n">n</span> <span class="mi">5000</span> <span class="c1">--T2 --skipTo=5 -V &amp;&gt; /tmp/log3.log</span>
 
-randomise -i &lt;skeletonized_data&gt; -o &lt;output_basename&gt; -m &lt;mean_FA_skeleton_mask&gt;\
-   -d &lt;design.mat&gt; -t /tmp/part4.con -n 5000 --T2 --skipTo=7 -V &amp;&gt; /tmp/log4.log
+<span class="n">randomise</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">skeletonized_data</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">output_basename</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">m</span> <span class="o">&lt;</span><span class="n">mean_FA_skeleton_mask</span><span class="o">&gt;</span><span class="err">\</span>
+   <span class="o">-</span><span class="n">d</span> <span class="o">&lt;</span><span class="n">design</span><span class="p">.</span><span class="n">mat</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">t</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">part4</span><span class="p">.</span><span class="n">con</span> <span class="o">-</span><span class="n">n</span> <span class="mi">5000</span> <span class="c1">--T2 --skipTo=7 -V &amp;&gt; /tmp/log4.log</span>
 </pre></div>
 
 
