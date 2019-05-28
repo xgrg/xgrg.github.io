@@ -28,6 +28,7 @@ under a parent folder named after the subject (stored in the `SUBJECTS_DIR` root
  level of their corresponding individual folder.
 
 > For each subject:
+>
 > `cd $SUBJECTS_DIR; zip -r $SUBJECTNAME_FREESURFER6.zip $SUBJECTNAME`
 
 The ZIP file will contain one single folder (carrying the subject's ID) which
@@ -72,3 +73,39 @@ for subject in subjects:
 
 c.disconnect()
 ```
+
+The ZIP files will be extracted online and the contents will appear as
+additional resources of their corresponding experiments.
+
+### Step 3 (only at [BarcelonaBeta](https://barcelonabrainimaging.org)): run FreeSurfer validator
+
+Since we are importing FreeSurfer resources, it may be advised to launch a
+FreeSurfer Validator which will run a series of checks over the imported data.
+
+To do so, make sure the corresponding XNAT pipeline (`freesurfer_validation`) is
+properly activated in the project.
+
+The validator **expects** the resource's name to be `FREESURFER6` and its structure
+to follow the one described earlier (folder with subject's ID then FreeSurfer's
+folders).
+
+Once completed, there will be a new resource `BBRC_VALIDATOR` to the experiment
+with both the JSON and the PDF report resulting from this validation.
+
+### Step 4: collect all measurements in a single Excel table using `bx`
+
+To collect all produced measurements from XNAT directly into a single Excel
+file, one may use [bx](https://gitlab.com/xgrg/bx).
+
+Once again, the tool would expect resource names to be `FREESURFER6` and their
+ structure to follow the one described earlier (folder with subject's ID then
+ FreeSurfer's folders).
+
+ Then using the following command:
+
+ ```
+ bx freesurfer6 aseg MY_PROJECT
+ ```
+
+This will generate an Excel table (saved in `/tmp` by default) with all the `aseg`
+stats (also works with `aparc` or `hippoSfVolumes` if available).
