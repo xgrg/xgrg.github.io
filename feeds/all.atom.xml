@@ -26,8 +26,8 @@ under a parent folder named after the subject (stored in the &lt;code&gt;SUBJECT
  folder). In this example, we first create a ZIP file for every subject at the
  level of their corresponding individual folder.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;For each subject:
-&lt;code&gt;cd $SUBJECTS_DIR; zip -r $SUBJECTNAME_FREESURFER6.zip $SUBJECTNAME&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;For each subject:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd $SUBJECTS_DIR; zip -r $SUBJECTNAME_FREESURFER6.zip $SUBJECTNAME&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;The ZIP file will contain one single folder (carrying the subject's ID) which
 will contain the usual FreeSurfer folders (&lt;code&gt;mri&lt;/code&gt;, &lt;code&gt;stats&lt;/code&gt;, &lt;code&gt;scripts&lt;/code&gt;, etc.).&lt;/p&gt;
@@ -65,7 +65,31 @@ be adapted with proper values for variables &lt;code&gt;subjects&lt;/code&gt; an
    &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;put_zip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;zipfile&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;content&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;tags&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;disconnect&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</content><category term="xnat"></category><category term="nifti"></category><category term="python"></category></entry><entry><title>Downloading NIfTI resources from XNAT</title><link href="http://xgrg.github.io/downloading-nifti-resources-from-XNAT/" rel="alternate"></link><published>2018-11-02T00:00:00+01:00</published><updated>2018-11-02T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2018-11-02:/downloading-nifti-resources-from-XNAT/</id><summary type="html">&lt;p&gt;It is quite common that we use XNAT to download a bunch of NIfTIs to run some
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The ZIP files will be extracted online and the contents will appear as
+additional resources of their corresponding experiments.&lt;/p&gt;
+&lt;h3&gt;Step 3 (only at &lt;a href="https://barcelonabrainimaging.org"&gt;BarcelonaBeta&lt;/a&gt;): run FreeSurfer validator&lt;/h3&gt;
+&lt;p&gt;Since we are importing FreeSurfer resources, it may be advised to launch a
+FreeSurfer Validator which will run a series of checks over the imported data.&lt;/p&gt;
+&lt;p&gt;To do so, make sure the corresponding XNAT pipeline (&lt;code&gt;freesurfer_validation&lt;/code&gt;) is
+properly activated in the project.&lt;/p&gt;
+&lt;p&gt;The validator &lt;strong&gt;expects&lt;/strong&gt; the resource's name to be &lt;code&gt;FREESURFER6&lt;/code&gt; and its structure
+to follow the one described earlier (folder with subject's ID then FreeSurfer's
+folders).&lt;/p&gt;
+&lt;p&gt;Once completed, there will be a new resource &lt;code&gt;BBRC_VALIDATOR&lt;/code&gt; to the experiment
+with both the JSON and the PDF report resulting from this validation.&lt;/p&gt;
+&lt;h3&gt;Step 4: collect all measurements in a single Excel table using &lt;code&gt;bx&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;To collect all produced measurements from XNAT directly into a single Excel
+file, one may use &lt;a href="https://gitlab.com/xgrg/bx"&gt;bx&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Once again, the tool would expect resource names to be &lt;code&gt;FREESURFER6&lt;/code&gt; and their
+ structure to follow the one described earlier (folder with subject's ID then
+ FreeSurfer's folders).&lt;/p&gt;
+&lt;p&gt;Then using the following command:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;bx freesurfer6 aseg MY_PROJECT&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This will generate an Excel table (saved in &lt;code&gt;/tmp&lt;/code&gt; by default) with all the &lt;code&gt;aseg&lt;/code&gt;
+stats (also works with &lt;code&gt;aparc&lt;/code&gt; or &lt;code&gt;hippoSfVolumes&lt;/code&gt; if available).&lt;/p&gt;</content><category term="xnat"></category><category term="nifti"></category><category term="python"></category></entry><entry><title>Downloading NIfTI resources from XNAT</title><link href="http://xgrg.github.io/downloading-nifti-resources-from-XNAT/" rel="alternate"></link><published>2018-11-02T00:00:00+01:00</published><updated>2018-11-02T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2018-11-02:/downloading-nifti-resources-from-XNAT/</id><summary type="html">&lt;p&gt;It is quite common that we use XNAT to download a bunch of NIfTIs to run some
 external analysis.&lt;/p&gt;
 &lt;!-- PELICAN_END_SUMMARY --&gt;
 

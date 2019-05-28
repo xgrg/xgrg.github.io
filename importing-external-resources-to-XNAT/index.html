@@ -123,8 +123,8 @@ under a parent folder named after the subject (stored in the <code>SUBJECTS_DIR<
  folder). In this example, we first create a ZIP file for every subject at the
  level of their corresponding individual folder.</p>
 <blockquote>
-<p>For each subject:
-<code>cd $SUBJECTS_DIR; zip -r $SUBJECTNAME_FREESURFER6.zip $SUBJECTNAME</code></p>
+<p>For each subject:</p>
+<p><code>cd $SUBJECTS_DIR; zip -r $SUBJECTNAME_FREESURFER6.zip $SUBJECTNAME</code></p>
 </blockquote>
 <p>The ZIP file will contain one single folder (carrying the subject's ID) which
 will contain the usual FreeSurfer folders (<code>mri</code>, <code>stats</code>, <code>scripts</code>, etc.).</p>
@@ -163,6 +163,30 @@ be adapted with proper values for variables <code>subjects</code> and <code>expe
 
 <span class="n">c</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
 </pre></div>
+
+
+<p>The ZIP files will be extracted online and the contents will appear as
+additional resources of their corresponding experiments.</p>
+<h3>Step 3 (only at <a href="https://barcelonabrainimaging.org">BarcelonaBeta</a>): run FreeSurfer validator</h3>
+<p>Since we are importing FreeSurfer resources, it may be advised to launch a
+FreeSurfer Validator which will run a series of checks over the imported data.</p>
+<p>To do so, make sure the corresponding XNAT pipeline (<code>freesurfer_validation</code>) is
+properly activated in the project.</p>
+<p>The validator <strong>expects</strong> the resource's name to be <code>FREESURFER6</code> and its structure
+to follow the one described earlier (folder with subject's ID then FreeSurfer's
+folders).</p>
+<p>Once completed, there will be a new resource <code>BBRC_VALIDATOR</code> to the experiment
+with both the JSON and the PDF report resulting from this validation.</p>
+<h3>Step 4: collect all measurements in a single Excel table using <code>bx</code></h3>
+<p>To collect all produced measurements from XNAT directly into a single Excel
+file, one may use <a href="https://gitlab.com/xgrg/bx">bx</a>.</p>
+<p>Once again, the tool would expect resource names to be <code>FREESURFER6</code> and their
+ structure to follow the one described earlier (folder with subject's ID then
+ FreeSurfer's folders).</p>
+<p>Then using the following command:</p>
+<p><code>bx freesurfer6 aseg MY_PROJECT</code></p>
+<p>This will generate an Excel table (saved in <code>/tmp</code> by default) with all the <code>aseg</code>
+stats (also works with <code>aparc</code> or <code>hippoSfVolumes</code> if available).</p>
     </section>
 
 
