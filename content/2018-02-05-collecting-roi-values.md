@@ -9,7 +9,7 @@ Collecting basic image statistics (_e.g._ mean, std) from ROIs over a set of ima
 <!-- PELICAN_END_SUMMARY -->
 
 **EDIT (23-11-2018): check [roistats](https://github.com/xgrg/roistats) for a
-module with this code**
+module version of this code**
 
 See the example in this [**Jupyter Notebook**](https://github.com/xgrg/alfa/blob/master/notebooks/Collecting%20image%20statistics%20from%20Regions-of-Interest%20over%20many%20subjects.ipynb)
 

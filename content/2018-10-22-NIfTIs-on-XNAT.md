@@ -36,7 +36,7 @@ for subject in subjects:
 
    response = c.put(uri)
    subject_uid = response.content
-   print 'New subject %s created!' %subject_uid
+   print('New subject %s created!' %subject_uid)
 
 
 ```
@@ -47,11 +47,11 @@ for subject in subjects:
 experiments = {}
 for subject in c.select.project(project).subjects():
      s = c.select.project(project).subject(subject.id())
-     e = s.experiment('%s_MR2'%subject.label())
+     e = s.experiment('%s_MR1'%subject.label())
 
      options = {'xsiType':'xnat:mrSessionData'}
      e.create(**options)
-     print 'New experiment %s created!' %e.id()
+     print('New experiment %s created!' %e.id())
      experiments[subject] = e
 ```
 
@@ -67,7 +67,7 @@ for subject, experiment in experiments.items():
      sc = experiment.scan('1')
 
      sc.create(**options)     
-     print 'New scan %s created!' %scan.id()
+     print('New scan %s created!' %scan.id())
      scans[subject] = sc
 ```
 
@@ -78,7 +78,7 @@ resources = {}
 for subject, scan in scans.items():
     res = scan.resource('NIFTI')
     res.create()
-    print 'New resource %s created!' %res.id()
+    print('New resource %s created!' %res.id())
     resources[subject.label()] = res
 ```
 
@@ -96,7 +96,7 @@ for subject, filename in zip(subjects, files):
        extract=False, overwrite=True)
 
      file_uid = response.content
-     print 'File %s added!' %file_uid
+     print('File %s added!' %file_uid)
 ```
 
 

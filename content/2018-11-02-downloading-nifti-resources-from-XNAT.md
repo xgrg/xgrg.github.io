@@ -60,7 +60,7 @@ for subject in subjects_id:
         log.info('Type %s: %s'%(m, items))
         if len(items) == 1:
              # Building the NIFTI resource URL
-             res = [e for e in x.select.experiment(exp_id).scan(items[0]).resources()\
+             res = [e for e in c.select.experiment(exp_id).scan(items[0]).resources()\
                 if e.label() == 'NIFTI']
 
              # Downloading it             

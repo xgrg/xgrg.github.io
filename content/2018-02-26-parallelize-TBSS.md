@@ -168,7 +168,7 @@ commands = contrasts.randomise_parallel('<skeletonized_data>',
                                         n_cpus=n_cpus,
                                         sleep_interval=sleep_interval)
 for e in commands[:]:
-    print e
+    print(e)
 ```
 
 ```
