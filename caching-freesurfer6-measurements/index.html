@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Grégory Operto, ">
+    <link href="/favicon.png" rel="icon">
+
+        <link rel="alternate"  href="http://xgrg.github.io/feeds/all.atom.xml" type="application/atom+xml" title="Grégory Operto Full Atom Feed"/>
+
+        <title>Grégory Operto - Caching FreeSurfer measurements for faster access</title>
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="/theme/css/grids-responsive-min.css">
+    <!--<![endif]-->
+    <link rel="stylesheet" href="/theme/css/styles.css">
+    <link rel="stylesheet" href="/theme/css/slides.css">
+    <link rel="stylesheet" href="/theme/css/pygments.css">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'> -->
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,500" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script src="/js/responsiveslides.min.js"></script>
+</head>
+
+<body>
+
+
+    <header id="header" class="pure-g">
+        <div class="pure-u-1 pure-u-md-3-4">
+             <div id="menu">
+                 <div class="pure-menu pure-menu-open pure-menu-horizontal">
+<ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+</ul>                </div>
+            </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-1-4">
+            <div id="social">
+                <div class="pure-menu pure-menu-open pure-menu-horizontal">
+<ul>
+        <li><a href="https://twitter.com/xgrg"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://github.com/xgrg"><i class="fa fa-github"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/neuroimaging"><i class="fa fa-linkedin"></i></a></li>
+</ul>                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <div id="layout" class="pure-g">
+        <nav id="sidebar" class="pure-u-1 pure-u-md-1-4">
+            <div class="l-box">
+<section>
+	<div class="portrait">
+			<img src="/theme/images/go.jpg" />
+	</div>
+    <div class="name-cv">
+        <div class="name">Grégory Operto, PhD</div>
+        <div class="cv">
+            <a href="/pdfs/cv.pdf"><i class="fa fa-file-pdf-o"></i> CV</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+      <div class="sub-name">brain imaging | data science</div>
+	<div class="contact">goperto@gmail.com</div>
+	<div class="location">Barcelona, Spain</div>
+</section>
+
+<section class="tags">
+</section>            </div>
+        </nav>
+        <section id="content" class="pure-u-1 pure-u-md-3-4">
+            <div class="l-box">
+
+    <header id="post-header">
+        <h1>Caching FreeSurfer measurements for faster access</h1>
+            <div class="post-meta">
+                June 20, 2019
+            </div>
+            <div class="post-tags">
+                <ul>
+                    <li>tags:</li>
+                    <li><a href="/tag/xnat/">xnat</a></li>
+                    <li><a href="/tag/python/">python</a></li>
+                    <li><a href="/tag/pyxnat/">pyxnat</a></li>
+                    <li><a href="/tag/freesurfer/">freesurfer</a></li>
+                </ul>
+            </div>
+    </header>
+
+    <section id="post">
+        <p>We love being able to access the freshest data directly from our XNAT platform.
+By querying it from Jupyter notebooks using <a href="https://pyxnat.readthedocs.io/en/latest/"><code>pyxnat</code></a>,
+we make sure to have full control on the resource provenance. But let's admit it,
+beyond a couple of thousands participants, collecting - and re-collecting - the
+ data every time can start to get time-consuming.</p>
+<!-- PELICAN_END_SUMMARY -->
+
+<p>This example shows how to build a basic <em>caching</em> system to avoid downloading
+multiples times the same data (here, <code>aseg</code> or <code>aparc</code> features) from an XNAT
+platform by storing/accessing it in/from local files with the exact same piece
+of code. The principle is the following: the system will look for the data in <em>cache</em>
+files in priority; if no <em>cache</em> files can be found, then the data will be
+downloaded and cached for future access.</p>
+<blockquote>
+<p><div style="padding:20px; text-align:justify; background-color:#222222">
+<strong>Note</strong>: this example is far from perfect. For instance, it does not check
+whether the data may have been updated server-side and only relies on the
+existence of previously saved files.</div></p>
+</blockquote>
+<p>The reader is invited to refer to this <a href="https://gitlab.com/xgrg/bx/blob/ef83f4c45ec987d5bd1fc42510e25ff6cdebdbf7/bx/cache.py">script</a> to understand the
+following section.</p>
+<p>The function <code>cache_freesurfer6()</code> works with a <a href="https://pyxnat.readthedocs.io/en/latest/"><code>pyxnat</code></a>
+<code>Interface</code> instance and a reference to any project from an XNAT platform.</p>
+<p>For example, consider the following.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cache</span> <span class="kn">import</span> <span class="n">cache_freesurfer6</span>
+<span class="kn">import</span> <span class="nn">pyxnat</span>
+
+<span class="n">project_id</span> <span class="o">=</span> <span class="s1">&#39;ALFA&#39;</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">pyxnat</span><span class="o">.</span><span class="n">Interface</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s1">&#39;/home/user/.xnat.cfg&#39;</span><span class="p">)</span>
+<span class="p">(</span><span class="n">aseg</span> <span class="p">,)</span> <span class="o">=</span> <span class="n">cache_freesurfer6</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">project_id</span><span class="p">,</span> <span class="n">measurements</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;aseg&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<p>The first execution will give this:</p>
+<div class="highlight"><pre><span></span><span class="n">INFO</span><span class="o">:</span><span class="n">root</span><span class="o">:</span><span class="n">MD5</span><span class="o">:</span> <span class="mi">34</span><span class="n">c1660a924c32c065f4c8a51fc6a99a</span>
+<span class="n">INFO</span><span class="o">:</span><span class="n">root</span><span class="o">:</span><span class="n">Saving</span> <span class="sr">/tmp/bxcache_34c1660a924c32c065f4c8a51fc6a99a/</span><span class="n">bxcache_aseg_20190619_125621</span><span class="o">.</span><span class="na">xlsx</span>
+<span class="n">INFO</span><span class="o">:</span><span class="n">root</span><span class="o">:</span><span class="n">Elapsed</span> <span class="n">time</span><span class="o">:</span> <span class="mi">0</span><span class="o">:</span><span class="mi">05</span><span class="o">:</span><span class="mi">54</span>
+</pre></div>
+
+
+<p>A second execution will generate the following output:</p>
+<div class="highlight"><pre><span></span><span class="n">INFO</span><span class="o">:</span><span class="n">root</span><span class="o">:</span><span class="n">MD5</span><span class="o">:</span> <span class="mi">34</span><span class="n">c1660a924c32c065f4c8a51fc6a99a</span>
+<span class="n">INFO</span><span class="o">:</span><span class="n">root</span><span class="o">:</span><span class="n">Found</span> <span class="n">cache</span> <span class="mi">20190619</span><span class="n">_125621</span>
+<span class="n">INFO</span><span class="o">:</span><span class="n">root</span><span class="o">:</span><span class="n">Loading</span> <span class="o">[</span><span class="s1">&#39;/tmp/bxcache_34c1660a924c32c065f4c8a51fc6a99a/bxcache_aseg_20190619_125621.xlsx&#39;</span><span class="o">]</span>
+<span class="n">INFO</span><span class="o">:</span><span class="n">root</span><span class="o">:</span><span class="n">Elapsed</span> <span class="n">time</span><span class="o">:</span> <span class="mi">0</span><span class="o">:</span><span class="mi">00</span><span class="o">:</span><span class="mi">03</span>
+</pre></div>
+
+
+<p>The two executions will return the same <code>aseg</code> features (provided there was no
+  update of the data between both). In case there was an update, it is possible
+  to force to rewrite the cache with the <code>force</code> option.</p>
+<p>This piece of code is a part of the <code>bx</code> Python module, which is used at
+<a href="https://barcelonabrainimaging.org">BarcelonaBeta</a> to facilitate bulk downloads
+from XNAT. It was built onto <a href="https://github.com/xgrg/pyxnat/tree/bbrc"><code>pyxnat</code></a>
+(<code>bbrc</code> branch).</p>
+    </section>
+
+
+<nav class="pagination-wrapper">
+    <div class="pagination">
+        <div class="pagination-left">
+        </div>
+        <div class="pagination-right">
+                &nbsp;
+        </div>
+    </div>
+</nav>
+    <aside class="comments">
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+
+    var disqus_config = function () {
+        this.page.url = "http://xgrg.github.io/caching-freesurfer6-measurements/";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "caching-freesurfer6-measurements"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//xgrg.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+    </aside>
+
+            </div>
+        </section>
+
+
+        <footer id="footer" class="pure-u-1 pure-u-md-3-4">
+            <div class="l-box">
+                <div>
+                    <p>&copy; <a href="http://xgrg.github.io">Grégory Operto</a> &ndash;
+                        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+                              for <a href="http://blog.getpelican.com/">Pelican</a> - layout cloned with awe from <a href="http://cyrille.rossant.net">cyrille.rossant.net</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-17275957-2', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+
+</body>
+</html>
+

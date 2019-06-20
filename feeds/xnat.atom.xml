@@ -1,5 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto - XNAT</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/xnat.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2019-05-28T00:00:00+02:00</updated><entry><title>Importing external resources to XNAT</title><link href="http://xgrg.github.io/importing-external-resources-to-XNAT/" rel="alternate"></link><published>2019-05-28T00:00:00+02:00</published><updated>2019-05-28T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-05-28:/importing-external-resources-to-XNAT/</id><summary type="html">&lt;p&gt;We tend to give general preference to data coming from local "&lt;em&gt;XNAT-native&lt;/em&gt;"
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto - XNAT</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/xnat.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2019-06-20T00:00:00+02:00</updated><entry><title>Caching FreeSurfer measurements for faster access</title><link href="http://xgrg.github.io/caching-freesurfer6-measurements/" rel="alternate"></link><published>2019-06-20T00:00:00+02:00</published><updated>2019-06-20T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-06-20:/caching-freesurfer6-measurements/</id><summary type="html">&lt;p&gt;We love being able to access the freshest data directly from our XNAT platform.
+By querying it from Jupyter notebooks using &lt;a href="https://pyxnat.readthedocs.io/en/latest/"&gt;&lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;,
+we make sure to have full control on the resource provenance. But let's admit it,
+beyond a couple of thousands participants, collecting - and re-collecting - the
+ data every time …&lt;/p&gt;</summary><content type="html">&lt;p&gt;We love being able to access the freshest data directly from our XNAT platform.
+By querying it from Jupyter notebooks using &lt;a href="https://pyxnat.readthedocs.io/en/latest/"&gt;&lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;,
+we make sure to have full control on the resource provenance. But let's admit it,
+beyond a couple of thousands participants, collecting - and re-collecting - the
+ data every time can start to get time-consuming.&lt;/p&gt;
+&lt;!-- PELICAN_END_SUMMARY --&gt;
+
+&lt;p&gt;This example shows how to build a basic &lt;em&gt;caching&lt;/em&gt; system to avoid downloading
+multiples times the same data (here, &lt;code&gt;aseg&lt;/code&gt; or &lt;code&gt;aparc&lt;/code&gt; features) from an XNAT
+platform by storing/accessing it in/from local files with the exact same piece
+of code. The principle is the following: the system will look for the data in &lt;em&gt;cache&lt;/em&gt;
+files in priority; if no &lt;em&gt;cache&lt;/em&gt; files can be found, then the data will be
+downloaded and cached for future access.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;div style="padding:20px; text-align:justify; background-color:#222222"&gt;
+&lt;strong&gt;Note&lt;/strong&gt;: this example is far from perfect. For instance, it does not check
+whether the data may have been updated server-side and only relies on the
+existence of previously saved files.&lt;/div&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The reader is invited to refer to this &lt;a href="https://gitlab.com/xgrg/bx/blob/ef83f4c45ec987d5bd1fc42510e25ff6cdebdbf7/bx/cache.py"&gt;script&lt;/a&gt; to understand the
+following section.&lt;/p&gt;
+&lt;p&gt;The function &lt;code&gt;cache_freesurfer6()&lt;/code&gt; works with a &lt;a href="https://pyxnat.readthedocs.io/en/latest/"&gt;&lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;
+&lt;code&gt;Interface&lt;/code&gt; instance and a reference to any project from an XNAT platform.&lt;/p&gt;
+&lt;p&gt;For example, consider the following.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;cache&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;cache_freesurfer6&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pyxnat&lt;/span&gt;
+
+&lt;span class="n"&gt;project_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;ALFA&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pyxnat&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Interface&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/home/user/.xnat.cfg&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;aseg&lt;/span&gt; &lt;span class="p"&gt;,)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cache_freesurfer6&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;project_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;measurements&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;aseg&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The first execution will give this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;INFO&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;MD5&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;34&lt;/span&gt;&lt;span class="n"&gt;c1660a924c32c065f4c8a51fc6a99a&lt;/span&gt;
+&lt;span class="n"&gt;INFO&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;Saving&lt;/span&gt; &lt;span class="sr"&gt;/tmp/bxcache_34c1660a924c32c065f4c8a51fc6a99a/&lt;/span&gt;&lt;span class="n"&gt;bxcache_aseg_20190619_125621&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;xlsx&lt;/span&gt;
+&lt;span class="n"&gt;INFO&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;Elapsed&lt;/span&gt; &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;05&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;54&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;A second execution will generate the following output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;INFO&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;MD5&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;34&lt;/span&gt;&lt;span class="n"&gt;c1660a924c32c065f4c8a51fc6a99a&lt;/span&gt;
+&lt;span class="n"&gt;INFO&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;Found&lt;/span&gt; &lt;span class="n"&gt;cache&lt;/span&gt; &lt;span class="mi"&gt;20190619&lt;/span&gt;&lt;span class="n"&gt;_125621&lt;/span&gt;
+&lt;span class="n"&gt;INFO&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;Loading&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/tmp/bxcache_34c1660a924c32c065f4c8a51fc6a99a/bxcache_aseg_20190619_125621.xlsx&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;INFO&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;Elapsed&lt;/span&gt; &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;00&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The two executions will return the same &lt;code&gt;aseg&lt;/code&gt; features (provided there was no
+  update of the data between both). In case there was an update, it is possible
+  to force to rewrite the cache with the &lt;code&gt;force&lt;/code&gt; option.&lt;/p&gt;
+&lt;p&gt;This piece of code is a part of the &lt;code&gt;bx&lt;/code&gt; Python module, which is used at
+&lt;a href="https://barcelonabrainimaging.org"&gt;BarcelonaBeta&lt;/a&gt; to facilitate bulk downloads
+from XNAT. It was built onto &lt;a href="https://github.com/xgrg/pyxnat/tree/bbrc"&gt;&lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;
+(&lt;code&gt;bbrc&lt;/code&gt; branch).&lt;/p&gt;</content><category term="xnat"></category><category term="python"></category><category term="pyxnat"></category><category term="freesurfer"></category></entry><entry><title>Importing external resources to XNAT</title><link href="http://xgrg.github.io/importing-external-resources-to-XNAT/" rel="alternate"></link><published>2019-05-28T00:00:00+02:00</published><updated>2019-05-28T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-05-28:/importing-external-resources-to-XNAT/</id><summary type="html">&lt;p&gt;We tend to give general preference to data coming from local "&lt;em&gt;XNAT-native&lt;/em&gt;"
  workflows. Yet sometimes some factors (e.g. related to computational power,
    software availability) may require us to import resources from external,
    less controlled, data sources.&lt;/p&gt;
@@ -89,7 +147,7 @@ file, one may use &lt;a href="https://gitlab.com/xgrg/bx"&gt;bx&lt;/a&gt;.&lt;/p
 &lt;p&gt;Then using the following command:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;bx freesurfer6 aseg MY_PROJECT&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;This will generate an Excel table (saved in &lt;code&gt;/tmp&lt;/code&gt; by default) with all the &lt;code&gt;aseg&lt;/code&gt;
-stats (also works with &lt;code&gt;aparc&lt;/code&gt; or &lt;code&gt;hippoSfVolumes&lt;/code&gt; if available).&lt;/p&gt;</content><category term="xnat"></category><category term="nifti"></category><category term="python"></category></entry><entry><title>Downloading NIfTI resources from XNAT</title><link href="http://xgrg.github.io/downloading-nifti-resources-from-XNAT/" rel="alternate"></link><published>2018-11-02T00:00:00+01:00</published><updated>2018-11-02T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2018-11-02:/downloading-nifti-resources-from-XNAT/</id><summary type="html">&lt;p&gt;It is quite common that we use XNAT to download a bunch of NIfTIs to run some
+stats (also works with &lt;code&gt;aparc&lt;/code&gt; or &lt;code&gt;hippoSfVolumes&lt;/code&gt; if available).&lt;/p&gt;</content><category term="xnat"></category><category term="nifti"></category><category term="python"></category><category term="pyxnat"></category><category term="freesurfer"></category></entry><entry><title>Downloading NIfTI resources from XNAT</title><link href="http://xgrg.github.io/downloading-nifti-resources-from-XNAT/" rel="alternate"></link><published>2018-11-02T00:00:00+01:00</published><updated>2018-11-02T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2018-11-02:/downloading-nifti-resources-from-XNAT/</id><summary type="html">&lt;p&gt;It is quite common that we use XNAT to download a bunch of NIfTIs to run some
 external analysis.&lt;/p&gt;
 &lt;!-- PELICAN_END_SUMMARY --&gt;
 
@@ -163,7 +221,7 @@ to make REST API calls from Python code.&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;Many thanks to &lt;a href="https://github.com/jhuguetn"&gt;Jordi Huguet&lt;/a&gt; from
 &lt;a href="https://barcelonabrainimaging.org"&gt;BarcelonaBeta&lt;/a&gt; for his valuable and
-continuous help with this matter.&lt;/p&gt;</content><category term="xnat"></category><category term="nifti"></category><category term="python"></category></entry><entry><title>Pushing NIfTIs to XNAT</title><link href="http://xgrg.github.io/NIfTIs-on-XNAT/" rel="alternate"></link><published>2018-10-22T00:00:00+02:00</published><updated>2018-10-22T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2018-10-22:/NIfTIs-on-XNAT/</id><summary type="html">&lt;p&gt;The primary data format with which XNAT works has been and is still DICOM. XNAT
+continuous help with this matter.&lt;/p&gt;</content><category term="xnat"></category><category term="nifti"></category><category term="python"></category><category term="pyxnat"></category></entry><entry><title>Pushing NIfTIs to XNAT</title><link href="http://xgrg.github.io/NIfTIs-on-XNAT/" rel="alternate"></link><published>2018-10-22T00:00:00+02:00</published><updated>2018-10-22T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2018-10-22:/NIfTIs-on-XNAT/</id><summary type="html">&lt;p&gt;The primary data format with which XNAT works has been and is still DICOM. XNAT
 can work with NIfTI but it generally has to be using secondary resources attached
 to subjects, experiments or scans.&lt;/p&gt;
 &lt;!-- PELICAN_END_SUMMARY --&gt;
@@ -269,7 +327,7 @@ resources.&lt;/p&gt;
 and the experiment's ID&lt;/strong&gt; in order to proceed. Same goes for the &lt;strong&gt;upload&lt;/strong&gt; step.&lt;/p&gt;
 &lt;p&gt;Many thanks to &lt;a href="https://github.com/jhuguetn"&gt;Jordi Huguet&lt;/a&gt; from
 &lt;a href="https://barcelonabrainimaging.org"&gt;BarcelonaBeta&lt;/a&gt; for such valuable and
-continuous help with this matter.&lt;/p&gt;</content><category term="xnat"></category><category term="nifti"></category><category term="python"></category></entry><entry><title>Pushing bulk legacy data to XNAT</title><link href="http://xgrg.github.io/pushing-bulk-legacy-data-to-XNAT/" rel="alternate"></link><published>2018-02-23T00:00:00+01:00</published><updated>2018-02-23T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2018-02-23:/pushing-bulk-legacy-data-to-XNAT/</id><summary type="html">&lt;p&gt;This is not intended to be a tutorial on the subject, rather some feedback from a
+continuous help with this matter.&lt;/p&gt;</content><category term="xnat"></category><category term="nifti"></category><category term="python"></category><category term="pyxnat"></category></entry><entry><title>Pushing bulk legacy data to XNAT</title><link href="http://xgrg.github.io/pushing-bulk-legacy-data-to-XNAT/" rel="alternate"></link><published>2018-02-23T00:00:00+01:00</published><updated>2018-02-23T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2018-02-23:/pushing-bulk-legacy-data-to-XNAT/</id><summary type="html">&lt;p&gt;This is not intended to be a tutorial on the subject, rather some feedback from a
 recent experience dealing with an old and half-remembered &lt;del&gt;dream.&lt;/del&gt; dataset.&lt;/p&gt;
 &lt;!-- PELICAN_END_SUMMARY --&gt;
 
