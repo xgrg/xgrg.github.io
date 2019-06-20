@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/all.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2019-06-20T00:00:00+02:00</updated><entry><title>Caching FreeSurfer measurements for faster access</title><link href="http://xgrg.github.io/caching-freesurfer6-measurements/" rel="alternate"></link><published>2019-06-20T00:00:00+02:00</published><updated>2019-06-20T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-06-20:/caching-freesurfer6-measurements/</id><summary type="html">&lt;p&gt;We love being able to access the freshest data directly from our XNAT platform.
-By querying it from Jupyter notebooks using &lt;a href="https://pyxnat.readthedocs.io/en/latest/"&gt;&lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;,
-we make sure to have full control on the resource provenance. But let's admit it,
-beyond a couple of thousands participants, collecting - and re-collecting - the
- data every time …&lt;/p&gt;</summary><content type="html">&lt;p&gt;We love being able to access the freshest data directly from our XNAT platform.
-By querying it from Jupyter notebooks using &lt;a href="https://pyxnat.readthedocs.io/en/latest/"&gt;&lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;,
-we make sure to have full control on the resource provenance. But let's admit it,
-beyond a couple of thousands participants, collecting - and re-collecting - the
- data every time can start to get time-consuming.&lt;/p&gt;
+By querying it from Jupyter notebooks, we make sure to have full control on the
+resource provenance. But let's admit it, beyond a couple of thousands of
+participants, collecting - and re-collecting - the
+ data every time can …&lt;/p&gt;</summary><content type="html">&lt;p&gt;We love being able to access the freshest data directly from our XNAT platform.
+By querying it from Jupyter notebooks, we make sure to have full control on the
+resource provenance. But let's admit it, beyond a couple of thousands of
+participants, collecting - and re-collecting - the
+ data every time can start to get rather time-consuming.&lt;/p&gt;
 &lt;!-- PELICAN_END_SUMMARY --&gt;
 
-&lt;p&gt;This example shows how to build a basic &lt;em&gt;caching&lt;/em&gt; system to avoid downloading
+&lt;p&gt;This example shows how to use a basic &lt;em&gt;caching&lt;/em&gt; system to avoid downloading
 multiples times the same data (here, &lt;code&gt;aseg&lt;/code&gt; or &lt;code&gt;aparc&lt;/code&gt; features) from an XNAT
 platform by storing/accessing it in/from local files with the exact same piece
 of code. The principle is the following: the system will look for the data in &lt;em&gt;cache&lt;/em&gt;

@@ -104,13 +104,13 @@
 
     <section id="post">
         <p>We love being able to access the freshest data directly from our XNAT platform.
-By querying it from Jupyter notebooks using <a href="https://pyxnat.readthedocs.io/en/latest/"><code>pyxnat</code></a>,
-we make sure to have full control on the resource provenance. But let's admit it,
-beyond a couple of thousands participants, collecting - and re-collecting - the
- data every time can start to get time-consuming.</p>
+By querying it from Jupyter notebooks, we make sure to have full control on the
+resource provenance. But let's admit it, beyond a couple of thousands of
+participants, collecting - and re-collecting - the
+ data every time can start to get rather time-consuming.</p>
 <!-- PELICAN_END_SUMMARY -->
 
-<p>This example shows how to build a basic <em>caching</em> system to avoid downloading
+<p>This example shows how to use a basic <em>caching</em> system to avoid downloading
 multiples times the same data (here, <code>aseg</code> or <code>aparc</code> features) from an XNAT
 platform by storing/accessing it in/from local files with the exact same piece
 of code. The principle is the following: the system will look for the data in <em>cache</em>
