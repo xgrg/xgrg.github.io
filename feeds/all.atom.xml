@@ -54,7 +54,7 @@ following section.&lt;/p&gt;
 &lt;p&gt;The two executions will return the same &lt;code&gt;aseg&lt;/code&gt; features (provided there was no
   update of the data between both). In case there was an update, it is possible
   to force to rewrite the cache with the &lt;code&gt;force&lt;/code&gt; option.&lt;/p&gt;
-&lt;p&gt;This piece of code is a part of the &lt;code&gt;bx&lt;/code&gt; Python module, which is used at
+&lt;p&gt;This piece of code is a part of the &lt;a href="https://gitlab.com/xgrg/bx"&gt;&lt;code&gt;bx&lt;/code&gt;&lt;/a&gt; Python module, which is used at
 &lt;a href="https://barcelonabrainimaging.org"&gt;BarcelonaBeta&lt;/a&gt; to facilitate bulk downloads
 from XNAT. It was built onto &lt;a href="https://github.com/xgrg/pyxnat/tree/bbrc"&gt;&lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;
 (&lt;code&gt;bbrc&lt;/code&gt; branch).&lt;/p&gt;</content><category term="xnat"></category><category term="python"></category><category term="pyxnat"></category><category term="freesurfer"></category></entry><entry><title>Importing external resources to XNAT</title><link href="http://xgrg.github.io/importing-external-resources-to-XNAT/" rel="alternate"></link><published>2019-05-28T00:00:00+02:00</published><updated>2019-05-28T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-05-28:/importing-external-resources-to-XNAT/</id><summary type="html">&lt;p&gt;We tend to give general preference to data coming from local "&lt;em&gt;XNAT-native&lt;/em&gt;"
