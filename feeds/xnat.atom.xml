@@ -33,6 +33,7 @@ following section.&lt;/p&gt;
 &lt;span class="n"&gt;project_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;ALFA&amp;#39;&lt;/span&gt;
 &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pyxnat&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Interface&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/home/user/.xnat.cfg&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;aseg&lt;/span&gt; &lt;span class="p"&gt;,)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cache_freesurfer6&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;project_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;measurements&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;aseg&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;span class="n"&gt;etiv&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;aseg&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;measurement == &amp;quot;Volume_mm3&amp;quot; &amp;amp; region == &amp;quot;eTIV&amp;quot;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -53,7 +54,7 @@ following section.&lt;/p&gt;
 
 &lt;p&gt;The two executions will return the same &lt;code&gt;aseg&lt;/code&gt; features (provided there was no
   update of the data between both). In case there was an update, it is possible
-  to force to rewrite the cache with the &lt;code&gt;force&lt;/code&gt; option.&lt;/p&gt;
+  to force rewriting the cache with the &lt;code&gt;force&lt;/code&gt; option.&lt;/p&gt;
 &lt;p&gt;This piece of code is a part of the &lt;a href="https://gitlab.com/xgrg/bx"&gt;&lt;code&gt;bx&lt;/code&gt;&lt;/a&gt; Python module, which is used at
 &lt;a href="https://barcelonabrainimaging.org"&gt;BarcelonaBeta&lt;/a&gt; to facilitate bulk downloads
 from XNAT. It was built onto &lt;a href="https://github.com/xgrg/pyxnat/tree/bbrc"&gt;&lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;

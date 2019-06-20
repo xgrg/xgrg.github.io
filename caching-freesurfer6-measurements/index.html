@@ -133,6 +133,7 @@ following section.</p>
 <span class="n">project_id</span> <span class="o">=</span> <span class="s1">&#39;ALFA&#39;</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">pyxnat</span><span class="o">.</span><span class="n">Interface</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s1">&#39;/home/user/.xnat.cfg&#39;</span><span class="p">)</span>
 <span class="p">(</span><span class="n">aseg</span> <span class="p">,)</span> <span class="o">=</span> <span class="n">cache_freesurfer6</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">project_id</span><span class="p">,</span> <span class="n">measurements</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;aseg&#39;</span><span class="p">])</span>
+<span class="n">etiv</span> <span class="o">=</span> <span class="n">aseg</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;measurement == &quot;Volume_mm3&quot; &amp; region == &quot;eTIV&quot;&#39;</span><span class="p">)</span>
 </pre></div>
 
 
@@ -153,7 +154,7 @@ following section.</p>
 
 <p>The two executions will return the same <code>aseg</code> features (provided there was no
   update of the data between both). In case there was an update, it is possible
-  to force to rewrite the cache with the <code>force</code> option.</p>
+  to force rewriting the cache with the <code>force</code> option.</p>
 <p>This piece of code is a part of the <a href="https://gitlab.com/xgrg/bx"><code>bx</code></a> Python module, which is used at
 <a href="https://barcelonabrainimaging.org">BarcelonaBeta</a> to facilitate bulk downloads
 from XNAT. It was built onto <a href="https://github.com/xgrg/pyxnat/tree/bbrc"><code>pyxnat</code></a>
