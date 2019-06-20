@@ -1,7 +1,7 @@
 Title: Downloading NIfTI resources from XNAT
 Category: XNAT
 Status: Published
-Tags: xnat, nifti, python
+Tags: xnat, nifti, python, pyxnat
 Authors: Grégory Operto
 
 It is quite common that we use XNAT to download a bunch of NIfTIs to run some

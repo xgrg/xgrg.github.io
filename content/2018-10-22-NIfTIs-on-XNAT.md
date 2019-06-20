@@ -1,7 +1,7 @@
 Title: Pushing NIfTIs to XNAT
 Category: XNAT
 Status: Published
-Tags: xnat, nifti, python
+Tags: xnat, nifti, python, pyxnat
 Authors: Grégory Operto
 
 The primary data format with which XNAT works has been and is still DICOM. XNAT

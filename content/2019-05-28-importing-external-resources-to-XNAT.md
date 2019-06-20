@@ -1,7 +1,7 @@
 Title: Importing external resources to XNAT
 Category: XNAT
 Status: Published
-Tags: xnat, nifti, python
+Tags: xnat, nifti, python, pyxnat, freesurfer
 Authors: Grégory Operto
 
 We tend to give general preference to data coming from local "_XNAT-native_"
