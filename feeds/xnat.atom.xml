@@ -58,7 +58,7 @@ Here, we select a scan by its &lt;code&gt;SeriesNumber&lt;/code&gt; and then ask
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;A scan typically has attached resources, such as &lt;code&gt;DICOM&lt;/code&gt; directly coming from the scanner, or their &lt;code&gt;NIFTI&lt;/code&gt; versions, or &lt;code&gt;SNAPSHOTS&lt;/code&gt;. In the following case, we will take the first file from the &lt;code&gt;DICOM&lt;/code&gt; collection of the previous
+&lt;p&gt;A scan typically has attached resources, such as &lt;code&gt;DICOM&lt;/code&gt; directly coming from the scanner, or their &lt;code&gt;NIFTI&lt;/code&gt; versions, &lt;code&gt;SNAPSHOTS&lt;/code&gt;, etc. In the following case, we will take the first file from the &lt;code&gt;DICOM&lt;/code&gt; collection of the previous
 scan.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;resource&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;scan&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;DICOM&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;files&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="k"&gt;first&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;

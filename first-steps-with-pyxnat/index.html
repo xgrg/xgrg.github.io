@@ -158,7 +158,7 @@ Here, we select a scan by its <code>SeriesNumber</code> and then ask for its <co
 </pre></div>
 
 
-<p>A scan typically has attached resources, such as <code>DICOM</code> directly coming from the scanner, or their <code>NIFTI</code> versions, or <code>SNAPSHOTS</code>. In the following case, we will take the first file from the <code>DICOM</code> collection of the previous
+<p>A scan typically has attached resources, such as <code>DICOM</code> directly coming from the scanner, or their <code>NIFTI</code> versions, <code>SNAPSHOTS</code>, etc. In the following case, we will take the first file from the <code>DICOM</code> collection of the previous
 scan.</p>
 <div class="highlight"><pre><span></span><span class="n">resource</span> <span class="o">=</span> <span class="n">scan</span><span class="p">.</span><span class="n">resource</span><span class="p">(</span><span class="s1">&#39;DICOM&#39;</span><span class="p">)</span>
 <span class="n">f</span> <span class="o">=</span> <span class="n">resource</span><span class="p">.</span><span class="n">files</span><span class="p">().</span><span class="k">first</span><span class="p">()</span>
