@@ -8,7 +8,7 @@
 
         <link rel="alternate"  href="http://xgrg.github.io/feeds/all.atom.xml" type="application/atom+xml" title="Grégory Operto Full Atom Feed"/>
 
-        <title>Grégory Operto - First steps with `pyxnat`</title>
+        <title>Grégory Operto - First steps with pyxnat</title>
 
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
@@ -87,7 +87,7 @@
             <div class="l-box">
 
     <header id="post-header">
-        <h1>First steps with `pyxnat`</h1>
+        <h1>First steps with pyxnat</h1>
             <div class="post-meta">
                 August 19, 2019
             </div>
@@ -107,8 +107,8 @@
 
 <p>There are various ways to setup a connection to an XNAT server. They all
 go by the creation of an <code>pyxnat.Interface</code> object.</p>
-<p>First by directly using some login credentials. Here the XNAT CENTRAL public
-instance is taken as an example.</p>
+<p>First by directly using some login credentials. Here the <a href="https://central.xnat.org">XNAT CENTRAL public
+instance</a> is taken as an example.</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyxnat</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">pyxnat</span><span class="o">.</span><span class="n">Interface</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="s1">&#39;https://central.xnat.org&#39;</span><span class="p">,</span>
                      <span class="n">user</span><span class="o">=</span><span class="s1">&#39;USERNAME&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;PASSWORD&#39;</span><span class="p">)</span>
@@ -148,7 +148,7 @@ projects, or subjects from a given project.</p>
 </pre></div>
 
 
-<p>In the XNAT model subjects may have associated experiments (e.g. MR, PET, CT, etc.). Like subjects, experiments have two types of identifiers, IDs and labels. In the following example, we select a given subject (<code>sub-001</code>) in project <code>xnatDownload</code> and look for an experiment by its label (<code>sub-001_ses-01</code>).</p>
+<p>In the XNAT model subjects may have associated experiments (e.g. MR, PET, CT, etc.). Like subjects, experiments have two types of identifiers, IDs and labels. In the following example, we select a given subject (<code>sub-001</code>) in project <code>xnatDownload</code> and look for an experiment by its label (<code>sub-001_ses-01</code>). This example may be found on XNAT CENTRAL at this <a href="https://central.xnat.org/app/action/DisplayItemAction/search_element/xnat%3AmrSessionData/search_field/xnat%3AmrSessionData.ID/search_value/CENTRAL_E74609/popup/false/project/xnatDownload">URL</a>.</p>
 <p>An experiment may be composed of multiple scans (e.g. corresponding to various MR sequences). Each scan has a <code>SeriesNumber</code> and a <code>SeriesDescription</code>, generally assigned at acquisition time by the scanner.
 Here, we select a scan by its <code>SeriesNumber</code> and then ask for its <code>SeriesDescription</code> by querying on the <code>type</code> attribute.</p>
 <div class="highlight"><pre><span></span><span class="n">project</span> <span class="o">=</span> <span class="n">interface</span><span class="p">.</span><span class="k">select</span><span class="p">.</span><span class="n">project</span><span class="p">(</span><span class="s1">&#39;xnatDownload&#39;</span><span class="p">)</span>
