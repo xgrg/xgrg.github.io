@@ -136,7 +136,7 @@ to create the Interface.</p>
 
 <p>From there the <code>Interface</code> can be used e.g. to collect a list of existing
 projects, or subjects from a given project.</p>
-<div class="highlight"><pre><span></span><span class="n">project</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="k">select</span><span class="p">.</span><span class="n">project</span><span class="p">(</span><span class="s1">&#39;xnatDownload&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">project</span> <span class="o">=</span> <span class="n">interface</span><span class="p">.</span><span class="k">select</span><span class="p">.</span><span class="n">project</span><span class="p">(</span><span class="s1">&#39;xnatDownload&#39;</span><span class="p">)</span>
 <span class="n">subjects</span> <span class="o">=</span> <span class="n">list</span><span class="p">(</span><span class="n">project</span><span class="p">.</span><span class="n">subjects</span><span class="p">())</span>
 <span class="n">print</span><span class="p">(</span><span class="n">subjects</span><span class="p">)</span>
 </pre></div>
@@ -151,7 +151,7 @@ projects, or subjects from a given project.</p>
 <p>In the XNAT model subjects may have associated experiments (e.g. MR, PET, CT, etc.). Like subjects, experiments have two types of identifiers, IDs and labels. In the following example, we select a given subject (<code>sub-001</code>) in project <code>xnatDownload</code> and look for an experiment by its label (<code>sub-001_ses-01</code>).</p>
 <p>An experiment may be composed of multiple scans (e.g. corresponding to various MR sequences). Each scan has a <code>SeriesNumber</code> and a <code>SeriesDescription</code>, generally assigned at acquisition time by the scanner.
 Here, we select a scan by its <code>SeriesNumber</code> and then ask for its <code>SeriesDescription</code> by querying on the <code>type</code> attribute.</p>
-<div class="highlight"><pre><span></span><span class="n">project</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="k">select</span><span class="p">.</span><span class="n">project</span><span class="p">(</span><span class="s1">&#39;xnatDownload&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">project</span> <span class="o">=</span> <span class="n">interface</span><span class="p">.</span><span class="k">select</span><span class="p">.</span><span class="n">project</span><span class="p">(</span><span class="s1">&#39;xnatDownload&#39;</span><span class="p">)</span>
 <span class="n">experiment</span> <span class="o">=</span> <span class="n">project</span><span class="p">.</span><span class="n">subject</span><span class="p">(</span><span class="s1">&#39;sub-001&#39;</span><span class="p">).</span><span class="n">experiment</span><span class="p">(</span><span class="s1">&#39;sub-001_ses-01&#39;</span><span class="p">)</span>
 <span class="n">scan</span> <span class="o">=</span> <span class="n">experiment</span><span class="p">.</span><span class="n">scan</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>
 <span class="n">print</span><span class="p">(</span><span class="n">scan</span><span class="p">.</span><span class="n">attrs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">))</span>
