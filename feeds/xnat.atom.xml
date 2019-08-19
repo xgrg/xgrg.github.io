@@ -1,5 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto - XNAT</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/xnat.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2019-06-20T00:00:00+02:00</updated><entry><title>Caching FreeSurfer measurements for faster access</title><link href="http://xgrg.github.io/caching-freesurfer6-measurements/" rel="alternate"></link><published>2019-06-20T00:00:00+02:00</published><updated>2019-06-20T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-06-20:/caching-freesurfer6-measurements/</id><summary type="html">&lt;p&gt;We love being able to access the freshest data directly from our XNAT platform.
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto - XNAT</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/xnat.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2019-08-19T00:00:00+02:00</updated><entry><title>First steps with pyxnat</title><link href="http://xgrg.github.io/first-steps-with-pyxnat/" rel="alternate"></link><published>2019-08-19T00:00:00+02:00</published><updated>2019-08-19T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-08-19:/first-steps-with-pyxnat/</id><summary type="html">&lt;p&gt;A couple of basic commands to get started with &lt;a href="http://github.com/pyxnat"&gt;&lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;. This post quickly overviews the XNAT data model by the means of short examples, starting by creating a connection to a running instance. Documentation can be found &lt;a href="http://pyxnat.readthedocs.io"&gt;there&lt;/a&gt;.&lt;/p&gt;
+&lt;!-- PELICAN_END_SUMMARY --&gt;
+
+&lt;p&gt;There are various ways to setup a connection to an XNAT server …&lt;/p&gt;</summary><content type="html">&lt;p&gt;A couple of basic commands to get started with &lt;a href="http://github.com/pyxnat"&gt;&lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;. This post quickly overviews the XNAT data model by the means of short examples, starting by creating a connection to a running instance. Documentation can be found &lt;a href="http://pyxnat.readthedocs.io"&gt;there&lt;/a&gt;.&lt;/p&gt;
+&lt;!-- PELICAN_END_SUMMARY --&gt;
+
+&lt;p&gt;There are various ways to setup a connection to an XNAT server. They all
+go by the creation of an &lt;code&gt;pyxnat.Interface&lt;/code&gt; object.&lt;/p&gt;
+&lt;p&gt;First by directly using some login credentials. Here the XNAT CENTRAL public
+instance is taken as an example.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pyxnat&lt;/span&gt;
+&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pyxnat&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Interface&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;server&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;https://central.xnat.org&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                     &lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;USERNAME&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;PASSWORD&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;projects&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;select&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;projects&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;projects&lt;/span&gt;&lt;span class="p"&gt;[:&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Another option is to store these in a configuration file and to pass it
+to create the Interface.&lt;/p&gt;
+&lt;p&gt;The configuration file should be a JSON file and would look like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="ss"&gt;&amp;quot;server&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;https://central.xnat.org&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+ &lt;span class="ss"&gt;&amp;quot;user&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;USERNAME&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+ &lt;span class="ss"&gt;&amp;quot;password&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;PASSWORD&amp;quot;&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It is also possible to create this configuration file from an existing &lt;code&gt;Interface&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;interface&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pyxnat&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Interface&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;server&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;https://central.xnat.org&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                     &lt;span class="k"&gt;user&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;USERNAME&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;PASSWORD&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;interface&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save_config&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/path/to/xnat_config.cfg&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;From there the &lt;code&gt;Interface&lt;/code&gt; can be used e.g. to collect a list of existing
+projects, or subjects in a given project.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;project&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;select&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;project&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;xnatDownload&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;subjects&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;project&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;subjects&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;span class="n"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;subjects&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Subjects have two types of identifiers, one that is an XNAT unique ID (see &lt;code&gt;id()&lt;/code&gt; method) and a second one (see &lt;code&gt;label()&lt;/code&gt; method).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;subject_labels&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; [&lt;span class="nv"&gt;e&lt;/span&gt;.&lt;span class="nv"&gt;label&lt;/span&gt;&lt;span class="ss"&gt;()&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nv"&gt;e&lt;/span&gt; &lt;span class="nv"&gt;in&lt;/span&gt; &lt;span class="nv"&gt;subjects&lt;/span&gt;]
+&lt;span class="nv"&gt;print&lt;/span&gt;&lt;span class="ss"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;subject_labels&lt;/span&gt;&lt;span class="ss"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In the XNAT model subjects may have associated experiments (e.g. MR, PET, CT, etc.). Like subjects, experiments have two types of identifiers, IDs and labels. In the following example, we select a given subject (&lt;code&gt;sub-001&lt;/code&gt;) in project &lt;code&gt;xnatDownload&lt;/code&gt; and look for an experiment by its label (&lt;code&gt;sub-001_ses-01&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;An experiment may be composed of multiple scans (e.g. corresponding to various MR sequences). Each scan has a &lt;code&gt;SeriesNumber&lt;/code&gt; and a &lt;code&gt;SeriesDescription&lt;/code&gt;, generally assigned at acquisition time by the scanner.
+Here, we select a scan by its &lt;code&gt;SeriesNumber&lt;/code&gt; and then ask for its &lt;code&gt;SeriesDescription&lt;/code&gt; by querying on the &lt;code&gt;type&lt;/code&gt; attribute.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;project&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;select&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;project&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;xnatDownload&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;experiment&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;project&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;subject&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;sub-001&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;experiment&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;sub-001_ses-01&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;scan&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;experiment&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;scan&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;3&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;scan&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;attrs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;A scan typically has attached resources, such as &lt;code&gt;DICOM&lt;/code&gt; directly coming from the scanner, or their &lt;code&gt;NIFTI&lt;/code&gt; versions, or &lt;code&gt;SNAPSHOTS&lt;/code&gt;. In the following case, we will take the first file from the &lt;code&gt;DICOM&lt;/code&gt; collection of the previous
+scan.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;resource&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;scan&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;DICOM&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;files&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="k"&gt;first&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;filename&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+&lt;span class="n"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This final command allows to download the file to the local system.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/tmp/%s&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="xnat"></category><category term="python"></category><category term="pyxnat"></category></entry><entry><title>Caching FreeSurfer measurements for faster access</title><link href="http://xgrg.github.io/caching-freesurfer6-measurements/" rel="alternate"></link><published>2019-06-20T00:00:00+02:00</published><updated>2019-06-20T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-06-20:/caching-freesurfer6-measurements/</id><summary type="html">&lt;p&gt;We love being able to access the freshest data directly from our XNAT platform.
 By querying it from Jupyter notebooks, we make sure to have full control on the
 resource provenance. But let's admit it, beyond a couple of thousands of
 participants, collecting - and re-collecting - the
