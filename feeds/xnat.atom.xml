@@ -6,7 +6,7 @@
 &lt;!-- PELICAN_END_SUMMARY --&gt;
 
 &lt;p&gt;There are various ways to setup a connection to an XNAT server. They all
-go by the creation of an &lt;code&gt;pyxnat.Interface&lt;/code&gt; object.&lt;/p&gt;
+rely on the creation of a &lt;code&gt;pyxnat.Interface&lt;/code&gt; object.&lt;/p&gt;
 &lt;p&gt;First by directly using some login credentials. Here the &lt;a href="https://central.xnat.org"&gt;XNAT CENTRAL public
 instance&lt;/a&gt; is taken as an example.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pyxnat&lt;/span&gt;
