@@ -219,7 +219,7 @@ The recipe is admittedly imperfect on many aspects, especially considering that 
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;It is based on the following commands, which are called sequentially by that previous one:&lt;/p&gt;
+&lt;p&gt;It is based on the following commands, called sequentially:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;fetch_from_xnat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;config_file&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;files&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;experiment_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  
         &lt;span class="n"&gt;include_freesurfer&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;doit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
             &lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39; Downloads a given list of File instances from&lt;/span&gt;
