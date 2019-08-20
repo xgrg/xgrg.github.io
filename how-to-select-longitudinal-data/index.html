@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Grégory Operto, ">
+    <link href="/favicon.png" rel="icon">
+
+        <link rel="alternate"  href="http://xgrg.github.io/feeds/all.atom.xml" type="application/atom+xml" title="Grégory Operto Full Atom Feed"/>
+
+        <title>Grégory Operto - How to select longitudinal data from XNAT</title>
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="/theme/css/grids-responsive-min.css">
+    <!--<![endif]-->
+    <link rel="stylesheet" href="/theme/css/styles.css">
+    <link rel="stylesheet" href="/theme/css/slides.css">
+    <link rel="stylesheet" href="/theme/css/pygments.css">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'> -->
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,500" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script src="/js/responsiveslides.min.js"></script>
+</head>
+
+<body>
+
+
+    <header id="header" class="pure-g">
+        <div class="pure-u-1 pure-u-md-3-4">
+             <div id="menu">
+                 <div class="pure-menu pure-menu-open pure-menu-horizontal">
+<ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+</ul>                </div>
+            </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-1-4">
+            <div id="social">
+                <div class="pure-menu pure-menu-open pure-menu-horizontal">
+<ul>
+        <li><a href="https://twitter.com/xgrg"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://github.com/xgrg"><i class="fa fa-github"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/neuroimaging"><i class="fa fa-linkedin"></i></a></li>
+</ul>                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <div id="layout" class="pure-g">
+        <nav id="sidebar" class="pure-u-1 pure-u-md-1-4">
+            <div class="l-box">
+<section>
+	<div class="portrait">
+			<img src="/theme/images/go.jpg" />
+	</div>
+    <div class="name-cv">
+        <div class="name">Grégory Operto, PhD</div>
+        <div class="cv">
+            <a href="/pdfs/cv.pdf"><i class="fa fa-file-pdf-o"></i> CV</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+      <div class="sub-name">brain imaging | data science</div>
+	<div class="contact">goperto@gmail.com</div>
+	<div class="location">Barcelona, Spain</div>
+</section>
+
+<section class="tags">
+</section>            </div>
+        </nav>
+        <section id="content" class="pure-u-1 pure-u-md-3-4">
+            <div class="l-box">
+
+    <header id="post-header">
+        <h1>How to select longitudinal data from XNAT</h1>
+            <div class="post-meta">
+                August 20, 2019
+            </div>
+            <div class="post-tags">
+                <ul>
+                    <li>tags:</li>
+                    <li><a href="/tag/xnat/">xnat</a></li>
+                    <li><a href="/tag/python/">python</a></li>
+                    <li><a href="/tag/pyxnat/">pyxnat</a></li>
+                </ul>
+            </div>
+    </header>
+
+    <section id="post">
+        <p>This is a short example showing how to identify subjects with multiple MR experiments on XNAT, for potential use in the context of a longitudinal analysis. Consider it as an extra tutorial for <a href="http://github.com/pyxnat"><code>pyxnat</code></a>.</p>
+<!-- PELICAN_END_SUMMARY -->
+
+<p>As almost always, everything starts with creating an <code>Interface</code>.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyxnat</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">pyxnat</span><span class="o">.</span><span class="n">Interface</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s1">&#39;/home/grg/.xnat_bsc.cfg&#39;</span><span class="p">)</span>
+
+<span class="c1"># We start collecting experiments from a few projects</span>
+<span class="n">experiments</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ALFA_PLUS&#39;</span><span class="p">,</span> <span class="s1">&#39;ALFA_OPCIONAL&#39;</span><span class="p">]:</span>
+    <span class="c1"># For each project, collect existing experiments</span>
+    <span class="c1"># with information e.g. subject_label, scan date</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject_label&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">]</span>
+    <span class="n">project_exp</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">experiments</span><span class="p">(</span><span class="n">project_id</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+    <span class="c1"># Add them to a big list</span>
+    <span class="n">experiments</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">project_exp</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> experiments found in both projects&#39;</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="n">experiments</span><span class="p">))</span>
+</pre></div>
+
+
+<p>For each experiment, retrieve info e.g. subject label, acquisition date, session ID. Then, create a list for each subject and store the information
+in a dictionary.</p>
+<div class="highlight"><pre><span></span><span class="c1"># For each experiment, retrieve info e.g. subject label,</span>
+<span class="c1"># acquisition date, session ID.</span>
+<span class="n">subjects</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">experiments</span><span class="p">:</span>
+    <span class="n">subject_label</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="s1">&#39;subject_label&#39;</span><span class="p">]</span>
+    <span class="n">mr_scandate</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span>
+    <span class="n">session_id</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span>
+    <span class="n">project_id</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="s1">&#39;project&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Create a list for each subject and store the information</span>
+    <span class="n">subjects</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">subject_label</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="p">(</span><span class="n">session_id</span><span class="p">,</span> <span class="n">mr_scandate</span><span class="p">,</span> <span class="n">project_id</span><span class="p">)</span>
+    <span class="n">subjects</span><span class="p">[</span><span class="n">subject_label</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+
+    <span class="c1"># Now for each subject, we have the number of existing scans</span>
+    <span class="c1"># and their acquisition dates</span>
+<span class="k">print</span><span class="p">(</span><span class="n">subjects</span><span class="p">[</span><span class="s1">&#39;10010&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<p>Now we can filter the ones with more than one MR session.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Give me the ones with more than one timepoint</span>
+<span class="n">longitudinal</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">subject</span><span class="p">,</span> <span class="n">sessions</span> <span class="ow">in</span> <span class="n">subjects</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sessions</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">longitudinal</span><span class="p">[</span><span class="n">subject</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessions</span>
+
+<span class="c1"># Print the results</span>
+<span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">longitudinal</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="mi">5</span><span class="p">]:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">longitudinal</span><span class="p">))</span>
+</pre></div>
+
+
+<p>A Jupyter Notebook with the presented code can be found <a href="https://github.com/xgrg/pyxnat/blob/nosetests/doc/notebooks/002%20-%20How%20to%20select%20longitudinal%20data.ipynb">there</a>.</p>
+    </section>
+
+
+<nav class="pagination-wrapper">
+    <div class="pagination">
+        <div class="pagination-left">
+        </div>
+        <div class="pagination-right">
+                &nbsp;
+        </div>
+    </div>
+</nav>
+    <aside class="comments">
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+
+    var disqus_config = function () {
+        this.page.url = "http://xgrg.github.io/how-to-select-longitudinal-data/";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "how-to-select-longitudinal-data"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//xgrg.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+    </aside>
+
+            </div>
+        </section>
+
+
+        <footer id="footer" class="pure-u-1 pure-u-md-3-4">
+            <div class="l-box">
+                <div>
+                    <p>&copy; <a href="http://xgrg.github.io">Grégory Operto</a> &ndash;
+                        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+                              for <a href="http://blog.getpelican.com/">Pelican</a> - layout cloned with awe from <a href="http://cyrille.rossant.net">cyrille.rossant.net</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-17275957-2', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+
+</body>
+</html>
+

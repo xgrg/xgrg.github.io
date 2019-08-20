@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Grégory Operto, ">
+    <link href="/favicon.png" rel="icon">
+
+        <link rel="alternate"  href="http://xgrg.github.io/feeds/all.atom.xml" type="application/atom+xml" title="Grégory Operto Full Atom Feed"/>
+
+        <title>Grégory Operto - When XNAT and the HPC cannot see each other...</title>
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="/theme/css/grids-responsive-min.css">
+    <!--<![endif]-->
+    <link rel="stylesheet" href="/theme/css/styles.css">
+    <link rel="stylesheet" href="/theme/css/slides.css">
+    <link rel="stylesheet" href="/theme/css/pygments.css">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'> -->
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,500" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script src="/js/responsiveslides.min.js"></script>
+</head>
+
+<body>
+
+
+    <header id="header" class="pure-g">
+        <div class="pure-u-1 pure-u-md-3-4">
+             <div id="menu">
+                 <div class="pure-menu pure-menu-open pure-menu-horizontal">
+<ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+</ul>                </div>
+            </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-1-4">
+            <div id="social">
+                <div class="pure-menu pure-menu-open pure-menu-horizontal">
+<ul>
+        <li><a href="https://twitter.com/xgrg"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://github.com/xgrg"><i class="fa fa-github"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/neuroimaging"><i class="fa fa-linkedin"></i></a></li>
+</ul>                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <div id="layout" class="pure-g">
+        <nav id="sidebar" class="pure-u-1 pure-u-md-1-4">
+            <div class="l-box">
+<section>
+	<div class="portrait">
+			<img src="/theme/images/go.jpg" />
+	</div>
+    <div class="name-cv">
+        <div class="name">Grégory Operto, PhD</div>
+        <div class="cv">
+            <a href="/pdfs/cv.pdf"><i class="fa fa-file-pdf-o"></i> CV</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+      <div class="sub-name">brain imaging | data science</div>
+	<div class="contact">goperto@gmail.com</div>
+	<div class="location">Barcelona, Spain</div>
+</section>
+
+<section class="tags">
+</section>            </div>
+        </nav>
+        <section id="content" class="pure-u-1 pure-u-md-3-4">
+            <div class="l-box">
+
+    <header id="post-header">
+        <h1>When XNAT and the HPC cannot see each other...</h1>
+            <div class="post-meta">
+                June 20, 2019
+            </div>
+            <div class="post-tags">
+                <ul>
+                    <li>tags:</li>
+                    <li><a href="/tag/xnat/">xnat</a></li>
+                    <li><a href="/tag/python/">python</a></li>
+                    <li><a href="/tag/pyxnat/">pyxnat</a></li>
+                    <li><a href="/tag/freesurfer/">freesurfer</a></li>
+                    <li><a href="/tag/hpc/">hpc</a></li>
+                </ul>
+            </div>
+    </header>
+
+    <section id="post">
+        <p>This was written before XNAT releases its container service. XNAT can be configured so that processing jobs may be sent over a high performance computing system. Recent versions now also supports the use of containerization. We put up a "manual" to allow exporting jobs from XNAT in contexts where its container service is not available.</p>
+<!-- PELICAN_END_SUMMARY -->
+
+<p>The practical recipe is actually built around a sequence involving at most three nodes, namely the XNAT server (<code>X</code>), the processing unit (<code>Y</code>) and the local machine from where the recipe is operated (<code>Z</code>). The sequence can be summarized as follow:
+- download some input data from <code>X</code> to <code>Y</code>, sometimes using <code>Z</code> as intermediate step
+- build commands to be launched on <code>Y</code>
+- run jobs on <code>Y</code> using any preferred/available job manager
+- download processing results from <code>Y</code> to <code>Z</code> and push them to <code>X</code>.</p>
+<p>This requires Python to be installed on <code>Z</code>.
+The recipe is admittedly imperfect on many aspects, especially considering that it does not let XNAT manage the provenance of the processed data as it does with nominal workflows. Yet it allows to take advantage of additional computation resources while still making the results available on the XNAT instance.</p>
+<p>This present example was based on actual previous experience where we had to run thousands of hippocampal subfield segmentation using FreeSurfer v6.0. In normal conditions, we have processing tasks handled by a fully-dedicated-but-average-sized individual workstation but in this particular case, <em>"outsourcing"</em> it to an HPC (or any other computing unit) would allow to not overwhelm it while still getting results in a reasonable time. Using containerization on the HPC would also mitigate known issues about discrepancy of results <a href="https://www.frontiersin.org/articles/10.3389/fninf.2015.00012/full">across architectures and operating systems</a>.</p>
+<p>The recipe's code was put together in a Python module, provided for reference only (<em>read</em> "dirty - may explode"), that can be found <a href="https://gitlab.com/xgrg/x2c">here</a>. <a href="https://gitlab.com/xgrg/x2c">x2c</a> stands for <em>XNAT-to-cluster</em>.</p>
+<p>In summary it intends to work from CLI as follow:</p>
+<div class="highlight"><pre><span></span>x2c --config /path/to/xnat.cfg --experiment EXPERIMENT_ID --host COMPUTING_UNIT_ID --output /path/to/working_dir
+</pre></div>
+
+
+<p>It is based on the following commands, which are called sequentially by that previous one:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fetch_from_xnat</span><span class="p">(</span><span class="n">config_file</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span>  
+        <span class="n">include_freesurfer</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">doit</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+            <span class="sd">&#39;&#39;&#39; Downloads a given list of File instances from</span>
+<span class="sd">            XNAT and stores them in a given path</span>
+<span class="sd">            (/path/to/working_dir in the previous example)</span>
+<span class="sd">            with names according to the experiment_id. Includes</span>
+<span class="sd">            previous results from FREESURFER6 if needed.</span>
+<span class="sd">            &#39;&#39;&#39;</span>
+            <span class="sb">``</span><span class="err">`</span>
+
+<span class="sb">``</span><span class="err">`</span><span class="n">python</span>
+<span class="k">def</span> <span class="nf">rsync_to_hpc</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">dd</span><span class="p">,</span> <span class="n">include_freesurfer</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+            <span class="n">doit</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">clean</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Sends necessary resources to host (computing unit)</span>
+<span class="sd">      including:</span>
+<span class="sd">        - host definition (COMPUTING_UNIT_ID)</span>
+<span class="sd">        - path to local data</span>
+<span class="sd">        - experiment_id (EXPERIMENT_ID)</span>
+<span class="sd">        - path to remote data (where to copy it)</span>
+<span class="sd">        - should we copy previously generated FreeSurfer archive</span>
+<span class="sd">        - should we remove the files after the transfer</span>
+<span class="sd">        - should we do it for real (or just print commands)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">singularity_cmd</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">subject_label</span><span class="p">,</span>
+        <span class="n">singularity_fp</span><span class="p">,</span> <span class="n">image_fn</span><span class="p">,</span> <span class="n">reconall</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Builds a `singularity` command provided:</span>
+<span class="sd">        - path to remote directory</span>
+<span class="sd">        - experiment_id and subject_label</span>
+<span class="sd">        - path to singularity executable</span>
+<span class="sd">        - path to singularity image</span>
+<span class="sd">        - include (or not) reconall step</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">hippo_zip</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">dd</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">subject_label</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Builds proper commands to build a zipfile with</span>
+<span class="sd">    previously generated hippocampal subfields.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">upload_subject</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">zipfile</span><span class="p">,</span> <span class="n">resource_name</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39; Uploads a zipfile as a resource associated with a given</span>
+<span class="sd">  experiment on an XNAT instance.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">post_commands</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">dd</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">subject_label</span><span class="p">,</span>
+      <span class="n">config_file</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Prepares series of commands:</span>
+<span class="sd">        - to build a zipfile archive with hippocampal subfields</span>
+<span class="sd">        - transfer this archive back to local machine</span>
+<span class="sd">        - upload it to XNAT</span>
+<span class="sd">    This requires:</span>
+<span class="sd">        - host definition</span>
+<span class="sd">        - path to remote data</span>
+<span class="sd">        - path to local data (where to download it)</span>
+<span class="sd">        - experiment_id and subject_label</span>
+<span class="sd">        - XNAT configuration file</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+</pre></div>
+
+
+<p>The whole thing makes intensive use of <a href="https://github.com/pyxnat/pyxnat"><code>pyxnat</code></a> for obvious reasons. More information on <a href="http://xgrg.github.io/first-steps-with-pyxnat/">how to get started with <code>pyxnat</code></a>.</p>
+    </section>
+
+
+<nav class="pagination-wrapper">
+    <div class="pagination">
+        <div class="pagination-left">
+        </div>
+        <div class="pagination-right">
+                &nbsp;
+        </div>
+    </div>
+</nav>
+    <aside class="comments">
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+
+    var disqus_config = function () {
+        this.page.url = "http://xgrg.github.io/drafts/when-the-computing-cluster-and-XNAT-cannot-see-each-other.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "when-the-computing-cluster-and-XNAT-cannot-see-each-other"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//xgrg.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+    </aside>
+
+            </div>
+        </section>
+
+
+        <footer id="footer" class="pure-u-1 pure-u-md-3-4">
+            <div class="l-box">
+                <div>
+                    <p>&copy; <a href="http://xgrg.github.io">Grégory Operto</a> &ndash;
+                        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+                              for <a href="http://blog.getpelican.com/">Pelican</a> - layout cloned with awe from <a href="http://cyrille.rossant.net">cyrille.rossant.net</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-17275957-2', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+
+</body>
+</html>
+
