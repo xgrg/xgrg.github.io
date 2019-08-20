@@ -107,11 +107,14 @@
         <p>This was written before XNAT releases its container service. XNAT can be configured so that processing jobs may be sent over a high performance computing system. Recent versions now also supports the use of containerization. We put up a "manual" to allow exporting jobs from XNAT in contexts where its container service is not available.</p>
 <!-- PELICAN_END_SUMMARY -->
 
-<p>The practical recipe is actually built around a sequence involving at most three nodes, namely the XNAT server (<code>X</code>), the processing unit (<code>Y</code>) and the local machine from where the recipe is operated (<code>Z</code>). The sequence can be summarized as follow:
-- download some input data from <code>X</code> to <code>Y</code>, sometimes using <code>Z</code> as intermediate step
-- build commands to be launched on <code>Y</code>
-- run jobs on <code>Y</code> using any preferred/available job manager
-- download processing results from <code>Y</code> to <code>Z</code> and push them to <code>X</code>.</p>
+<p>The practical recipe is actually built around a sequence involving at most three nodes, namely the XNAT server (<code>X</code>), the processing unit (<code>Y</code>) and the local machine from where the recipe is operated (<code>Z</code>). The sequence can be summarized as follow:</p>
+<div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">download</span> <span class="n">some</span> <span class="n">input</span> <span class="n">data</span> <span class="k">from</span> <span class="ss">`X`</span> <span class="k">to</span> <span class="ss">`Y`</span><span class="p">,</span> <span class="n">sometimes</span> <span class="k">using</span> <span class="ss">`Z`</span> <span class="k">as</span> <span class="n">intermediate</span> <span class="n">step</span>
+<span class="o">-</span> <span class="n">build</span> <span class="n">commands</span> <span class="k">to</span> <span class="n">be</span> <span class="n">launched</span> <span class="k">on</span> <span class="ss">`Y`</span>
+<span class="o">-</span> <span class="n">run</span> <span class="n">jobs</span> <span class="k">on</span> <span class="ss">`Y`</span> <span class="k">using</span> <span class="n">any</span> <span class="n">preferred</span><span class="o">/</span><span class="n">available</span> <span class="n">job</span> <span class="n">manager</span>
+<span class="o">-</span> <span class="n">download</span> <span class="n">processing</span> <span class="n">results</span> <span class="k">from</span> <span class="ss">`Y`</span> <span class="k">to</span> <span class="ss">`Z`</span> <span class="k">and</span> <span class="n">push</span> <span class="n">them</span> <span class="k">to</span> <span class="ss">`X`</span><span class="p">.</span>
+</pre></div>
+
+
 <p>This requires Python to be installed on <code>Z</code>.
 The recipe is admittedly imperfect on many aspects, especially considering that it does not let XNAT manage the provenance of the processed data as it does with nominal workflows. Yet it allows to take advantage of additional computation resources while still making the results available on the XNAT instance.</p>
 <p>This present example was based on actual previous experience where we had to run thousands of hippocampal subfield segmentation using FreeSurfer v6.0. In normal conditions, we have processing tasks handled by a fully-dedicated-but-average-sized individual workstation but in this particular case, <em>"outsourcing"</em> it to an HPC (or any other computing unit) would allow to not overwhelm it while still getting results in a reasonable time. Using containerization on the HPC would also mitigate known issues about discrepancy of results <a href="https://www.frontiersin.org/articles/10.3389/fninf.2015.00012/full">across architectures and operating systems</a>.</p>
