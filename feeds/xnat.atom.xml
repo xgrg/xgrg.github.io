@@ -20,7 +20,12 @@ instance&lt;/a&gt; is taken as an example.&lt;/p&gt;
 
 &lt;p&gt;Another option is to store these in a configuration file and to pass it
 to create the Interface.&lt;/p&gt;
-&lt;p&gt;The configuration file should be a JSON file and would look like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pyxnat&lt;/span&gt;
+&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pyxnat&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Interface&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/path/to/xnat_config.cfg&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The configuration file should be in JSON format and would look like this:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="ss"&gt;&amp;quot;server&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;https://central.xnat.org&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
  &lt;span class="ss"&gt;&amp;quot;user&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;USERNAME&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
  &lt;span class="ss"&gt;&amp;quot;password&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;PASSWORD&amp;quot;&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;

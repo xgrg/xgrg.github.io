@@ -120,7 +120,12 @@ instance</a> is taken as an example.</p>
 
 <p>Another option is to store these in a configuration file and to pass it
 to create the Interface.</p>
-<p>The configuration file should be a JSON file and would look like this:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyxnat</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">pyxnat</span><span class="o">.</span><span class="n">Interface</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s1">&#39;/path/to/xnat_config.cfg&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The configuration file should be in JSON format and would look like this:</p>
 <div class="highlight"><pre><span></span><span class="err">{</span><span class="ss">&quot;server&quot;</span><span class="p">:</span> <span class="ss">&quot;https://central.xnat.org&quot;</span><span class="p">,</span>
  <span class="ss">&quot;user&quot;</span><span class="p">:</span> <span class="ss">&quot;USERNAME&quot;</span><span class="p">,</span>
  <span class="ss">&quot;password&quot;</span><span class="p">:</span> <span class="ss">&quot;PASSWORD&quot;</span><span class="err">}</span>
