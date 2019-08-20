@@ -199,7 +199,93 @@ following section.&lt;/p&gt;
 &lt;p&gt;This piece of code is a part of the &lt;a href="https://gitlab.com/xgrg/bx"&gt;&lt;code&gt;bx&lt;/code&gt;&lt;/a&gt; Python module, which is used at
 &lt;a href="https://barcelonabrainimaging.org"&gt;BarcelonaBeta&lt;/a&gt; to facilitate bulk downloads
 from XNAT. It was built onto &lt;a href="https://github.com/xgrg/pyxnat/tree/bbrc"&gt;&lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;
-(&lt;code&gt;bbrc&lt;/code&gt; branch).&lt;/p&gt;</content><category term="xnat"></category><category term="python"></category><category term="pyxnat"></category><category term="freesurfer"></category></entry><entry><title>Importing external resources to XNAT</title><link href="http://xgrg.github.io/importing-external-resources-to-XNAT/" rel="alternate"></link><published>2019-05-28T00:00:00+02:00</published><updated>2019-05-28T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-05-28:/importing-external-resources-to-XNAT/</id><summary type="html">&lt;p&gt;We tend to give general preference to data coming from local "&lt;em&gt;XNAT-native&lt;/em&gt;"
+(&lt;code&gt;bbrc&lt;/code&gt; branch).&lt;/p&gt;</content><category term="xnat"></category><category term="python"></category><category term="pyxnat"></category><category term="freesurfer"></category></entry><entry><title>When XNAT and the HPC cannot see each other...</title><link href="http://xgrg.github.io/when-the-computing-cluster-and-XNAT-cannot-see-each-other/" rel="alternate"></link><published>2019-06-20T00:00:00+02:00</published><updated>2019-06-20T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-06-20:/when-the-computing-cluster-and-XNAT-cannot-see-each-other/</id><summary type="html">&lt;p&gt;This was written before XNAT releases its container service. XNAT can be configured so that processing jobs may be sent over a high performance computing system. Recent versions now also supports the use of containerization. We put up a "manual" to allow exporting jobs from XNAT in contexts where its …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This was written before XNAT releases its container service. XNAT can be configured so that processing jobs may be sent over a high performance computing system. Recent versions now also supports the use of containerization. We put up a "manual" to allow exporting jobs from XNAT in contexts where its container service is not available.&lt;/p&gt;
+&lt;!-- PELICAN_END_SUMMARY --&gt;
+
+&lt;p&gt;The practical recipe is actually built around a sequence involving at most three nodes, namely the XNAT server (&lt;code&gt;X&lt;/code&gt;), the processing unit (&lt;code&gt;Y&lt;/code&gt;) and the local machine from where the recipe is operated (&lt;code&gt;Z&lt;/code&gt;). The sequence can be summarized as follow:
+- download some input data from &lt;code&gt;X&lt;/code&gt; to &lt;code&gt;Y&lt;/code&gt;, sometimes using &lt;code&gt;Z&lt;/code&gt; as intermediate step
+- build commands to be launched on &lt;code&gt;Y&lt;/code&gt;
+- run jobs on &lt;code&gt;Y&lt;/code&gt; using any preferred/available job manager
+- download processing results from &lt;code&gt;Y&lt;/code&gt; to &lt;code&gt;Z&lt;/code&gt; and push them to &lt;code&gt;X&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This requires Python to be installed on &lt;code&gt;Z&lt;/code&gt;.
+The recipe is admittedly imperfect on many aspects, especially considering that it does not let XNAT manage the provenance of the processed data as it does with nominal workflows. Yet it allows to take advantage of additional computation resources while still making the results available on the XNAT instance.&lt;/p&gt;
+&lt;p&gt;This present example was based on actual previous experience where we had to run thousands of hippocampal subfield segmentation using FreeSurfer v6.0. In normal conditions, we have processing tasks handled by a fully-dedicated-but-average-sized individual workstation but in this particular case, &lt;em&gt;"outsourcing"&lt;/em&gt; it to an HPC (or any other computing unit) would allow to not overwhelm it while still getting results in a reasonable time. Using containerization on the HPC would also mitigate known issues about discrepancy of results &lt;a href="https://www.frontiersin.org/articles/10.3389/fninf.2015.00012/full"&gt;across architectures and operating systems&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The recipe's code was put together in a Python module, provided for reference only (&lt;em&gt;read&lt;/em&gt; "dirty - may explode"), that can be found &lt;a href="https://gitlab.com/xgrg/x2c"&gt;here&lt;/a&gt;. &lt;a href="https://gitlab.com/xgrg/x2c"&gt;x2c&lt;/a&gt; stands for &lt;em&gt;XNAT-to-cluster&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;In summary it intends to work from CLI as follow:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;x2c --config /path/to/xnat.cfg --experiment EXPERIMENT_ID --host COMPUTING_UNIT_ID --output /path/to/working_dir
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It is based on the following commands, which are called sequentially by that previous one:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;fetch_from_xnat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;config_file&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;files&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;experiment_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  
+        &lt;span class="n"&gt;include_freesurfer&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;doit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+            &lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39; Downloads a given list of File instances from&lt;/span&gt;
+&lt;span class="sd"&gt;            XNAT and stores them in a given path&lt;/span&gt;
+&lt;span class="sd"&gt;            (/path/to/working_dir in the previous example)&lt;/span&gt;
+&lt;span class="sd"&gt;            with names according to the experiment_id. Includes&lt;/span&gt;
+&lt;span class="sd"&gt;            previous results from FREESURFER6 if needed.&lt;/span&gt;
+&lt;span class="sd"&gt;            &amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+            &lt;span class="sb"&gt;``&lt;/span&gt;&lt;span class="err"&gt;`&lt;/span&gt;
+
+&lt;span class="sb"&gt;``&lt;/span&gt;&lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="n"&gt;python&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;rsync_to_hpc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;host&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;experiment_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;include_freesurfer&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="n"&gt;doit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;clean&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39; Sends necessary resources to host (computing unit)&lt;/span&gt;
+&lt;span class="sd"&gt;      including:&lt;/span&gt;
+&lt;span class="sd"&gt;        - host definition (COMPUTING_UNIT_ID)&lt;/span&gt;
+&lt;span class="sd"&gt;        - path to local data&lt;/span&gt;
+&lt;span class="sd"&gt;        - experiment_id (EXPERIMENT_ID)&lt;/span&gt;
+&lt;span class="sd"&gt;        - path to remote data (where to copy it)&lt;/span&gt;
+&lt;span class="sd"&gt;        - should we copy previously generated FreeSurfer archive&lt;/span&gt;
+&lt;span class="sd"&gt;        - should we remove the files after the transfer&lt;/span&gt;
+&lt;span class="sd"&gt;        - should we do it for real (or just print commands)&lt;/span&gt;
+&lt;span class="sd"&gt;    &amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;singularity_cmd&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;dd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;experiment_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;subject_label&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="n"&gt;singularity_fp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;image_fn&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;reconall&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39; Builds a `singularity` command provided:&lt;/span&gt;
+&lt;span class="sd"&gt;        - path to remote directory&lt;/span&gt;
+&lt;span class="sd"&gt;        - experiment_id and subject_label&lt;/span&gt;
+&lt;span class="sd"&gt;        - path to singularity executable&lt;/span&gt;
+&lt;span class="sd"&gt;        - path to singularity image&lt;/span&gt;
+&lt;span class="sd"&gt;        - include (or not) reconall step&lt;/span&gt;
+&lt;span class="sd"&gt;    &amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;hippo_zip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;host&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;experiment_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;subject_label&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39; Builds proper commands to build a zipfile with&lt;/span&gt;
+&lt;span class="sd"&gt;    previously generated hippocampal subfields.&lt;/span&gt;
+&lt;span class="sd"&gt;    &amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;upload_subject&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;experiment&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;zipfile&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;resource_name&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+  &lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39; Uploads a zipfile as a resource associated with a given&lt;/span&gt;
+&lt;span class="sd"&gt;  experiment on an XNAT instance.&lt;/span&gt;
+&lt;span class="sd"&gt;  &amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;post_commands&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;host&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;experiment_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;subject_label&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="n"&gt;config_file&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39; Prepares series of commands:&lt;/span&gt;
+&lt;span class="sd"&gt;        - to build a zipfile archive with hippocampal subfields&lt;/span&gt;
+&lt;span class="sd"&gt;        - transfer this archive back to local machine&lt;/span&gt;
+&lt;span class="sd"&gt;        - upload it to XNAT&lt;/span&gt;
+&lt;span class="sd"&gt;    This requires:&lt;/span&gt;
+&lt;span class="sd"&gt;        - host definition&lt;/span&gt;
+&lt;span class="sd"&gt;        - path to remote data&lt;/span&gt;
+&lt;span class="sd"&gt;        - path to local data (where to download it)&lt;/span&gt;
+&lt;span class="sd"&gt;        - experiment_id and subject_label&lt;/span&gt;
+&lt;span class="sd"&gt;        - XNAT configuration file&lt;/span&gt;
+&lt;span class="sd"&gt;    &amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The whole thing makes intensive use of &lt;a href="https://github.com/pyxnat/pyxnat"&gt;&lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt; for obvious reasons. More information on &lt;a href="http://xgrg.github.io/first-steps-with-pyxnat/"&gt;how to get started with &lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;</content><category term="xnat"></category><category term="python"></category><category term="pyxnat"></category><category term="freesurfer"></category><category term="hpc"></category></entry><entry><title>Importing external resources to XNAT</title><link href="http://xgrg.github.io/importing-external-resources-to-XNAT/" rel="alternate"></link><published>2019-05-28T00:00:00+02:00</published><updated>2019-05-28T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-05-28:/importing-external-resources-to-XNAT/</id><summary type="html">&lt;p&gt;We tend to give general preference to data coming from local "&lt;em&gt;XNAT-native&lt;/em&gt;"
  workflows. Yet sometimes some factors (e.g. related to computational power,
    software availability) may require us to import resources from external,
    less controlled, data sources.&lt;/p&gt;
