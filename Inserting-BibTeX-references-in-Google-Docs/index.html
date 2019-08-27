@@ -8,7 +8,7 @@
 
         <link rel="alternate"  href="http://xgrg.github.io/feeds/all.atom.xml" type="application/atom+xml" title="Grégory Operto Full Atom Feed"/>
 
-        <title>Grégory Operto</title>
+        <title>Grégory Operto - Working with academic references in Google Docs</title>
 
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
@@ -28,6 +28,9 @@
 
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script src="/js/responsiveslides.min.js"></script>
 </head>
 
 <body>
@@ -82,86 +85,98 @@
         </nav>
         <section id="content" class="pure-u-1 pure-u-md-3-4">
             <div class="l-box">
-    <section id="tag-posts">
 
-        <header id="tag-header">
-            <h1>tag: pyxnat</h1>
-        </header>
+    <header id="post-header">
+        <h1>Working with academic references in Google Docs</h1>
+            <div class="post-meta">
+                August 27, 2019
+            </div>
+            <div class="post-tags">
+                <ul>
+                    <li>tags:</li>
+                    <li><a href="/tag/xnat/">xnat</a></li>
+                    <li><a href="/tag/python/">python</a></li>
+                    <li><a href="/tag/pyxnat/">pyxnat</a></li>
+                </ul>
+            </div>
+    </header>
 
-    <section class="post">
-        <header class="post-header">
-            <h3><a href="http://xgrg.github.io/importing-external-resources-to-XNAT/">Importing external resources to XNAT</a></h3>
-            <p class="sub-header-3">2019-05-28</p>
-            <p class="post-summary"><p>We tend to give general preference to data coming from local "<em>XNAT-native</em>"
- workflows. Yet sometimes some factors (e.g. related to computational power,
-   software availability) may require us to import resources from external,
-   less controlled, data sources.</p>
+    <section id="post">
+        <p>We are still hoping for an era where citation management software would be free,
+interoperable, easy to use and nicely integrated with word processing tools.</p>
 <!-- PELICAN_END_SUMMARY -->
 
-<p>This example shows how to get external archives imported to an XNAT instance …</p></p>
-        </header>
-        <!--
-        <div class="read-more">
-            <a class="pure-button" href="http://xgrg.github.io/importing-external-resources-to-XNAT/">
-                read on
-            </a>
-        </div>
-        --!>
+<p>Until this dream comes true, we need practical solutions.
+BibTeX is a standard format used by most citation managing systems and initially
+ designed to work with LaTeX. Working with LaTeX allows multiple users to jointly
+  work on a same manuscript using a version control system e.g <code>git</code>. In line with
+   this, LaTeX writers may now opt for several recently emerged online real-time
+    editing platforms (<a href="http://overleaf.com">Overleaf</a>), allowing to collaborate on the source and
+     instantly visualize the compiled result. In parallel, other tools such as
+      (Open/Libre/Microsoft) Office have seen developing plugins to allow
+      inserting references from BibTeX (or other) files, offering a popular
+      alternative for non-LaTeX non-git users.</p>
+<p>Finally, Google Docs users do not have much option here, as the only existing
+plugin to work with references in Google Docs comes as a paid service with
+<a href="http://paperpile.com">Paperpile</a>. Hence this post describes a kind of recipe intended for Google Docs
+users wanting to work with BibTeX references in a shared document.</p>
+<p>Consider for example a document including BibTeX reference ID (here preceded by
+<code>@</code>, as in <code>@Author2019</code>). By taking as inputs the document ID and a BibTeX
+bibliography source file featuring the cited references, this technique will
+generate a copy of the document having all reference ID replaced by, either a
+reference number or a mention such as <code>First Author et al. (2019)</code>.
+It will also compile a full list of the used references to get included e.g. at
+the end of the document.</p>
+<p>The core idea is based on making calls to the Google API from a Python app to
+apply the right changes to the document. Getting started takes 3 steps:</p>
+<ul>
+<li>download the Python app/script</li>
+<li>enable the Google API and obtain client credentials</li>
+<li>look up the ID of a document and pass it to the app along with the corresponding .bib file.</li>
+</ul>
+<p>The app will generate a copy of the document with initial reference ID replaced
+by their full version as given by the <code>.bib</code> file.</p>
+<p>More information at http://gitlab.com/xgrg/bibtex2docs.
+Install with <code>pip install bibtex2docs</code> .</p>
     </section>
-        <hr />
-    <section class="post">
-        <header class="post-header">
-            <h3><a href="http://xgrg.github.io/downloading-nifti-resources-from-XNAT/">Downloading NIfTI resources from XNAT</a></h3>
-            <p class="sub-header-3">2018-11-02</p>
-            <p class="post-summary"><p>It is quite common that we use XNAT to download a bunch of NIfTIs to run some
-external analysis.</p>
-<!-- PELICAN_END_SUMMARY -->
 
-<p>This generic example shows how to download NIfTI resources from an XNAT instance.
-In this context, NIFTI resources are stored at the <em>scan</em> level
-(<code>subject</code>/<code>experiment</code>/<code>scan</code>).</p>
-<p>In this example, for …</p></p>
-        </header>
-        <!--
-        <div class="read-more">
-            <a class="pure-button" href="http://xgrg.github.io/downloading-nifti-resources-from-XNAT/">
-                read on
-            </a>
-        </div>
-        --!>
-    </section>
-        <hr />
-    <section class="post">
-        <header class="post-header">
-            <h3><a href="http://xgrg.github.io/NIfTIs-on-XNAT/">Pushing NIfTIs to XNAT</a></h3>
-            <p class="sub-header-3">2018-10-22</p>
-            <p class="post-summary"><p>The primary data format with which XNAT works has been and is still DICOM. XNAT
-can work with NIfTI but it generally has to be using secondary resources attached
-to subjects, experiments or scans.</p>
-<!-- PELICAN_END_SUMMARY -->
-
-<p>This example shows how to get a dataset made of NIfTIs uploaded to XNAT without
-their …</p></p>
-        </header>
-        <!--
-        <div class="read-more">
-            <a class="pure-button" href="http://xgrg.github.io/NIfTIs-on-XNAT/">
-                read on
-            </a>
-        </div>
-        --!>
-    </section>
 
 <nav class="pagination-wrapper">
     <div class="pagination">
         <div class="pagination-left">
-                <a href="http://xgrg.github.io/tag/pyxnat/index.html"><span>&larr; previous</span></a>
         </div>
-        <span>Page 2 / 2 &nbsp; (<a href="http://xgrg.github.io/archives/">all</a>)</span>
         <div class="pagination-right">
+                &nbsp;
         </div>
     </div>
-</nav>    </section>
+</nav>
+    <aside class="comments">
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+
+    var disqus_config = function () {
+        this.page.url = "http://xgrg.github.io/Inserting-BibTeX-references-in-Google-Docs/";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "Inserting-BibTeX-references-in-Google-Docs"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//xgrg.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+    </aside>
+
             </div>
         </section>
 

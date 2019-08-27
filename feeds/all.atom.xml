@@ -1,5 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/all.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2019-08-20T00:00:00+02:00</updated><entry><title>How to select longitudinal data from XNAT</title><link href="http://xgrg.github.io/how-to-select-longitudinal-data/" rel="alternate"></link><published>2019-08-20T00:00:00+02:00</published><updated>2019-08-20T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-08-20:/how-to-select-longitudinal-data/</id><summary type="html">&lt;p&gt;This is a short example showing how to identify subjects with multiple MR experiments on XNAT, for potential use in the context of a longitudinal analysis. Consider it as an extra tutorial for &lt;a href="http://github.com/pyxnat"&gt;&lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/all.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2019-08-27T00:00:00+02:00</updated><entry><title>Working with academic references in Google Docs</title><link href="http://xgrg.github.io/Inserting-BibTeX-references-in-Google-Docs/" rel="alternate"></link><published>2019-08-27T00:00:00+02:00</published><updated>2019-08-27T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-08-27:/Inserting-BibTeX-references-in-Google-Docs/</id><summary type="html">&lt;p&gt;We are still hoping for an era where citation management software would be free,
+interoperable, easy to use and nicely integrated with word processing tools.&lt;/p&gt;
+&lt;!-- PELICAN_END_SUMMARY --&gt;
+
+&lt;p&gt;Until this dream comes true, we need practical solutions.
+BibTeX is a standard format used by most citation managing systems and initially
+ designed to work …&lt;/p&gt;</summary><content type="html">&lt;p&gt;We are still hoping for an era where citation management software would be free,
+interoperable, easy to use and nicely integrated with word processing tools.&lt;/p&gt;
+&lt;!-- PELICAN_END_SUMMARY --&gt;
+
+&lt;p&gt;Until this dream comes true, we need practical solutions.
+BibTeX is a standard format used by most citation managing systems and initially
+ designed to work with LaTeX. Working with LaTeX allows multiple users to jointly
+  work on a same manuscript using a version control system e.g &lt;code&gt;git&lt;/code&gt;. In line with
+   this, LaTeX writers may now opt for several recently emerged online real-time
+    editing platforms (&lt;a href="http://overleaf.com"&gt;Overleaf&lt;/a&gt;), allowing to collaborate on the source and
+     instantly visualize the compiled result. In parallel, other tools such as
+      (Open/Libre/Microsoft) Office have seen developing plugins to allow
+      inserting references from BibTeX (or other) files, offering a popular
+      alternative for non-LaTeX non-git users.&lt;/p&gt;
+&lt;p&gt;Finally, Google Docs users do not have much option here, as the only existing
+plugin to work with references in Google Docs comes as a paid service with
+&lt;a href="http://paperpile.com"&gt;Paperpile&lt;/a&gt;. Hence this post describes a kind of recipe intended for Google Docs
+users wanting to work with BibTeX references in a shared document.&lt;/p&gt;
+&lt;p&gt;Consider for example a document including BibTeX reference ID (here preceded by
+&lt;code&gt;@&lt;/code&gt;, as in &lt;code&gt;@Author2019&lt;/code&gt;). By taking as inputs the document ID and a BibTeX
+bibliography source file featuring the cited references, this technique will
+generate a copy of the document having all reference ID replaced by, either a
+reference number or a mention such as &lt;code&gt;First Author et al. (2019)&lt;/code&gt;.
+It will also compile a full list of the used references to get included e.g. at
+the end of the document.&lt;/p&gt;
+&lt;p&gt;The core idea is based on making calls to the Google API from a Python app to
+apply the right changes to the document. Getting started takes 3 steps:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;download the Python app/script&lt;/li&gt;
+&lt;li&gt;enable the Google API and obtain client credentials&lt;/li&gt;
+&lt;li&gt;look up the ID of a document and pass it to the app along with the corresponding .bib file.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The app will generate a copy of the document with initial reference ID replaced
+by their full version as given by the &lt;code&gt;.bib&lt;/code&gt; file.&lt;/p&gt;
+&lt;p&gt;More information at http://gitlab.com/xgrg/bibtex2docs.
+Install with &lt;code&gt;pip install bibtex2docs&lt;/code&gt; .&lt;/p&gt;</content><category term="xnat"></category><category term="python"></category><category term="pyxnat"></category></entry><entry><title>How to select longitudinal data from XNAT</title><link href="http://xgrg.github.io/how-to-select-longitudinal-data/" rel="alternate"></link><published>2019-08-20T00:00:00+02:00</published><updated>2019-08-20T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-08-20:/how-to-select-longitudinal-data/</id><summary type="html">&lt;p&gt;This is a short example showing how to identify subjects with multiple MR experiments on XNAT, for potential use in the context of a longitudinal analysis. Consider it as an extra tutorial for &lt;a href="http://github.com/pyxnat"&gt;&lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
 &lt;!-- PELICAN_END_SUMMARY --&gt;
 
 &lt;p&gt;As almost always, everything starts with creating an &lt;code&gt;Interface&lt;/code&gt;.&lt;/p&gt;
