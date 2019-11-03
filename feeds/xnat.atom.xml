@@ -54,7 +54,7 @@ extended to meet some specific needs and host data of heterogeneous types.&lt;/p
 data can be done mainly two ways: either graphically using the web application,
 or through a REST API. In particular the &lt;a href="http://pyxnat.github.io/pyxnat"&gt;&lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;
 library adds an extra layer over the REST API to allow interfacing an XNAT
-instance in Python (see &lt;a href="first-steps-with-pyxnat/"&gt;first steps with &lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;).&lt;/p&gt;
+instance in Python (see &lt;a href="http://xgrg.github.io/first-steps-with-pyxnat/"&gt;First steps with &lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;).&lt;/p&gt;
 &lt;p&gt;In XNAT, resources such as pipeline outputs (FreeSurfer results, SPM
   segmentations, etc.) may be stored as derived &lt;code&gt;Resources&lt;/code&gt; under any imaging
   experiment. Such objects can then be queried and collected easily through the
