@@ -153,13 +153,15 @@ would just have no effect and the resources would be served with their default
 basic functions.</p>
 <p>Nevertheless, this mechanism has been implemented so as to get easily adapted to
 local configurations, by editing/adding to a specific place in the library code.</p>
-<p>Adding a custom function is done simply as follows: in the folder
-<code>pyxnat/core/derivatives/</code>, edit any existing file or add a new one (filename
-  does not matter):
-  - Define <code>XNAT_RESOURCE_NAME</code>. This variable names the XNAT resource which
-  needs a custom function.
-  - Write the custom function with <code>self</code> as first parameter (<code>self</code> will be
-    the <code>pyxnat</code> <code>Resource</code> object).</p>
+<p>Adding a custom function is done simply as follows.</p>
+<p>In the folder <code>pyxnat/core/derivatives/</code>, edit any existing file or add a new
+one (filename does not matter):</p>
+<ul>
+<li>Define <code>XNAT_RESOURCE_NAME</code>. This variable names the XNAT resource which
+  needs a custom function.</li>
+<li>Write the custom function with <code>self</code> as first parameter (<code>self</code> will be
+    the <code>pyxnat</code> <code>Resource</code> object).</li>
+</ul>
 <p>If the resources which the custom function should be added has multiple names instead of a single one, their list may be provided under the variable
 <code>XNAT_RESOURCE_NAMES</code>.</p>
 <p>Example in <code>pyxnat/core/derivatives/freesurfer.py</code>:</p>
@@ -189,8 +191,8 @@ local configurations, by editing/adding to a specific place in the library code.
 
 
 <p>Since then this mechanism has been leveraged in higher-level functions such as in
-<a href="https://gitlab.com/xgrg/bx"><code>bx</code></a>, e.g. for <a href="bulk-downloading-resources-from-xnat">collecting all numerical results from FreeSurfer over
-an entire XNAT project</a> or <a href="caching-freesurfer6-measurements">caching them on a local drive</a>.</p>
+<a href="https://gitlab.com/xgrg/bx"><code>bx</code></a>, e.g. for <a href="http://xgrg.github.io/bulk-downloading-resources-from-xnat">collecting all numerical results from FreeSurfer over
+an entire XNAT project</a> or <a href="http://xgrg.github.io/caching-freesurfer6-measurements">caching them on a local drive</a>.</p>
     </section>
 
 

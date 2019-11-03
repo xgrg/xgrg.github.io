@@ -10,7 +10,7 @@ all profiles, the latter is intended for a more technical category of users.&lt;
 
 &lt;p&gt;The &lt;a href="http://pyxnat.github.io/pyxnat"&gt;&lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;
 library adds an extra layer over the REST API to allow interfacing an XNAT
-instance in Python (see &lt;a href="first-steps-with-pyxnat/"&gt;first steps with &lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;).
+instance in Python (see &lt;a href="http://xgrg.github.io/first-steps-with-pyxnat/"&gt;First steps with &lt;code&gt;pyxnat&lt;/code&gt;&lt;/a&gt;).
 This can be of great help to automate bulk operations e.g. downloading large
 collections of data, populating projects or any type of systematic task that
 would otherwise require lots of clicks using the web app.&lt;/p&gt;
@@ -40,7 +40,7 @@ new commands/options and/or the adaptation of existing ones (see &lt;a href="htt
 &lt;p&gt;The tool also comes with a Python module &lt;code&gt;bx.cache&lt;/code&gt; which allows to maintain a local
 cached version of FreeSurfer/ASHS measurements and avoid potential long
 repetitive downloads, in particular when working with Jupyter Notebooks.
-More information on this specific module can be found in &lt;a href="caching-freesurfer6-measurements"&gt;Caching FreeSurfer
+More information on this specific module can be found in &lt;a href="http://xgrg.github.io/caching-freesurfer6-measurements"&gt;Caching FreeSurfer
 measurements for faster access&lt;/a&gt;.&lt;/p&gt;</content><category term="XNAT"></category><category term="xnat"></category><category term="python"></category><category term="pyxnat"></category></entry><entry><title>Pipeline outputs and pyxnat</title><link href="http://xgrg.github.io/Pipeline-outputs-and-pyxnat/" rel="alternate"></link><published>2019-11-01T00:00:00+01:00</published><updated>2019-11-01T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-11-01:/Pipeline-outputs-and-pyxnat/</id><summary type="html">&lt;p&gt;XNAT stands for &lt;em&gt;eXtensible Neuroimaging Archive Toolkit&lt;/em&gt; and as such, it may be
 extended to meet some specific needs and host data of heterogeneous types.&lt;/p&gt;
 &lt;!-- PELICAN_END_SUMMARY --&gt;
@@ -97,13 +97,15 @@ would just have no effect and the resources would be served with their default
 basic functions.&lt;/p&gt;
 &lt;p&gt;Nevertheless, this mechanism has been implemented so as to get easily adapted to
 local configurations, by editing/adding to a specific place in the library code.&lt;/p&gt;
-&lt;p&gt;Adding a custom function is done simply as follows: in the folder
-&lt;code&gt;pyxnat/core/derivatives/&lt;/code&gt;, edit any existing file or add a new one (filename
-  does not matter):
-  - Define &lt;code&gt;XNAT_RESOURCE_NAME&lt;/code&gt;. This variable names the XNAT resource which
-  needs a custom function.
-  - Write the custom function with &lt;code&gt;self&lt;/code&gt; as first parameter (&lt;code&gt;self&lt;/code&gt; will be
-    the &lt;code&gt;pyxnat&lt;/code&gt; &lt;code&gt;Resource&lt;/code&gt; object).&lt;/p&gt;
+&lt;p&gt;Adding a custom function is done simply as follows.&lt;/p&gt;
+&lt;p&gt;In the folder &lt;code&gt;pyxnat/core/derivatives/&lt;/code&gt;, edit any existing file or add a new
+one (filename does not matter):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Define &lt;code&gt;XNAT_RESOURCE_NAME&lt;/code&gt;. This variable names the XNAT resource which
+  needs a custom function.&lt;/li&gt;
+&lt;li&gt;Write the custom function with &lt;code&gt;self&lt;/code&gt; as first parameter (&lt;code&gt;self&lt;/code&gt; will be
+    the &lt;code&gt;pyxnat&lt;/code&gt; &lt;code&gt;Resource&lt;/code&gt; object).&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;If the resources which the custom function should be added has multiple names instead of a single one, their list may be provided under the variable
 &lt;code&gt;XNAT_RESOURCE_NAMES&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Example in &lt;code&gt;pyxnat/core/derivatives/freesurfer.py&lt;/code&gt;:&lt;/p&gt;
@@ -133,8 +135,8 @@ local configurations, by editing/adding to a specific place in the library code.
 
 
 &lt;p&gt;Since then this mechanism has been leveraged in higher-level functions such as in
-&lt;a href="https://gitlab.com/xgrg/bx"&gt;&lt;code&gt;bx&lt;/code&gt;&lt;/a&gt;, e.g. for &lt;a href="bulk-downloading-resources-from-xnat"&gt;collecting all numerical results from FreeSurfer over
-an entire XNAT project&lt;/a&gt; or &lt;a href="caching-freesurfer6-measurements"&gt;caching them on a local drive&lt;/a&gt;.&lt;/p&gt;</content><category term="XNAT"></category><category term="xnat"></category><category term="python"></category><category term="pyxnat"></category></entry><entry><title>Working with academic references in Google Docs</title><link href="http://xgrg.github.io/Inserting-BibTeX-references-in-Google-Docs/" rel="alternate"></link><published>2019-08-27T00:00:00+02:00</published><updated>2019-08-27T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-08-27:/Inserting-BibTeX-references-in-Google-Docs/</id><summary type="html">&lt;p&gt;We are still hoping for an era where citation management software would be free,
+&lt;a href="https://gitlab.com/xgrg/bx"&gt;&lt;code&gt;bx&lt;/code&gt;&lt;/a&gt;, e.g. for &lt;a href="http://xgrg.github.io/bulk-downloading-resources-from-xnat"&gt;collecting all numerical results from FreeSurfer over
+an entire XNAT project&lt;/a&gt; or &lt;a href="http://xgrg.github.io/caching-freesurfer6-measurements"&gt;caching them on a local drive&lt;/a&gt;.&lt;/p&gt;</content><category term="XNAT"></category><category term="xnat"></category><category term="python"></category><category term="pyxnat"></category></entry><entry><title>Working with academic references in Google Docs</title><link href="http://xgrg.github.io/Inserting-BibTeX-references-in-Google-Docs/" rel="alternate"></link><published>2019-08-27T00:00:00+02:00</published><updated>2019-08-27T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-08-27:/Inserting-BibTeX-references-in-Google-Docs/</id><summary type="html">&lt;p&gt;We are still hoping for an era where citation management software would be free,
 interoperable, easy to use and nicely integrated with word processing tools.&lt;/p&gt;
 &lt;!-- PELICAN_END_SUMMARY --&gt;
 
