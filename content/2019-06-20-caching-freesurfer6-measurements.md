@@ -28,7 +28,7 @@ downloaded and cached for future access.
 The reader is invited to refer to this [script](https://gitlab.com/xgrg/bx/blob/ef83f4c45ec987d5bd1fc42510e25ff6cdebdbf7/bx/cache.py) to understand the
 following section.
 
-The function `cache_freesurfer6()` works with a [`pyxnat`](https://pyxnat.readthedocs.io/en/latest/)
+The function `cache_freesurfer6()` works with a [`pyxnat`](https://pyxnat.github.io/pyxnat)
 `Interface` instance and a reference to any project from an XNAT platform.
 
 For example, consider the following.

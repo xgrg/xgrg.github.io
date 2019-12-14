@@ -5,7 +5,7 @@ Tags: xnat, python, pyxnat
 Authors: Grégory Operto
 
 
-A couple of basic commands to get started with [`pyxnat`](http://github.com/pyxnat). This post quickly overviews the XNAT data model by the means of short examples, starting by creating a connection to a running instance. Documentation can be found [there](http://pyxnat.readthedocs.io).
+A couple of basic commands to get started with [`pyxnat`](http://github.com/pyxnat). This post quickly overviews the XNAT data model by the means of short examples, starting by creating a connection to a running instance. Documentation can be found [there](http://pyxnat.github.io/pyxnat).
 
 <!-- PELICAN_END_SUMMARY -->
 
