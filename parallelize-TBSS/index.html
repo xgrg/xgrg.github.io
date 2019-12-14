@@ -171,25 +171,25 @@ set of 8 contrasts over 9 independent variables.</p>
 
 
 <p>The contents of the generated file (following the format from that <a href="../building-design-matrices-for-tbss/">previous post</a> will be the following:</p>
-<div class="highlight"><pre><span></span><span class="o">/</span><span class="n">NumWaves</span> <span class="mi">9</span>
-<span class="o">/</span><span class="n">ContrastName1</span> <span class="n">age</span><span class="p">(</span><span class="o">+</span><span class="p">)</span>
-<span class="o">/</span><span class="n">ContrastName2</span> <span class="n">age</span><span class="p">(</span><span class="o">-</span><span class="p">)</span>
-<span class="o">/</span><span class="n">ContrastName3</span> <span class="n">sex</span><span class="p">(</span><span class="n">m</span><span class="o">&gt;</span><span class="n">f</span><span class="p">)</span>
-<span class="o">/</span><span class="n">ContrastName4</span> <span class="n">sex</span><span class="p">(</span><span class="n">f</span><span class="o">&gt;</span><span class="n">m</span><span class="p">)</span>
-<span class="o">/</span><span class="n">ContrastName5</span> <span class="n">apoe4</span><span class="p">(</span><span class="o">+</span><span class="p">)</span>
-<span class="o">/</span><span class="n">ContrastName6</span> <span class="n">apoe4</span><span class="p">(</span><span class="o">-</span><span class="p">)</span>
-<span class="o">/</span><span class="n">ContrastName7</span> <span class="n">sleep</span><span class="p">(</span><span class="o">+</span><span class="p">)</span>
-<span class="o">/</span><span class="n">ContrastName8</span> <span class="n">sleep</span><span class="p">(</span><span class="o">-</span><span class="p">)</span>
-<span class="o">/</span><span class="n">NumContrasts</span> <span class="mi">8</span>
-<span class="o">/</span><span class="n">Matrix</span>
-<span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
-<span class="mi">0</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
-<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
-<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
-<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span>
-<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span>
-<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span>
-<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">0</span>
+<div class="highlight"><pre><span></span><span class="err">/NumWaves 9</span>
+<span class="err">/ContrastName1 age(+)</span>
+<span class="err">/ContrastName2 age(-)</span>
+<span class="err">/ContrastName3 sex(m&gt;f)</span>
+<span class="err">/ContrastName4 sex(f&gt;m)</span>
+<span class="err">/ContrastName5 apoe4(+)</span>
+<span class="err">/ContrastName6 apoe4(-)</span>
+<span class="err">/ContrastName7 sleep(+)</span>
+<span class="err">/ContrastName8 sleep(-)</span>
+<span class="err">/NumContrasts 8</span>
+<span class="err">/Matrix</span>
+<span class="err">0 0 1 0 0 0 0 0 0</span>
+<span class="err">0 0 -1 0 0 0 0 0 0</span>
+<span class="err">0 0 0 1 0 0 0 0 0</span>
+<span class="err">0 0 0 -1 0 0 0 0 0</span>
+<span class="err">0 0 0 0 0 0 0 0 1</span>
+<span class="err">0 0 0 0 0 0 0 0 -1</span>
+<span class="err">0 0 0 0 0 0 0 1 0</span>
+<span class="err">0 0 0 0 0 0 0 -1 0</span>
 </pre></div>
 
 
@@ -201,25 +201,25 @@ set of 8 contrasts over 9 independent variables.</p>
   available), <code>part*.con</code> would then contain two contrasts from the 8 preceded
   by the right number of dummy constrasts. For  example, the contents of the
   last one will be:</p>
-<div class="highlight"><pre><span></span><span class="o">/</span><span class="n">NumWaves</span> <span class="mi">9</span>
-<span class="o">/</span><span class="n">ContrastName1</span> <span class="n">mock1</span>
-<span class="o">/</span><span class="n">ContrastName2</span> <span class="n">mock2</span>
-<span class="o">/</span><span class="n">ContrastName3</span> <span class="n">mock3</span>
-<span class="o">/</span><span class="n">ContrastName4</span> <span class="n">mock4</span>
-<span class="o">/</span><span class="n">ContrastName5</span> <span class="n">mock5</span>
-<span class="o">/</span><span class="n">ContrastName6</span> <span class="n">mock6</span>
-<span class="o">/</span><span class="n">ContrastName7</span> <span class="n">sleep</span><span class="p">(</span><span class="o">+</span><span class="p">)</span>
-<span class="o">/</span><span class="n">ContrastName8</span> <span class="n">sleep</span><span class="p">(</span><span class="o">-</span><span class="p">)</span>
-<span class="o">/</span><span class="n">NumContrasts</span> <span class="mi">8</span>
-<span class="o">/</span><span class="n">Matrix</span>
-<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
-<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
-<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
-<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
-<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
-<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
-<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span>
-<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">0</span>
+<div class="highlight"><pre><span></span><span class="err">/NumWaves 9</span>
+<span class="err">/ContrastName1 mock1</span>
+<span class="err">/ContrastName2 mock2</span>
+<span class="err">/ContrastName3 mock3</span>
+<span class="err">/ContrastName4 mock4</span>
+<span class="err">/ContrastName5 mock5</span>
+<span class="err">/ContrastName6 mock6</span>
+<span class="err">/ContrastName7 sleep(+)</span>
+<span class="err">/ContrastName8 sleep(-)</span>
+<span class="err">/NumContrasts 8</span>
+<span class="err">/Matrix</span>
+<span class="err">0 0 0 0 0 0 0 0 0</span>
+<span class="err">0 0 0 0 0 0 0 0 0</span>
+<span class="err">0 0 0 0 0 0 0 0 0</span>
+<span class="err">0 0 0 0 0 0 0 0 0</span>
+<span class="err">0 0 0 0 0 0 0 0 0</span>
+<span class="err">0 0 0 0 0 0 0 0 0</span>
+<span class="err">0 0 0 0 0 0 0 1 0</span>
+<span class="err">0 0 0 0 0 0 0 -1 0</span>
 </pre></div>
 
 
@@ -243,7 +243,7 @@ The <code>randomise_parallel</code> function takes care of all this as shown her
                                         <span class="n">n_cpus</span><span class="o">=</span><span class="n">n_cpus</span><span class="p">,</span>
                                         <span class="n">sleep_interval</span><span class="o">=</span><span class="n">sleep_interval</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">commands</span><span class="p">[:]:</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 </pre></div>
 
 

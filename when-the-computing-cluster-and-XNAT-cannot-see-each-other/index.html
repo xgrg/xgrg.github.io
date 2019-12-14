@@ -125,7 +125,7 @@ The recipe is admittedly imperfect on many aspects, especially considering that 
 
 <p>It is based on the following commands, called sequentially:</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fetch_from_xnat</span><span class="p">(</span><span class="n">config_file</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span>  
-        <span class="n">include_freesurfer</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">doit</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="n">include_freesurfer</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doit</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
             <span class="sd">&#39;&#39;&#39; Downloads a given list of File instances from</span>
 <span class="sd">            XNAT and stores them in a given path</span>
 <span class="sd">            (/path/to/working_dir in the previous example)</span>
@@ -135,8 +135,8 @@ The recipe is admittedly imperfect on many aspects, especially considering that 
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rsync_to_hpc</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">dd</span><span class="p">,</span> <span class="n">include_freesurfer</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-            <span class="n">doit</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">clean</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rsync_to_hpc</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">dd</span><span class="p">,</span> <span class="n">include_freesurfer</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">doit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">clean</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Sends necessary resources to host (computing unit)</span>
 <span class="sd">      including:</span>
 <span class="sd">        - host definition (COMPUTING_UNIT_ID)</span>
@@ -151,7 +151,7 @@ The recipe is admittedly imperfect on many aspects, especially considering that 
 
 
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">singularity_cmd</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">subject_label</span><span class="p">,</span>
-        <span class="n">singularity_fp</span><span class="p">,</span> <span class="n">image_fn</span><span class="p">,</span> <span class="n">reconall</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="n">singularity_fp</span><span class="p">,</span> <span class="n">image_fn</span><span class="p">,</span> <span class="n">reconall</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Builds a `singularity` command provided:</span>
 <span class="sd">        - path to remote directory</span>
 <span class="sd">        - experiment_id and subject_label</span>
