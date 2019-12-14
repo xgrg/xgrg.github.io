@@ -94,5 +94,3 @@ This final command allows to download the file to the local system.
 ```python
 f.get(dest='/tmp/%s'%filename)
 ```
-
-A Jupyter Notebook with the presented code can be found [there](https://github.com/xgrg/pyxnat/blob/nosetests/doc/notebooks/001%20-%20First%20steps%20with%20pyxnat.ipynb).
