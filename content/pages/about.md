@@ -1,14 +1,15 @@
 ---
 Title: About
 ---
-
-Grégory Operto has been have been dedicating more than 10 years to studying the human brain using advanced techniques and developing new methods in medical image processing. After graduating in 2005 from Polytech-Marseille (by then Ecole Supérieure d'Ingénieurs de Luminy) with a major in Biomedical Engineering, he received his PhD in Computer Science from Aix-Marseille University in 2009. He then joined NeuroSpin, the high-field MRI center of the Commissariat à l’Energie Atomique (Atomic Energy Commission). His research interests focus on early detection in Alzheimer's Disease and the aging brain. Between 2011 and 2016, he managed the production unit in charge of computing biomarkers in CATI, the French platform for multicenter neuroimaging studies. He is now holding a staff scientist position in the neuroimaging team of the [BarcelonaBeta Brain Research Center](http://barcelonabeta.org) to explore imaging early markers of Alzheimer's disease in large cohorts of presymptomatic subjects. By his experience both as a researcher and as an engineer, he has been building practical know-how in addressing not only the fundamental questions related to the study of Alzheimer’s disease but also the many technical challenges raised by data of ever-increasing complexity.
+Greg Operto is a neuroimaging research scientist in the field of Alzheimer’s Disease. After graduating in 2005 from Polytech-Marseille with a major in Biomedical Engineering, he received his PhD in Computer Science from Aix-Marseille University in 2009. He then joined NeuroSpin, the high-field MRI center of the Commissariat à l’Energie Atomique (Atomic Energy Commission). His research interests focus on early detection in Alzheimer's Disease and the aging brain. Between 2011 and 2016, he managed the production unit in charge of computing biomarkers in CATI, the French platform for multicenter neuroimaging studies. He is now holding a research fellow position in the neuroimaging team of the [BarcelonaBeta Brain Research Center](http://barcelonabeta.org) where he explores imaging early markers of Alzheimer's disease in large cohorts of presymptomatic subjects and leads the development of the platform for the management, processing and control of imaging data. By his double experience both as a researcher and as an engineer, he has been addressing not only the fundamental questions related to the study of Alzheimer’s disease but also the many technical challenges raised by data of ever-increasing complexity.
 
 ## Professional experience
 
-* 2016-now: **Staff Scientist** in BarcelonaBeta Brain Research Center (with J.D. Gispert-López) - Fundació Pasqual Maragall, Barcelona, Spain
+* 2016-now: **Staff Scientist** in BarcelonaBeta Brain Research Center (with J.D. Gispert-López, José Luis Molinuevo) - Fundació Pasqual Maragall, Barcelona, Spain
 
 > Investigating on neuroimaging early markers of Alzheimer's disease in large cohorts of presymptomatic subjects. ([http://barcelonabeta.org](http://barcelonabeta.org)).
+
+> Leading the development of the platform for the management, processing and control of imaging data.
 
 * 2011-2016: **Research Engineer / Production Manager** in CATI (director: J-F. Mangin, PhD), NeuroSpin
 
@@ -44,6 +45,7 @@ Grégory Operto has been have been dedicating more than 10 years to studying the
 
 ## Supervision of students
 
+* Guillem Paris (2018 ; co-supervised Master student)
 * Pauline Bezivin (2012 ; co-supervised Master student)
 * Samuel David (2014 ; supervised Engineering student)
 * Alberto Redolfi (2014 ; co-supervised Ph.D candidate)
@@ -83,6 +85,16 @@ Grégory Operto has been have been dedicating more than 10 years to studying the
 ## Publications and conferences
 
 ### Peer-reviewed publications :
+
+* O. Grau-Rivera, **G. Operto**, C. Falcón, G. Sánchez-Benavides, R. Cacciaglia, A. Brugulat-Serrat, N. Gramunt, G. Salvadó, M. Suárez-Calvet, C. Minguillon, Á. Iranzo, J.D. Gispert, J.L. Molinuevo for the ALFA Study, [Association between insomnia and cognitive performance, gray matter volume, and white matter microstructure in cognitively unimpaired adults](https://alzres.biomedcentral.com/articles/10.1186/s13195-019-0547-3), Alzheimer’s Research and Therapy, 2020
+
+
+* **G. Operto**, J.L. Molinuevo, R. Cacciaglia, C. Falcón, A. Brugulat-Serrat, M. Suárez-Calvet, O. Grau-Rivera, N. Bargalló, S. Morán, M. Esteller, J.D. Gispert for the ALFA Study, [Interactive effect of age and APOE-ε4 allele load on white matter myelin content in cognitively normal middle-aged subjects](https://www.sciencedirect.com/science/article/pii/S221315821930333X), Neuroimage: Clinical, 2019
+
+* P. M. Petrone, A. Casamitjana, C. Falcon, M. Artigues, **G. Operto**, R. Cacciaglia, J.L. Molinuevo, V. Vilaplana, J.D. Gispert & for the Alzheimer’s Disease Neuroimaging Initiative, [Prediction of amyloid pathology in cognitively unimpaired individuals using voxel-wise analysis of longitudinal structural brain MRI](https://alzres.biomedcentral.com/articles/10.1186/s13195-019-0526-8), Alzheimer’s Research and Therapy, 2019
+
+* A. Brugulat-Serrat, G. Salvadó, **G. Operto**, R. Cacciaglia, C. Sudre, O. Grau-Rivera, M. Suárez-Calvet, C. Falcon, G. Sánchez-Benavides, N. Gramunt, C. Minguillon, K. Fauria, F. Barkhof, J.L. Molinuevo, J.D. Gispert for the ALFA Study, [White matter hyperintensities mediate gray matter volume and executive function relationship](https://onlinelibrary.wiley.com/doi/full/10.1002/hbm.24877), Human Brain Mapping, 2019
+
 
 * **G. Operto**, R. Cacciaglia, O. Grau-Rivera, C. Falcon, A. Brugulat-Serrat, P. Ródenas, R. Ramos, S. Morán, M. Esteller, N. Bargalló, J.L. Molinuevo, J.D. Gispert for the ALFA Study, [White matter microstructure is altered in cognitively normal middle-aged APOE-ε4 homozygotes](http://dx.doi.org/10.1186/s13195-018-0375-x), Alzheimer’s Research & Therapy, 2018 [doi:10.1186/s13195-018-0375-x](http://dx.doi.org/10.1186/s13195-018-0375-x)
 
