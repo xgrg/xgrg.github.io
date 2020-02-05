@@ -124,11 +124,21 @@ This post describes an end-to-end analysis workflow based on
 regions-of-interest. Such workflows rely on typical operations
 e.g. extracting values, merging them with covariates, plotting, performing some
 linear regressions or group comparisons, which have been turned to Python code
-in a module called <a href="https://github.com/xgrg/roistats">roistats</a>, presented here. </div></p>
+in a package called <a href="https://github.com/xgrg/roistats">roistats</a>, presented here. </div></p>
 </blockquote>
 <h2>Collecting mean values from atlas regions</h2>
-<p><code>roistats.collect</code> submodule has a function <code>roistats_from_maps(images, atlas_fp)</code>
-which takes</p>
+<p><code>roistats.collect</code> module has a function <code>roistats_from_maps(images, atlas_fp)</code>
+which takes a set (<code>images</code>) of images (their file paths) and <code>atlas_fp</code>, the
+ path to a <em>ROI volume</em> (i.e. a volume with integer labels defining areas of
+   interest [and 0 elsewhere]). All images should be coregistered in the same
+   space (e.g. MNI). The ROI volume may thus come from an atlas, as the ones
+   from the <a href="https://nilearn.github.io/modules/reference.html#module-nilearn.datasets"><code>nilearn.datasets</code></a>
+  module.</p>
+<p>In this example, let us generate some maps (N=50) with some random values over an
+MNI brain mask. They will be like our individual (subject-level) maps.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span>
+</pre></div>
     </section>
 
 
