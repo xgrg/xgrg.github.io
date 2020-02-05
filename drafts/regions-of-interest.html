@@ -135,10 +135,47 @@ which takes a set (<code>images</code>) of images (their file paths) and <code>a
    from the <a href="https://nilearn.github.io/modules/reference.html#module-nilearn.datasets"><code>nilearn.datasets</code></a>
   module.</p>
 <p>In this example, let us generate some maps (N=50) with some random values over an
-MNI brain mask. They will be like our individual (subject-level) maps.</p>
-<p>Example:</p>
-<div class="highlight"><pre><span></span>
+MNI brain mask. They will be like our individual (subject-level) maps. You may
+use your own maps directly.</p>
+<h4>Generating random maps (optional)</h4>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">from</span> <span class="nn">nilearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">nilearn</span> <span class="kn">import</span> <span class="n">image</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">atlas</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_mni152_brain_mask</span><span class="p">()</span>
+
+<span class="c1"># Generate 50 random maps</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="o">*</span><span class="n">atlas</span><span class="o">.</span><span class="n">dataobj</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="n">atlas</span><span class="o">.</span><span class="n">dataobj</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">new_img_like</span><span class="p">(</span><span class="n">atlas</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">smooth_img</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.nii.gz&#39;</span><span class="p">)</span>
+    <span class="n">im</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">nilearn</span> <span class="kn">import</span> <span class="n">plotting</span> <span class="k">as</span> <span class="n">npl</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;cort-maxprob-thr50-2mm&#39;</span>
+<span class="n">atlas_fp</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">fetch_atlas_harvard_oxford</span><span class="p">(</span><span class="n">name</span><span class="p">)[</span><span class="s1">&#39;maps&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">images</span><span class="p">[:</span><span class="mi">3</span><span class="p">]:</span>
+    <span class="n">npl</span><span class="o">.</span><span class="n">plot_roi</span><span class="p">(</span><span class="n">atlas_fp</span><span class="p">,</span> <span class="n">bg_img</span><span class="o">=</span><span class="n">each</span><span class="p">)</span>
 </pre></div>
+
+
+<p>This <a href="https://gist.github.com/xgrg/3405bbe95f6aa589ac5dfbfb9843c73f">gist</a>
+shows the documented execution of this part.</p>
+<h4>Collecting values</h4>
+<p>```python
+from roistats import collect
+from roistats import
+df = collect.roistats_from_maps(images, atlas_fp, subjects=None)</p>
+<p>df = df.rename(columns=labels)</p>
+<p>df['group'] = df.index
+df['age'] = df.apply (lambda row: random.random()*5+50, axis=1)
+df['group'] = df.apply (lambda row: row['group']&lt;len(df)/2, axis=1)
+df['index'] = df.index</p>
     </section>
 
 
