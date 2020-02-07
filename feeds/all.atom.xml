@@ -22,7 +22,7 @@ reference space and using ROIs defined from a brain atlas.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;ROIs are thus often defined over anatomical data and then used to filter the
  signal from other image modalities.&lt;/p&gt;
-&lt;p&gt;## TL;DR&lt;/p&gt;
+&lt;h2&gt;TL;DR&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;div style="padding:20px; text-align:justify; background-color:#222222"&gt;
 This post describes an end-to-end analysis workflow based on
