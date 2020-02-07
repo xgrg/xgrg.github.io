@@ -279,7 +279,7 @@ sex and "group".&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;&lt;img alt="lmplot1" src="/images/roi/lmplot1.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="lmplot" src="/images/roi/lmplot.png"&gt;&lt;/p&gt;
 &lt;p&gt;For the last example, the table needs to be reshaped a bit ("unpivot"). This is
 done to allow the use of large tables with many rows (and a moderate number of columns).&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# For this last one reshape the table a bit (&amp;quot;unpivot&amp;quot;)&lt;/span&gt;
