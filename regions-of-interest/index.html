@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Grégory Operto, ">
+    <link href="/favicon.png" rel="icon">
+
+        <link rel="alternate"  href="http://xgrg.github.io/feeds/all.atom.xml" type="application/atom+xml" title="Grégory Operto Full Atom Feed"/>
+
+        <title>Grégory Operto - ROI-based analysis in neuroimaging: a tutorial in Python</title>
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="/theme/css/grids-responsive-min.css">
+    <!--<![endif]-->
+    <link rel="stylesheet" href="/theme/css/styles.css">
+    <link rel="stylesheet" href="/theme/css/slides.css">
+    <link rel="stylesheet" href="/theme/css/pygments.css">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'> -->
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,500" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script src="/js/responsiveslides.min.js"></script>
+</head>
+
+<body>
+
+
+    <header id="header" class="pure-g">
+        <div class="pure-u-1 pure-u-md-3-4">
+             <div id="menu">
+                 <div class="pure-menu pure-menu-open pure-menu-horizontal">
+<ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+</ul>                </div>
+            </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-1-4">
+            <div id="social">
+                <div class="pure-menu pure-menu-open pure-menu-horizontal">
+<ul>
+        <li><a href="https://twitter.com/xgrg"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://github.com/xgrg"><i class="fa fa-github"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/neuroimaging"><i class="fa fa-linkedin"></i></a></li>
+</ul>                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <div id="layout" class="pure-g">
+        <nav id="sidebar" class="pure-u-1 pure-u-md-1-4">
+            <div class="l-box">
+<section>
+	<div class="portrait">
+			<img src="/theme/images/go.jpg" />
+	</div>
+    <div class="name-cv">
+        <div class="name">Grégory Operto, PhD</div>
+        <div class="cv">
+            <a href="/pdfs/cv.pdf"><i class="fa fa-file-pdf-o"></i> CV</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+      <div class="sub-name">brain imaging | data science</div>
+	<div class="contact">goperto@gmail.com</div>
+	<div class="location">Barcelona, Spain</div>
+</section>
+
+<section class="tags">
+</section>            </div>
+        </nav>
+        <section id="content" class="pure-u-1 pure-u-md-3-4">
+            <div class="l-box">
+
+    <header id="post-header">
+        <h1>ROI-based analysis in neuroimaging: a tutorial in Python</h1>
+            <div class="post-meta">
+                February 03, 2020
+            </div>
+            <div class="post-tags">
+                <ul>
+                    <li>tags:</li>
+                    <li><a href="/tag/image/">image</a></li>
+                    <li><a href="/tag/python/">python</a></li>
+                </ul>
+            </div>
+    </header>
+
+    <section id="post">
+        <!-- PELICAN_END_SUMMARY -->
+
+<p>As hypotheses in neuroimaging studies are often stated in terms of brain
+structures, analyses based on Regions-on-Interest (ROIs) allow to focus
+ over a number of parcels with homogeneous characteristics. Two approaches
+ are generally available, as two opposite ways of addressing anatomical variability.</p>
+<ul>
+<li>One way consists in warping all the subjects to a common
+reference space and using ROIs defined from a brain atlas.</li>
+<li>The other one consists in delineating ROIs individually in every subject,
+  e.g., using segmentation algorithms.  Resulting objects are likely to be closer
+  to the individual anatomical truth, and improve sensitivity by focusing on
+  the signal of interest, as compared to voxel-based methods.</li>
+</ul>
+<p>ROIs are thus often defined over anatomical data and then used to filter the
+ signal from other image modalities.</p>
+<p>## TL;DR</p>
+<blockquote>
+<p><div style="padding:20px; text-align:justify; background-color:#222222">
+This post describes an end-to-end analysis workflow based on
+regions-of-interest. Such workflows rely on typical operations
+e.g. extracting values, merging them with covariates, plotting, performing some
+linear regressions or group comparisons, which have been turned to Python code
+in a package called <a href="https://github.com/xgrg/roistats">roistats</a>, presented here. </div></p>
+</blockquote>
+<h2>Collecting mean values from atlas regions</h2>
+<p>In this example, we will first generate some maps (N=50) with some random values over an
+MNI brain mask. They will be like our individual (subject-level) maps.  </p>
+<p>We will then extract the ROI values from these simulated maps. You may
+use your own maps directly.</p>
+<h4>Generating random maps (optional)</h4>
+<p>This <a href="https://gist.github.com/xgrg/3405bbe95f6aa589ac5dfbfb9843c73f">gist</a>
+shows the documented execution of this part.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">from</span> <span class="nn">nilearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">nilearn</span> <span class="kn">import</span> <span class="n">image</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">atlas</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_mni152_brain_mask</span><span class="p">()</span>
+
+<span class="c1"># Generate 50 random maps</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="o">*</span><span class="n">atlas</span><span class="o">.</span><span class="n">dataobj</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="n">atlas</span><span class="o">.</span><span class="n">dataobj</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">new_img_like</span><span class="p">(</span><span class="n">atlas</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">smooth_img</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.nii.gz&#39;</span><span class="p">)</span>
+    <span class="n">im</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">nilearn</span> <span class="kn">import</span> <span class="n">plotting</span> <span class="k">as</span> <span class="n">npl</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;cort-maxprob-thr50-2mm&#39;</span>
+<span class="n">atlas_fp</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">fetch_atlas_harvard_oxford</span><span class="p">(</span><span class="n">name</span><span class="p">)[</span><span class="s1">&#39;maps&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">images</span><span class="p">[:</span><span class="mi">3</span><span class="p">]:</span>
+    <span class="n">npl</span><span class="o">.</span><span class="n">plot_roi</span><span class="p">(</span><span class="n">atlas_fp</span><span class="p">,</span> <span class="n">bg_img</span><span class="o">=</span><span class="n">each</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="example_plot_roi" src="/images/roi/roi_plot.png"></p>
+<h4>Collecting the ROI values</h4>
+<p><code>roistats.collect</code> module has a function <code>roistats_from_maps(images, atlas_fp)</code>
+which takes a set (<code>images</code>) of images (their file paths) and <code>atlas_fp</code>, the
+ path to a <em>ROI volume</em> (i.e. a volume with integer labels defining areas of
+   interest [and 0 elsewhere]). All images should be coregistered in the same
+   space (e.g. MNI). The ROI volume may thus come from an atlas, as the ones
+   from the <a href="https://nilearn.github.io/modules/reference.html#module-nilearn.datasets"><code>nilearn.datasets</code></a>
+  module.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">roistats</span> <span class="kn">import</span> <span class="n">collect</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Here we collect the mean value from each ROI on every image</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">collect</span><span class="o">.</span><span class="n">roistats_from_maps</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">atlas_fp</span><span class="p">,</span>
+                                 <span class="n">func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span>
+                                 <span class="n">subjects</span><span class="o">=</span><span class="n">images</span><span class="p">,</span>
+                                 <span class="n">n_jobs</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The created table will have as many columns as there are ROI labels.
+We may rename them with the corresponding names from the atlas.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Get label names from Harvard Oxford atlas</span>
+<span class="kn">from</span> <span class="nn">nilearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+
+<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;cort-maxprob-thr50-2mm&#39;</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">fetch_atlas_harvard_oxford</span><span class="p">(</span><span class="n">name</span><span class="p">)[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span>
+
+<span class="c1"># Store them in a dict</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+</pre></div>
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Background</th>
+<th>Frontal Pole</th>
+<th>Insular Cortex</th>
+<th>Superior Frontal Gyrus</th>
+<th>Middle Frontal Gyrus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>subject</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>/tmp/tmp_9rh_8p3.nii.gz</td>
+<td>0.10316</td>
+<td>0.465694</td>
+<td>0.503227</td>
+<td>0.495352</td>
+<td>0.475365</td>
+</tr>
+<tr>
+<td>/tmp/tmpqht6np22.nii.gz</td>
+<td>0.103357</td>
+<td>0.471021</td>
+<td>0.498914</td>
+<td>0.488398</td>
+<td>0.478122</td>
+</tr>
+<tr>
+<td>/tmp/tmpk0117ahy.nii.gz</td>
+<td>0.103379</td>
+<td>0.470353</td>
+<td>0.497508</td>
+<td>0.494957</td>
+<td>0.490264</td>
+</tr>
+<tr>
+<td>/tmp/tmpq6pnpx0r.nii.gz</td>
+<td>0.103438</td>
+<td>0.46967</td>
+<td>0.507529</td>
+<td>0.49202</td>
+<td>0.47704</td>
+</tr>
+<tr>
+<td>/tmp/tmpm2un1_ri.nii.gz</td>
+<td>0.103383</td>
+<td>0.471193</td>
+<td>0.501927</td>
+<td>0.491835</td>
+<td>0.474059</td>
+</tr>
+</tbody>
+</table>
+<h2>Plotting the data</h2>
+<p><code>roistats</code> comes with a module <code>plotting</code> intended for visualizing tabular data
+(built on top of <a href="https://seaborn.pydata.org/"><code>seaborn</code></a>/<a href="https://matplotlib.org/"><code>matplotlib</code></a>)
+with some predefined functions for boxplots, scatter plots with linear model fits
+or histograms, with the possibility to account for covariates (using
+  inline linear regressions). The same function hence takes the data, computes
+  some version corrected for given covariates and plots it in some different possible
+  ways.</p>
+<p>To recreate some kind of realistic case, let us add some totally random
+covariates to these previously extracted ROI values. Random "group", random age,
+random sex,
+random <a href="https://en.wikipedia.org/wiki/Apolipoprotein_E">APOE</a> E4 status.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Let us add some totally random covariates</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">50</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;male&#39;</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;apoee4&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;HO&#39;</span><span class="p">,</span> <span class="s1">&#39;HT&#39;</span><span class="p">,</span> <span class="s1">&#39;NC&#39;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span>
+
+<span class="c1"># How do they look</span>
+<span class="n">covariates</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;apoee4&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="n">covariates</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>group</th>
+<th>age</th>
+<th>sex</th>
+<th>apoee4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>53.620190</td>
+<td>female</td>
+<td>NC</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>53.531222</td>
+<td>female</td>
+<td>NC</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>51.073742</td>
+<td>female</td>
+<td>NC</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1</td>
+<td>54.184375</td>
+<td>male</td>
+<td>HT</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1</td>
+<td>52.552064</td>
+<td>female</td>
+<td>HT</td>
+</tr>
+</tbody>
+</table>
+<p>We will now plot the mean values from any given region (say the <a href="https://en.wikipedia.org/w/index.php?title=Temporal_pole">temporal pole</a> but could be any other one). Importantly, we
+want to account for the potential influence of the covariates we just added (e.g.
+  differences between men/women, effect of age, influence of APOE status).</p>
+<p>For instance, let us look at the effect of the APOE status on the mean intensities
+taken in the Temporal Pole (across these 50 maps), accounting for the effect of age,
+sex and "group".</p>
+<p><code>plotting</code> has a method called <code>boxplot</code> for this.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">roistats</span> <span class="kn">import</span> <span class="n">plotting</span>
+<span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;Temporal Pole&#39;</span>
+
+<span class="c1"># Plot data from this region</span>
+<span class="c1"># Do it *accounting for covariates*</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plotting</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;apoee4&#39;</span><span class="p">,</span>
+                     <span class="n">covariates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">],</span>
+                     <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="boxplot1" src="/images/roi/boxplot1.png"></p>
+<p>The plot displays the p value of a two-sample t test.</p>
+<p>Same thing now with sex differences.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Now by sex</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plotting</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span>
+                     <span class="n">covariates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">],</span>
+                     <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="boxplot2" src="/images/roi/boxplot2.png"></p>
+<p>Let us now look at age x APOE interaction, corrected for sex and "group".</p>
+<p><code>plotting</code> has a method called <code>lmplot</code> for this.</p>
+<div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">plotting</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">region</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+                    <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">covariates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">],</span>
+                    <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;apoee4&#39;</span><span class="p">,</span>
+                    <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span>
+                    <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="lmplot1" src="/images/roi/lmplot1.png"></p>
+<p>For the last example, the table needs to be reshaped a bit ("unpivot"). This is
+done to allow the use of large tables with many rows (and a moderate number of columns).</p>
+<div class="highlight"><pre><span></span><span class="c1"># For this last one reshape the table a bit (&quot;unpivot&quot;)</span>
+<span class="n">cov</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;apoee4&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">]]</span>
+<span class="n">melt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">,</span>
+               <span class="n">value_vars</span><span class="o">=</span><span class="n">labels</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>
+               <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;region&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+<span class="n">melt</span> <span class="o">=</span> <span class="n">melt</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
+</pre></div>
+
+
+<p>It would look like this:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Only keep 5 regions for this example</span>
+<span class="n">regions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">melt</span><span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">]))</span>
+<span class="n">melt</span> <span class="o">=</span> <span class="n">melt</span><span class="p">[</span><span class="n">melt</span><span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">regions</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">15</span><span class="p">])]</span>
+
+<span class="c1"># It looks like this</span>
+<span class="n">melt</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>region</th>
+<th>value</th>
+<th>age</th>
+<th>apoee4</th>
+<th>sex</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Inferior Frontal Gyrus, pars triangularis</td>
+<td>0.458292</td>
+<td>53.62019</td>
+<td>NC</td>
+<td>female</td>
+</tr>
+<tr>
+<td>0</td>
+<td>Superior Parietal Lobule</td>
+<td>0.508143</td>
+<td>53.62019</td>
+<td>NC</td>
+<td>female</td>
+</tr>
+<tr>
+<td>0</td>
+<td>Frontal Orbital Cortex</td>
+<td>0.480872</td>
+<td>53.62019</td>
+<td>NC</td>
+<td>female</td>
+</tr>
+<tr>
+<td>0</td>
+<td>Central Opercular Cortex</td>
+<td>0.496808</td>
+<td>53.62019</td>
+<td>NC</td>
+<td>female</td>
+</tr>
+<tr>
+<td>0</td>
+<td>Supracalcarine Cortex</td>
+<td>0.487534</td>
+<td>53.62019</td>
+<td>NC</td>
+<td>female</td>
+</tr>
+</tbody>
+</table>
+<p>Now if we want to create a single bar plot representing all the ROIs, <code>plotting</code>
+has a method called <code>hist</code>.</p>
+<p>In this example, APOE groups would be considered separately. And again, here
+ covariates would be age and sex.</p>
+<div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">plotting</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">melt</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;apoee4&#39;</span><span class="p">,</span>
+                  <span class="n">region_colname</span><span class="o">=</span><span class="s1">&#39;region&#39;</span><span class="p">,</span>
+                  <span class="n">covariates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">],</span>
+                  <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">],</span>
+                  <span class="n">aspect</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                  <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="hist1" src="/images/roi/hist1.png"></p>
+<p>Now same thing with sex differences, correcting for age and APOE status.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Again by sex</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plotting</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">melt</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span>
+                  <span class="n">region_colname</span><span class="o">=</span><span class="s1">&#39;region&#39;</span><span class="p">,</span>
+                  <span class="n">covariates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;apoee4&#39;</span><span class="p">],</span>
+                  <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">],</span>
+                  <span class="n">aspect</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                  <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="hist2" src="/images/roi/hist2.png"></p>
+<p><code>roistats</code> can be found at this <a href="https://github.com/xgrg/roistats">URL</a>.</p>
+<p>--
+Disclaimer: to date <a href="https://github.com/xgrg/roistats"><code>roistats</code></a> is only
+available as a raw (probably dirty) code but please open an issue if
+making it available on main package repositories may be useful to you and I
+will make the effort.</p>
+    </section>
+
+
+<nav class="pagination-wrapper">
+    <div class="pagination">
+        <div class="pagination-left">
+        </div>
+        <div class="pagination-right">
+                &nbsp;
+        </div>
+    </div>
+</nav>
+    <aside class="comments">
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+
+    var disqus_config = function () {
+        this.page.url = "http://xgrg.github.io/regions-of-interest/";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "regions-of-interest"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//xgrg.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+    </aside>
+
+            </div>
+        </section>
+
+
+        <footer id="footer" class="pure-u-1 pure-u-md-3-4">
+            <div class="l-box">
+                <div>
+                    <p>&copy; <a href="http://xgrg.github.io">Grégory Operto</a> &ndash;
+                        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+                              for <a href="http://blog.getpelican.com/">Pelican</a> - layout cloned with awe from <a href="http://cyrille.rossant.net">cyrille.rossant.net</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-17275957-2', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+
+</body>
+</html>
+
