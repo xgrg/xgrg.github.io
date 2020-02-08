@@ -114,7 +114,7 @@
 reference space and using ROIs defined from a brain atlas.</li>
 <li>The other one consists in delineating ROIs individually in every subject,
   e.g., using segmentation algorithms.  Resulting objects are likely to be closer
-  to the individual anatomical truth, and improve sensitivity by focusing on
+  to the individual anatomical truth, therefore improving sensitivity by focusing on
   the signal of interest, as compared to voxel-based methods.</li>
 </ul>
 <p>ROIs are thus often defined over anatomical data and then used to filter the
@@ -129,10 +129,11 @@ linear regressions or group comparisons, which have been turned to Python code
 in a package called <a href="https://github.com/xgrg/roistats">roistats</a>. </div></p>
 </blockquote>
 <h2>Collecting mean values from atlas regions</h2>
-<p>In this example, we will first generate some maps (N=50) with some random values over an
+<p>In this example, we generate some maps (N=50) with some random values over an
 MNI brain mask. They will be like our individual (subject-level) maps.  </p>
-<p>We will then extract the ROI values from these simulated maps. You may
-use your own maps directly.</p>
+<p>Regions-of-interest will be defined over these simulated maps and descriptive values will be
+extracted from these regions. Real images may be used directly (provided they
+  are in the same reference space).</p>
 <h4>Generating random maps (optional)</h4>
 <p>This <a href="https://gist.github.com/xgrg/3405bbe95f6aa589ac5dfbfb9843c73f">gist</a>
 shows the documented execution of this part.</p>
