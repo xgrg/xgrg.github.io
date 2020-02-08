@@ -103,10 +103,12 @@
     <section id="post">
         <!-- PELICAN_END_SUMMARY -->
 
-<p>As hypotheses in neuroimaging studies are often stated in terms of brain
-structures, analyses based on Regions-on-Interest (ROIs) allow to focus
- over a number of parcels with homogeneous characteristics. Two approaches
- are generally available, as two opposite ways of addressing anatomical variability.</p>
+<p>Analyses based on Regions-of-Interest (ROIs) allow to focus
+ over a number of parcels with homogeneous characteristics, which are generally
+ related to brain structures. This type of analysis is rather popular in neuroimaing
+ especially when the study builds onto some hypothesis precisely related to
+ some of these brain structures.</p>
+<p>Two approaches are generally available, as two opposite ways of addressing anatomical variability.</p>
 <ul>
 <li>One way consists in warping all the subjects to a common
 reference space and using ROIs defined from a brain atlas.</li>
@@ -160,7 +162,9 @@ shows the documented execution of this part.</p>
 </pre></div>
 
 
-<p><img alt="example_plot_roi" src="/images/roi/roi_plot.png"></p>
+<p><img alt="example_plot_roi1" src="/images/roi/roi_plot1.png">
+<img alt="example_plot_roi2" src="/images/roi/roi_plot2.png">
+<img alt="example_plot_roi3" src="/images/roi/roi_plot3.png"></p>
 <h4>Collecting the ROI values</h4>
 <p><code>roistats.collect</code> module has a function <code>roistats_from_maps(images, atlas_fp)</code>
 which takes a set (<code>images</code>) of images (their file paths) and <code>atlas_fp</code>, the
@@ -353,7 +357,8 @@ sex and "group".</p>
 
 
 <p><img alt="boxplot1" src="/images/roi/boxplot1.png"></p>
-<p>The plot displays the p value of a two-sample t test.</p>
+<p>The plot displays the p values of two-sample t tests between each pair of
+categories.</p>
 <p>Same thing now with sex differences.</p>
 <div class="highlight"><pre><span></span><span class="c1"># Now by sex</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plotting</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span>

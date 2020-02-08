@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto - Image</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/image.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2020-02-03T00:00:00+01:00</updated><entry><title>ROI-based analysis in neuroimaging: a tutorial in Python</title><link href="http://xgrg.github.io/regions-of-interest/" rel="alternate"></link><published>2020-02-03T00:00:00+01:00</published><updated>2020-02-03T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2020-02-03:/regions-of-interest/</id><summary type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
 
-&lt;p&gt;As hypotheses in neuroimaging studies are often stated in terms of brain
-structures, analyses based on Regions-on-Interest (ROIs) allow to focus
- over a number of parcels with homogeneous characteristics. Two approaches
- are generally available, as two opposite ways of addressing anatomical variability.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;One way consists in warping all the subjects …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
+&lt;p&gt;Analyses based on Regions-of-Interest (ROIs) allow to focus
+ over a number of parcels with homogeneous characteristics, which are generally
+ related to brain structures. This type of analysis is rather popular in neuroimaing
+ especially when the study builds onto some hypothesis precisely related to
+ some of these brain structures.&lt;/p&gt;
+&lt;p&gt;Two approaches …&lt;/p&gt;</summary><content type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
 
-&lt;p&gt;As hypotheses in neuroimaging studies are often stated in terms of brain
-structures, analyses based on Regions-on-Interest (ROIs) allow to focus
- over a number of parcels with homogeneous characteristics. Two approaches
- are generally available, as two opposite ways of addressing anatomical variability.&lt;/p&gt;
+&lt;p&gt;Analyses based on Regions-of-Interest (ROIs) allow to focus
+ over a number of parcels with homogeneous characteristics, which are generally
+ related to brain structures. This type of analysis is rather popular in neuroimaing
+ especially when the study builds onto some hypothesis precisely related to
+ some of these brain structures.&lt;/p&gt;
+&lt;p&gt;Two approaches are generally available, as two opposite ways of addressing anatomical variability.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;One way consists in warping all the subjects to a common
 reference space and using ROIs defined from a brain atlas.&lt;/li&gt;
@@ -65,7 +67,9 @@ shows the documented execution of this part.&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;&lt;img alt="example_plot_roi" src="/images/roi/roi_plot.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="example_plot_roi1" src="/images/roi/roi_plot1.png"&gt;
+&lt;img alt="example_plot_roi2" src="/images/roi/roi_plot2.png"&gt;
+&lt;img alt="example_plot_roi3" src="/images/roi/roi_plot3.png"&gt;&lt;/p&gt;
 &lt;h4&gt;Collecting the ROI values&lt;/h4&gt;
 &lt;p&gt;&lt;code&gt;roistats.collect&lt;/code&gt; module has a function &lt;code&gt;roistats_from_maps(images, atlas_fp)&lt;/code&gt;
 which takes a set (&lt;code&gt;images&lt;/code&gt;) of images (their file paths) and &lt;code&gt;atlas_fp&lt;/code&gt;, the
@@ -258,7 +262,8 @@ sex and "group".&lt;/p&gt;
 
 
 &lt;p&gt;&lt;img alt="boxplot1" src="/images/roi/boxplot1.png"&gt;&lt;/p&gt;
-&lt;p&gt;The plot displays the p value of a two-sample t test.&lt;/p&gt;
+&lt;p&gt;The plot displays the p values of two-sample t tests between each pair of
+categories.&lt;/p&gt;
 &lt;p&gt;Same thing now with sex differences.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Now by sex&lt;/span&gt;
 &lt;span class="n"&gt;_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;plotting&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;boxplot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;region&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;sex&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
