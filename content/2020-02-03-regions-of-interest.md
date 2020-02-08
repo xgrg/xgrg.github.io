@@ -1,4 +1,4 @@
-Title: ROI-based analysis in neuroimaging: a tutorial in Python
+Title: ROI-based analysis in neuroimaging: a walkthrough in Python
 Category: Image
 Status: Published
 Tags: image, python
@@ -8,16 +8,19 @@ Authors: Grégory Operto
 
 <!-- PELICAN_END_SUMMARY -->
 
-As hypotheses in neuroimaging studies are often stated in terms of brain
-structures, analyses based on Regions-on-Interest (ROIs) allow to focus
- over a number of parcels with homogeneous characteristics. Two approaches
- are generally available, as two opposite ways of addressing anatomical variability.
+Analyses based on Regions-of-Interest (ROIs) focus
+ on a number of parcels with homogeneous characteristics, which are generally
+ related to brain structures. This type of analysis is rather popular in neuroimaging
+ especially when the study builds onto some hypothesis precisely related to
+ some of these brain structures.
+
+ Two approaches are generally available, as two opposite ways of addressing anatomical variability.
 
   - One way consists in warping all the subjects to a common
 reference space and using ROIs defined from a brain atlas.
   - The other one consists in delineating ROIs individually in every subject,
   e.g., using segmentation algorithms.  Resulting objects are likely to be closer
-  to the individual anatomical truth, and improve sensitivity by focusing on
+  to the individual anatomical truth, therefore improving sensitivity by focusing on
   the signal of interest, as compared to voxel-based methods.
 
 ROIs are thus often defined over anatomical data and then used to filter the
@@ -26,19 +29,20 @@ ROIs are thus often defined over anatomical data and then used to filter the
 ## TL;DR
 
  > <div style="padding:20px; text-align:justify; background-color:#222222">
- > This post describes an end-to-end analysis workflow based on
- > regions-of-interest. Such workflows rely on typical operations
+ > This post describes a basic end-to-end analysis workflow based on
+ > regions-of-interest using simulated data. It relies on typical operations
  > e.g. extracting values, merging them with covariates, plotting, performing some
  > linear regressions or group comparisons, which have been turned to Python code
- > in a package called [roistats](https://github.com/xgrg/roistats), presented here. </div>
+ > in a package called [roistats](https://github.com/xgrg/roistats). </div>
 
 ##  Collecting mean values from atlas regions
 
-In this example, we will first generate some maps (N=50) with some random values over an
+In this example, we generate some maps (N=50) with some random values over an
 MNI brain mask. They will be like our individual (subject-level) maps.  
 
-We will then extract the ROI values from these simulated maps. You may
-use your own maps directly.
+Regions-of-interest will be defined over these simulated maps and descriptive values will be
+extracted from these regions. Real images may be used instead (provided they
+  are in the same reference space).
 
 #### Generating random maps (optional)
 
@@ -71,7 +75,9 @@ for each in images[:3]:
     npl.plot_roi(atlas_fp, bg_img=each)
 ```
 
-![example_plot_roi](/images/roi/roi_plot.png)
+![example_plot_roi1](/images/roi/roi_plot1.png)
+![example_plot_roi2](/images/roi/roi_plot2.png)
+![example_plot_roi3](/images/roi/roi_plot3.png)
 
 #### Collecting the ROI values
 
@@ -187,7 +193,9 @@ _ = plotting.boxplot(region, data=df, by='apoee4',
 
 ![boxplot1](/images/roi/boxplot1.png)
 
-The plot displays the p value of a two-sample t test.
+The plot displays the p values of two-sample t tests between each pair of
+categories, here APOE groups. No significant difference is found in any case
+(which makes sense considering the data comes from the same random process).
 
 Same thing now with sex differences.
 
@@ -200,6 +208,7 @@ _ = plotting.boxplot(region, data=df, by='sex',
 
 ![boxplot2](/images/roi/boxplot2.png)
 
+Still no significant difference.
 
 Let us now look at age x APOE interaction, corrected for sex and "group".
 
@@ -249,11 +258,11 @@ melt.head()
 | 0 | Supracalcarine Cortex                     | 0.487534 | 53.62019 | NC     | female |
 
 
-Now if we want to create a single bar plot representing all the ROIs, `plotting`
-has a method called `hist`.
+`roistats.plotting` has a method called `hist` to represent all the ROIs on a
+single plot.
 
-In this example, APOE groups would be considered separately. And again, here
- covariates would be age and sex.
+In this example, APOE status would be considered as the effect of interest,
+and age and sex as covariates.
 
 ```python
 _ = plotting.hist(melt, by='apoee4',
@@ -285,9 +294,27 @@ _ = plotting.hist(melt, by='sex',
 
 `roistats` can be found at this [URL](https://github.com/xgrg/roistats).
 
+For the context, I was working with diffusion-weighted imaging and myelin content
+to study the effect of age, sex and the APOE gene on microstructural properties
+of the white matter when I started to write this code.
 
---
+This led to these two publications:
+
+- G. Operto, J.L. Molinuevo, R. Cacciaglia, C. Falcón, A. Brugulat-Serrat,
+M. Suárez-Calvet, O. Grau-Rivera, N. Bargalló, S. Morán, M. Esteller,
+J.D. Gispert for the ALFA Study, [Interactive effect of age and APOE-ε4 allele load on white matter myelin content in cognitively normal middle-aged subjects](https://www.sciencedirect.com/science/article/pii/S221315821930333X), Neuroimage: Clinical, 2019
+
+- G. Operto, R. Cacciaglia, O. Grau-Rivera, C. Falcon, A. Brugulat-Serrat,
+P. Ródenas, R. Ramos, S. Morán, M. Esteller, N. Bargalló, J.L. Molinuevo,
+J.D. Gispert for the ALFA Study, [White matter microstructure is altered in
+cognitively normal middle-aged APOE-ε4 homozygotes]((https://alzres.biomedcentral.com/articles/10.1186/s13195-018-0375-x))
+, Alzheimer’s Research & Therapy, 2018
+
+
+<hr>
+
+
 Disclaimer: to date [`roistats`](https://github.com/xgrg/roistats) is only
 available as a raw (probably dirty) code but please open an issue if
-making it available on main package repositories may be useful to you and I
+making it available on package repositories may be useful to you and I
 will make the effort.
