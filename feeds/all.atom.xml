@@ -263,7 +263,8 @@ sex and "group".&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt="boxplot1" src="/images/roi/boxplot1.png"&gt;&lt;/p&gt;
 &lt;p&gt;The plot displays the p values of two-sample t tests between each pair of
-categories.&lt;/p&gt;
+categories, here APOE groups. No significant difference is found in any case
+(which makes sense considering the data comes from the same random process).&lt;/p&gt;
 &lt;p&gt;Same thing now with sex differences.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Now by sex&lt;/span&gt;
 &lt;span class="n"&gt;_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;plotting&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;boxplot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;region&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;sex&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -273,6 +274,7 @@ categories.&lt;/p&gt;
 
 
 &lt;p&gt;&lt;img alt="boxplot2" src="/images/roi/boxplot2.png"&gt;&lt;/p&gt;
+&lt;p&gt;Still no significant difference.&lt;/p&gt;
 &lt;p&gt;Let us now look at age x APOE interaction, corrected for sex and "group".&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;plotting&lt;/code&gt; has a method called &lt;code&gt;lmplot&lt;/code&gt; for this.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;plotting&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lmplot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;region&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;age&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -360,10 +362,10 @@ done to allow the use of large tables with many rows (and a moderate number of c
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;Now if we want to create a single bar plot representing all the ROIs, &lt;code&gt;plotting&lt;/code&gt;
-has a method called &lt;code&gt;hist&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;In this example, APOE groups would be considered separately. And again, here
- covariates would be age and sex.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;roistats.plotting&lt;/code&gt; has a method called &lt;code&gt;hist&lt;/code&gt; to represent all the ROIs on a
+single plot.&lt;/p&gt;
+&lt;p&gt;In this example, APOE status would be considered as the effect of interest,
+and age and sex as covariates.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;plotting&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hist&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;melt&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;apoee4&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
                   &lt;span class="n"&gt;region_colname&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;region&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
                   &lt;span class="n"&gt;covariates&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;age&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;sex&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
@@ -387,10 +389,29 @@ has a method called &lt;code&gt;hist&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt="hist2" src="/images/roi/hist2.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;roistats&lt;/code&gt; can be found at this &lt;a href="https://github.com/xgrg/roistats"&gt;URL&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;--
-Disclaimer: to date &lt;a href="https://github.com/xgrg/roistats"&gt;&lt;code&gt;roistats&lt;/code&gt;&lt;/a&gt; is only
+&lt;p&gt;For the context, I was working with diffusion-weighted imaging and myelin content
+to study the effect of age, sex and the APOE gene on microstructural properties
+of the white matter when I started to write this code.&lt;/p&gt;
+&lt;p&gt;This led to these two publications:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;G. Operto, J.L. Molinuevo, R. Cacciaglia, C. Falcón, A. Brugulat-Serrat,
+M. Suárez-Calvet, O. Grau-Rivera, N. Bargalló, S. Morán, M. Esteller,
+J.D. Gispert for the ALFA Study, &lt;a href="https://www.sciencedirect.com/science/article/pii/S221315821930333X"&gt;Interactive effect of age and APOE-ε4 allele load on white matter myelin content in cognitively normal middle-aged subjects&lt;/a&gt;, Neuroimage: Clinical, 2019&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;G. Operto, R. Cacciaglia, O. Grau-Rivera, C. Falcon, A. Brugulat-Serrat,
+P. Ródenas, R. Ramos, S. Morán, M. Esteller, N. Bargalló, J.L. Molinuevo,
+J.D. Gispert for the ALFA Study, &lt;a href="(https://alzres.biomedcentral.com/articles/10.1186/s13195-018-0375-x)"&gt;White matter microstructure is altered in
+cognitively normal middle-aged APOE-ε4 homozygotes&lt;/a&gt;
+, Alzheimer’s Research &amp;amp; Therapy, 2018&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+
+&lt;p&gt;Disclaimer: to date &lt;a href="https://github.com/xgrg/roistats"&gt;&lt;code&gt;roistats&lt;/code&gt;&lt;/a&gt; is only
 available as a raw (probably dirty) code but please open an issue if
-making it available on main package repositories may be useful to you and I
+making it available on package repositories may be useful to you and I
 will make the effort.&lt;/p&gt;</content><category term="Image"></category><category term="image"></category><category term="python"></category></entry><entry><title>Bulk downloading resources from XNAT</title><link href="http://xgrg.github.io/bulk-downloading-resources-from-xnat/" rel="alternate"></link><published>2019-11-03T00:00:00+01:00</published><updated>2019-11-03T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-11-03:/bulk-downloading-resources-from-xnat/</id><summary type="html">&lt;p&gt;Interacting with the data on XNAT can be done mainly two ways: either graphically using the web application, or through a REST API. While the former is suited for
 all profiles, the latter is intended for a more technical category of users.&lt;/p&gt;
 &lt;!-- PELICAN_END_SUMMARY --&gt;

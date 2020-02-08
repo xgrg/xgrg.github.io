@@ -358,7 +358,8 @@ sex and "group".</p>
 
 <p><img alt="boxplot1" src="/images/roi/boxplot1.png"></p>
 <p>The plot displays the p values of two-sample t tests between each pair of
-categories.</p>
+categories, here APOE groups. No significant difference is found in any case
+(which makes sense considering the data comes from the same random process).</p>
 <p>Same thing now with sex differences.</p>
 <div class="highlight"><pre><span></span><span class="c1"># Now by sex</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plotting</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span>
@@ -368,6 +369,7 @@ categories.</p>
 
 
 <p><img alt="boxplot2" src="/images/roi/boxplot2.png"></p>
+<p>Still no significant difference.</p>
 <p>Let us now look at age x APOE interaction, corrected for sex and "group".</p>
 <p><code>plotting</code> has a method called <code>lmplot</code> for this.</p>
 <div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">plotting</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">region</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
@@ -455,10 +457,10 @@ done to allow the use of large tables with many rows (and a moderate number of c
 </tr>
 </tbody>
 </table>
-<p>Now if we want to create a single bar plot representing all the ROIs, <code>plotting</code>
-has a method called <code>hist</code>.</p>
-<p>In this example, APOE groups would be considered separately. And again, here
- covariates would be age and sex.</p>
+<p><code>roistats.plotting</code> has a method called <code>hist</code> to represent all the ROIs on a
+single plot.</p>
+<p>In this example, APOE status would be considered as the effect of interest,
+and age and sex as covariates.</p>
 <div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">plotting</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">melt</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;apoee4&#39;</span><span class="p">,</span>
                   <span class="n">region_colname</span><span class="o">=</span><span class="s1">&#39;region&#39;</span><span class="p">,</span>
                   <span class="n">covariates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">],</span>
@@ -482,10 +484,29 @@ has a method called <code>hist</code>.</p>
 
 <p><img alt="hist2" src="/images/roi/hist2.png"></p>
 <p><code>roistats</code> can be found at this <a href="https://github.com/xgrg/roistats">URL</a>.</p>
-<p>--
-Disclaimer: to date <a href="https://github.com/xgrg/roistats"><code>roistats</code></a> is only
+<p>For the context, I was working with diffusion-weighted imaging and myelin content
+to study the effect of age, sex and the APOE gene on microstructural properties
+of the white matter when I started to write this code.</p>
+<p>This led to these two publications:</p>
+<ul>
+<li>
+<p>G. Operto, J.L. Molinuevo, R. Cacciaglia, C. Falcón, A. Brugulat-Serrat,
+M. Suárez-Calvet, O. Grau-Rivera, N. Bargalló, S. Morán, M. Esteller,
+J.D. Gispert for the ALFA Study, <a href="https://www.sciencedirect.com/science/article/pii/S221315821930333X">Interactive effect of age and APOE-ε4 allele load on white matter myelin content in cognitively normal middle-aged subjects</a>, Neuroimage: Clinical, 2019</p>
+</li>
+<li>
+<p>G. Operto, R. Cacciaglia, O. Grau-Rivera, C. Falcon, A. Brugulat-Serrat,
+P. Ródenas, R. Ramos, S. Morán, M. Esteller, N. Bargalló, J.L. Molinuevo,
+J.D. Gispert for the ALFA Study, <a href="(https://alzres.biomedcentral.com/articles/10.1186/s13195-018-0375-x)">White matter microstructure is altered in
+cognitively normal middle-aged APOE-ε4 homozygotes</a>
+, Alzheimer’s Research &amp; Therapy, 2018</p>
+</li>
+</ul>
+<hr>
+
+<p>Disclaimer: to date <a href="https://github.com/xgrg/roistats"><code>roistats</code></a> is only
 available as a raw (probably dirty) code but please open an issue if
-making it available on main package repositories may be useful to you and I
+making it available on package repositories may be useful to you and I
 will make the effort.</p>
     </section>
 
