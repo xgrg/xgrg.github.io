@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/all.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2020-02-03T00:00:00+01:00</updated><entry><title>ROI-based analysis in neuroimaging: a tutorial in Python</title><link href="http://xgrg.github.io/regions-of-interest/" rel="alternate"></link><published>2020-02-03T00:00:00+01:00</published><updated>2020-02-03T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2020-02-03:/regions-of-interest/</id><summary type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/all.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2020-02-03T00:00:00+01:00</updated><entry><title>ROI-based analysis in neuroimaging: a walkthrough in Python</title><link href="http://xgrg.github.io/regions-of-interest/" rel="alternate"></link><published>2020-02-03T00:00:00+01:00</published><updated>2020-02-03T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2020-02-03:/regions-of-interest/</id><summary type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
 
 &lt;p&gt;Analyses based on Regions-of-Interest (ROIs) allow to focus
  over a number of parcels with homogeneous characteristics, which are generally
@@ -28,10 +28,10 @@ reference space and using ROIs defined from a brain atlas.&lt;/li&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;div style="padding:20px; text-align:justify; background-color:#222222"&gt;
 This post describes an end-to-end analysis workflow based on
-regions-of-interest. Such workflows rely on typical operations
+regions-of-interest using simulated data. It relies on typical operations
 e.g. extracting values, merging them with covariates, plotting, performing some
 linear regressions or group comparisons, which have been turned to Python code
-in a package called &lt;a href="https://github.com/xgrg/roistats"&gt;roistats&lt;/a&gt;, presented here. &lt;/div&gt;&lt;/p&gt;
+in a package called &lt;a href="https://github.com/xgrg/roistats"&gt;roistats&lt;/a&gt;. &lt;/div&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2&gt;Collecting mean values from atlas regions&lt;/h2&gt;
 &lt;p&gt;In this example, we will first generate some maps (N=50) with some random values over an
