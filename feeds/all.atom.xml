@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/all.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2020-02-03T00:00:00+01:00</updated><entry><title>ROI-based analysis in neuroimaging: a walkthrough in Python</title><link href="http://xgrg.github.io/regions-of-interest/" rel="alternate"></link><published>2020-02-03T00:00:00+01:00</published><updated>2020-02-03T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2020-02-03:/regions-of-interest/</id><summary type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
 
-&lt;p&gt;Analyses based on Regions-of-Interest (ROIs) allow to focus
- over a number of parcels with homogeneous characteristics, which are generally
- related to brain structures. This type of analysis is rather popular in neuroimaing
+&lt;p&gt;Analyses based on Regions-of-Interest (ROIs) focus
+ on a number of parcels with homogeneous characteristics, which are generally
+ related to brain structures. This type of analysis is rather popular in neuroimaging
  especially when the study builds onto some hypothesis precisely related to
  some of these brain structures.&lt;/p&gt;
-&lt;p&gt;Two approaches …&lt;/p&gt;</summary><content type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
+&lt;p&gt;Two approaches are generally …&lt;/p&gt;</summary><content type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
 
-&lt;p&gt;Analyses based on Regions-of-Interest (ROIs) allow to focus
- over a number of parcels with homogeneous characteristics, which are generally
- related to brain structures. This type of analysis is rather popular in neuroimaing
+&lt;p&gt;Analyses based on Regions-of-Interest (ROIs) focus
+ on a number of parcels with homogeneous characteristics, which are generally
+ related to brain structures. This type of analysis is rather popular in neuroimaging
  especially when the study builds onto some hypothesis precisely related to
  some of these brain structures.&lt;/p&gt;
 &lt;p&gt;Two approaches are generally available, as two opposite ways of addressing anatomical variability.&lt;/p&gt;
@@ -37,7 +37,7 @@ in a package called &lt;a href="https://github.com/xgrg/roistats"&gt;roistats&lt
 &lt;p&gt;In this example, we generate some maps (N=50) with some random values over an
 MNI brain mask. They will be like our individual (subject-level) maps.  &lt;/p&gt;
 &lt;p&gt;Regions-of-interest will be defined over these simulated maps and descriptive values will be
-extracted from these regions. Real images may be used directly (provided they
+extracted from these regions. Real images may be used instead (provided they
   are in the same reference space).&lt;/p&gt;
 &lt;h4&gt;Generating random maps (optional)&lt;/h4&gt;
 &lt;p&gt;This &lt;a href="https://gist.github.com/xgrg/3405bbe95f6aa589ac5dfbfb9843c73f"&gt;gist&lt;/a&gt;
