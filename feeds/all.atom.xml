@@ -27,7 +27,7 @@ reference space and using ROIs defined from a brain atlas.&lt;/li&gt;
 &lt;h2&gt;TL;DR&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;div style="padding:20px; text-align:justify; background-color:#222222"&gt;
-This post describes an end-to-end analysis workflow based on
+This post describes a basic end-to-end analysis workflow based on
 regions-of-interest using simulated data. It relies on typical operations
 e.g. extracting values, merging them with covariates, plotting, performing some
 linear regressions or group comparisons, which have been turned to Python code
