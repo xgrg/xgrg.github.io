@@ -1,7 +1,7 @@
 ---
 Title: About
 ---
-Greg Operto is a neuroimaging research scientist in the field of Alzheimer’s Disease. After graduating in 2005 from Polytech-Marseille with a major in Biomedical Engineering, he received his PhD in Computer Science from Aix-Marseille University in 2009. He then joined NeuroSpin, the high-field MRI center of the Commissariat à l’Energie Atomique (Atomic Energy Commission). His research interests focus on early detection in Alzheimer's Disease and the aging brain. Between 2011 and 2016, he managed the production unit in charge of computing biomarkers in CATI, the French platform for multicenter neuroimaging studies. In 2016 he joined the neuroimaging group of the [BarcelonaBeta Brain Research Center](http://barcelonabeta.org) as a research scientist in the Alzheimer's Prevention Program, working with large-cohort multimodal imaging datasets. He also leads the development of the technical platform for the management, processing and quality control of the imaging datasets coming from these large cohort studies.
+Greg Operto is a neuroimaging research scientist in the field of Alzheimer’s Disease. After graduating in 2005 from Polytech-Marseille with a major in Biomedical Engineering, he received his PhD in Computer Science from Aix-Marseille University in 2009. He then joined NeuroSpin, the high-field MRI center of the Commissariat à l’Energie Atomique (Atomic Energy Commission). His research interests focus on early detection in Alzheimer's Disease and the aging brain. Between 2011 and 2016, he managed the production unit in charge of computing biomarkers in CATI, the French platform for multicenter neuroimaging studies. In 2016 he joined the neuroimaging group of the [BarcelonaBeta Brain Research Center](http://barcelonabeta.org) as a research scientist in the Alzheimer's Prevention Program, working with large-cohort multimodal imaging datasets. He is also leading the development of the technical platform for the management, processing and quality control of the imaging datasets coming from these large cohort studies.
 
 ## Professional experience
 
@@ -91,7 +91,7 @@ Greg Operto is a neuroimaging research scientist in the field of Alzheimer’s D
 
 
 * S. Ingala, L. Mazzai, C. H. Sudre, G. Salvadó, A. Brugulat-Serrat, V. Wottschel, C. Falcon, **G. Operto**, B. Tijms, J.D. Gispert, J.L. Molinuevo, F. Barkhof,
-[The relation between APOE genotype and cerebral microbleeds in cognitively unimpaired middle- and old-aged individuals](http://www.sciencedirect.com/science/article/pii/S0197458020302086), Neurobiology of Aging, 2020 [doi:10.1016/j.neurobiolaging.2020.06.015.](https://doi.org/10.1016/j.neurobiolaging.2020.06.015.)
+[The relation between APOE genotype and cerebral microbleeds in cognitively unimpaired middle- and old-aged individuals](http://www.sciencedirect.com/science/article/pii/S0197458020302086), Neurobiology of Aging, 2020 [doi:10.1016/j.neurobiolaging.2020.06.015](https://doi.org/10.1016/j.neurobiolaging.2020.06.015)
 
 * O. Grau-Rivera, **G. Operto**, C. Falcón, G. Sánchez-Benavides, R. Cacciaglia, A. Brugulat-Serrat, N. Gramunt, G. Salvadó, M. Suárez-Calvet, C. Minguillon, Á. Iranzo, J.D. Gispert, J.L. Molinuevo for the ALFA Study, [Association between insomnia and cognitive performance, gray matter volume, and white matter microstructure in cognitively unimpaired adults](https://alzres.biomedcentral.com/articles/10.1186/s13195-019-0547-3), Alzheimer’s Research and Therapy, 2020
 
