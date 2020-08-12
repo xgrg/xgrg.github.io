@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Grégory Operto, ">
+    <link href="/favicon.png" rel="icon">
+
+        <link rel="alternate"  href="http://xgrg.github.io/feeds/all.atom.xml" type="application/atom+xml" title="Grégory Operto Full Atom Feed"/>
+
+        <title>Grégory Operto - TBSS: Determine anatomical labels from clusters using Python</title>
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="/theme/css/grids-responsive-min.css">
+    <!--<![endif]-->
+    <link rel="stylesheet" href="/theme/css/styles.css">
+    <link rel="stylesheet" href="/theme/css/slides.css">
+    <link rel="stylesheet" href="/theme/css/pygments.css">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'> -->
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,500" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script src="/js/responsiveslides.min.js"></script>
+</head>
+
+<body>
+
+
+    <header id="header" class="pure-g">
+        <div class="pure-u-1 pure-u-md-3-4">
+             <div id="menu">
+                 <div class="pure-menu pure-menu-open pure-menu-horizontal">
+<ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+</ul>                </div>
+            </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-1-4">
+            <div id="social">
+                <div class="pure-menu pure-menu-open pure-menu-horizontal">
+<ul>
+        <li><a href="https://twitter.com/xgrg"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://github.com/xgrg"><i class="fa fa-github"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/neuroimaging"><i class="fa fa-linkedin"></i></a></li>
+</ul>                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <div id="layout" class="pure-g">
+        <nav id="sidebar" class="pure-u-1 pure-u-md-1-4">
+            <div class="l-box">
+<section>
+	<div class="portrait">
+			<img src="/theme/images/go.jpg" />
+	</div>
+    <div class="name-cv">
+        <div class="name">Grégory Operto, PhD</div>
+        <div class="cv">
+            <a href="/pdfs/cv.pdf"><i class="fa fa-file-pdf-o"></i> CV</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+      <div class="sub-name">brain imaging | data science</div>
+	<div class="contact">goperto@gmail.com</div>
+	<div class="location">Barcelona, Spain</div>
+</section>
+
+<section class="tags">
+</section>            </div>
+        </nav>
+        <section id="content" class="pure-u-1 pure-u-md-3-4">
+            <div class="l-box">
+
+    <header id="post-header">
+        <h1>TBSS: Determine anatomical labels from clusters using Python</h1>
+            <div class="post-meta">
+                August 12, 2020
+            </div>
+            <div class="post-tags">
+                <ul>
+                    <li>tags:</li>
+                    <li><a href="/tag/python/">python</a></li>
+                    <li><a href="/tag/tbss/">tbss</a></li>
+                </ul>
+            </div>
+    </header>
+
+    <section id="post">
+        <p>After some time building more and more contrast maps with TBSS, I needed some 
+way to compile information, anatomical in particular, from significant clusters 
+for instance.</p>
+<p>Actually TBSS comes with a simple command (<a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Atlasquery"><code>atlasquery</code></a>) which returns the name of the regions from any given 
+reference atlas (among the ones supplied with FSL) that would show an overlap with clusters from any binary map.</p>
+<p>The following Python functions (named after the original FSL commands) wrap
+ around <code>atlasquery</code> and <code>autoaq</code> and convert their outputs to <code>pandas</code> 
+ DataFrames. </p>
+<p>See the full code on <a href="https://github.com/xgrg/tbss/blob/master/tbss/__init__.py">this page</a>.</p>
+<div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">atlasquery</span><span class="p">(</span><span class="s1">&#39;/tmp/tmpsi1gyceh.nii.gz&#39;</span><span class="p">,</span> 
+                  <span class="s1">&#39;JHU White-Matter Tractography Atlas&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;pc&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">tract</th>
+<th align="right">pc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Forceps minor</td>
+<td align="right">5.2468</td>
+</tr>
+<tr>
+<td align="left">Inferior longitudinal fasciculus L</td>
+<td align="right">1.794</td>
+</tr>
+<tr>
+<td align="left">Inferior fronto-occipital fasciculus L</td>
+<td align="right">1.7061</td>
+</tr>
+<tr>
+<td align="left">Anterior thalamic radiation L</td>
+<td align="right">1.6814</td>
+</tr>
+<tr>
+<td align="left">Superior longitudinal fasciculus L</td>
+<td align="right">1.4276</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>The input map is assumed to be binary. If it is not, then one can use <code>autoaq</code> 
+and give a specific threshold for the input map (default: 0.95 (equivalent to <code>p&lt;0.05</code>)). Two dataframes will be returned as original results come in <a href="https://brainder.org/tag/autoaq/">multiple
+ sections</a>.</p>
+<div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">autoaq</span><span class="p">(</span><span class="s1">&#39;/path/to/map_FA_tfce_corrp_tstat3.nii.gz&#39;</span><span class="p">,</span> 
+              <span class="s1">&#39;JHU White-Matter Tractography Atlas&#39;</span><span class="p">,</span> 
+              <span class="n">thr</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+</pre></div>
+
+
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="right">ClusterIndex</th>
+<th align="right">Voxels</th>
+<th align="right">MAX</th>
+<th align="right">MAX X (mm)</th>
+<th align="right">MAX Y (mm)</th>
+<th align="right">MAX Z (mm)</th>
+<th align="right">COG X (mm)</th>
+<th align="right">COG Y (mm)</th>
+<th align="right">COG Z (mm)</th>
+<th align="left">pc_tract</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">1</td>
+<td align="right">25356</td>
+<td align="right">0.988</td>
+<td align="right">14</td>
+<td align="right">27</td>
+<td align="right">16</td>
+<td align="right">-7.98</td>
+<td align="right">-5.61</td>
+<td align="right">16.5</td>
+<td align="left">9% Anterior thalamic radiation L</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;pc&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<table>
+<thead>
+<tr>
+<th align="right">ClusterIndex</th>
+<th align="left">tract</th>
+<th align="right">pc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">1</td>
+<td align="left">Forceps minor</td>
+<td align="right">5.2026</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="left">Inferior longitudinal fasciculus L</td>
+<td align="right">1.8074</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="left">Inferior fronto-occipital fasciculus L</td>
+<td align="right">1.7149</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="left">Anterior thalamic radiation L</td>
+<td align="right">1.6879</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="left">Superior longitudinal fasciculus L</td>
+<td align="right">1.438</td>
+</tr>
+</tbody>
+</table>
+<p>These two commands have been integrated to the <a href="https://github.com/xgrg/tbss">little Python module</a> that I use for TBSS-related work.</p>
+    </section>
+
+
+<nav class="pagination-wrapper">
+    <div class="pagination">
+        <div class="pagination-left">
+        </div>
+        <div class="pagination-right">
+                &nbsp;
+        </div>
+    </div>
+</nav>
+    <aside class="comments">
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+
+    var disqus_config = function () {
+        this.page.url = "http://xgrg.github.io/tbss-atlasquery-to-dataframes/";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "tbss-atlasquery-to-dataframes"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//xgrg.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+    </aside>
+
+            </div>
+        </section>
+
+
+        <footer id="footer" class="pure-u-1 pure-u-md-3-4">
+            <div class="l-box">
+                <div>
+                    <p>&copy; <a href="http://xgrg.github.io">Grégory Operto</a> &ndash;
+                        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+                              for <a href="http://blog.getpelican.com/">Pelican</a> - layout cloned with awe from <a href="http://cyrille.rossant.net">cyrille.rossant.net</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-17275957-2', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+
+</body>
+</html>
+

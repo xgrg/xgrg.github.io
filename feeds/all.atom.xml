@@ -1,5 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/all.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2020-02-03T00:00:00+01:00</updated><entry><title>ROI-based analysis in neuroimaging: a walkthrough in Python</title><link href="http://xgrg.github.io/regions-of-interest/" rel="alternate"></link><published>2020-02-03T00:00:00+01:00</published><updated>2020-02-03T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2020-02-03:/regions-of-interest/</id><summary type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/all.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2020-08-12T00:00:00+02:00</updated><entry><title>TBSS: Determine anatomical labels from clusters using Python</title><link href="http://xgrg.github.io/tbss-atlasquery-to-dataframes/" rel="alternate"></link><published>2020-08-12T00:00:00+02:00</published><updated>2020-08-12T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2020-08-12:/tbss-atlasquery-to-dataframes/</id><summary type="html">&lt;p&gt;After some time building more and more contrast maps with TBSS, I needed some 
+way to compile information, anatomical in particular, from significant clusters 
+for instance.&lt;/p&gt;
+&lt;p&gt;Actually TBSS comes with a simple command (&lt;a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Atlasquery"&gt;&lt;code&gt;atlasquery&lt;/code&gt;&lt;/a&gt;) which returns the name of the regions from any given 
+reference atlas (among the ones supplied …&lt;/p&gt;</summary><content type="html">&lt;p&gt;After some time building more and more contrast maps with TBSS, I needed some 
+way to compile information, anatomical in particular, from significant clusters 
+for instance.&lt;/p&gt;
+&lt;p&gt;Actually TBSS comes with a simple command (&lt;a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Atlasquery"&gt;&lt;code&gt;atlasquery&lt;/code&gt;&lt;/a&gt;) which returns the name of the regions from any given 
+reference atlas (among the ones supplied with FSL) that would show an overlap with clusters from any binary map.&lt;/p&gt;
+&lt;p&gt;The following Python functions (named after the original FSL commands) wrap
+ around &lt;code&gt;atlasquery&lt;/code&gt; and &lt;code&gt;autoaq&lt;/code&gt; and convert their outputs to &lt;code&gt;pandas&lt;/code&gt; 
+ DataFrames. &lt;/p&gt;
+&lt;p&gt;See the full code on &lt;a href="https://github.com/xgrg/tbss/blob/master/tbss/__init__.py"&gt;this page&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;atlasquery&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/tmp/tmpsi1gyceh.nii.gz&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
+                  &lt;span class="s1"&gt;&amp;#39;JHU White-Matter Tractography Atlas&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sort_values&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;by&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;pc&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ascending&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;False&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="left"&gt;tract&lt;/th&gt;
+&lt;th align="right"&gt;pc&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;Forceps minor&lt;/td&gt;
+&lt;td align="right"&gt;5.2468&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;Inferior longitudinal fasciculus L&lt;/td&gt;
+&lt;td align="right"&gt;1.794&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;Inferior fronto-occipital fasciculus L&lt;/td&gt;
+&lt;td align="right"&gt;1.7061&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;Anterior thalamic radiation L&lt;/td&gt;
+&lt;td align="right"&gt;1.6814&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;Superior longitudinal fasciculus L&lt;/td&gt;
+&lt;td align="right"&gt;1.4276&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The input map is assumed to be binary. If it is not, then one can use &lt;code&gt;autoaq&lt;/code&gt; 
+and give a specific threshold for the input map (default: 0.95 (equivalent to &lt;code&gt;p&amp;lt;0.05&lt;/code&gt;)). Two dataframes will be returned as original results come in &lt;a href="https://brainder.org/tag/autoaq/"&gt;multiple
+ sections&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;autoaq&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/path/to/map_FA_tfce_corrp_tstat3.nii.gz&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
+              &lt;span class="s1"&gt;&amp;#39;JHU White-Matter Tractography Atlas&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
+              &lt;span class="n"&gt;thr&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;0.95&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;  
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="right"&gt;ClusterIndex&lt;/th&gt;
+&lt;th align="right"&gt;Voxels&lt;/th&gt;
+&lt;th align="right"&gt;MAX&lt;/th&gt;
+&lt;th align="right"&gt;MAX X (mm)&lt;/th&gt;
+&lt;th align="right"&gt;MAX Y (mm)&lt;/th&gt;
+&lt;th align="right"&gt;MAX Z (mm)&lt;/th&gt;
+&lt;th align="right"&gt;COG X (mm)&lt;/th&gt;
+&lt;th align="right"&gt;COG Y (mm)&lt;/th&gt;
+&lt;th align="right"&gt;COG Z (mm)&lt;/th&gt;
+&lt;th align="left"&gt;pc_tract&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="right"&gt;1&lt;/td&gt;
+&lt;td align="right"&gt;25356&lt;/td&gt;
+&lt;td align="right"&gt;0.988&lt;/td&gt;
+&lt;td align="right"&gt;14&lt;/td&gt;
+&lt;td align="right"&gt;27&lt;/td&gt;
+&lt;td align="right"&gt;16&lt;/td&gt;
+&lt;td align="right"&gt;-7.98&lt;/td&gt;
+&lt;td align="right"&gt;-5.61&lt;/td&gt;
+&lt;td align="right"&gt;16.5&lt;/td&gt;
+&lt;td align="left"&gt;9% Anterior thalamic radiation L&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sort_values&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;by&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;pc&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ascending&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;False&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="right"&gt;ClusterIndex&lt;/th&gt;
+&lt;th align="left"&gt;tract&lt;/th&gt;
+&lt;th align="right"&gt;pc&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="right"&gt;1&lt;/td&gt;
+&lt;td align="left"&gt;Forceps minor&lt;/td&gt;
+&lt;td align="right"&gt;5.2026&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="right"&gt;1&lt;/td&gt;
+&lt;td align="left"&gt;Inferior longitudinal fasciculus L&lt;/td&gt;
+&lt;td align="right"&gt;1.8074&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="right"&gt;1&lt;/td&gt;
+&lt;td align="left"&gt;Inferior fronto-occipital fasciculus L&lt;/td&gt;
+&lt;td align="right"&gt;1.7149&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="right"&gt;1&lt;/td&gt;
+&lt;td align="left"&gt;Anterior thalamic radiation L&lt;/td&gt;
+&lt;td align="right"&gt;1.6879&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="right"&gt;1&lt;/td&gt;
+&lt;td align="left"&gt;Superior longitudinal fasciculus L&lt;/td&gt;
+&lt;td align="right"&gt;1.438&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;These two commands have been integrated to the &lt;a href="https://github.com/xgrg/tbss"&gt;little Python module&lt;/a&gt; that I use for TBSS-related work.&lt;/p&gt;</content><category term="TBSS"></category><category term="python"></category><category term="tbss"></category></entry><entry><title>ROI-based analysis in neuroimaging: a walkthrough in Python</title><link href="http://xgrg.github.io/regions-of-interest/" rel="alternate"></link><published>2020-02-03T00:00:00+01:00</published><updated>2020-02-03T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2020-02-03:/regions-of-interest/</id><summary type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
 
 &lt;p&gt;Analyses based on Regions-of-Interest (ROIs) focus
  on a number of parcels with homogeneous characteristics, which are generally
