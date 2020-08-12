@@ -8,7 +8,7 @@
 
         <link rel="alternate"  href="http://xgrg.github.io/feeds/all.atom.xml" type="application/atom+xml" title="Grégory Operto Full Atom Feed"/>
 
-        <title>Grégory Operto - TBSS: Determine anatomical labels from clusters using Python</title>
+        <title>Grégory Operto - FSL/TBSS: Determine anatomical labels from clusters using Python</title>
 
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
@@ -87,7 +87,7 @@
             <div class="l-box">
 
     <header id="post-header">
-        <h1>TBSS: Determine anatomical labels from clusters using Python</h1>
+        <h1>FSL/TBSS: Determine anatomical labels from clusters using Python</h1>
             <div class="post-meta">
                 August 12, 2020
             </div>
@@ -103,10 +103,10 @@
     <section id="post">
         <p>After some time building more and more contrast maps with FSL/TBSS, I needed some 
 way to compile information, anatomical in particular, from significant clusters 
-for instance. I am probably not the first one (as suggested <a href="https://www.ibic.washington.edu/wiki/download/attachments/26869797/ibicMakeManual20160216.pdf">here</a>) but I could not find any resource (like a <a href="https://nipype.readthedocs.io/en/latest/">Nipype</a> interface), on how to do that. Only later I found out about <a href="https://github.com/miykael/atlasreader">AtlasReader</a> which seems to do some similar job.</p>
+for instance. I am probably not the first one (as suggested <a href="https://www.ibic.washington.edu/wiki/download/attachments/26869797/ibicMakeManual20160216.pdf">here</a>) but I could not find any resource (like a <a href="https://nipype.readthedocs.io/en/latest/">Nipype</a> interface), on how to do that. Only later I found out about <a href="https://github.com/miykael/atlasreader">AtlasReader</a> which seems to do some similar job with that extra that it generates <code>nilearn</code>-type snapshots in the process.</p>
 <p>Actually FSL/TBSS comes with a simple command (<a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Atlasquery"><code>atlasquery</code></a>) which returns the name of the regions from any given 
 reference atlas (among the ones supplied with FSL) that would show an overlap with clusters from any binary map. Hence the following Python functions (named after the original commands) are just wrappers around <code>atlasquery</code> and <code>autoaq</code> and convert their outputs to <code>pandas</code> DataFrames. </p>
-<p>See the full code on <a href="https://github.com/xgrg/tbss/blob/master/tbss/__init__.py">this page</a>.</p>
+<p>See the full code <a href="https://github.com/xgrg/tbss/blob/master/tbss/__init__.py">there</a>.</p>
 <div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">atlasquery</span><span class="p">(</span><span class="s1">&#39;/tmp/tmpsi1gyceh.nii.gz&#39;</span><span class="p">,</span> 
                   <span class="s1">&#39;JHU White-Matter Tractography Atlas&#39;</span><span class="p">)</span>
 <span class="n">data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;pc&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -252,8 +252,8 @@ and give a specific threshold for the input map (default: 0.95 (equivalent to <c
      */
 
     var disqus_config = function () {
-        this.page.url = "http://xgrg.github.io/tbss-atlasquery-to-dataframes/";  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = "tbss-atlasquery-to-dataframes"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = "http://xgrg.github.io/atlasquery-to-dataframes/";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "atlasquery-to-dataframes"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 
     (function() {  // DON'T EDIT BELOW THIS LINE
