@@ -7,7 +7,9 @@ Authors: Grégory Operto
 
 After some time building more and more contrast maps with FSL/TBSS, I needed some 
 way to compile information, anatomical in particular, from significant clusters 
-for instance. I am probably not the first one (as suggested [here](https://www.ibic.washington.edu/wiki/download/attachments/26869797/ibicMakeManual20160216.pdf)) but I could not find any resource (like a [Nipype](https://nipype.readthedocs.io/en/latest/) interface), on how to do that. Only later I found out about [AtlasReader](https://github.com/miykael/atlasreader) which seems to do some similar job with that extra that it generates `nilearn`-type snapshots in the process.
+for instance. I am probably not the first one (as suggested [here](https://www.ibic.washington.edu/wiki/download/attachments/26869797/ibicMakeManual20160216.pdf)) but I could not find any suited tool (like a [Nipype](https://nipype.readthedocs.io/en/latest/) interface) or recipe. Only later I found out about [AtlasReader](https://github.com/miykael/atlasreader) which seems to do some similar job with that extra that it generates `nilearn`-type snapshots in the process. It also seems that 
+[fslpy](https://git.fmrib.ox.ac.uk/fsl/fslpy/-/blob/master/fsl/scripts/atlasq.py) has something related but again I could find neither a wrapper for `autoaq`, nor the 
+possibility to get the outputs as DataFrames.
 
 Actually FSL/TBSS comes with a simple command ([`atlasquery`](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Atlasquery)) which returns the name of the regions from any given 
 reference atlas (among the ones supplied with FSL) that would show an overlap with clusters from any binary map. Hence the following Python functions (named after the original commands) are just wrappers around `atlasquery` and `autoaq` and convert their outputs to `pandas` DataFrames. 
