@@ -103,7 +103,7 @@
     <section id="post">
         <p>After some time building more and more contrast maps with FSL/TBSS, I needed some 
 way to compile information, anatomical in particular, from significant clusters 
-for instance. I am probably not the first one (as suggested <a href="https://www.ibic.washington.edu/wiki/download/attachments/26869797/ibicMakeManual20160216.pdf">here</a>) but I could not find any resource (like a <a href="https://nipype.readthedocs.io/en/latest/">Nipype</a> interface), on how to do that. Only later I found out about <a href="https://github.com/miykael/atlasreader">AtlasReader</a> which seems to do some similar job with that extra that it generates <code>nilearn</code>-type snapshots in the process. It also seems that 
+for instance. I am probably not the first one (as suggested <a href="https://www.ibic.washington.edu/wiki/download/attachments/26869797/ibicMakeManual20160216.pdf">here</a>) but I could not find any suited tool (like a <a href="https://nipype.readthedocs.io/en/latest/">Nipype</a> interface) or recipe. Only later I found out about <a href="https://github.com/miykael/atlasreader">AtlasReader</a> which seems to do some similar job with that extra that it generates <code>nilearn</code>-type snapshots in the process. It also seems that 
 <a href="https://git.fmrib.ox.ac.uk/fsl/fslpy/-/blob/master/fsl/scripts/atlasq.py">fslpy</a> has something related but again I could find neither a wrapper for <code>autoaq</code>, nor the 
 possibility to get the outputs as DataFrames.</p>
 <p>Actually FSL/TBSS comes with a simple command (<a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Atlasquery"><code>atlasquery</code></a>) which returns the name of the regions from any given 
