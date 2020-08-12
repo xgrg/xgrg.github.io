@@ -96,6 +96,7 @@ and give a specific threshold for the input map (default: 0.95 (equivalent to &l
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;blockquote&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -132,6 +133,7 @@ and give a specific threshold for the input map (default: 0.95 (equivalent to &l
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;These two commands have been integrated to the &lt;a href="https://github.com/xgrg/tbss"&gt;little Python module&lt;/a&gt; that I use for TBSS-related work.&lt;/p&gt;</content><category term="TBSS"></category><category term="python"></category><category term="tbss"></category></entry><entry><title>How to parallelize TBSS / randomise (sort of)</title><link href="http://xgrg.github.io/parallelize-TBSS/" rel="alternate"></link><published>2018-02-26T00:00:00+01:00</published><updated>2018-02-26T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2018-02-26:/parallelize-TBSS/</id><summary type="html">&lt;p&gt;Lots of resources - which I surely have not exhausted - are available on how
 to make optimal use of TBSS and in particular of the lengthy repetitive
 &lt;code&gt;randomise&lt;/code&gt; part and the way to reduce costs in execution time.

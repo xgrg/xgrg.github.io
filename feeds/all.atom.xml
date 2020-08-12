@@ -96,6 +96,7 @@ and give a specific threshold for the input map (default: 0.95 (equivalent to &l
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;blockquote&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -132,6 +133,7 @@ and give a specific threshold for the input map (default: 0.95 (equivalent to &l
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;These two commands have been integrated to the &lt;a href="https://github.com/xgrg/tbss"&gt;little Python module&lt;/a&gt; that I use for TBSS-related work.&lt;/p&gt;</content><category term="TBSS"></category><category term="python"></category><category term="tbss"></category></entry><entry><title>ROI-based analysis in neuroimaging: a walkthrough in Python</title><link href="http://xgrg.github.io/regions-of-interest/" rel="alternate"></link><published>2020-02-03T00:00:00+01:00</published><updated>2020-02-03T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2020-02-03:/regions-of-interest/</id><summary type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
 
 &lt;p&gt;Analyses based on Regions-of-Interest (ROIs) focus
