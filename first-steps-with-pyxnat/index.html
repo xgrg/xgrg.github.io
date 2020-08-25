@@ -112,73 +112,73 @@
 rely on the creation of a <code>pyxnat.Interface</code> object.</p>
 <p>First by directly using some login credentials. Here the <a href="https://central.xnat.org">XNAT CENTRAL public
 instance</a> is taken as an example.</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyxnat</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyxnat</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">pyxnat</span><span class="o">.</span><span class="n">Interface</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="s1">&#39;https://central.xnat.org&#39;</span><span class="p">,</span>
                      <span class="n">user</span><span class="o">=</span><span class="s1">&#39;USERNAME&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;PASSWORD&#39;</span><span class="p">)</span>
 
 <span class="n">projects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">select</span><span class="o">.</span><span class="n">projects</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">projects</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Another option is to store these in a configuration file and to pass it
 to create the <code>Interface</code>.</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyxnat</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyxnat</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">pyxnat</span><span class="o">.</span><span class="n">Interface</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s1">&#39;/path/to/xnat_config.cfg&#39;</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The configuration file should be in JSON format and would look like this:</p>
-<div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;server&quot;</span><span class="p">:</span> <span class="s2">&quot;https://central.xnat.org&quot;</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="s2">&quot;server&quot;</span><span class="p">:</span> <span class="s2">&quot;https://central.xnat.org&quot;</span><span class="p">,</span>
  <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;USERNAME&quot;</span><span class="p">,</span>
  <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;PASSWORD&quot;</span><span class="p">}</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>It is also possible to create this configuration file from an existing <code>Interface</code>.</p>
-<div class="highlight"><pre><span></span><span class="n">interface</span> <span class="o">=</span> <span class="n">pyxnat</span><span class="o">.</span><span class="n">Interface</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="s1">&#39;https://central.xnat.org&#39;</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="n">interface</span> <span class="o">=</span> <span class="n">pyxnat</span><span class="o">.</span><span class="n">Interface</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="s1">&#39;https://central.xnat.org&#39;</span><span class="p">,</span>
                      <span class="n">user</span><span class="o">=</span><span class="s1">&#39;USERNAME&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;PASSWORD&#39;</span><span class="p">)</span>
 <span class="n">interface</span><span class="o">.</span><span class="n">save_config</span><span class="p">(</span><span class="s1">&#39;/path/to/xnat_config.cfg&#39;</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>From there the <code>Interface</code> can be used e.g. to collect a list of existing
 projects, or subjects from a given project.</p>
-<div class="highlight"><pre><span></span><span class="n">project</span> <span class="o">=</span> <span class="n">interface</span><span class="o">.</span><span class="n">select</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="s1">&#39;xnatDownload&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">project</span> <span class="o">=</span> <span class="n">interface</span><span class="o">.</span><span class="n">select</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="s1">&#39;xnatDownload&#39;</span><span class="p">)</span>
 <span class="n">subjects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">subjects</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">subjects</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Subjects have two types of identifiers, one that is an XNAT unique ID (see <code>id()</code> method) and a second one (see <code>label()</code> method).</p>
-<div class="highlight"><pre><span></span><span class="n">subject_labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">label</span><span class="p">()</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">subjects</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="n">subject_labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">label</span><span class="p">()</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">subjects</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">subject_labels</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>In the XNAT model subjects may have associated experiments (e.g. MR, PET, CT, etc.). Like subjects, experiments have two types of identifiers, IDs and labels. In the following example, we select a given subject (<code>sub-001</code>) in project <code>xnatDownload</code> and look for an experiment by its label (<code>sub-001_ses-01</code>). This example may be found on XNAT CENTRAL at this <a href="https://central.xnat.org/app/action/DisplayItemAction/search_element/xnat%3AmrSessionData/search_field/xnat%3AmrSessionData.ID/search_value/CENTRAL_E74609/popup/false/project/xnatDownload">URL</a>.</p>
 <p>An experiment may be composed of multiple scans (e.g. corresponding to various MR sequences). Each scan has a <code>SeriesNumber</code> and a <code>SeriesDescription</code>, generally assigned at acquisition time by the scanner.
 Here, we select a scan by its <code>SeriesNumber</code> and then ask for its <code>SeriesDescription</code> by querying on the <code>type</code> attribute.</p>
-<div class="highlight"><pre><span></span><span class="n">project</span> <span class="o">=</span> <span class="n">interface</span><span class="o">.</span><span class="n">select</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="s1">&#39;xnatDownload&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">project</span> <span class="o">=</span> <span class="n">interface</span><span class="o">.</span><span class="n">select</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="s1">&#39;xnatDownload&#39;</span><span class="p">)</span>
 <span class="n">experiment</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">subject</span><span class="p">(</span><span class="s1">&#39;sub-001&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">experiment</span><span class="p">(</span><span class="s1">&#39;sub-001_ses-01&#39;</span><span class="p">)</span>
 <span class="n">scan</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">scan</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">))</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>A scan typically has attached resources, such as <code>DICOM</code> directly coming from the scanner, or their <code>NIFTI</code> versions, <code>SNAPSHOTS</code>, etc. In the following case, we will take the first file from the <code>DICOM</code> collection of the previous
 scan.</p>
-<div class="highlight"><pre><span></span><span class="n">resource</span> <span class="o">=</span> <span class="n">scan</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s1">&#39;DICOM&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">resource</span> <span class="o">=</span> <span class="n">scan</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s1">&#39;DICOM&#39;</span><span class="p">)</span>
 <span class="n">f</span> <span class="o">=</span> <span class="n">resource</span><span class="o">.</span><span class="n">files</span><span class="p">()</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
 <span class="n">filename</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span><span class="p">()</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>This final command allows to download the file to the local system.</p>
-<div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dest</span><span class="o">=</span><span class="s1">&#39;/tmp/</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">filename</span><span class="p">)</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">f</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dest</span><span class="o">=</span><span class="s1">&#39;/tmp/</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">filename</span><span class="p">)</span>
+</code></pre></div>
     </section>
 
     <section id="applause">

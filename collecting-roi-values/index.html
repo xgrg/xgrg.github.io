@@ -112,7 +112,7 @@ more recent contents on the subject</strong></p>
 <p><strong>EDIT (23-11-2018): check <a href="https://github.com/xgrg/roistats">roistats</a> for a
 module version of this code</strong></p>
 <p>See the example in this <a href="https://github.com/xgrg/alfa/blob/master/notebooks/Collecting%20image%20statistics%20from%20Regions-of-Interest%20over%20many%20subjects.ipynb"><strong>Jupyter Notebook</strong></a></p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nib</span>
 <span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -146,7 +146,7 @@ module version of this code</strong></p>
      <span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span>
 
      <span class="k">return</span> <span class="n">res</span>
-</pre></div>
+</code></pre></div>
 
 
 <p><code>roistats_from_maps</code> takes a path to the label map defining the ROIS and a
@@ -158,7 +158,7 @@ returned rows into one single table, adding it a list of subject identifiers
 <p>By default, the mean is computed for every region but any other NumPy function
 can be passed as <code>func</code> argument. Last but not least, is used for parallel processing.</p>
 <h2>Example:</h2>
-<div class="highlight"><pre><span></span><span class="n">atlas_fp</span> <span class="o">=</span> <span class="s1">&#39;/path/to/rois.nii.gz&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="n">atlas_fp</span> <span class="o">=</span> <span class="s1">&#39;/path/to/rois.nii.gz&#39;</span>
 <span class="n">maps_fp</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;/path/to/images*.nii.gz&#39;</span><span class="p">)</span>
 <span class="n">subjects</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10538</span><span class="p">,</span> <span class="mi">12252</span><span class="p">,</span> <span class="mi">55708</span><span class="p">,</span> <span class="mi">12121</span><span class="p">,</span> <span class="mi">11015</span><span class="p">]</span>
 <span class="n">names</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;Middle cerebellar peduncle&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;Pontine crossing tract&#39;</span><span class="p">,</span>
@@ -169,7 +169,7 @@ can be passed as <code>func</code> argument. Last but not least, is used for par
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">roistats_from_maps</span><span class="p">(</span><span class="n">atlas_fp</span><span class="p">,</span> <span class="n">maps_fp</span><span class="p">,</span> <span class="n">subjects</span><span class="o">=</span><span class="n">subjects</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">names</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 <span class="c1">#df.to_excel(&#39;/path/to/excelfile.xls&#39;)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Will return a table like:</p>

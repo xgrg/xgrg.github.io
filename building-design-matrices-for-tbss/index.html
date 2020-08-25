@@ -115,7 +115,7 @@ table.</p>
 format.
 This shows how to make one out of any generic piece of tabulated data
 in Python.</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_tbss_matrix</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">build_tbss_matrix</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
       <span class="sd">&#39;&#39;&#39; Returns a TBSS-ready design matrix&#39;&#39;&#39;</span>
 
       <span class="n">covlist</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
@@ -127,15 +127,15 @@ in Python.</p>
       <span class="n">mat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span>
 
       <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <h4>Example:</h4>
-<div class="highlight"><pre><span></span>  <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight"><pre><span></span><code>  <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
   <span class="n">fp</span> <span class="o">=</span> <span class="s1">&#39;/tmp/data1.xls&#39;</span>
   <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
   <span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
+</code></pre></div>
 
 
 <blockquote>
@@ -188,12 +188,12 @@ in Python.</p>
 </tbody>
 </table>
 </blockquote>
-<div class="highlight"><pre><span></span><span class="n">mat</span> <span class="o">=</span> <span class="n">build_tbss_matrix</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">mat</span> <span class="o">=</span> <span class="n">build_tbss_matrix</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="err">/NumWaves 3</span>
+<div class="highlight"><pre><span></span><code><span class="err">/NumWaves 3</span>
 <span class="err">/NumPoints 114</span>
 <span class="err">/Matrix</span>
 <span class="err">63.4223134839151 2.0 -7.62</span>
@@ -202,11 +202,11 @@ in Python.</p>
 <span class="err">54.1519507186858 1.0 -4.12</span>
 <span class="err">52.8788501026694 1.0 -17.65</span>
 <span class="err">...</span>
-</pre></div>
+</code></pre></div>
 
 
 <h2>Application to contrasts:</h2>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">tbss_main_effect_contrasts</span><span class="p">(</span><span class="n">covlist</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">tbss_main_effect_contrasts</span><span class="p">(</span><span class="n">covlist</span><span class="p">):</span>
     <span class="n">con</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">each</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">covlist</span><span class="p">):</span>
         <span class="n">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">covlist</span><span class="p">)</span>
@@ -215,34 +215,34 @@ in Python.</p>
         <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
         <span class="n">con</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">(-)&#39;</span><span class="o">%</span><span class="n">each</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">con</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>This function will build a list of contrasts, two per
 covariable in the design matrix (passed as argument <code>covlist</code>),
 corresponding to the <em>main effect</em> of each variable in both positive
 and negative directions.</p>
-<div class="highlight"><pre><span></span>  <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight"><pre><span></span><code>  <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
   <span class="n">fp</span> <span class="o">=</span> <span class="s1">&#39;/tmp/data1.xls&#39;</span>
   <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
   <span class="n">covariates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
   <span class="n">contrasts</span> <span class="o">=</span> <span class="n">tbss_main_effect_contrasts</span><span class="p">(</span><span class="n">covariates</span><span class="p">)</span>
   <span class="nb">print</span><span class="p">(</span><span class="n">contrasts</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="err">[(&#39;age(+)&#39;, [1, 0, 0]),</span>
+<div class="highlight"><pre><span></span><code><span class="err">[(&#39;age(+)&#39;, [1, 0, 0]),</span>
 <span class="err"> (&#39;age(-)&#39;, [-1, 0, 0]),</span>
 <span class="err"> (&#39;gender(+)&#39;, [0, 1, 0]),</span>
 <span class="err"> (&#39;gender(-)&#39;, [0, -1, 0]),</span>
 <span class="err"> (&#39;centiloids(+)&#39;, [0, 0, 1]),</span>
 <span class="err"> (&#39;centiloids(-)&#39;, [0, 0, -1])]</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>In the same approach as with the design matrix, the result can be easily
 converted into a text file ready to give to TBSS.</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_tbss_contrasts</span><span class="p">(</span><span class="n">contrasts</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">build_tbss_contrasts</span><span class="p">(</span><span class="n">contrasts</span><span class="p">):</span>
     <span class="n">con</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;/NumWaves </span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="n">contrasts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])]</span>
 
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">contrast</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">contrasts</span><span class="p">):</span>
@@ -254,16 +254,16 @@ converted into a text file ready to give to TBSS.</p>
         <span class="n">con</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">each</span><span class="p">)</span> <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">c</span><span class="p">]))</span>
 
     <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">con</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <h4>Example (cont.):</h4>
-<div class="highlight"><pre><span></span><span class="n">con</span> <span class="o">=</span> <span class="n">build_tbss_contrasts</span><span class="p">(</span><span class="n">contrasts</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">con</span> <span class="o">=</span> <span class="n">build_tbss_contrasts</span><span class="p">(</span><span class="n">contrasts</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">con</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="err">/NumWaves 3</span>
+<div class="highlight"><pre><span></span><code><span class="err">/NumWaves 3</span>
 <span class="err">/ContrastName1 age(+)</span>
 <span class="err">/ContrastName2 age(-)</span>
 <span class="err">/ContrastName3 gender(+)</span>
@@ -278,13 +278,13 @@ converted into a text file ready to give to TBSS.</p>
 <span class="err">0 -1 0</span>
 <span class="err">0 0 1</span>
 <span class="err">0 0 -1</span>
-</pre></div>
+</code></pre></div>
 
 
 <h3>Pairwise comparisons:</h3>
 <p>The following kind of code can be used to include 1-vs-1 contrasts in addition
 to the main effects.</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">tbss_2vs2_contrasts</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">covlist</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">tbss_2vs2_contrasts</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">covlist</span><span class="p">):</span>
     <span class="kn">import</span> <span class="nn">itertools</span>
     <span class="n">con</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
@@ -293,15 +293,15 @@ to the main effects.</p>
         <span class="n">c</span><span class="p">[</span><span class="n">covlist</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">j</span><span class="p">)]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
         <span class="n">con</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&gt;</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">),</span> <span class="n">c</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">con</span>
-</pre></div>
+</code></pre></div>
 
 
 <h4>Example:</h4>
-<div class="highlight"><pre><span></span>  <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight"><pre><span></span><code>  <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
   <span class="n">fp</span> <span class="o">=</span> <span class="s1">&#39;/tmp/data2.xls&#39;</span>
   <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
   <span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
+</code></pre></div>
 
 
 <blockquote>
@@ -355,12 +355,12 @@ to the main effects.</p>
 </table>
 </blockquote>
 <p>The design matrix would be:</p>
-<div class="highlight"><pre><span></span><span class="n">mat</span> <span class="o">=</span> <span class="n">build_tbss_matrix</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">mat</span> <span class="o">=</span> <span class="n">build_tbss_matrix</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="err">/NumWaves 6</span>
+<div class="highlight"><pre><span></span><code><span class="err">/NumWaves 6</span>
 <span class="err">/NumPoints 114</span>
 <span class="err">/Matrix</span>
 <span class="err">63.4223134839151 2.0 -7.62 -7.62 -0.0 -0.0</span>
@@ -369,12 +369,12 @@ to the main effects.</p>
 <span class="err">54.1519507186858 1.0 -4.12 -4.12 -0.0 -0.0</span>
 <span class="err">52.8788501026694 1.0 -17.65 -17.65 -0.0 -0.0</span>
 <span class="err">...</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Imagine that we are interested in the interaction between the two variables
 <code>centiloids</code> (continuous) and <code>apoe4</code> (categorical [0,1,2]).</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_interaction</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">categ_var</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">build_interaction</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">categ_var</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Adds columns to a DataFrame with the interaction between a variable and</span>
 <span class="sd">    a categorical variable.&#39;&#39;&#39;</span>
 
@@ -387,13 +387,13 @@ to the main effects.</p>
         <span class="n">df</span><span class="p">[</span><span class="n">intercol</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="n">apocol</span><span class="p">]</span><span class="o">*</span><span class="n">row</span><span class="p">[</span><span class="n">var</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">del</span> <span class="n">df</span><span class="p">[</span><span class="n">apocol</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">df</span>
-</pre></div>
+</code></pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">build_interaction</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;centiloids&#39;</span><span class="p">,</span> <span class="s1">&#39;apoe4&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">data</span> <span class="o">=</span> <span class="n">build_interaction</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;centiloids&#39;</span><span class="p">,</span> <span class="s1">&#39;apoe4&#39;</span><span class="p">)</span>
 <span class="k">del</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;apoe4&#39;</span><span class="p">]</span>
 <span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
+</code></pre></div>
 
 
 <blockquote>
@@ -460,16 +460,16 @@ to the main effects.</p>
 </blockquote>
 <p>This will generate the contrasts for the main effects and the
 <code>apoe4 x centiloids</code> interaction:</p>
-<div class="highlight"><pre><span></span><span class="n">covariates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">covariates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 <span class="n">con</span> <span class="o">=</span> <span class="n">tbss_main_effect_contrasts</span><span class="p">(</span><span class="n">covariates</span><span class="p">)</span>
 <span class="n">pair_con</span> <span class="o">=</span> <span class="n">tbss_2vs2_contrasts</span><span class="p">([</span><span class="s1">&#39;centiloids0&#39;</span><span class="p">,</span> <span class="s1">&#39;centiloids1&#39;</span><span class="p">,</span> <span class="s1">&#39;centiloids2&#39;</span><span class="p">],</span> <span class="n">covariates</span><span class="p">)</span>
 <span class="n">con</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">pair_con</span><span class="p">)</span>
 <span class="n">contrasts</span> <span class="o">=</span> <span class="n">build_tbss_contrasts</span><span class="p">(</span><span class="n">con</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">contrasts</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="err">/NumWaves 6</span>
+<div class="highlight"><pre><span></span><code><span class="err">/NumWaves 6</span>
 <span class="err">/ContrastName1 age(+)</span>
 <span class="err">/ContrastName2 age(-)</span>
 <span class="err">/ContrastName3 gender(+)</span>
@@ -508,7 +508,7 @@ to the main effects.</p>
 <span class="err">0 0 0 0 1 -1</span>
 <span class="err">0 0 0 -1 0 1</span>
 <span class="err">0 0 0 0 -1 1</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>After saving the matrix and the contrasts in <code>.mat</code> and <code>.con</code> files, <code>randomise</code>
@@ -517,7 +517,9 @@ can be run using the usual command:</p>
 <p>as described in <a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Randomise/UserGuide">TBSS user manual</a>.</p>
 <p>See also:
 <a href="https://github.com/xgrg/alfa/blob/master/build_matrix.py">https://github.com/xgrg/alfa/blob/master/build_matrix.py</a></p>
-<p><a href="https://github.com/xgrg/alfa/blob/master/notebooks/Amyloid%20and%20DWI/TBSS/Building%20design%20matrix%20for%20TBSS.ipynb">Related notebook</a></p>
+<p>You may also check this package which contains the various helper functions 
+related to TBSS.
+<a href="https://github.com/xgrg/tbss">GitHub</a></p>
     </section>
 
     <section id="applause">

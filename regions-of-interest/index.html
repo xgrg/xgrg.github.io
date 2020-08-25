@@ -140,7 +140,7 @@ extracted from these regions. Real images may be used instead (provided they
 <h4>Generating random maps (optional)</h4>
 <p>This <a href="https://gist.github.com/xgrg/3405bbe95f6aa589ac5dfbfb9843c73f">gist</a>
 shows the documented execution of this part.</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tempfile</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">tempfile</span>
 <span class="kn">from</span> <span class="nn">nilearn</span> <span class="kn">import</span> <span class="n">datasets</span>
 <span class="kn">from</span> <span class="nn">nilearn</span> <span class="kn">import</span> <span class="n">image</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -163,7 +163,7 @@ shows the documented execution of this part.</p>
 
 <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">images</span><span class="p">[:</span><span class="mi">3</span><span class="p">]:</span>
     <span class="n">npl</span><span class="o">.</span><span class="n">plot_roi</span><span class="p">(</span><span class="n">atlas_fp</span><span class="p">,</span> <span class="n">bg_img</span><span class="o">=</span><span class="n">each</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p><img alt="example_plot_roi1" src="/images/roi/roi_plot1.png">
@@ -177,7 +177,7 @@ which takes a set (<code>images</code>) of images (their file paths) and <code>a
    space (e.g. MNI). The ROI volume may thus come from an atlas, as the ones
    from the <a href="https://nilearn.github.io/modules/reference.html#module-nilearn.datasets"><code>nilearn.datasets</code></a>
   module.</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">roistats</span> <span class="kn">import</span> <span class="n">collect</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">roistats</span> <span class="kn">import</span> <span class="n">collect</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># Here we collect the mean value from each ROI on every image</span>
@@ -185,12 +185,12 @@ which takes a set (<code>images</code>) of images (their file paths) and <code>a
                                  <span class="n">func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span>
                                  <span class="n">subjects</span><span class="o">=</span><span class="n">images</span><span class="p">,</span>
                                  <span class="n">n_jobs</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The created table will have as many columns as there are ROI labels.
 We may rename them with the corresponding names from the atlas.</p>
-<div class="highlight"><pre><span></span><span class="c1"># Get label names from Harvard Oxford atlas</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get label names from Harvard Oxford atlas</span>
 <span class="kn">from</span> <span class="nn">nilearn</span> <span class="kn">import</span> <span class="n">datasets</span>
 
 <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;cort-maxprob-thr50-2mm&#39;</span>
@@ -198,11 +198,11 @@ We may rename them with the corresponding names from the atlas.</p>
 
 <span class="c1"># Store them in a dict</span>
 <span class="n">labels</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span>
-</pre></div>
+</code></pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+</code></pre></div>
 
 
 <table>
@@ -279,7 +279,7 @@ or histograms, with the possibility to account for covariates (using
 covariates to these previously extracted ROI values. Random "group", random age,
 random sex,
 random <a href="https://en.wikipedia.org/wiki/Apolipoprotein_E">APOE</a> E4 status.</p>
-<div class="highlight"><pre><span></span><span class="c1"># Let us add some totally random covariates</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Let us add some totally random covariates</span>
 
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -291,7 +291,7 @@ random <a href="https://en.wikipedia.org/wiki/Apolipoprotein_E">APOE</a> E4 stat
 <span class="c1"># How do they look</span>
 <span class="n">covariates</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;apoee4&#39;</span><span class="p">]</span>
 <span class="n">df</span><span class="p">[</span><span class="n">covariates</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
+</code></pre></div>
 
 
 <table>
@@ -349,7 +349,7 @@ want to account for the potential influence of the covariates we just added (e.g
 taken in the Temporal Pole (across these 50 maps), accounting for the effect of age,
 sex and "group".</p>
 <p><code>plotting</code> has a method called <code>boxplot</code> for this.</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">roistats</span> <span class="kn">import</span> <span class="n">plotting</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">roistats</span> <span class="kn">import</span> <span class="n">plotting</span>
 <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;Temporal Pole&#39;</span>
 
 <span class="c1"># Plot data from this region</span>
@@ -357,7 +357,7 @@ sex and "group".</p>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plotting</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;apoee4&#39;</span><span class="p">,</span>
                      <span class="n">covariates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">],</span>
                      <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p><img alt="boxplot1" src="/images/roi/boxplot1.png"></p>
@@ -365,46 +365,46 @@ sex and "group".</p>
 categories, here APOE groups. No significant difference is found in any case
 (which makes sense considering the data comes from the same random process).</p>
 <p>Same thing now with sex differences.</p>
-<div class="highlight"><pre><span></span><span class="c1"># Now by sex</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Now by sex</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plotting</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span>
                      <span class="n">covariates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">],</span>
                      <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p><img alt="boxplot2" src="/images/roi/boxplot2.png"></p>
 <p>Still no significant difference.</p>
 <p>Let us now look at age x APOE interaction, corrected for sex and "group".</p>
 <p><code>plotting</code> has a method called <code>lmplot</code> for this.</p>
-<div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">plotting</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">region</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="n">_</span> <span class="o">=</span> <span class="n">plotting</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">region</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
                     <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                     <span class="n">covariates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">],</span>
                     <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;apoee4&#39;</span><span class="p">,</span>
                     <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span>
                     <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p><img alt="lmplot" src="/images/roi/lmplot.png"></p>
 <p>For the last example, the table needs to be reshaped a bit ("unpivot"). This is
 done to allow the use of large tables with many rows (and a moderate number of columns).</p>
-<div class="highlight"><pre><span></span><span class="c1"># For this last one reshape the table a bit (&quot;unpivot&quot;)</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># For this last one reshape the table a bit (&quot;unpivot&quot;)</span>
 <span class="n">cov</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;apoee4&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">]]</span>
 <span class="n">melt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">,</span>
                <span class="n">value_vars</span><span class="o">=</span><span class="n">labels</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>
                <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;region&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
 <span class="n">melt</span> <span class="o">=</span> <span class="n">melt</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>It would look like this:</p>
-<div class="highlight"><pre><span></span><span class="c1"># Only keep 5 regions for this example</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Only keep 5 regions for this example</span>
 <span class="n">regions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">melt</span><span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">]))</span>
 <span class="n">melt</span> <span class="o">=</span> <span class="n">melt</span><span class="p">[</span><span class="n">melt</span><span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">regions</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">15</span><span class="p">])]</span>
 
 <span class="c1"># It looks like this</span>
 <span class="n">melt</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
+</code></pre></div>
 
 
 <table>
@@ -465,25 +465,25 @@ done to allow the use of large tables with many rows (and a moderate number of c
 single plot.</p>
 <p>In this example, APOE status would be considered as the effect of interest,
 and age and sex as covariates.</p>
-<div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">plotting</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">melt</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;apoee4&#39;</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="n">_</span> <span class="o">=</span> <span class="n">plotting</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">melt</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;apoee4&#39;</span><span class="p">,</span>
                   <span class="n">region_colname</span><span class="o">=</span><span class="s1">&#39;region&#39;</span><span class="p">,</span>
                   <span class="n">covariates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">],</span>
                   <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">],</span>
                   <span class="n">aspect</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                   <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p><img alt="hist1" src="/images/roi/hist1.png"></p>
 <p>Now same thing with sex differences, correcting for age and APOE status.</p>
-<div class="highlight"><pre><span></span><span class="c1"># Again by sex</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Again by sex</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plotting</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">melt</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span>
                   <span class="n">region_colname</span><span class="o">=</span><span class="s1">&#39;region&#39;</span><span class="p">,</span>
                   <span class="n">covariates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;apoee4&#39;</span><span class="p">],</span>
                   <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">],</span>
                   <span class="n">aspect</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                   <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p><img alt="hist2" src="/images/roi/hist2.png"></p>

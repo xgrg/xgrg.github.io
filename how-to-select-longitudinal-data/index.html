@@ -109,7 +109,7 @@
 <!-- PELICAN_END_SUMMARY -->
 
 <p>As almost always, everything starts with creating an <code>Interface</code>.</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyxnat</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyxnat</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">pyxnat</span><span class="o">.</span><span class="n">Interface</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s1">&#39;/home/grg/.xnat_bsc.cfg&#39;</span><span class="p">)</span>
 
 <span class="c1"># We start collecting experiments from a few projects</span>
@@ -123,12 +123,12 @@
     <span class="n">experiments</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">project_exp</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> experiments found in both projects&#39;</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="n">experiments</span><span class="p">))</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>For each experiment, retrieve info e.g. subject label, acquisition date, session ID. Then, create a list for each subject and store the information
 in a dictionary.</p>
-<div class="highlight"><pre><span></span><span class="c1"># For each experiment, retrieve info e.g. subject label,</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># For each experiment, retrieve info e.g. subject label,</span>
 <span class="c1"># acquisition date, session ID.</span>
 <span class="n">subjects</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">experiments</span><span class="p">:</span>
@@ -145,11 +145,11 @@ in a dictionary.</p>
     <span class="c1"># Now for each subject, we have the number of existing scans</span>
     <span class="c1"># and their acquisition dates</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">subjects</span><span class="p">[</span><span class="s1">&#39;10010&#39;</span><span class="p">])</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Now we can filter the ones with more than one MR session.</p>
-<div class="highlight"><pre><span></span><span class="c1"># Give me the ones with more than one timepoint</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Give me the ones with more than one timepoint</span>
 <span class="n">longitudinal</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">subject</span><span class="p">,</span> <span class="n">sessions</span> <span class="ow">in</span> <span class="n">subjects</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sessions</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
@@ -159,7 +159,7 @@ in a dictionary.</p>
 <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">longitudinal</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="mi">5</span><span class="p">]:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">longitudinal</span><span class="p">))</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>A Jupyter Notebook with the presented code can be found <a href="https://github.com/xgrg/pyxnat/blob/nosetests/doc/notebooks/002%20-%20How%20to%20select%20longitudinal%20data.ipynb">there</a>.</p>

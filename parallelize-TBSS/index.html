@@ -129,9 +129,9 @@ given in the original <code>.con</code> file.
 <p>The following recipe is implemented in this <a href="https://github.com/xgrg/tbss/">module</a>.</p>
 <h2>Concept:</h2>
 <p>The typical <code>randomise</code> command looks like:</p>
-<div class="highlight"><pre><span></span><span class="sb">`</span>randomise -i &lt;skeletonized_data&gt; -o &lt;output_basename&gt; -m &lt;mean_FA_skeleton_mask&gt;<span class="se">\</span>
+<div class="highlight"><pre><span></span><code><span class="sb">`</span>randomise -i &lt;skeletonized_data&gt; -o &lt;output_basename&gt; -m &lt;mean_FA_skeleton_mask&gt;<span class="se">\</span>
    -d &lt;design.mat&gt; -t &lt;design.con&gt; -n &lt;n_permutations&gt; <span class="o">[</span>--T2<span class="o">]</span> <span class="o">[</span>-V<span class="o">]</span><span class="sb">`</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>This will estimate every given contrast from the <code>.con</code> file, sequentially,
@@ -159,7 +159,7 @@ matrices and contrast for TBSS in Python</a>
 to create these mock contrasts as wished. In the following example, we defined a
 set of 8 contrasts over 9 independent variables.</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><span class="n">con</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;age(+)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
+<div class="highlight"><pre><span></span><code><span class="n">con</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;age(+)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
        <span class="p">(</span><span class="s1">&#39;age(-)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
        <span class="p">(</span><span class="s1">&#39;sex(m&gt;f)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
        <span class="p">(</span><span class="s1">&#39;sex(f&gt;m)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
@@ -170,11 +170,11 @@ set of 8 contrasts over 9 independent variables.</p>
 
 <span class="kn">from</span> <span class="nn">tbss</span> <span class="kn">import</span> <span class="n">contrasts</span>
 <span class="n">contrasts</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="s1">&#39;/tmp/contrasts.con&#39;</span><span class="p">)</span>       
-</pre></div>
+</code></pre></div>
 
 
 <p>The contents of the generated file (following the format from that <a href="../building-design-matrices-for-tbss/">previous post</a> will be the following:</p>
-<div class="highlight"><pre><span></span><span class="err">/NumWaves 9</span>
+<div class="highlight"><pre><span></span><code><span class="err">/NumWaves 9</span>
 <span class="err">/ContrastName1 age(+)</span>
 <span class="err">/ContrastName2 age(-)</span>
 <span class="err">/ContrastName3 sex(m&gt;f)</span>
@@ -193,7 +193,7 @@ set of 8 contrasts over 9 independent variables.</p>
 <span class="err">0 0 0 0 0 0 0 0 -1</span>
 <span class="err">0 0 0 0 0 0 0 1 0</span>
 <span class="err">0 0 0 0 0 0 0 -1 0</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Now, let us provide a list of filepaths instead of a single one.</p>
@@ -204,7 +204,7 @@ set of 8 contrasts over 9 independent variables.</p>
   available), <code>part*.con</code> would then contain two contrasts from the 8 preceded
   by the right number of dummy constrasts. For  example, the contents of the
   last one will be:</p>
-<div class="highlight"><pre><span></span><span class="err">/NumWaves 9</span>
+<div class="highlight"><pre><span></span><code><span class="err">/NumWaves 9</span>
 <span class="err">/ContrastName1 mock1</span>
 <span class="err">/ContrastName2 mock2</span>
 <span class="err">/ContrastName3 mock3</span>
@@ -223,7 +223,7 @@ set of 8 contrasts over 9 independent variables.</p>
 <span class="err">0 0 0 0 0 0 0 0 0</span>
 <span class="err">0 0 0 0 0 0 0 1 0</span>
 <span class="err">0 0 0 0 0 0 0 -1 0</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>There is also a function called <code>main_effects</code> to generate all the contrasts
@@ -235,7 +235,7 @@ matrix.</p>
 The <code>randomise_parallel</code> function takes care of all this as shown hereafter.
  (Let us assume in the following that all the <code>&lt;arguments&gt;</code> will be replaced
    with correct paths to the actual data)</p>
-<div class="highlight"><pre><span></span><span class="n">num_perm</span> <span class="o">=</span> <span class="mi">5000</span>
+<div class="highlight"><pre><span></span><code><span class="n">num_perm</span> <span class="o">=</span> <span class="mi">5000</span>
 <span class="n">n_cpus</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">sleep_interval</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">commands</span> <span class="o">=</span> <span class="n">contrasts</span><span class="o">.</span><span class="n">randomise_parallel</span><span class="p">(</span><span class="s1">&#39;&lt;skeletonized_data&gt;&#39;</span><span class="p">,</span>
@@ -247,10 +247,10 @@ The <code>randomise_parallel</code> function takes care of all this as shown her
                                         <span class="n">sleep_interval</span><span class="o">=</span><span class="n">sleep_interval</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">commands</span><span class="p">[:]:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="n">randomise</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">skeletonized_data</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">output_basename</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">m</span> <span class="o">&lt;</span><span class="n">mean_FA_skeleton_mask</span><span class="o">&gt;</span><span class="err">\</span>
+<div class="highlight"><pre><span></span><code><span class="n">randomise</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">skeletonized_data</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">output_basename</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">m</span> <span class="o">&lt;</span><span class="n">mean_FA_skeleton_mask</span><span class="o">&gt;</span><span class="err">\</span>
    <span class="o">-</span><span class="n">d</span> <span class="o">&lt;</span><span class="n">design</span><span class="p">.</span><span class="n">mat</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">t</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">part1</span><span class="p">.</span><span class="n">con</span> <span class="o">-</span><span class="n">n</span> <span class="mi">5000</span> <span class="c1">--T2 --skipTo=1 -V &amp;&gt; /tmp/log1.log</span>
 
 <span class="n">randomise</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">skeletonized_data</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">output_basename</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">m</span> <span class="o">&lt;</span><span class="n">mean_FA_skeleton_mask</span><span class="o">&gt;</span><span class="err">\</span>
@@ -261,14 +261,14 @@ The <code>randomise_parallel</code> function takes care of all this as shown her
 
 <span class="n">randomise</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">skeletonized_data</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">output_basename</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">m</span> <span class="o">&lt;</span><span class="n">mean_FA_skeleton_mask</span><span class="o">&gt;</span><span class="err">\</span>
    <span class="o">-</span><span class="n">d</span> <span class="o">&lt;</span><span class="n">design</span><span class="p">.</span><span class="n">mat</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">t</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">part4</span><span class="p">.</span><span class="n">con</span> <span class="o">-</span><span class="n">n</span> <span class="mi">5000</span> <span class="c1">--T2 --skipTo=7 -V &amp;&gt; /tmp/log4.log</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Eventually these lines may be saved in a script and passed to any tool like <a href="https://www.gnu.org/software/parallel/">GNU parallel</a>
 for execution, as in the following example:</p>
 <h3>Example:</h3>
-<div class="highlight"><pre><span></span>cat /tmp/script.sh <span class="p">|</span> parallel -j &lt;n_cpus&gt;
-</pre></div>
+<div class="highlight"><pre><span></span><code>cat /tmp/script.sh <span class="p">|</span> parallel -j &lt;n_cpus&gt;
+</code></pre></div>
 
 
 <p>Writing this post will have taken the actual time of running <code>randomise</code> in
