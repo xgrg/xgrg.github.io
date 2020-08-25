@@ -297,5 +297,6 @@ as described in [TBSS user manual](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Random
 See also:
 [https://github.com/xgrg/alfa/blob/master/build_matrix.py](https://github.com/xgrg/alfa/blob/master/build_matrix.py)
 
-
-[Related notebook](https://github.com/xgrg/alfa/blob/master/notebooks/Amyloid%20and%20DWI/TBSS/Building%20design%20matrix%20for%20TBSS.ipynb)
+You may also check this package which contains the various helper functions 
+related to TBSS.
+[GitHub](https://github.com/xgrg/tbss)
