@@ -87,6 +87,8 @@ Greg Operto is a neuroimaging research scientist in the field of Alzheimer’s D
 
 ### Peer-reviewed publications :
 
+* N. Vilor-Tejedor, **G. Operto**, T.E. Evans, C. Falcon, M. Crous-Bou, C. Minguillón, R. Cacciaglia, M. Milà-Alomà, O. Grau-Rivera, M. Suárez-Calvet, D. Garrido-Martín, S. Morán, M. Esteller, H.H. Adams, J.L. Molinuevo, R. Guigó, J.D. Gispert  for the ALFA Study[Effect of BDNF Val66Met on hippocampal subfields volumes and compensatory interaction with APOE-ε4 in middle-age cognitively unimpaired individuals from the ALFA study](https://link.springer.com/article/10.1007/s00429-020-02125-3), Brain Struct Funct, 2020 [doi.org/10.1007/s00429-020-02125-3](https://doi.org/10.1007/s00429-020-02125-3)
+
 * E. M. Arenaza-Urquijo, G. Salvadó, **G. Operto**, C. Minguillón, G. Sánchez-Benavides, M. Crous-Bou, O. Grau-Rivera, A. Sala-Vila, C. Falcón, M. Suárez-Calvet, H. Zetterberg, K. Blennow, J.D. Gispert, J.L. Molinuevo for the ALFA study, [Association of years to parent’s sporadic onset and risk factors with neural integrity and Alzheimer’s biomarkers](https://n.neurology.org/content/early/2020/07/31/WNL.0000000000010527.abstract), Neurology, 2020 [doi:10.1212/WNL.0000000000010527](https://doi.org/10.1212/WNL.0000000000010527)
 
 
