@@ -8,7 +8,7 @@ The _Paris-NeuroSpin_ is an unofficial annual running event that has been organi
 
 <!-- PELICAN_END_SUMMARY -->
 
-> <div style="padding:20px; text-align:justify; background-color:#8e453e; color:white"> **Note:** next **April 30** will be **the next _Paris-NeuroSpin_ 2020 Edition**. François Leroy has now taken charge of organizing the event. Registrations are open!
+> <div style="padding:20px; text-align:justify; background-color:#8e453e; color:white"> **Note: The _Paris-NeuroSpin_ 2020 Edition** has been postponed due to Covid-19 restrictions. Please contact François Leroy for more information.
 > </div>
 
 Itinerary:
