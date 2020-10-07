@@ -6,10 +6,11 @@ Authors: Grégory Operto
 
 The _Paris-NeuroSpin_ is an unofficial annual running event that has been organized nine times consecutively between 2012 and 2020. The itinerary starts from Paris Porte de Vanves and ends in Saclay at the doors of **NeuroSpin** the high-field brain research center of the _French Atomic Commission_ _(CEA)_. The total distance is just above _22 kilometers_. Along the different years the event has counted from 4 to 13 participants, mostly runners but also bikes. The concept of the event drives the participants to progress as a unique group generally, hence arriving together after 2-2.5 hours of efforts.
 
-<!-- PELICAN_END_SUMMARY -->
+<!-- PELICAN_END_SUMMARY
 
 > <div style="padding:20px; text-align:justify; background-color:#8e453e; color:white"> **Note: The _Paris-NeuroSpin_ 2020 Edition** has been postponed due to Covid-19 restrictions. Please contact François Leroy for more information.
 > </div>
+-->
 
 Itinerary:
 ----------
@@ -24,7 +25,25 @@ After going all the way down from the plateau of Verrières, the crossing of Ign
 
 History and major events:
 ------------------------
-## 2017: The 6th _Paris-NeuroSpin_ edition took place on June 15. A video montage captured a selection of the good moments from that day.
+
+
+## 2020:
+
+This year's edition was organized under particular sanitary conditions due to
+Covid-19. There was one group of cyclists and one group of runners.
+
+![PNS2020-21]({filename}images/pns/pns2020-21.jpg)
+
+## 2019:
+
+That year's edition was a record in terms of participants: 11 runners, 9 cyclists.
+
+![PNS2019-22]({filename}images/pns/pns2019-22.jpg)
+
+
+## 2017:
+
+The 6th _Paris-NeuroSpin_ edition took place on June 15. A video montage captured a selection of the good moments from that day.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/1vSF1tWx-Rg" frameborder="0" allowfullscreen></iframe>
 <span style="font-size:11pt; float:right"> _video credits: C. Doublé_</span>
