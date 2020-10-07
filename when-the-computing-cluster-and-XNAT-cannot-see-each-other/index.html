@@ -122,12 +122,11 @@ The recipe is admittedly imperfect on many aspects, especially considering that 
 <p>This present example was based on actual previous experience where we had to run thousands of hippocampal subfield segmentation using FreeSurfer v6.0. In normal conditions, we have processing tasks handled by a fully-dedicated-but-average-sized individual workstation but in this particular case, <em>"outsourcing"</em> it to an HPC (or any other computing unit) would allow to not overwhelm it while still getting results in a reasonable time. Using containerization on the HPC would also mitigate known issues about discrepancy of results <a href="https://www.frontiersin.org/articles/10.3389/fninf.2015.00012/full">across architectures and operating systems</a>.</p>
 <p>The recipe's code was put together in a Python module, provided for reference only (<em>read</em> "dirty - may explode"), that can be found <a href="https://gitlab.com/xgrg/x2c">here</a>. <a href="https://gitlab.com/xgrg/x2c">x2c</a> stands for <em>XNAT-to-cluster</em>.</p>
 <p>In summary it intends to work from CLI as follow:</p>
-<div class="highlight"><pre><span></span><code>x2c --config /path/to/xnat.cfg --experiment EXPERIMENT_ID --host COMPUTING_UNIT_ID --output /path/to/working_dir
+<div class="bash highlight"><pre><span></span><code>x2c --config /path/to/xnat.cfg --experiment EXPERIMENT_ID --host COMPUTING_UNIT_ID --output /path/to/working_dir
 </code></pre></div>
 
-
 <p>It is based on the following commands, called sequentially:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fetch_from_xnat</span><span class="p">(</span><span class="n">config_file</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span>  
+<div class="python highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fetch_from_xnat</span><span class="p">(</span><span class="n">config_file</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span>  
         <span class="n">include_freesurfer</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doit</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
             <span class="sd">&#39;&#39;&#39; Downloads a given list of File instances from</span>
 <span class="sd">            XNAT and stores them in a given path</span>
@@ -137,8 +136,7 @@ The recipe is admittedly imperfect on many aspects, especially considering that 
 <span class="sd">            &#39;&#39;&#39;</span>
 </code></pre></div>
 
-
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">rsync_to_hpc</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">dd</span><span class="p">,</span> <span class="n">include_freesurfer</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<div class="python highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">rsync_to_hpc</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">dd</span><span class="p">,</span> <span class="n">include_freesurfer</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">doit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">clean</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Sends necessary resources to host (computing unit)</span>
 <span class="sd">      including:</span>
@@ -152,8 +150,7 @@ The recipe is admittedly imperfect on many aspects, especially considering that 
 <span class="sd">    &#39;&#39;&#39;</span>
 </code></pre></div>
 
-
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">singularity_cmd</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">subject_label</span><span class="p">,</span>
+<div class="python highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">singularity_cmd</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">subject_label</span><span class="p">,</span>
         <span class="n">singularity_fp</span><span class="p">,</span> <span class="n">image_fn</span><span class="p">,</span> <span class="n">reconall</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Builds a `singularity` command provided:</span>
 <span class="sd">        - path to remote directory</span>
@@ -164,22 +161,19 @@ The recipe is admittedly imperfect on many aspects, especially considering that 
 <span class="sd">    &#39;&#39;&#39;</span>
 </code></pre></div>
 
-
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">hippo_zip</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">dd</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">subject_label</span><span class="p">):</span>
+<div class="python highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">hippo_zip</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">dd</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">subject_label</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Builds proper commands to build a zipfile with</span>
 <span class="sd">    previously generated hippocampal subfields.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 </code></pre></div>
 
-
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">upload_subject</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">zipfile</span><span class="p">,</span> <span class="n">resource_name</span><span class="p">):</span>
+<div class="python highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">upload_subject</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">zipfile</span><span class="p">,</span> <span class="n">resource_name</span><span class="p">):</span>
   <span class="sd">&#39;&#39;&#39; Uploads a zipfile as a resource associated with a given</span>
 <span class="sd">  experiment on an XNAT instance.</span>
 <span class="sd">  &#39;&#39;&#39;</span>
 </code></pre></div>
 
-
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">post_commands</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">dd</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">subject_label</span><span class="p">,</span>
+<div class="python highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">post_commands</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">dd</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">subject_label</span><span class="p">,</span>
       <span class="n">config_file</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Prepares series of commands:</span>
 <span class="sd">        - to build a zipfile archive with hippocampal subfields</span>
@@ -193,7 +187,6 @@ The recipe is admittedly imperfect on many aspects, especially considering that 
 <span class="sd">        - XNAT configuration file</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 </code></pre></div>
-
 
 <p>The whole thing makes intensive use of <a href="https://github.com/pyxnat/pyxnat"><code>pyxnat</code></a> for obvious reasons. More information on <a href="http://xgrg.github.io/first-steps-with-pyxnat/">how to get started with <code>pyxnat</code></a>.</p>
     </section>

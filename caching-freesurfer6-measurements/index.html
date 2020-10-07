@@ -130,7 +130,7 @@ following section.</p>
 <p>The function <code>cache_freesurfer6()</code> works with a <a href="https://pyxnat.github.io/pyxnat"><code>pyxnat</code></a>
 <code>Interface</code> instance and a reference to any project from an XNAT platform.</p>
 <p>For example, consider the following.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">cache</span> <span class="kn">import</span> <span class="n">cache_freesurfer6</span>
+<div class="python highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">cache</span> <span class="kn">import</span> <span class="n">cache_freesurfer6</span>
 <span class="kn">import</span> <span class="nn">pyxnat</span>
 
 <span class="n">project_id</span> <span class="o">=</span> <span class="s1">&#39;ALFA&#39;</span>
@@ -139,13 +139,11 @@ following section.</p>
 <span class="n">etiv</span> <span class="o">=</span> <span class="n">aseg</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;measurement == &quot;Volume_mm3&quot; &amp; region == &quot;eTIV&quot;&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>The first execution will give this:</p>
 <div class="highlight"><pre><span></span><code><span class="n">INFO</span><span class="o">:</span><span class="n">root</span><span class="o">:</span><span class="n">MD5</span><span class="o">:</span> <span class="mi">34</span><span class="n">c1660a924c32c065f4c8a51fc6a99a</span>
 <span class="n">INFO</span><span class="o">:</span><span class="n">root</span><span class="o">:</span><span class="n">Saving</span> <span class="sr">/tmp/bxcache_34c1660a924c32c065f4c8a51fc6a99a/</span><span class="n">bxcache_aseg_20190619_125621</span><span class="o">.</span><span class="na">xlsx</span>
 <span class="n">INFO</span><span class="o">:</span><span class="n">root</span><span class="o">:</span><span class="n">Elapsed</span> <span class="n">time</span><span class="o">:</span> <span class="mi">0</span><span class="o">:</span><span class="mi">05</span><span class="o">:</span><span class="mi">54</span>
 </code></pre></div>
-
 
 <p>A second execution will generate the following output:</p>
 <div class="highlight"><pre><span></span><code><span class="n">INFO</span><span class="o">:</span><span class="n">root</span><span class="o">:</span><span class="n">MD5</span><span class="o">:</span> <span class="mi">34</span><span class="n">c1660a924c32c065f4c8a51fc6a99a</span>
@@ -153,7 +151,6 @@ following section.</p>
 <span class="n">INFO</span><span class="o">:</span><span class="n">root</span><span class="o">:</span><span class="n">Loading</span> <span class="o">[</span><span class="s1">&#39;/tmp/bxcache_34c1660a924c32c065f4c8a51fc6a99a/bxcache_aseg_20190619_125621.xlsx&#39;</span><span class="o">]</span>
 <span class="n">INFO</span><span class="o">:</span><span class="n">root</span><span class="o">:</span><span class="n">Elapsed</span> <span class="n">time</span><span class="o">:</span> <span class="mi">0</span><span class="o">:</span><span class="mi">00</span><span class="o">:</span><span class="mi">03</span>
 </code></pre></div>
-
 
 <p>The two executions will return the same <code>aseg</code> features (provided there was no
   update of the data between both). In case there was an update, it is possible

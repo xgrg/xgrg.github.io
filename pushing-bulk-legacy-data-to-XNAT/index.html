@@ -115,10 +115,9 @@ is pretty handy if you can afford to use a GUI.</p>
 <p>The simplest way to send DICOM images and other DICOM composite objects
 to an XNAT instance from a CLI may be using <code>storescu</code> (from the <a href="http://support.dcmtk.org"><code>dcmtk</code></a> DICOM toolkit).</p>
 <h3>Example:</h3>
-<div class="highlight"><pre><span></span><code>storescu -nh -v --scan-directories --scan-pattern <span class="s2">&quot;*.dcm&quot;</span> --recurse -aec &lt;AETITLE&gt; <span class="se">\</span>
+<div class="bash highlight"><pre><span></span><code>storescu -nh -v --scan-directories --scan-pattern <span class="s2">&quot;*.dcm&quot;</span> --recurse -aec &lt;AETITLE&gt; <span class="se">\</span>
    &lt;XNAT_SERVER_IP&gt; &lt;XNAT_SERVER_PORT&gt; /path/to/local/data
 </code></pre></div>
-
 
 <blockquote>
 <p><em><code>AETITLE</code> is the Application Entity title used by the XNAT instance to
@@ -143,10 +142,9 @@ respectively (given as PROJECTID, SESSIONID, SUBJECTID later in the example).</p
 fields. In association with <code>find</code> this can be done over a large number of files
 using a single command. If working in Python, <code>pydicom</code> may also be a good option.</p>
 <h3>Example:</h3>
-<div class="highlight"><pre><span></span><code>find /path/to/data -name <span class="s2">&quot;*.dcm&quot;</span> -exec dcmodify -i <span class="nv">PatientID</span><span class="o">=</span><span class="s2">&quot;SESSIONID&quot;</span> <span class="se">\</span>
+<div class="bash highlight"><pre><span></span><code>find /path/to/data -name <span class="s2">&quot;*.dcm&quot;</span> -exec dcmodify -i <span class="nv">PatientID</span><span class="o">=</span><span class="s2">&quot;SESSIONID&quot;</span> <span class="se">\</span>
    -i <span class="nv">PatientName</span><span class="o">=</span><span class="s2">&quot;SUBJECTID&quot;</span> -i <span class="nv">StudyDescription</span><span class="o">=</span><span class="s2">&quot;PROJECTID&quot;</span> <span class="o">{}</span> <span class="se">\;</span>
 </code></pre></div>
-
 
 <p>In this example if the data is to be stored in one single project, it is wise
 to check that all DICOMs share the same <code>Study Description</code> field. The same goes
@@ -157,10 +155,9 @@ a session.</p>
 conflicts in the prearchive if the DICOMs do not share the same
 <code>Study Instance UID</code> (0020,000D). Then again <code>dcmodify</code> would be handy to make
 this field consistent across all files.</p>
-<div class="highlight"><pre><span></span><code>find /path/to/data -name <span class="s2">&quot;*.dcm&quot;</span> -exec <span class="se">\</span>
+<div class="bash highlight"><pre><span></span><code>find /path/to/data -name <span class="s2">&quot;*.dcm&quot;</span> -exec <span class="se">\</span>
    dcmodify -i <span class="nv">StudyInstanceUID</span><span class="o">=</span><span class="s2">&quot;STUDYINSTANCEID&quot;</span> <span class="o">{}</span> <span class="se">\;</span>
 </code></pre></div>
-
 
 <h3>Note #2:</h3>
 <p>XNAT can be configured so that these default rules can be overridden. This is

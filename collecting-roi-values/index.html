@@ -148,7 +148,6 @@ module version of this code</strong></p>
      <span class="k">return</span> <span class="n">res</span>
 </code></pre></div>
 
-
 <p><code>roistats_from_maps</code> takes a path to the label map defining the ROIS and a
 list of filepaths to the images to compute the stats from. <code>roistats_from_map</code> returns
 a list of values from one single map, while <code>roistats_from_maps</code> parallelizes it
@@ -170,7 +169,6 @@ can be passed as <code>func</code> argument. Last but not least, is used for par
 <span class="n">df</span> <span class="o">=</span> <span class="n">roistats_from_maps</span><span class="p">(</span><span class="n">atlas_fp</span><span class="p">,</span> <span class="n">maps_fp</span><span class="p">,</span> <span class="n">subjects</span><span class="o">=</span><span class="n">subjects</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">names</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 <span class="c1">#df.to_excel(&#39;/path/to/excelfile.xls&#39;)</span>
 </code></pre></div>
-
 
 <p>Will return a table like:</p>
 <table>

@@ -139,11 +139,10 @@ subject the path to the corresponding ZIP file.</p>
 <div class="highlight"><pre><span></span><code><span class="err">zipfiles = {&#39;subject01&#39;: &#39;/path/to/subject01_FREESURFER6.zip&#39;}</span>
 </code></pre></div>
 
-
 <h3>Step 2: create blank project/subjects/experiments and assign resources</h3>
 <p>In case the subjects/experiments already exist, the following code will need to
 be adapted with proper values for variables <code>subjects</code> and <code>experiments</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyxnat</span> <span class="kn">import</span> <span class="n">Interface</span>
+<div class="python highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyxnat</span> <span class="kn">import</span> <span class="n">Interface</span>
 
 <span class="n">config_file</span> <span class="o">=</span> <span class="s1">&#39;/home/grg/.xnat_bsc.cfg&#39;</span>
 <span class="n">subjects</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject01&#39;</span><span class="p">,</span> <span class="s1">&#39;subject02&#39;</span><span class="p">,</span> <span class="s1">&#39;subject03&#39;</span><span class="p">]</span>
@@ -168,7 +167,6 @@ be adapted with proper values for variables <code>subjects</code> and <code>expe
 
 <span class="n">c</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
 </code></pre></div>
-
 
 <p>The ZIP files will be extracted online and the contents will appear as
 additional resources of their corresponding experiments.</p>

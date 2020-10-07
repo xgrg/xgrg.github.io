@@ -20,7 +20,7 @@ The basic idea consists in :&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a href="https://github.com/davisp/ghp-import"&gt;&lt;code&gt;ghp-import&lt;/code&gt;&lt;/a&gt; can come in handy to import pages on &lt;code&gt;gh-pages&lt;/code&gt; or &lt;code&gt;master&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Here I wrote this simple &lt;code&gt;build.sh&lt;/code&gt; that is called in the deployment stage of &lt;code&gt;circle.yml&lt;/code&gt;. That seems to do the job :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;pelican content -o /tmp/output
+&lt;div class="bash highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;pelican content -o /tmp/output
 git config --local user.name pluralparallel
 git config --local user.email pluralparallel@circleci.com
 git checkout master
@@ -34,7 +34,6 @@ git add --all
 git commit -m &lt;span class="s1"&gt;&amp;#39;Update documentation&amp;#39;&lt;/span&gt;
 git push origin master
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;p&gt;Now &lt;code&gt;circle.yml&lt;/code&gt; :&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;machine&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
@@ -62,7 +61,6 @@ git push origin master
        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="o"&gt;./&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;sh&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;Now each commit on the &lt;code&gt;source&lt;/code&gt; branch will trigger Pelican on CircleCI and the resulting build is pushed to the &lt;code&gt;master&lt;/code&gt; branch and get visible on &lt;code&gt;http://username.github.io&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;There should be a much cleaner way to manage the git work.&lt;/p&gt;
 &lt;p&gt;Now blogging from anywhere just requires these few steps:&lt;/p&gt;
@@ -75,7 +73,6 @@ git push origin master
 &lt;span class="err"&gt;./develop_server.sh start # open a browser at http://localhost:8000&lt;/span&gt;
 &lt;span class="err"&gt;# add/modify contents and commit/push&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;p&gt;References links:&lt;/p&gt;
 &lt;ul&gt;
