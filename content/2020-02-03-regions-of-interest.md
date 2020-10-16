@@ -307,14 +307,11 @@ J.D. Gispert for the ALFA Study, [Interactive effect of age and APOE-ε4 allele 
 - G. Operto, R. Cacciaglia, O. Grau-Rivera, C. Falcon, A. Brugulat-Serrat,
 P. Ródenas, R. Ramos, S. Morán, M. Esteller, N. Bargalló, J.L. Molinuevo,
 J.D. Gispert for the ALFA Study, [White matter microstructure is altered in
-cognitively normal middle-aged APOE-ε4 homozygotes]((https://alzres.biomedcentral.com/articles/10.1186/s13195-018-0375-x))
+cognitively normal middle-aged APOE-ε4 homozygotes](https://alzres.biomedcentral.com/articles/10.1186/s13195-018-0375-x)
 , Alzheimer’s Research & Therapy, 2018
 
 
-<hr>
-
-
-Disclaimer: to date [roistats](https://github.com/xgrg/roistats) is only
+Disclaimer: to date [`roistats`](https://github.com/xgrg/roistats) is only
 available as a raw (probably dirty) code but please open an issue if
 making it available on package repositories may be useful to you and I
 will make the effort.
