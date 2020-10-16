@@ -74,13 +74,13 @@ Greg Operto is a neuroimaging research scientist in the field of Alzheimer’s D
 
 ## Hobbies
 
-* Travels (Iceland, Norway, Hawai, among the most recent)
+* Travels (Iceland, Norway, Hawai, among the latest <i>pre-pandemics</i>)
 
-* Lightweight hiking, long-distance trekking (hiking solo without assistance from Marseille to Italy in 2012, across Mallorca in 2014, across the southern Alps in 2015)
+* Lightweight hiking, long-distance trekking
 
 * Hacking (Raspberry Pi, Arduino, attending hackathons)
 
-* Aikido, climbing, running (2 half-marathons per years since 2010)
+* Aikido, climbing, running
 
 
 ## Publications and conferences
