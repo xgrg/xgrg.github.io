@@ -122,7 +122,7 @@ The basic idea consists in :</p>
 </ul>
 <p><a href="https://github.com/davisp/ghp-import"><code>ghp-import</code></a> can come in handy to import pages on <code>gh-pages</code> or <code>master</code>.</p>
 <p>Here I wrote this simple <code>build.sh</code> that is called in the deployment stage of <code>circle.yml</code>. That seems to do the job :</p>
-<div class="bash highlight"><pre><span></span><code>pelican content -o /tmp/output
+<div class="highlight"><pre><span></span><code>pelican content -o /tmp/output
 git config --local user.name pluralparallel
 git config --local user.email pluralparallel@circleci.com
 git checkout master

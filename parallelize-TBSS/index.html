@@ -129,7 +129,7 @@ given in the original <code>.con</code> file.
 <p>The following recipe is implemented in this <a href="https://github.com/xgrg/tbss/">module</a>.</p>
 <h2>Concept:</h2>
 <p>The typical <code>randomise</code> command looks like:</p>
-<div class="bash highlight"><pre><span></span><code><span class="sb">`</span>randomise -i &lt;skeletonized_data&gt; -o &lt;output_basename&gt; -m &lt;mean_FA_skeleton_mask&gt;<span class="se">\</span>
+<div class="highlight"><pre><span></span><code><span class="sb">`</span>randomise -i &lt;skeletonized_data&gt; -o &lt;output_basename&gt; -m &lt;mean_FA_skeleton_mask&gt;<span class="se">\</span>
    -d &lt;design.mat&gt; -t &lt;design.con&gt; -n &lt;n_permutations&gt; <span class="o">[</span>--T2<span class="o">]</span> <span class="o">[</span>-V<span class="o">]</span><span class="sb">`</span>
 </code></pre></div>
 
@@ -158,7 +158,7 @@ matrices and contrast for TBSS in Python</a>
 to create these mock contrasts as wished. In the following example, we defined a
 set of 8 contrasts over 9 independent variables.</p>
 <p>Example:</p>
-<div class="python highlight"><pre><span></span><code><span class="n">con</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;age(+)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
+<div class="highlight"><pre><span></span><code><span class="n">con</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;age(+)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
        <span class="p">(</span><span class="s1">&#39;age(-)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
        <span class="p">(</span><span class="s1">&#39;sex(m&gt;f)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
        <span class="p">(</span><span class="s1">&#39;sex(f&gt;m)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
@@ -231,7 +231,7 @@ matrix.</p>
 The <code>randomise_parallel</code> function takes care of all this as shown hereafter.
  (Let us assume in the following that all the <code>&lt;arguments&gt;</code> will be replaced
    with correct paths to the actual data)</p>
-<div class="python highlight"><pre><span></span><code><span class="n">num_perm</span> <span class="o">=</span> <span class="mi">5000</span>
+<div class="highlight"><pre><span></span><code><span class="n">num_perm</span> <span class="o">=</span> <span class="mi">5000</span>
 <span class="n">n_cpus</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">sleep_interval</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">commands</span> <span class="o">=</span> <span class="n">contrasts</span><span class="o">.</span><span class="n">randomise_parallel</span><span class="p">(</span><span class="s1">&#39;&lt;skeletonized_data&gt;&#39;</span><span class="p">,</span>
@@ -261,7 +261,7 @@ The <code>randomise_parallel</code> function takes care of all this as shown her
 <p>Eventually these lines may be saved in a script and passed to any tool like <a href="https://www.gnu.org/software/parallel/">GNU parallel</a>
 for execution, as in the following example:</p>
 <h3>Example:</h3>
-<div class="bash highlight"><pre><span></span><code>cat /tmp/script.sh <span class="p">|</span> parallel -j &lt;n_cpus&gt;
+<div class="highlight"><pre><span></span><code>cat /tmp/script.sh <span class="p">|</span> parallel -j &lt;n_cpus&gt;
 </code></pre></div>
 
 <p>Writing this post will have taken the actual time of running <code>randomise</code> in

@@ -110,7 +110,7 @@ I was probably not the first one to look for this (as suggested <a href="https:/
 <p>FSL/TBSS comes indeed with that useful command (<a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Atlasquery"><code>atlasquery</code></a>) which returns the name and proportions of the regions from any given reference atlas (among the ones supplied with FSL) that would show an overlap with clusters from any binary map. </p>
 <p>Hence the following Python functions (named after the original commands) are just wrappers around <code>atlasquery</code> and <code>autoaq</code> and convert their outputs to <code>pandas</code> DataFrames. </p>
 <p>See the full code <a href="https://github.com/xgrg/tbss/blob/master/tbss/__init__.py">there</a>.</p>
-<div class="python highlight"><pre><span></span><code><span class="n">data</span> <span class="o">=</span> <span class="n">atlasquery</span><span class="p">(</span><span class="s1">&#39;/tmp/tmpsi1gyceh.nii.gz&#39;</span><span class="p">,</span> 
+<div class="highlight"><pre><span></span><code><span class="n">data</span> <span class="o">=</span> <span class="n">atlasquery</span><span class="p">(</span><span class="s1">&#39;/tmp/tmpsi1gyceh.nii.gz&#39;</span><span class="p">,</span> 
                   <span class="s1">&#39;JHU White-Matter Tractography Atlas&#39;</span><span class="p">)</span>
 <span class="n">data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;pc&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div>
@@ -150,7 +150,7 @@ I was probably not the first one to look for this (as suggested <a href="https:/
 <p>The input map is assumed to be binary. If it is not, then one can use <code>autoaq</code> 
 and give a specific threshold for the input map (default: 0.95 (equivalent to <code>p&lt;0.05</code>)). Two dataframes will be returned as original results come in <a href="https://brainder.org/tag/autoaq/">multiple
  sections</a>.</p>
-<div class="python highlight"><pre><span></span><code><span class="n">data</span> <span class="o">=</span> <span class="n">autoaq</span><span class="p">(</span><span class="s1">&#39;/path/to/map_FA_tfce_corrp_tstat3.nii.gz&#39;</span><span class="p">,</span> 
+<div class="highlight"><pre><span></span><code><span class="n">data</span> <span class="o">=</span> <span class="n">autoaq</span><span class="p">(</span><span class="s1">&#39;/path/to/map_FA_tfce_corrp_tstat3.nii.gz&#39;</span><span class="p">,</span> 
               <span class="s1">&#39;JHU White-Matter Tractography Atlas&#39;</span><span class="p">,</span> 
               <span class="n">thr</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
 <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
@@ -188,7 +188,7 @@ and give a specific threshold for the input map (default: 0.95 (equivalent to <c
 </tbody>
 </table>
 </blockquote>
-<div class="python highlight"><pre><span></span><code><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;pc&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;pc&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div>
 
 <blockquote>
