@@ -391,7 +391,7 @@ J.D. Gispert for the ALFA Study, &lt;a href="https://www.sciencedirect.com/scien
 &lt;li&gt;
 &lt;p&gt;G. Operto, R. Cacciaglia, O. Grau-Rivera, C. Falcon, A. Brugulat-Serrat,
 P. Ródenas, R. Ramos, S. Morán, M. Esteller, N. Bargalló, J.L. Molinuevo,
-J.D. Gispert for the ALFA Study, &lt;a href="(https://alzres.biomedcentral.com/articles/10.1186/s13195-018-0375-x)"&gt;White matter microstructure is altered in
+J.D. Gispert for the ALFA Study, &lt;a href="https://alzres.biomedcentral.com/articles/10.1186/s13195-018-0375-x"&gt;White matter microstructure is altered in
 cognitively normal middle-aged APOE-ε4 homozygotes&lt;/a&gt;
 , Alzheimer’s Research &amp;amp; Therapy, 2018&lt;/p&gt;
 &lt;/li&gt;
@@ -399,7 +399,7 @@ cognitively normal middle-aged APOE-ε4 homozygotes&lt;/a&gt;
 &lt;hr&gt;
 
 
-Disclaimer: to date [roistats](https://github.com/xgrg/roistats) is only
+Disclaimer: to date [`roistats`](https://github.com/xgrg/roistats) is only
 available as a raw (probably dirty) code but please open an issue if
 making it available on package repositories may be useful to you and I
 will make the effort.</content><category term="Image"></category><category term="image"></category><category term="python"></category></entry></feed>
