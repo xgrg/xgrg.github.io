@@ -314,7 +314,7 @@ cognitively normal middle-aged APOE-ε4 homozygotes]((https://alzres.biomedcentr
 <hr>
 
 
-Disclaimer: to date [`roistats`](https://github.com/xgrg/roistats) is only
+Disclaimer: to date [roistats](https://github.com/xgrg/roistats) is only
 available as a raw (probably dirty) code but please open an issue if
 making it available on package repositories may be useful to you and I
 will make the effort.
