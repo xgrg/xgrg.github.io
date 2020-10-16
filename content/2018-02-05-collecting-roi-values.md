@@ -8,7 +8,7 @@ Collecting basic image statistics (_e.g._ mean, std) from ROIs over a set of ima
 
 <!-- PELICAN_END_SUMMARY -->
 
-**EDIT (03-02-2020): check [this new post](https://github.com/xgrg/roistats) for
+**EDIT (03-02-2020): check [this new post](http://xgrg.github.io/regions-of-interest/) for
 more recent contents on the subject**
 
 **EDIT (23-11-2018): check [roistats](https://github.com/xgrg/roistats) for a
