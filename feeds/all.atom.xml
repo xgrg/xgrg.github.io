@@ -523,13 +523,10 @@ cognitively normal middle-aged APOE-ε4 homozygotes&lt;/a&gt;
 , Alzheimer’s Research &amp;amp; Therapy, 2018&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;hr&gt;
-
-
-Disclaimer: to date [`roistats`](https://github.com/xgrg/roistats) is only
+&lt;p&gt;Disclaimer: to date &lt;a href="https://github.com/xgrg/roistats"&gt;&lt;code&gt;roistats&lt;/code&gt;&lt;/a&gt; is only
 available as a raw (probably dirty) code but please open an issue if
 making it available on package repositories may be useful to you and I
-will make the effort.</content><category term="Image"></category><category term="image"></category><category term="python"></category></entry><entry><title>Bulk downloading resources from XNAT</title><link href="http://xgrg.github.io/bulk-downloading-resources-from-xnat/" rel="alternate"></link><published>2019-11-03T00:00:00+01:00</published><updated>2019-11-03T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-11-03:/bulk-downloading-resources-from-xnat/</id><summary type="html">&lt;p&gt;Interacting with the data on XNAT can be done mainly two ways: either graphically using the web application, or through a REST API. While the former is suited for
+will make the effort.&lt;/p&gt;</content><category term="Image"></category><category term="image"></category><category term="python"></category></entry><entry><title>Bulk downloading resources from XNAT</title><link href="http://xgrg.github.io/bulk-downloading-resources-from-xnat/" rel="alternate"></link><published>2019-11-03T00:00:00+01:00</published><updated>2019-11-03T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-11-03:/bulk-downloading-resources-from-xnat/</id><summary type="html">&lt;p&gt;Interacting with the data on XNAT can be done mainly two ways: either graphically using the web application, or through a REST API. While the former is suited for
 all profiles, the latter is intended for a more technical category of users.&lt;/p&gt;
 &lt;!-- PELICAN_END_SUMMARY --&gt;
 
