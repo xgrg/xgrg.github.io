@@ -69,7 +69,8 @@ colored voxels and makes sure it is consistent across slices.&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt="example_nisnap1" src="/images/nisnap/nisnap1.gif"&gt;&lt;/p&gt;
 &lt;h3&gt;Example with ASHS (hippocampal subfield segmentation):&lt;/h3&gt;
-&lt;p&gt;This example is a static one with solid colors instead of contours.
+&lt;p&gt;This example is a static one with solid colors instead of contours (using
+  &lt;code&gt;contours=False&lt;/code&gt;).
 &lt;code&gt;rowsize&lt;/code&gt; and &lt;code&gt;figsize&lt;/code&gt; allow to control the dimensions of the resulting
 figure.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;nisnap&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;snap&lt;/span&gt;
