@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto - XNAT</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/xnat.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2020-11-06T00:00:00+01:00</updated><entry><title>nisnap: easy generation of snapshots from segmentation results</title><link href="http://xgrg.github.io/nisnap-easy-generation-of-snapshots-from-segmentation-results/" rel="alternate"></link><published>2020-11-06T00:00:00+01:00</published><updated>2020-11-06T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2020-11-06:/nisnap-easy-generation-of-snapshots-from-segmentation-results/</id><summary type="html">&lt;p&gt;Most modern neuroimaging software generally produce two main types of outputs:
-derived images and numeric endpoints.Recent technologies now allow to use them
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto - XNAT</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/xnat.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2020-11-06T00:00:00+01:00</updated><entry><title>nisnap: easy generation of snapshots from segmentation results</title><link href="http://xgrg.github.io/nisnap-easy-generation-of-snapshots-from-segmentation-results/" rel="alternate"></link><published>2020-11-06T00:00:00+01:00</published><updated>2020-11-06T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2020-11-06:/nisnap-easy-generation-of-snapshots-from-segmentation-results/</id><summary type="html">&lt;p&gt;Among all software used in neuroimaging to process images, two main types of
+outputs are usually produced: numeric endpoints and &lt;em&gt;more images&lt;/em&gt;.
+Modern techniques now allow to use them
+over large collections of data, as shown by recent experience with large
+epidemiological studies and/or clinical trials. Although those image …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Among all software used in neuroimaging to process images, two main types of
+outputs are usually produced: numeric endpoints and &lt;em&gt;more images&lt;/em&gt;.
+Modern techniques now allow to use them
 over large collections of data, as shown by recent experience with large
 epidemiological studies and/or clinical trials. Although those image processing
-techniques go through some validation …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Most modern neuroimaging software generally produce two main types of outputs:
-derived images and numeric endpoints.Recent technologies now allow to use them
-over large collections of data, as shown by recent experience with large
-epidemiological studies and/or clinical trials. Although those image processing
-techniques go through some validation process prior to publication, their
+methods usually go through some validation process prior to publication, their
 performance always depends on factors that can never be fully controlled and as
 such, errors are still possible.&lt;/p&gt;
 &lt;!-- PELICAN_END_SUMMARY --&gt;
@@ -15,20 +16,22 @@ such, errors are still possible.&lt;/p&gt;
 &lt;p&gt;Here we are not referring to dramatic crashes, which are easy to detect
 (outputs would simply be missing after the pipeline's execution) and would
 rather be exceptional in well-designed software. A bit less rare are the errors
- where the pipeline reaches the end but the results would be inaccurate in
- some local areas, as it might be typically the case with segmentation
- techniques. This might be for various reasons eg. quality/artifacts of/in the
+ where the pipeline reaches the end but the results would be inaccurate locally,
+  as it might be typically the case with &lt;strong&gt;segmentation techniques&lt;/strong&gt;.
+  This might happen for various reasons eg. quality/artifacts of/in the
 original data, individual subject-related traits, bias compared to the
-original validation dataset, etc. To date there are no fail-safe or general
-automatic method to detect those errors. As a consequence, visual assessment
+original validation dataset, etc. To date there are
+&lt;strong&gt;no fail-safe or general automatic method&lt;/strong&gt; to detect those errors.
+As a consequence, &lt;em&gt;visual assessment&lt;/em&gt;
 of the segmentation quality is often required, which is hard to reconcile
 with large sample sizes.&lt;/p&gt;
 &lt;p&gt;Still, relying on a human to do the job using any viewer (
 &lt;a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes"&gt;&lt;code&gt;FSLeyes&lt;/code&gt;&lt;/a&gt;,
-&lt;a href="https://surfer.nmr.mgh.harvard.edu/fswiki/FreeviewGuide/FreeviewGeneralUsage/FreeviewQuickStart"&gt;&lt;code&gt;freeview&lt;/code&gt;&lt;/a&gt;, &lt;a href="http://brainvisa.info"&gt;&lt;code&gt;anatomist&lt;/code&gt;&lt;/a&gt;) is bound to be suboptimal, for reasons due to time costs and risk of errors (when handling the viewer). In that context, prerendering static
-summarized representations of the segmentation results can reduce this
-time/risk at the price of less flexibility as compared to when using any NIfTI viewer and their control parameters.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;nisnap&lt;/code&gt; makes the generation of these summarized versions (or &lt;em&gt;snapshots&lt;/em&gt;)
+&lt;a href="https://surfer.nmr.mgh.harvard.edu/fswiki/FreeviewGuide/FreeviewGeneralUsage/FreeviewQuickStart"&gt;&lt;code&gt;freeview&lt;/code&gt;&lt;/a&gt;, &lt;a href="http://brainvisa.info"&gt;&lt;code&gt;anatomist&lt;/code&gt;&lt;/a&gt;) is bound to be suboptimal, for reasons due to time costs and risk of errors (operating the viewer). In that context,
+&lt;strong&gt;prerendering static summarized representations&lt;/strong&gt; of the segmentation results
+can reduce this time/risk, at the price of some reduced flexibility, as
+compared to using any NIfTI viewer and their control parameters.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://github.com/xgrg/nisnap"&gt;&lt;code&gt;nisnap&lt;/code&gt;&lt;/a&gt; makes the generation of these summarized versions (or &lt;em&gt;snapshots&lt;/em&gt;)
 easier from any Python-based context. It includes options to control
 parameters such as:
    - opacity
@@ -38,7 +41,7 @@ parameters such as:
    - label picking
    - contours/solid color rendering
    - static/animated rendering (adding a fading effect between raw image and the segmentation)&lt;/p&gt;
-&lt;h4&gt;Example with FreeSurfer &lt;code&gt;aseg&lt;/code&gt; results:&lt;/h4&gt;
+&lt;h3&gt;Example with FreeSurfer &lt;code&gt;aseg&lt;/code&gt; results:&lt;/h3&gt;
 &lt;p&gt;This shows how to pick some selected labels out of a label volume like
 FreeSurfer's &lt;code&gt;aseg&lt;/code&gt; volume. The colormap is defined in &lt;code&gt;utils/colormap.json&lt;/code&gt;.
 The animated mode adds a fading effect between the original image and the
@@ -63,7 +66,7 @@ colored voxels and makes sure it is consistent across slices.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img alt="example_nisnap1" src="/images/nisnap/nisnap1.gif"&gt;&lt;/p&gt;
-&lt;h4&gt;Example with ASHS (hippocampal subfield segmentation):&lt;/h4&gt;
+&lt;h3&gt;Example with ASHS (hippocampal subfield segmentation):&lt;/h3&gt;
 &lt;p&gt;This example is a static one with solid colors instead of contours.
 &lt;code&gt;rowsize&lt;/code&gt; and &lt;code&gt;figsize&lt;/code&gt; allow to control the dimensions of the resulting
 figure.&lt;/p&gt;
@@ -79,7 +82,7 @@ figure.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img alt="example_nisnap2" src="/images/nisnap/nisnap2.png"&gt;&lt;/p&gt;
-&lt;h4&gt;Example with SPM:&lt;/h4&gt;
+&lt;h3&gt;Example with SPM:&lt;/h3&gt;
 &lt;p&gt;This example combines 3 probability maps (with voxel values between 0 and 1,
   as produced by SPM). Layout options can be defined by axis using
   dictionaries.&lt;/p&gt;
@@ -106,10 +109,10 @@ figure.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img alt="example_nisnap3" src="/images/nisnap/nisnap3.gif"&gt;&lt;/p&gt;
-&lt;p&gt;It also has some level of XNAT integration, allowing to generate snapshots for
+&lt;p&gt;It also has some level of &lt;strong&gt;XNAT integration&lt;/strong&gt;, allowing to generate snapshots for
 a given resource on XNAT by giving its reference on the instance. Otherwise,
 simply passing the individual NIfTI maps of the raw image first - if desired -
-then the segmentation map (or any overlay) would do the job, as shown in
+then the segmentation map (or any overlay) would do the job, as shown in the
 previous examples.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;xnat&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot_segment&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/home/grg/.xnat_bsc.cfg&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
                   &lt;span class="n"&gt;resource_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;FREESURFER6_HIRES&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -123,10 +126,10 @@ previous examples.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img alt="example_nisnap4" src="/images/nisnap/nisnap4.gif"&gt;&lt;/p&gt;
-&lt;p&gt;The argument &lt;code&gt;savefig&lt;/code&gt; may be passed in order to save the result in a specific
-file.&lt;/p&gt;
-&lt;p&gt;It may be used from Python or Jupyter Notebooks and is available as a package
-on PyPI (&lt;a href="https://pypi.org/project/nisnap/"&gt;&lt;code&gt;nisnap&lt;/code&gt;&lt;/a&gt;) and as a
+&lt;p&gt;In all configurations the argument &lt;code&gt;savefig&lt;/code&gt; allows save the result in a specific file.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://github.com/xgrg/nisnap"&gt;&lt;code&gt;nisnap&lt;/code&gt;&lt;/a&gt; may be used from Python or Jupyter
+Notebooks and is available as a package on PyPI
+(&lt;a href="https://pypi.org/project/nisnap/"&gt;&lt;code&gt;nisnap&lt;/code&gt;&lt;/a&gt;) and as a
 &lt;a href="https://github.com/xgrg/nisnap"&gt;repository on GitHub&lt;/a&gt;.&lt;/p&gt;</content><category term="XNAT"></category><category term="xnat"></category><category term="python"></category><category term="qc"></category></entry><entry><title>Bulk downloading resources from XNAT</title><link href="http://xgrg.github.io/bulk-downloading-resources-from-xnat/" rel="alternate"></link><published>2019-11-03T00:00:00+01:00</published><updated>2019-11-03T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2019-11-03:/bulk-downloading-resources-from-xnat/</id><summary type="html">&lt;p&gt;Interacting with the data on XNAT can be done mainly two ways: either graphically using the web application, or through a REST API. While the former is suited for
 all profiles, the latter is intended for a more technical category of users.&lt;/p&gt;
 &lt;!-- PELICAN_END_SUMMARY --&gt;

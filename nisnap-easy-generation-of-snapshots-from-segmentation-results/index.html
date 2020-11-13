@@ -105,11 +105,12 @@
     </header>
 
     <section id="post">
-        <p>Most modern neuroimaging software generally produce two main types of outputs:
-derived images and numeric endpoints.Recent technologies now allow to use them
+        <p>Among all software used in neuroimaging to process images, two main types of
+outputs are usually produced: numeric endpoints and <em>more images</em>.
+Modern techniques now allow to use them
 over large collections of data, as shown by recent experience with large
 epidemiological studies and/or clinical trials. Although those image processing
-techniques go through some validation process prior to publication, their
+methods usually go through some validation process prior to publication, their
 performance always depends on factors that can never be fully controlled and as
 such, errors are still possible.</p>
 <!-- PELICAN_END_SUMMARY -->
@@ -117,20 +118,22 @@ such, errors are still possible.</p>
 <p>Here we are not referring to dramatic crashes, which are easy to detect
 (outputs would simply be missing after the pipeline's execution) and would
 rather be exceptional in well-designed software. A bit less rare are the errors
- where the pipeline reaches the end but the results would be inaccurate in
- some local areas, as it might be typically the case with segmentation
- techniques. This might be for various reasons eg. quality/artifacts of/in the
+ where the pipeline reaches the end but the results would be inaccurate locally,
+  as it might be typically the case with <strong>segmentation techniques</strong>.
+  This might happen for various reasons eg. quality/artifacts of/in the
 original data, individual subject-related traits, bias compared to the
-original validation dataset, etc. To date there are no fail-safe or general
-automatic method to detect those errors. As a consequence, visual assessment
+original validation dataset, etc. To date there are
+<strong>no fail-safe or general automatic method</strong> to detect those errors.
+As a consequence, <em>visual assessment</em>
 of the segmentation quality is often required, which is hard to reconcile
 with large sample sizes.</p>
 <p>Still, relying on a human to do the job using any viewer (
 <a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes"><code>FSLeyes</code></a>,
-<a href="https://surfer.nmr.mgh.harvard.edu/fswiki/FreeviewGuide/FreeviewGeneralUsage/FreeviewQuickStart"><code>freeview</code></a>, <a href="http://brainvisa.info"><code>anatomist</code></a>) is bound to be suboptimal, for reasons due to time costs and risk of errors (when handling the viewer). In that context, prerendering static
-summarized representations of the segmentation results can reduce this
-time/risk at the price of less flexibility as compared to when using any NIfTI viewer and their control parameters.</p>
-<p><code>nisnap</code> makes the generation of these summarized versions (or <em>snapshots</em>)
+<a href="https://surfer.nmr.mgh.harvard.edu/fswiki/FreeviewGuide/FreeviewGeneralUsage/FreeviewQuickStart"><code>freeview</code></a>, <a href="http://brainvisa.info"><code>anatomist</code></a>) is bound to be suboptimal, for reasons due to time costs and risk of errors (operating the viewer). In that context,
+<strong>prerendering static summarized representations</strong> of the segmentation results
+can reduce this time/risk, at the price of some reduced flexibility, as
+compared to using any NIfTI viewer and their control parameters.</p>
+<p><a href="http://github.com/xgrg/nisnap"><code>nisnap</code></a> makes the generation of these summarized versions (or <em>snapshots</em>)
 easier from any Python-based context. It includes options to control
 parameters such as:
    - opacity
@@ -140,7 +143,7 @@ parameters such as:
    - label picking
    - contours/solid color rendering
    - static/animated rendering (adding a fading effect between raw image and the segmentation)</p>
-<h4>Example with FreeSurfer <code>aseg</code> results:</h4>
+<h3>Example with FreeSurfer <code>aseg</code> results:</h3>
 <p>This shows how to pick some selected labels out of a label volume like
 FreeSurfer's <code>aseg</code> volume. The colormap is defined in <code>utils/colormap.json</code>.
 The animated mode adds a fading effect between the original image and the
@@ -165,7 +168,7 @@ colored voxels and makes sure it is consistent across slices.</p>
 </code></pre></div>
 
 <p><img alt="example_nisnap1" src="/images/nisnap/nisnap1.gif"></p>
-<h4>Example with ASHS (hippocampal subfield segmentation):</h4>
+<h3>Example with ASHS (hippocampal subfield segmentation):</h3>
 <p>This example is a static one with solid colors instead of contours.
 <code>rowsize</code> and <code>figsize</code> allow to control the dimensions of the resulting
 figure.</p>
@@ -181,7 +184,7 @@ figure.</p>
 </code></pre></div>
 
 <p><img alt="example_nisnap2" src="/images/nisnap/nisnap2.png"></p>
-<h4>Example with SPM:</h4>
+<h3>Example with SPM:</h3>
 <p>This example combines 3 probability maps (with voxel values between 0 and 1,
   as produced by SPM). Layout options can be defined by axis using
   dictionaries.</p>
@@ -208,10 +211,10 @@ figure.</p>
 </code></pre></div>
 
 <p><img alt="example_nisnap3" src="/images/nisnap/nisnap3.gif"></p>
-<p>It also has some level of XNAT integration, allowing to generate snapshots for
+<p>It also has some level of <strong>XNAT integration</strong>, allowing to generate snapshots for
 a given resource on XNAT by giving its reference on the instance. Otherwise,
 simply passing the individual NIfTI maps of the raw image first - if desired -
-then the segmentation map (or any overlay) would do the job, as shown in
+then the segmentation map (or any overlay) would do the job, as shown in the
 previous examples.</p>
 <div class="highlight"><pre><span></span><code><span class="n">xnat</span><span class="o">.</span><span class="n">plot_segment</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s1">&#39;/home/grg/.xnat_bsc.cfg&#39;</span><span class="p">,</span>
                   <span class="n">resource_name</span><span class="o">=</span><span class="s1">&#39;FREESURFER6_HIRES&#39;</span><span class="p">,</span>
@@ -225,10 +228,10 @@ previous examples.</p>
 </code></pre></div>
 
 <p><img alt="example_nisnap4" src="/images/nisnap/nisnap4.gif"></p>
-<p>The argument <code>savefig</code> may be passed in order to save the result in a specific
-file.</p>
-<p>It may be used from Python or Jupyter Notebooks and is available as a package
-on PyPI (<a href="https://pypi.org/project/nisnap/"><code>nisnap</code></a>) and as a
+<p>In all configurations the argument <code>savefig</code> allows save the result in a specific file.</p>
+<p><a href="http://github.com/xgrg/nisnap"><code>nisnap</code></a> may be used from Python or Jupyter
+Notebooks and is available as a package on PyPI
+(<a href="https://pypi.org/project/nisnap/"><code>nisnap</code></a>) and as a
 <a href="https://github.com/xgrg/nisnap">repository on GitHub</a>.</p>
     </section>
 
