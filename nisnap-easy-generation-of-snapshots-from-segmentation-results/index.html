@@ -151,15 +151,15 @@ FreeSurfer's <code>aseg</code> volume. The colormap is defined in <code>utils/co
 The animated mode adds a fading effect between the original image and the
 segmentation results. The <code>samebox</code> option controls the zoom/bounding box around
 colored voxels and makes sure it is consistent across slices.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">nisnap</span> <span class="kn">import</span> <span class="n">snap</span>
-<span class="kn">from</span> <span class="nn">nisnap.utils</span> <span class="kn">import</span> <span class="n">aseg</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">nisnap.utils</span> <span class="kn">import</span> <span class="n">aseg</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">aseg</span><span class="o">.</span><span class="n">basal_ganglia_labels</span><span class="p">)</span>
 </code></pre></div>
 
 <blockquote>
 <p>[9, 10, 11, 12, 13, 17, 18, 48, 49, 50, 51, 52, 53, 54]</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code><span class="n">snap</span><span class="o">.</span><span class="n">plot_segment</span><span class="p">(</span><span class="s1">&#39;/tmp/BBRC_E00080_aparc+aseg.mgz&#39;</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">nisnap</span> <span class="kn">import</span> <span class="n">snap</span>
+<span class="n">snap</span><span class="o">.</span><span class="n">plot_segment</span><span class="p">(</span><span class="s1">&#39;/tmp/BBRC_E00080_aparc+aseg.mgz&#39;</span><span class="p">,</span>
                   <span class="n">bg</span><span class="o">=</span><span class="s1">&#39;/tmp/BBRC_E00080_nu.mgz&#39;</span><span class="p">,</span>
                   <span class="n">labels</span><span class="o">=</span><span class="n">aseg</span><span class="o">.</span><span class="n">basal_ganglia_labels</span><span class="p">,</span>
                   <span class="n">axes</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span>
@@ -174,7 +174,8 @@ colored voxels and makes sure it is consistent across slices.</p>
 <p>This example is a static one with solid colors instead of contours.
 <code>rowsize</code> and <code>figsize</code> allow to control the dimensions of the resulting
 figure.</p>
-<div class="highlight"><pre><span></span><code><span class="n">snap</span><span class="o">.</span><span class="n">plot_segment</span><span class="p">(</span><span class="s1">&#39;/tmp/BBRC_E00080_ASHS_left_lfseg_corr_nogray.nii.gz&#39;</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">nisnap</span> <span class="kn">import</span> <span class="n">snap</span>
+<span class="n">snap</span><span class="o">.</span><span class="n">plot_segment</span><span class="p">(</span><span class="s1">&#39;/tmp/BBRC_E00080_ASHS_left_lfseg_corr_nogray.nii.gz&#39;</span><span class="p">,</span>
                   <span class="n">bg</span><span class="o">=</span><span class="s1">&#39;/tmp/BBRC_E00080_ASHS_tse.nii.gz&#39;</span><span class="p">,</span>                  
                   <span class="n">axes</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span>
                   <span class="n">contours</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -199,7 +200,7 @@ figure.</p>
           <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">6</span><span class="p">)),</span>
           <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="mi">6</span><span class="p">))}</span>
 
-
+<span class="kn">from</span> <span class="nn">nisnap</span> <span class="kn">import</span> <span class="n">snap</span>
 <span class="n">snap</span><span class="o">.</span><span class="n">plot_segment</span><span class="p">(</span><span class="n">filepaths</span><span class="p">,</span>
                   <span class="n">bg</span><span class="o">=</span><span class="n">bg</span><span class="p">,</span>
                   <span class="n">axes</span><span class="o">=</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span>
@@ -218,7 +219,8 @@ a given resource on XNAT by giving its reference on the instance. Otherwise,
 simply passing the individual NIfTI maps of the raw image first - if desired -
 then the segmentation map (or any overlay) would do the job, as shown in the
 previous examples.</p>
-<div class="highlight"><pre><span></span><code><span class="n">xnat</span><span class="o">.</span><span class="n">plot_segment</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s1">&#39;/home/grg/.xnat_bsc.cfg&#39;</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">nisnap</span> <span class="kn">import</span> <span class="n">xnat</span>
+<span class="n">xnat</span><span class="o">.</span><span class="n">plot_segment</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s1">&#39;/home/grg/.xnat_bsc.cfg&#39;</span><span class="p">,</span>
                   <span class="n">resource_name</span><span class="o">=</span><span class="s1">&#39;FREESURFER6_HIRES&#39;</span><span class="p">,</span>
                   <span class="n">experiment_id</span><span class="o">=</span><span class="s1">&#39;BBRC_E00080&#39;</span><span class="p">,</span>
                   <span class="n">axes</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span>                   
