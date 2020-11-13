@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/all.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2020-11-06T00:00:00+01:00</updated><entry><title>nisnap: easy generation of snapshots from segmentation results</title><link href="http://xgrg.github.io/nisnap-easy-generation-of-snapshots-from-segmentation-results/" rel="alternate"></link><published>2020-11-06T00:00:00+01:00</published><updated>2020-11-06T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2020-11-06:/nisnap-easy-generation-of-snapshots-from-segmentation-results/</id><summary type="html">&lt;p&gt;Among all software used in neuroimaging to process images, two main types of
-outputs are usually produced: numeric endpoints and &lt;em&gt;more images&lt;/em&gt;.
+outputs are usually produced: numeric endpoints and, * &lt;em&gt;more images&lt;/em&gt; *.
 Modern techniques now allow to use them
-over large collections of data, as shown by recent experience with large
-epidemiological studies and/or clinical trials. Although those image …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Among all software used in neuroimaging to process images, two main types of
-outputs are usually produced: numeric endpoints and &lt;em&gt;more images&lt;/em&gt;.
+over large collections of data, as seen with some recent large
+epidemiological studies and/or clinical trials. Although those image processing …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Among all software used in neuroimaging to process images, two main types of
+outputs are usually produced: numeric endpoints and, * &lt;em&gt;more images&lt;/em&gt; *.
 Modern techniques now allow to use them
-over large collections of data, as shown by recent experience with large
+over large collections of data, as seen with some recent large
 epidemiological studies and/or clinical trials. Although those image processing
 methods usually go through some validation process prior to publication, their
 performance always depends on factors that can never be fully controlled and as
@@ -30,7 +30,7 @@ with large sample sizes.&lt;/p&gt;
 &lt;a href="https://surfer.nmr.mgh.harvard.edu/fswiki/FreeviewGuide/FreeviewGeneralUsage/FreeviewQuickStart"&gt;&lt;code&gt;freeview&lt;/code&gt;&lt;/a&gt;, &lt;a href="http://brainvisa.info"&gt;&lt;code&gt;anatomist&lt;/code&gt;&lt;/a&gt;) is bound to be suboptimal, for reasons due to time costs and risk of errors (operating the viewer). In that context,
 &lt;strong&gt;prerendering static summarized representations&lt;/strong&gt; of the segmentation results
 can reduce this time/risk, at the price of some reduced flexibility, as
-compared to using any NIfTI viewer and their control parameters. &lt;/p&gt;
+compared to using any NIfTI viewer and their control parameters.&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://github.com/xgrg/nisnap"&gt;&lt;code&gt;nisnap&lt;/code&gt;&lt;/a&gt; makes the generation of these summarized versions (or &lt;em&gt;snapshots&lt;/em&gt;)
 easier from any Python-based context. It includes controls for:&lt;/p&gt;
 &lt;ul&gt;
