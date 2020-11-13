@@ -44,7 +44,8 @@ easier from any Python-based context. It includes controls for:&lt;/p&gt;
 &lt;/ul&gt;
 &lt;h3&gt;Example with FreeSurfer &lt;code&gt;aseg&lt;/code&gt; results:&lt;/h3&gt;
 &lt;p&gt;This shows how to pick some selected labels out of a label volume like
-FreeSurfer's &lt;code&gt;aseg&lt;/code&gt; volume. The colormap is defined in &lt;code&gt;utils/colormap.json&lt;/code&gt;.
+FreeSurfer's &lt;code&gt;aseg&lt;/code&gt; volume. The colormap is defined in
+&lt;a href="https://github.com/xgrg/nisnap/blob/master/nisnap/utils/colormap.json"&gt;&lt;code&gt;utils/colormap.json&lt;/code&gt;&lt;/a&gt;.
 The animated mode adds a fading effect between the original image and the
 segmentation results. The &lt;code&gt;samebox&lt;/code&gt; option controls the zoom/bounding box around
 colored voxels and makes sure it is consistent across slices.&lt;/p&gt;
