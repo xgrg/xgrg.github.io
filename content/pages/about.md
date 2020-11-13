@@ -129,7 +129,7 @@ Greg Operto is a neuroimaging research scientist in the field of Alzheimer’s D
 
 ### Peer-reviewed conferences :
 
-* **G. Operto**, G. Auzias, A. Le Troter, M. Perrot, D. Rivière, J. Dubois, P. Hüppi, O. Coulon, J-F. Mangin,Structural Group Analysis of Cortical Curvature and Depth Patterns in the Developing Brain (accepted for oral presentation), _International Symposium on Biomedical Imaging (ISBI)_, Barcelona, 2012
+* **G. Operto**, G. Auzias, A. Le Troter, M. Perrot, D. Rivière, J. Dubois, P. Hüppi, O. Coulon, J-F. Mangin, Structural Group Analysis of Cortical Curvature and Depth Patterns in the Developing Brain (accepted for oral presentation), _International Symposium on Biomedical Imaging (ISBI)_, Barcelona, 2012
 
 * O. Coulon, F. Pizzagalli, **G. Operto**, G. Auzias, C. Delon-Martin, M. Dojat, Two new stable anatomical landmarks on the central sulcus: definition, automatic detection, and their relationship with primary motor functions of the hand, _International Conference of the IEEE Engineering in Medicine and Biology Society - EMBC_, 2011
 
