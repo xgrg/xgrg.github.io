@@ -21,7 +21,7 @@ rather be exceptional in well-designed software. A bit less rare are the errors
   This might happen for various reasons eg. quality/artifacts of/in the
 original data, individual subject-related traits, bias compared to the
 original validation dataset, etc. To date there are
-&lt;strong&gt;no fail-safe or general automatic method&lt;/strong&gt; to detect those errors.
+&lt;strong&gt;no fail-safe or general automatic methods&lt;/strong&gt; to detect those errors.
 As a consequence, &lt;em&gt;visual assessment&lt;/em&gt;
 of the segmentation quality is often required, which is hard to reconcile
 with large sample sizes.&lt;/p&gt;
