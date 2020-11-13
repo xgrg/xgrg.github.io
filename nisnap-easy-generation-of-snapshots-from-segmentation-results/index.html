@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Grégory Operto, ">
+    <link href="/favicon.png" rel="icon">
+
+    <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>  
+    <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css" />
+
+        <link rel="alternate"  href="http://xgrg.github.io/feeds/all.atom.xml" type="application/atom+xml" title="Grégory Operto Full Atom Feed"/>
+
+        <title>Grégory Operto - nisnap: easy generation of snapshots from segmentation results</title>
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="/theme/css/grids-responsive-min.css">
+    <!--<![endif]-->
+    <link rel="stylesheet" href="/theme/css/styles.css">
+    <link rel="stylesheet" href="/theme/css/slides.css">
+    <link rel="stylesheet" href="/theme/css/pygments.css">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'> -->
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,500" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script src="/js/responsiveslides.min.js"></script>
+</head>
+
+<body>
+
+
+    <header id="header" class="pure-g">
+        <div class="pure-u-1 pure-u-md-3-4">
+             <div id="menu">
+                 <div class="pure-menu pure-menu-open pure-menu-horizontal">
+<ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+</ul>                </div>
+            </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-1-4">
+            <div id="social">
+                <div class="pure-menu pure-menu-open pure-menu-horizontal">
+<ul>
+        <li><a href="https://twitter.com/xgrg"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://github.com/xgrg"><i class="fa fa-github"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/neuroimaging"><i class="fa fa-linkedin"></i></a></li>
+</ul>                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <div id="layout" class="pure-g">
+        <nav id="sidebar" class="pure-u-1 pure-u-md-1-4">
+            <div class="l-box">
+<section>
+	<div class="portrait">
+			<img src="/theme/images/go.jpg" />
+	</div>
+    <div class="name-cv">
+        <div class="name">Grégory Operto, PhD</div>
+        <div class="cv">
+            <a href="/pdfs/cv.pdf"><i class="fa fa-file-pdf-o"></i> CV</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+      <div class="sub-name">brain imaging | data science</div>
+	<div class="contact">goperto@gmail.com</div>
+	<div class="location">Barcelona, Spain</div>
+</section>
+
+<section class="tags">
+</section>            </div>
+        </nav>
+        <section id="content" class="pure-u-1 pure-u-md-3-4">
+            <div class="l-box">
+
+    <header id="post-header">
+        <h1>nisnap: easy generation of snapshots from segmentation results</h1>
+            <div class="post-meta">
+                November 06, 2020
+            </div>
+            <div class="post-tags">
+                <ul>
+                    <li>tags:</li>
+                    <li><a href="/tag/xnat/">xnat</a></li>
+                    <li><a href="/tag/python/">python</a></li>
+                    <li><a href="/tag/qc/">qc</a></li>
+                </ul>
+            </div>
+    </header>
+
+    <section id="post">
+        <p>Most modern neuroimaging software generally produce two main types of outputs:
+derived images and numeric endpoints.Recent technologies now allow to use them
+over large collections of data, as shown by recent experience with large
+epidemiological studies and/or clinical trials. Although those image processing
+techniques go through some validation process prior to publication, their
+performance always depends on factors that can never be fully controlled and as
+such, errors are still possible.</p>
+<!-- PELICAN_END_SUMMARY -->
+
+<p>Here we are not referring to dramatic crashes, which are easy to detect
+(outputs would simply be missing after the pipeline's execution) and would
+rather be exceptional in well-designed software. A bit less rare are the errors
+ where the pipeline reaches the end but the results would be inaccurate in
+ some local areas, as it might be typically the case with segmentation
+ techniques. This might be for various reasons eg. quality/artifacts of/in the
+original data, individual subject-related traits, bias compared to the
+original validation dataset, etc. To date there are no fail-safe or general
+automatic method to detect those errors. As a consequence, visual assessment
+of the segmentation quality is often required, which is hard to reconcile
+with large sample sizes.</p>
+<p>Still, relying on a human to do the job using any viewer (
+<a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes"><code>FSLeyes</code></a>,
+<a href="https://surfer.nmr.mgh.harvard.edu/fswiki/FreeviewGuide/FreeviewGeneralUsage/FreeviewQuickStart"><code>freeview</code></a>, <a href="http://brainvisa.info"><code>anatomist</code></a>) is bound to be suboptimal, for reasons due to time costs and risk of errors (when handling the viewer). In that context, prerendering static
+summarized representations of the segmentation results can reduce this
+time/risk at the price of less flexibility as compared to when using any NIfTI viewer and their control parameters.</p>
+<p><code>nisnap</code> makes the generation of these summarized versions (or <em>snapshots</em>)
+easier from any Python-based context. It includes options to control
+parameters such as:
+   - opacity
+   - layout (figure dimensions, row size)
+   - plane/slice selection
+   - color map (down to each <em>label</em>, described in a Json file)
+   - label picking
+   - contours/solid color rendering
+   - static/animated rendering (adding a fading effect between raw image and the segmentation)</p>
+<h4>Example with FreeSurfer <code>aseg</code> results:</h4>
+<p>This shows how to pick some selected labels out of a label volume like
+FreeSurfer's <code>aseg</code> volume. The colormap is defined in <code>utils/colormap.json</code>.
+The animated mode adds a fading effect between the original image and the
+segmentation results. The <code>samebox</code> option controls the zoom/bounding box around
+colored voxels and makes sure it is consistent across slices.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">nisnap</span> <span class="kn">import</span> <span class="n">snap</span>
+<span class="kn">from</span> <span class="nn">nisnap.utils</span> <span class="kn">import</span> <span class="n">aseg</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">aseg</span><span class="o">.</span><span class="n">basal_ganglia_labels</span><span class="p">)</span>
+</code></pre></div>
+
+<blockquote>
+<p>[9, 10, 11, 12, 13, 17, 18, 48, 49, 50, 51, 52, 53, 54]</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="n">snap</span><span class="o">.</span><span class="n">plot_segment</span><span class="p">(</span><span class="s1">&#39;/tmp/BBRC_E00080_aparc+aseg.mgz&#39;</span><span class="p">,</span>
+                  <span class="n">bg</span><span class="o">=</span><span class="s1">&#39;/tmp/BBRC_E00080_nu.mgz&#39;</span><span class="p">,</span>
+                  <span class="n">labels</span><span class="o">=</span><span class="n">aseg</span><span class="o">.</span><span class="n">basal_ganglia_labels</span><span class="p">,</span>
+                  <span class="n">axes</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span>
+                  <span class="n">slices</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">173</span><span class="p">,</span><span class="mi">187</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
+                  <span class="n">contours</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">samebox</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">animated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="example_nisnap1" src="/images/nisnap/nisnap1.gif"></p>
+<h4>Example with ASHS (hippocampal subfield segmentation):</h4>
+<p>This example is a static one with solid colors instead of contours.
+<code>rowsize</code> and <code>figsize</code> allow to control the dimensions of the resulting
+figure.</p>
+<div class="highlight"><pre><span></span><code><span class="n">snap</span><span class="o">.</span><span class="n">plot_segment</span><span class="p">(</span><span class="s1">&#39;/tmp/BBRC_E00080_ASHS_left_lfseg_corr_nogray.nii.gz&#39;</span><span class="p">,</span>
+                  <span class="n">bg</span><span class="o">=</span><span class="s1">&#39;/tmp/BBRC_E00080_ASHS_tse.nii.gz&#39;</span><span class="p">,</span>                  
+                  <span class="n">axes</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span>
+                  <span class="n">contours</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                  <span class="n">samebox</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">slices</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+                  <span class="n">rowsize</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                  <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>                  
+                  <span class="n">opacity</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="example_nisnap2" src="/images/nisnap/nisnap2.png"></p>
+<h4>Example with SPM:</h4>
+<p>This example combines 3 probability maps (with voxel values between 0 and 1,
+  as produced by SPM). Layout options can be defined by axis using
+  dictionaries.</p>
+<div class="highlight"><pre><span></span><code><span class="n">filepaths</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;/tmp/BBRC_E00080_SPM12_SEGMENT_c1.nii.gz&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;/tmp/BBRC_E00080_SPM12_SEGMENT_c2.nii.gz&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;/tmp/BBRC_E00080_SPM12_SEGMENT_c3.nii.gz&#39;</span><span class="p">]</span>
+
+<span class="n">bg</span> <span class="o">=</span> <span class="s1">&#39;/tmp/BBRC_E00080_T1.nii.gz&#39;</span>
+<span class="n">slices</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">130</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span>
+          <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">6</span><span class="p">)),</span>
+          <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="mi">6</span><span class="p">))}</span>
+
+
+<span class="n">snap</span><span class="o">.</span><span class="n">plot_segment</span><span class="p">(</span><span class="n">filepaths</span><span class="p">,</span>
+                  <span class="n">bg</span><span class="o">=</span><span class="n">bg</span><span class="p">,</span>
+                  <span class="n">axes</span><span class="o">=</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span>
+                  <span class="n">slices</span><span class="o">=</span><span class="n">slices</span><span class="p">,</span>
+                  <span class="n">samebox</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">rowsize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">},</span>
+                  <span class="n">figsize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">5</span><span class="p">)},</span>
+                  <span class="n">opacity</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span>                  
+                  <span class="n">animated</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">contours</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="example_nisnap3" src="/images/nisnap/nisnap3.gif"></p>
+<p>It also has some level of XNAT integration, allowing to generate snapshots for
+a given resource on XNAT by giving its reference on the instance. Otherwise,
+simply passing the individual NIfTI maps of the raw image first - if desired -
+then the segmentation map (or any overlay) would do the job, as shown in
+previous examples.</p>
+<div class="highlight"><pre><span></span><code><span class="n">xnat</span><span class="o">.</span><span class="n">plot_segment</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s1">&#39;/home/grg/.xnat_bsc.cfg&#39;</span><span class="p">,</span>
+                  <span class="n">resource_name</span><span class="o">=</span><span class="s1">&#39;FREESURFER6_HIRES&#39;</span><span class="p">,</span>
+                  <span class="n">experiment_id</span><span class="o">=</span><span class="s1">&#39;BBRC_E00080&#39;</span><span class="p">,</span>
+                  <span class="n">axes</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span>                   
+                  <span class="n">contours</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">animated</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">samebox</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">slices</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">195</span><span class="p">,</span><span class="mi">204</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>              
+                  <span class="n">opacity</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="example_nisnap4" src="/images/nisnap/nisnap4.gif"></p>
+<p>The argument <code>savefig</code> may be passed in order to save the result in a specific
+file.</p>
+<p>It may be used from Python or Jupyter Notebooks and is available as a package
+on PyPI (<a href="https://pypi.org/project/nisnap/"><code>nisnap</code></a>) and as a
+<a href="https://github.com/xgrg/nisnap">repository on GitHub</a>.</p>
+    </section>
+
+    <section id="applause">
+    <br>
+    Please let me know if you liked this post by clicking the button below.
+    <br><br>
+    &nbsp;&nbsp;<applause-button style="width: 58px; height: 58px;"/>
+    </section>
+
+
+
+<nav class="pagination-wrapper">
+    <div class="pagination">
+        <div class="pagination-left">
+        </div>
+        <div class="pagination-right">
+                &nbsp;
+        </div>
+    </div>
+</nav>
+            </div>
+        </section>
+
+
+        <footer id="footer" class="pure-u-1 pure-u-md-3-4">
+            <div class="l-box">
+                <div>
+                    <p>&copy; <a href="http://xgrg.github.io">Grégory Operto</a> &ndash;
+                        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+                              for <a href="http://blog.getpelican.com/">Pelican</a> - layout cloned with awe from <a href="http://cyrille.rossant.net">cyrille.rossant.net</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-17275957-2', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+
+</body>
+</html>
+
