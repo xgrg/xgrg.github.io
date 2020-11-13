@@ -116,8 +116,8 @@ figure.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="example_nisnap3" src="/images/nisnap/nisnap3.gif"&gt;&lt;/p&gt;
 &lt;p&gt;It also has some degree of &lt;strong&gt;XNAT integration&lt;/strong&gt;, allowing to generate snapshots for
 a given resource on XNAT by giving its reference on the instance. Otherwise,
-simply passing the individual NIfTI maps of the raw image first - if desired -
-then the segmentation map (or any overlay) would do the job, as shown in the
+simply passing the individual NIfTI maps, of the raw image first - if desired -
+then the segmentation map (or any overlay), would do the job, as shown in the
 previous examples.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;nisnap&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;xnat&lt;/span&gt;
 &lt;span class="n"&gt;xnat&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot_segment&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/home/grg/.xnat_bsc.cfg&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
