@@ -135,14 +135,16 @@ can reduce this time/risk, at the price of some reduced flexibility, as
 compared to using any NIfTI viewer and their control parameters.</p>
 <p><a href="http://github.com/xgrg/nisnap"><code>nisnap</code></a> makes the generation of these summarized versions (or <em>snapshots</em>)
 easier from any Python-based context. It includes options to control
-parameters such as:
-   - opacity
-   - layout (figure dimensions, row size)
-   - plane/slice selection
-   - color map (down to each <em>label</em>, described in a Json file)
-   - label picking
-   - contours/solid color rendering
-   - static/animated rendering (adding a fading effect between raw image and the segmentation)</p>
+parameters such as:</p>
+<ul>
+<li>opacity</li>
+<li>layout (figure dimensions, row size)</li>
+<li>plane/slice selection</li>
+<li>color map (down to each <em>label</em>, described in a Json file)</li>
+<li>label picking</li>
+<li>contours/solid color rendering</li>
+<li>static/animated rendering (adding a fading effect between raw image and the segmentation)</li>
+</ul>
 <h3>Example with FreeSurfer <code>aseg</code> results:</h3>
 <p>This shows how to pick some selected labels out of a label volume like
 FreeSurfer's <code>aseg</code> volume. The colormap is defined in <code>utils/colormap.json</code>.

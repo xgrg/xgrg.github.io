@@ -33,14 +33,16 @@ can reduce this time/risk, at the price of some reduced flexibility, as
 compared to using any NIfTI viewer and their control parameters.&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://github.com/xgrg/nisnap"&gt;&lt;code&gt;nisnap&lt;/code&gt;&lt;/a&gt; makes the generation of these summarized versions (or &lt;em&gt;snapshots&lt;/em&gt;)
 easier from any Python-based context. It includes options to control
-parameters such as:
-   - opacity
-   - layout (figure dimensions, row size)
-   - plane/slice selection
-   - color map (down to each &lt;em&gt;label&lt;/em&gt;, described in a Json file)
-   - label picking
-   - contours/solid color rendering
-   - static/animated rendering (adding a fading effect between raw image and the segmentation)&lt;/p&gt;
+parameters such as:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;opacity&lt;/li&gt;
+&lt;li&gt;layout (figure dimensions, row size)&lt;/li&gt;
+&lt;li&gt;plane/slice selection&lt;/li&gt;
+&lt;li&gt;color map (down to each &lt;em&gt;label&lt;/em&gt;, described in a Json file)&lt;/li&gt;
+&lt;li&gt;label picking&lt;/li&gt;
+&lt;li&gt;contours/solid color rendering&lt;/li&gt;
+&lt;li&gt;static/animated rendering (adding a fading effect between raw image and the segmentation)&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3&gt;Example with FreeSurfer &lt;code&gt;aseg&lt;/code&gt; results:&lt;/h3&gt;
 &lt;p&gt;This shows how to pick some selected labels out of a label volume like
 FreeSurfer's &lt;code&gt;aseg&lt;/code&gt; volume. The colormap is defined in &lt;code&gt;utils/colormap.json&lt;/code&gt;.
