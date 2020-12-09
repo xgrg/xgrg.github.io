@@ -1,7 +1,7 @@
 Title: Working with academic references in Google Docs
 Category: XNAT
 Status: Published
-Tags: xnat, python, pyxnat
+Tags: bibtex, academia
 Authors: Grégory Operto
 
 We are still hoping for an era where citation management software would be free,
