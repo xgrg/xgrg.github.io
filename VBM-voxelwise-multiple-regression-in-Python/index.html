@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Grégory Operto, ">
+    <link href="/favicon.png" rel="icon">
+
+    <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>  
+    <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css" />
+
+        <link rel="alternate"  href="http://xgrg.github.io/feeds/all.atom.xml" type="application/atom+xml" title="Grégory Operto Full Atom Feed"/>
+
+        <title>Grégory Operto - Voxel-based morphometry / voxel-wise multiple regression in Python</title>
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="/theme/css/grids-responsive-min.css">
+    <!--<![endif]-->
+    <link rel="stylesheet" href="/theme/css/styles.css">
+    <link rel="stylesheet" href="/theme/css/slides.css">
+    <link rel="stylesheet" href="/theme/css/pygments.css">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'> -->
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,500" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script src="/js/responsiveslides.min.js"></script>
+</head>
+
+<body>
+
+
+    <header id="header" class="pure-g">
+        <div class="pure-u-1 pure-u-md-3-4">
+             <div id="menu">
+                 <div class="pure-menu pure-menu-open pure-menu-horizontal">
+<ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+</ul>                </div>
+            </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-1-4">
+            <div id="social">
+                <div class="pure-menu pure-menu-open pure-menu-horizontal">
+<ul>
+        <li><a href="https://twitter.com/xgrg"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://github.com/xgrg"><i class="fa fa-github"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/neuroimaging"><i class="fa fa-linkedin"></i></a></li>
+</ul>                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <div id="layout" class="pure-g">
+        <nav id="sidebar" class="pure-u-1 pure-u-md-1-4">
+            <div class="l-box">
+<section>
+	<div class="portrait">
+			<img src="/theme/images/go.jpg" />
+	</div>
+    <div class="name-cv">
+        <div class="name">Grégory Operto, PhD</div>
+        <div class="cv">
+            <a href="/pdfs/cv.pdf"><i class="fa fa-file-pdf-o"></i> CV</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+      <div class="sub-name">brain imaging | data science</div>
+	<div class="contact">goperto@gmail.com</div>
+	<div class="location">Barcelona, Spain</div>
+</section>
+
+<section class="tags">
+</section>            </div>
+        </nav>
+        <section id="content" class="pure-u-1 pure-u-md-3-4">
+            <div class="l-box">
+
+    <header id="post-header">
+        <h1>Voxel-based morphometry / voxel-wise multiple regression in Python</h1>
+            <div class="post-meta">
+                March 02, 2021
+            </div>
+            <div class="post-tags">
+                <ul>
+                    <li>tags:</li>
+                    <li><a href="/tag/python/">python</a></li>
+                </ul>
+            </div>
+    </header>
+
+    <section id="post">
+        <p>One can be using Python extensively and still rely on MATLAB/SPM to perform
+ some voxel-based morphometry. Here is a walkthrough to run such an analysis
+ directly from a Python script leveraging the <a href="https://nipype.readthedocs.io/en/latest/">nipype</a> library.</p>
+<!-- PELICAN_END_SUMMARY -->
+
+<h1>Data preparation</h1>
+<p>Let us create our design matrix first. Instead of copy-pasting it to SPM GUI, we
+will just read it from an Excel table.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">excel_file</span> <span class="o">=</span> <span class="s1">&#39;/tmp/dm.xlsx&#39;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;openpyxl&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th align="right">id</th>
+<th align="right">age</th>
+<th align="right">sex</th>
+<th>apoe4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">/tmp/VBM/data/smwc1_10013_BBRC02_E01344.nii</td>
+<td align="right">59.112936</td>
+<td align="right">1</td>
+<td>0</td>
+</tr>
+<tr>
+<td align="right">/tmp/VBM/data/smwc1_10019_BBRC_E00046.nii</td>
+<td align="right">63.227926</td>
+<td align="right">0</td>
+<td>0</td>
+</tr>
+<tr>
+<td align="right">/tmp/VBM/data/smwc1_10026_BBRC02_E06149.nii</td>
+<td align="right">70.951403</td>
+<td align="right">1</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="right">/tmp/VBM/data/smwc1_10032_BBRC02_E07242.nii</td>
+<td align="right">59.750856</td>
+<td align="right">1</td>
+<td>0</td>
+</tr>
+<tr>
+<td align="right">/tmp/VBM/data/smwc1_10034_BBRC_E02026.nii</td>
+<td align="right">52.443532</td>
+<td align="right">1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>The first column gives a list of paths to all the NIfTI files that shall be used
+in the analysis.</p>
+<div class="highlight"><pre><span></span><code><span class="n">col1</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">([</span><span class="s1">&#39;First column:&#39;</span><span class="p">,</span> <span class="n">col1</span><span class="p">])</span>
+<span class="n">scans</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">col1</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</code></pre></div>
+
+<p>The other columns will be used as regressors.</p>
+<div class="highlight"><pre><span></span><code><span class="n">names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Regressors in the model: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">names</span><span class="p">))</span>
+<span class="n">vectors</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">e</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">names</span><span class="p">]</span>
+</code></pre></div>
+
+<p>Contrasts are then defined as tuples.
+Each tuple follows the format: contrast name, type of statistical test,
+names of the columns to be used, weighting factors.</p>
+<div class="highlight"><pre><span></span><code><span class="n">contrasts</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">cont1</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Effect of age (+)&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">cont2</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Effect of age (-)&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">contrasts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cont1</span><span class="p">)</span>
+<span class="n">contrasts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cont2</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Now we are ready to build the analysis workflow.</p>
+<h1>Building the workflow</h1>
+<p>The workflow is composed of 3 consecutive nodes: first we design the model (<code>"modeldesign"</code>), then we estimate the model parameters (<code>"estimatemodel"</code>)
+and finally we estimate the contrasts (<code>"estimatecontrasts"'</code>).</p>
+<p>The covariates need to be passed to the workflow in a certain format, which is
+easily achieved based on the previously prepared variables.</p>
+<div class="highlight"><pre><span></span><code><span class="err">covariates = []</span>
+<span class="err">for name, v, c in zip(names, vectors, centering):</span>
+<span class="err">    covariates.append(dict(name=name, centering=c, vector=v))</span>
+</code></pre></div>
+
+<p>We may now create the nodes of the workflow. The first one (we called it <code>"modeldesign"</code>) takes here the list of normalized scans, the covariates and some mask to
+restrict the area of the analysis.</p>
+<div class="highlight"><pre><span></span><code><span class="n">explicit_mask</span> <span class="o">=</span> <span class="s1">&#39;/path/to/MNI_T1_brain_mask.nii&#39;</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">spm</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">MultipleRegressionDesign</span><span class="p">(</span><span class="n">in_files</span><span class="o">=</span><span class="n">scans</span><span class="p">,</span>
+                                           <span class="n">user_covariates</span><span class="o">=</span><span class="n">covariates</span><span class="p">,</span>
+                                           <span class="n">explicit_mask_file</span><span class="o">=</span><span class="n">explicitmask</span><span class="p">,</span>
+                                           <span class="n">use_implicit_threshold</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Then we create the two other nodes.</p>
+<div class="highlight"><pre><span></span><code><span class="n">est</span> <span class="o">=</span> <span class="n">spm</span><span class="o">.</span><span class="n">EstimateModel</span><span class="p">(</span><span class="n">estimation_method</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Classical&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="n">con</span> <span class="o">=</span> <span class="n">spm</span><span class="o">.</span><span class="n">EstimateContrast</span><span class="p">(</span><span class="n">contrasts</span><span class="o">=</span><span class="n">contrasts</span><span class="p">,</span>
+                             <span class="n">group_contrast</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The workflow itself is defined as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="n">analysis_name</span> <span class="o">=</span> <span class="s1">&#39;vbm_analysis&#39;</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Workflow</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">analysis_name</span><span class="p">)</span>
+<span class="n">w</span><span class="o">.</span><span class="n">base_dir</span> <span class="o">=</span> <span class="s1">&#39;/path/to/destination_dir&#39;</span>
+
+<span class="n">n1</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;modeldesign&#39;</span><span class="p">)</span>
+<span class="n">n2</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">est</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;estimatemodel&#39;</span><span class="p">)</span>
+<span class="n">n3</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;estimatecontrasts&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>We then need to connect the I/O across nodes, as each node may take as inputs
+the outputs of the previous.</p>
+<div class="highlight"><pre><span></span><code><span class="n">w</span><span class="o">.</span><span class="n">connect</span><span class="p">([(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;spm_mat_file&#39;</span><span class="p">,</span> <span class="s1">&#39;spm_mat_file&#39;</span><span class="p">)]),</span>
+           <span class="p">(</span><span class="n">n2</span><span class="p">,</span> <span class="n">n3</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;spm_mat_file&#39;</span><span class="p">,</span> <span class="s1">&#39;spm_mat_file&#39;</span><span class="p">),</span>
+                     <span class="p">(</span><span class="s1">&#39;beta_images&#39;</span><span class="p">,</span> <span class="s1">&#39;beta_images&#39;</span><span class="p">),</span>
+                     <span class="p">(</span><span class="s1">&#39;residual_image&#39;</span><span class="p">,</span> <span class="s1">&#39;residual_image&#39;</span><span class="p">)]),</span> <span class="p">])</span>
+</code></pre></div>
+
+<p>We may finally configure some available options.</p>
+<div class="highlight"><pre><span></span><code><span class="n">w</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;execution&#39;</span><span class="p">][</span><span class="s1">&#39;stop_on_first_rerun&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">w</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;execution&#39;</span><span class="p">][</span><span class="s1">&#39;remove_unnecessary_outputs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+</code></pre></div>
+
+<p>We now have a fully-defined workflow. We may now execute it.</p>
+<div class="highlight"><pre><span></span><code><span class="n">w</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+
+<p>The process should go through each node consecutively. Data from the workflow
+execution will be stored in the destination folder defined earlier
+(<code>w.base_dir</code>). Once completed, we may start reviewing the results.</p>
+<p>The following function summarizes all the previously listed steps, taking a list
+of scans, regressors, regressor names, an explicit mask and a destination folder
+as inputs.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nipype.interfaces.spm</span> <span class="k">as</span> <span class="nn">spm</span>
+<span class="kn">import</span> <span class="nn">nipype.pipeline.engine</span> <span class="k">as</span> <span class="nn">pe</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces.matlab</span> <span class="kn">import</span> <span class="n">MatlabCommand</span>
+
+<span class="n">matlab_cmd</span> <span class="o">=</span> <span class="s1">&#39;/usr/local/MATLAB/R2020b/bin/matlab&#39;</span>
+<span class="n">spm</span><span class="o">.</span><span class="n">SPMCommand</span><span class="o">.</span><span class="n">set_mlab_paths</span><span class="p">(</span><span class="n">matlab_cmd</span><span class="o">=</span><span class="n">matlab_cmd</span><span class="p">)</span>
+<span class="n">MatlabCommand</span><span class="o">.</span><span class="n">set_default_matlab_cmd</span><span class="p">(</span><span class="s1">&#39;matlab -nodesktop -noplash&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">build_workflow</span><span class="p">(</span><span class="n">scans</span><span class="p">,</span> <span class="n">vectors</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">contrasts</span><span class="p">,</span> <span class="n">destdir</span><span class="p">,</span>
+                   <span class="n">explicitmask</span><span class="p">,</span> <span class="n">analysis_name</span><span class="o">=</span><span class="s1">&#39;analysis&#39;</span><span class="p">,</span>
+                   <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Build a Nipype pipeline for Multiple Regression analysis over a given</span>
+<span class="sd">    type of parametric maps, using data from an Excel sheet as</span>
+<span class="sd">    regressors (columns in &#39;names&#39;) and a given explicit mask.</span>
+
+<span class="sd">    The whole analysis will be performed in the directory &#39;destdir&#39;.&#39;&#39;&#39;</span>
+
+    <span class="nb">print</span><span class="p">([</span><span class="s1">&#39;Analysis name:&#39;</span><span class="p">,</span> <span class="n">analysis_name</span><span class="p">])</span>
+
+    <span class="n">centering</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">([</span><span class="s1">&#39;Scans (</span><span class="si">%s</span><span class="s1">):&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">scans</span><span class="p">),</span> <span class="n">scans</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">([</span><span class="s1">&#39;Vectors (</span><span class="si">%s</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">vectors</span><span class="p">)])</span>
+        <span class="nb">print</span><span class="p">([</span><span class="s1">&#39;Names (</span><span class="si">%s</span><span class="s1">):&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">),</span> <span class="n">names</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">([</span><span class="s1">&#39;Contrasts (</span><span class="si">%s</span><span class="s1">):&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">contrasts</span><span class="p">),</span> <span class="n">contrasts</span><span class="p">])</span>
+
+    <span class="n">covariates</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">vectors</span><span class="p">,</span> <span class="n">centering</span><span class="p">):</span>
+        <span class="n">covariates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">centering</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">vector</span><span class="o">=</span><span class="n">v</span><span class="p">))</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">spm</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">MultipleRegressionDesign</span><span class="p">(</span><span class="n">in_files</span><span class="o">=</span><span class="n">scans</span><span class="p">,</span>
+                                               <span class="n">user_covariates</span><span class="o">=</span><span class="n">covariates</span><span class="p">,</span>
+                                               <span class="n">explicit_mask_file</span><span class="o">=</span><span class="n">explicitmask</span><span class="p">,</span>
+                                               <span class="n">use_implicit_threshold</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">est</span> <span class="o">=</span> <span class="n">spm</span><span class="o">.</span><span class="n">EstimateModel</span><span class="p">(</span><span class="n">estimation_method</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Classical&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">spm</span><span class="o">.</span><span class="n">EstimateContrast</span><span class="p">(</span><span class="n">contrasts</span><span class="o">=</span><span class="n">contrasts</span><span class="p">,</span>
+                               <span class="n">group_contrast</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Creating Workflow</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Workflow</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">analysis_name</span><span class="p">)</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">base_dir</span> <span class="o">=</span> <span class="n">destdir</span>
+
+    <span class="n">n1</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;modeldesign&#39;</span><span class="p">)</span>
+    <span class="n">n2</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">est</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;estimatemodel&#39;</span><span class="p">)</span>
+    <span class="n">n3</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;estimatecontrasts&#39;</span><span class="p">)</span>
+
+    <span class="n">w</span><span class="o">.</span><span class="n">connect</span><span class="p">([(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;spm_mat_file&#39;</span><span class="p">,</span> <span class="s1">&#39;spm_mat_file&#39;</span><span class="p">)]),</span>
+               <span class="p">(</span><span class="n">n2</span><span class="p">,</span> <span class="n">n3</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;spm_mat_file&#39;</span><span class="p">,</span> <span class="s1">&#39;spm_mat_file&#39;</span><span class="p">),</span>
+                         <span class="p">(</span><span class="s1">&#39;beta_images&#39;</span><span class="p">,</span> <span class="s1">&#39;beta_images&#39;</span><span class="p">),</span>
+                         <span class="p">(</span><span class="s1">&#39;residual_image&#39;</span><span class="p">,</span> <span class="s1">&#39;residual_image&#39;</span><span class="p">)]),</span> <span class="p">])</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;execution&#39;</span><span class="p">][</span><span class="s1">&#39;stop_on_first_rerun&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;execution&#39;</span><span class="p">][</span><span class="s1">&#39;remove_unnecessary_outputs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="n">w</span>
+</code></pre></div>
+
+<h1>Reviewing the results</h1>
+<p>The execution data from a previous workflow can be accessed directly from the
+created object.</p>
+<div class="highlight"><pre><span></span><code><span class="n">n1</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="s1">&#39;modeldesign&#39;</span><span class="p">)</span>
+<span class="n">n3</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="s1">&#39;estimatecontrasts&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>If the workflow was executed previously, or in a separate terminal, it is Still possible to retrieve this information by recreating the workflow. The process
+will take the information from the matching workflow.</p>
+<div class="highlight"><pre><span></span><code><span class="n">w</span> <span class="o">=</span> <span class="n">build_workflow</span><span class="p">(</span><span class="n">scans</span><span class="p">,</span> <span class="n">vectors</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">contrasts</span><span class="p">,</span> <span class="n">destdir</span><span class="p">,</span> <span class="n">explicitmask</span><span class="p">,</span>
+                   <span class="n">analysis_name</span><span class="o">=</span><span class="s1">&#39;vbm_analysis&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="n">n1</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="s1">&#39;modeldesign&#39;</span><span class="p">)</span>
+<span class="n">n3</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="s1">&#39;estimatecontrasts&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;# of scans included in the analysis:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">n1</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_files</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># of scans included in the analysis: 379</span>
+</code></pre></div>
+
+<p>We may also review the estimated contrasts from node #3:</p>
+<div class="highlight"><pre><span></span><code><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;contrast name&#39;</span><span class="p">,</span> <span class="s1">&#39;contrast type&#39;</span><span class="p">,</span> <span class="s1">&#39;covariate names&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;covariate weights&#39;</span><span class="p">]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">n3</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">contrasts</span><span class="p">),</span>
+                  <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th align="right">contrast name</th>
+<th align="right">contrast type</th>
+<th align="right">covariate names</th>
+<th align="right">covariate weights</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">Effect of age (+)</td>
+<td align="right">T</td>
+<td align="right">[age]</td>
+<td align="right">[1.0]</td>
+</tr>
+<tr>
+<td align="right">Effect of age (-)</td>
+<td align="right">T</td>
+<td align="right">[age]</td>
+<td align="right">[-1.0]</td>
+</tr>
+</tbody>
+</table>
+<p>Statistical maps may be rendered e.g. using <code>nilearn</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">nilearn</span> <span class="kn">import</span> <span class="n">plotting</span><span class="p">,</span> <span class="n">image</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">op</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">n3</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">contrasts</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>    
+    <span class="n">output_dir</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">destdir</span><span class="p">,</span> <span class="n">n3</span><span class="o">.</span><span class="n">_id</span><span class="p">)</span>
+
+    <span class="c1"># We look for the spmT maps and keep the positive values only</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="s1">&#39;spmT_00</span><span class="si">%02d</span><span class="s1">.nii&#39;</span><span class="o">%</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">math_img</span><span class="p">(</span><span class="s2">&quot;np.ma.masked_less(img, 0)&quot;</span><span class="p">,</span> <span class="n">img</span><span class="o">=</span><span class="n">img</span><span class="p">)</span>
+
+    <span class="n">plotting</span><span class="o">.</span><span class="n">plot_stat_map</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">3.10</span><span class="p">,</span> <span class="n">display_mode</span><span class="o">=</span><span class="s1">&#39;z&#39;</span><span class="p">,</span>
+                           <span class="n">cut_coords</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+</code></pre></div>
+
+<p><img alt="example_nilearn1" src="/images/vbm/vbm1.png">
+<img alt="example_nilearn2" src="/images/vbm/vbm2.png"></p>
+<p>Finally, AAL users may be interested in collecting some statistics from these maps
+thanks to the <a href="https://github.com/xgrg/pyAAL"><code>pyAAL</code></a> module</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyAAL</span>
+
+<span class="n">spm_mat_file</span> <span class="o">=</span> <span class="s1">&#39;/tmp/dm/estimatecontrasts/SPM.mat&#39;</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">pyAAL</span><span class="o">.</span><span class="n">pyAAL</span><span class="p">(</span><span class="n">spm_mat_file</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                  <span class="n">aal_nii</span><span class="o">=</span><span class="s1">&#39;/path/to/ROI_MNI_V5.nii&#39;</span><span class="p">,</span>
+                  <span class="n">matlab_cmd</span><span class="o">=</span><span class="s1">&#39;matlab&#39;</span><span class="p">)</span>
+<span class="n">pyAAL</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right" mm>x,y,z</th>
+<th align="right">nom du label</th>
+<th align="right">% Cluster</th>
+<th align="right">Nb Vx Cluster</th>
+<th align="right">% Label</th>
+<th align="right">Nb Vx Label</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">0</td>
+<td align="right">-16 26 16</td>
+<td align="right">OUTSIDE</td>
+<td align="right">99.41</td>
+<td align="right">1016</td>
+<td align="right">0.00</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">-16 26 16</td>
+<td align="right">Caudate_L</td>
+<td align="right">0.59</td>
+<td align="right">1016</td>
+<td align="right">0.26</td>
+<td align="right">962</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">32 -42 15</td>
+<td align="right">OUTSIDE</td>
+<td align="right">99.51</td>
+<td align="right">1015</td>
+<td align="right">0.00</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">32 -42 15</td>
+<td align="right">Precuneus_R</td>
+<td align="right">0.49</td>
+<td align="right">1015</td>
+<td align="right">0.06</td>
+<td align="right">3265</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">2 -30 18</td>
+<td align="right">OUTSIDE</td>
+<td align="right">100.00</td>
+<td align="right">187</td>
+<td align="right">0.00</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">-32 -51 9</td>
+<td align="right">OUTSIDE</td>
+<td align="right">98.60</td>
+<td align="right">573</td>
+<td align="right">0.00</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td align="right">-32 -51 9</td>
+<td align="right">Precuneus_L</td>
+<td align="right">1.40</td>
+<td align="right">573</td>
+<td align="right">0.10</td>
+<td align="right">3528</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td align="right">20 33 -2</td>
+<td align="right">OUTSIDE</td>
+<td align="right">99.78</td>
+<td align="right">461</td>
+<td align="right">0.00</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td align="right">20 33 -2</td>
+<td align="right">Caudate_R</td>
+<td align="right">0.22</td>
+<td align="right">461</td>
+<td align="right">0.04</td>
+<td align="right">994</td>
+</tr>
+<tr>
+<td align="right">9</td>
+<td align="right">16 -2 32</td>
+<td align="right">OUTSIDE</td>
+<td align="right">100.00</td>
+<td align="right">235</td>
+<td align="right">0.00</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">10</td>
+<td align="right">-24 -22 32</td>
+<td align="right">OUTSIDE</td>
+<td align="right">100.00</td>
+<td align="right">38</td>
+<td align="right">0.00</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+    </section>
+
+    <section id="applause">
+    <br>
+    Please let me know if you liked this post by clicking the button below.
+    <br><br>
+    &nbsp;&nbsp;<applause-button style="width: 58px; height: 58px;"/>
+    </section>
+
+
+
+<nav class="pagination-wrapper">
+    <div class="pagination">
+        <div class="pagination-left">
+        </div>
+        <div class="pagination-right">
+                &nbsp;
+        </div>
+    </div>
+</nav>
+            </div>
+        </section>
+
+
+        <footer id="footer" class="pure-u-1 pure-u-md-3-4">
+            <div class="l-box">
+                <div>
+                    <p>&copy; <a href="http://xgrg.github.io">Grégory Operto</a> &ndash;
+                        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+                              for <a href="http://blog.getpelican.com/">Pelican</a> - layout cloned with awe from <a href="http://cyrille.rossant.net">cyrille.rossant.net</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-17275957-2', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+
+</body>
+</html>
+
