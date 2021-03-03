@@ -289,7 +289,7 @@ will take the information from the prior execution.&lt;/p&gt;
 &lt;p&gt;Finally, AAL users may be interested in collecting some statistics from these
 maps thanks to the &lt;a href="https://github.com/xgrg/pyAAL"&gt;&lt;code&gt;pyAAL&lt;/code&gt;&lt;/a&gt; module. (Mode 0:
   Local Maxima Labeling - 1: Extended Local Maxima Labeling - 2: Cluster
-  Labeling). Another fine option could be &lt;a href="https://github.com/miykael/atlasreader"&gt;atlasreader&lt;/a&gt;.&lt;/p&gt;
+  Labeling). Another fine Matlab-less option is &lt;a href="https://github.com/miykael/atlasreader"&gt;atlasreader&lt;/a&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pyAAL&lt;/span&gt;
 
 &lt;span class="n"&gt;spm_mat_file&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/tmp/dm/estimatecontrasts/SPM.mat&amp;#39;&lt;/span&gt;
