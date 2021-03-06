@@ -198,8 +198,10 @@ names of the columns to be used, weighting factors.</p>
 (<code>"modeldesign"</code>), then we estimate the model parameters (<code>"estimatemodel"</code>)
 and finally we estimate the contrasts (<code>"estimatecontrasts"'</code>).</p>
 <p>The covariates need to be passed to the workflow in a certain format, which is
-easily achieved based on the previously prepared variables.</p>
+easily achieved based on the previously prepared variables <code>names</code> and <code>vectors</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">covariates</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">centering</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">vectors</span><span class="p">,</span> <span class="n">centering</span><span class="p">):</span>
     <span class="n">covariates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">centering</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">vector</span><span class="o">=</span><span class="n">v</span><span class="p">))</span>
 </code></pre></div>
@@ -269,16 +271,14 @@ default Matlab command to be used.</p>
 <span class="k">def</span> <span class="nf">build_workflow</span><span class="p">(</span><span class="n">scans</span><span class="p">,</span> <span class="n">vectors</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">contrasts</span><span class="p">,</span> <span class="n">destination_folder</span><span class="p">,</span>
                    <span class="n">explicit_mask</span><span class="p">,</span> <span class="n">analysis_name</span><span class="o">=</span><span class="s1">&#39;analysis&#39;</span><span class="p">,</span>
                    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; Build a Nipype pipeline for Multiple Regression analysis over a given</span>
-<span class="sd">    type of parametric maps, using data from an Excel sheet as</span>
-<span class="sd">    regressors (columns in &#39;names&#39;) and a given explicit mask.</span>
+    <span class="sd">&#39;&#39;&#39; Build a Nipype pipeline for voxelwise multiple regression analysis</span>
+<span class="sd">    on a set of scans, using an Excel sheet as design matrix (columns in</span>
+<span class="sd">    &#39;names&#39;) and a given explicit mask.</span>
 
 <span class="sd">    The whole analysis will be performed in the directory &#39;destination_folder&#39;.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="nb">print</span><span class="p">([</span><span class="s1">&#39;Analysis name:&#39;</span><span class="p">,</span> <span class="n">analysis_name</span><span class="p">])</span>
-
-    <span class="n">centering</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">([</span><span class="s1">&#39;Scans (</span><span class="si">%s</span><span class="s1">):&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">scans</span><span class="p">),</span> <span class="n">scans</span><span class="p">])</span>
@@ -287,6 +287,8 @@ default Matlab command to be used.</p>
         <span class="nb">print</span><span class="p">([</span><span class="s1">&#39;Contrasts (</span><span class="si">%s</span><span class="s1">):&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">contrasts</span><span class="p">),</span> <span class="n">contrasts</span><span class="p">])</span>
 
     <span class="n">covariates</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">centering</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">vectors</span><span class="p">,</span> <span class="n">centering</span><span class="p">):</span>
         <span class="n">covariates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">centering</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">vector</span><span class="o">=</span><span class="n">v</span><span class="p">))</span>
 
@@ -372,7 +374,7 @@ will take the information from the prior execution.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">nilearn</span> <span class="kn">import</span> <span class="n">plotting</span><span class="p">,</span> <span class="n">image</span>
 <span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">op</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">n3</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">contrasts</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>    
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">n3</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">contrasts</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
     <span class="n">output_dir</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">destination_folder</span><span class="p">,</span> <span class="n">n3</span><span class="o">.</span><span class="n">_id</span><span class="p">)</span>
 
     <span class="c1"># We look for the spmT maps and keep the positive values only</span>
@@ -390,8 +392,8 @@ another piece of code that accounts for titles and multiple lines. The intereste
 reader might find more information <a href="https://github.com/xgrg/tbss">here</a>, though
 documentation could be much updated.</p>
 <p>Finally, AAL users may be interested in collecting some statistics from these
-maps thanks to the <a href="https://github.com/xgrg/pyAAL"><code>pyAAL</code></a> module. (Mode 0:
-  Local Maxima Labeling - 1: Extended Local Maxima Labeling - 2: Cluster
+maps thanks to the (possibly rusty) <a href="https://github.com/xgrg/pyAAL"><code>pyAAL</code></a> module.
+(Mode 0: Local Maxima Labeling - 1: Extended Local Maxima Labeling - 2: Cluster
   Labeling). Another fine Matlab-less option is <a href="https://github.com/miykael/atlasreader">atlasreader</a>.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyAAL</span>
 
