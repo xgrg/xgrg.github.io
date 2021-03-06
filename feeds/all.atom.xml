@@ -8,7 +8,7 @@ Python scripts instead of clicking (and misclicking) hundreds of times using
 the graphical interface from SPM. As a summary of this past experience, here is
 a walkthrough to run such an analysis directly from a Python script. In
 particular, this recipe leverages on the &lt;a href="https://nipype.readthedocs.io/en/latest/"&gt;nipype&lt;/a&gt;
-library.&lt;/p&gt;
+library. Note: it still requires Matlab and SPM but uses Python as an interface with them.&lt;/p&gt;
 &lt;!-- PELICAN_END_SUMMARY --&gt;
 
 &lt;h1&gt;Data preparation&lt;/h1&gt;
