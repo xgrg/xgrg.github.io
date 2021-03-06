@@ -158,7 +158,8 @@ execution will be stored in the destination folder defined earlier
 &lt;p&gt;The following function summarizes all the previously listed steps, taking a list
 of scans, regressors, regressor names, an explicit mask and a destination folder
 as inputs. Note the prior configuration of the path to Matlab and the
-default Matlab command to be used.&lt;/p&gt;
+default Matlab command to be used. The function returns a workflow that should
+be ready to run.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;nipype.interfaces.spm&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;spm&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;nipype.pipeline.engine&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;pe&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;nipype.interfaces.matlab&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;MatlabCommand&lt;/span&gt;
