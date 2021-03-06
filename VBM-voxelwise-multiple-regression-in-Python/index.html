@@ -113,8 +113,8 @@ library. Note: it still requires Matlab and SPM but uses Python as an interface 
 <!-- PELICAN_END_SUMMARY -->
 
 <h1>Data preparation</h1>
-<p>Let us create our design matrix first. Instead of copy-pasting it to SPM GUI, we
-will just read it from an Excel table.</p>
+<p>Let us first create the design matrix. Instead of copy-pasting it to SPM GUI, it
+will be just read from an Excel table.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="n">excel_file</span> <span class="o">=</span> <span class="s1">&#39;/tmp/dm.xlsx&#39;</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;openpyxl&#39;</span><span class="p">)</span>

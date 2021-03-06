@@ -12,8 +12,8 @@ library. Note: it still requires Matlab and SPM but uses Python as an interface 
 &lt;!-- PELICAN_END_SUMMARY --&gt;
 
 &lt;h1&gt;Data preparation&lt;/h1&gt;
-&lt;p&gt;Let us create our design matrix first. Instead of copy-pasting it to SPM GUI, we
-will just read it from an Excel table.&lt;/p&gt;
+&lt;p&gt;Let us first create the design matrix. Instead of copy-pasting it to SPM GUI, it
+will be just read from an Excel table.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pandas&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;pd&lt;/span&gt;
 &lt;span class="n"&gt;excel_file&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/tmp/dm.xlsx&amp;#39;&lt;/span&gt;
 &lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read_excel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;excel_file&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;engine&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;openpyxl&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
