@@ -22,9 +22,9 @@ First night onboard: Mittlach (Vosges, France) - on the way to the camping area 
 
 &lt;iframe height="500"  src="https://maps.google.com/maps?q=47.9894292,7.0020924&amp;t=k&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"&gt;&lt;/iframe&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Comment: how did I ended in the Vosges for my first night? I wanted some
+&lt;p&gt;How did I ended in the Vosges for my first night? I wanted some
 mountains, the closest possible to Paris and on top of this I had never been
-in that area.&lt;/em&gt;&lt;/p&gt;
+in that area._&lt;/p&gt;
 &lt;h2&gt;Night #2:&lt;/h2&gt;
 &lt;div style="padding:20px; text-align:justify; background-color:#50453e; color:white"&gt;
 Close to Lac Noir (Orbey, Vosges) - calm - in the morning I went for a jogging
@@ -36,11 +36,12 @@ in the surrounding mountains.
 &lt;p&gt;&lt;img alt="van002" src="http://xgrg.github.io/images/van/van002.jpg"&gt;&lt;/p&gt;
 &lt;h2&gt;Night #34:&lt;/h2&gt;
 &lt;div style="padding:20px; text-align:justify; background-color:#50453e; color:white"&gt;
-Prize for the most adventurous 4x4 Kangoo trick. Along the road 7 heading for Bergen, going across mountains split between lakes and tundra-style short vegetation. On one side of the road, some non-drivable slope leads to some flat, where the Kangoo will spend a peaceful night under heavy rain. But scary moment going down back on the road! Had to go out at night to the bathroom under the rain.
+Prize for the most adventurous 4x4 Kangoo trick. Along the road 7 heading for Bergen, going across mountains split between lakes and tundra-style short vegetation. On one side of the road, some non-drivable slope leads to some flat area, where the Kangoo will spend a peaceful night under heavy rain. But scary moment going down back on the road! Had to go out at night to the bathroom under the rain.
 &lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="van034" src="http://xgrg.github.io/images/van/van034.jpg"&gt;&lt;/p&gt;
-&lt;iframe height="500" src="https://maps.google.com/maps?q=60.388565,%207.662442&amp;t=k&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"&gt;&lt;/iframe&gt;</content><category term="Miscellaneous"></category><category term="vanlife"></category></entry><entry><title>Voxel-based morphometry / voxel-wise multiple regression in Python</title><link href="http://xgrg.github.io/VBM-voxelwise-multiple-regression-in-Python/" rel="alternate"></link><published>2021-03-02T00:00:00+01:00</published><updated>2021-03-02T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2021-03-02:/VBM-voxelwise-multiple-regression-in-Python/</id><summary type="html">&lt;p&gt;I got to learn Python before using Matlab. Therefore when I needed to run my
+&lt;iframe height="500" src="https://maps.google.com/maps?q=60.388565,%207.662442&amp;t=k&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;img alt="van034" src="http://xgrg.github.io/images/van/van034.jpg"&gt;&lt;/p&gt;</content><category term="Miscellaneous"></category><category term="vanlife"></category></entry><entry><title>Voxel-based morphometry / voxel-wise multiple regression in Python</title><link href="http://xgrg.github.io/VBM-voxelwise-multiple-regression-in-Python/" rel="alternate"></link><published>2021-03-02T00:00:00+01:00</published><updated>2021-03-02T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2021-03-02:/VBM-voxelwise-multiple-regression-in-Python/</id><summary type="html">&lt;p&gt;I got to learn Python before using Matlab. Therefore when I needed to run my
 first VBM analyses, I quickly looked for a way to do this through
 Python scripts instead of clicking (and misclicking) hundreds of times using
 the graphical interface from SPM. As a summary of this past …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I got to learn Python before using Matlab. Therefore when I needed to run my
