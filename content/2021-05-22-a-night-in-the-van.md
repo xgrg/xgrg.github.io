@@ -10,10 +10,10 @@ Some years ago at a time when traveling around the world was still a thing,
  much that three months later we would buy a small van - a _Renault Kangoo Maxi_ -
   to convert it into our own camper. The construction process was a journey
   by itself as well. In the end it would have little to do with the fancy
-  Volkswagen Westfalia but it would look like us, unpretentious and discrete.
+  Volkswagen Westfalia but it would look like us, discrete and unpretentious.
 
 
-Since the beginning we started a tradition consisting in recording in a notebook
+Since the beginning we kept a tradition consisting in recording in a notebook
 every night spent in the van. Just a few words capturing the place and the
 general atmosphere. Seven years later the tradition still goes on and
 I thought I would pick some random entries and post them here.
@@ -24,11 +24,15 @@ I thought I would pick some random entries and post them here.
 ## Night #1:
 
 <div style="padding:20px; text-align:justify; background-color:#50453e; color:white">
-First night onboard: Mittlach (Vosges, France) - on the way to the camping area - rainy wheather.
+First night onboard: Mittlach (Vosges, France) - on the way to the camping area - rainy weather.
 </div>
 
 
 <iframe height="500"  src="https://maps.google.com/maps?q=47.9894292,7.0020924&t=k&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><br>
+
+_How did I ended in the Vosges for my first night? I wanted some
+mountains, the closest possible to Paris and on top of this I had never been
+in that area._
 
 ## Night #2:
 
@@ -40,4 +44,15 @@ in the surrounding mountains.
 <iframe height="500" src="https://maps.google.com/maps?q=48%C2%B006'45.0%22N%207%C2%B005'59.7%22E&t=k&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
 
 
-![PNS2013-01]({filename}images/van/van002.jpg)
+![van002]({filename}images/van/van002.jpg)
+
+## Night #34:
+
+<div style="padding:20px; text-align:justify; background-color:#50453e; color:white">
+Prize for the most adventurous 4x4 Kangoo trick. Along the road 7 heading for Bergen, going across mountains split between lakes and tundra-style short vegetation. On one side of the road, some non-drivable slope leads to some flat area, where the Kangoo will spend a peaceful night under heavy rain. But scary moment going down back on the road! Had to go out at night to the bathroom under the rain.
+</div>
+
+
+<iframe height="500" src="https://maps.google.com/maps?q=60.388565,%207.662442&t=k&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+
+![van034]({filename}images/van/van034.jpg)
