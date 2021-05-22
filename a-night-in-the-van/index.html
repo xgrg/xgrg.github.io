@@ -11,7 +11,7 @@
 
         <link rel="alternate"  href="http://xgrg.github.io/feeds/all.atom.xml" type="application/atom+xml" title="Grégory Operto Full Atom Feed"/>
 
-        <title>Grégory Operto - Bulk downloading resources from XNAT</title>
+        <title>Grégory Operto - A Night in the Van</title>
 
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
@@ -90,58 +90,35 @@
             <div class="l-box">
 
     <header id="post-header">
-        <h1>Bulk downloading resources from XNAT</h1>
+        <h1>A Night in the Van</h1>
             <div class="post-meta">
-                November 03, 2019
+                May 22, 2021
             </div>
             <div class="post-tags">
                 <ul>
                     <li>tags:</li>
-                    <li><a href="/tag/xnat/">xnat</a></li>
-                    <li><a href="/tag/python/">python</a></li>
-                    <li><a href="/tag/pyxnat/">pyxnat</a></li>
+                    <li><a href="/tag/vanlife/">vanlife</a></li>
                 </ul>
             </div>
     </header>
 
     <section id="post">
-        <p>Interacting with the data on XNAT can be done mainly two ways: either graphically using the web application, or through a REST API. While the former is suited for
-all profiles, the latter is intended for a more technical category of users.</p>
-<!-- PELICAN_END_SUMMARY -->
+        <p>Some years ago at a time when traveling around the world was still a thing,
+ we made this road trip around Iceland in a rented camper van. That trip was
+ really memorable and would deserve so much more description. We enjoyed it so
+ much that three months later we would buy a small van - a <em>Renault Kangoo Maxi</em> -
+  to convert it into our own camper. The construction process was a journey
+  by itself as well. In the end it would have little to do with the fancy
+  Volkswagen Westfalia but it would look like us, unpretentious and discrete.</p>
+<p>Since the beginning we started a tradition consisting in recording in a notebook
+every night spent in the van. Just a few words capturing the place and the
+general atmosphere. Seven years later the tradition still goes on and
+I thought I would pick some random entries and post them here.</p>
+<hr>
 
-<p>The <a href="http://pyxnat.github.io/pyxnat"><code>pyxnat</code></a>
-library adds an extra layer over the REST API to allow interfacing an XNAT
-instance in Python (see <a href="http://xgrg.github.io/first-steps-with-pyxnat/">First steps with <code>pyxnat</code></a>).
-This can be of great help to automate bulk operations e.g. downloading large
-collections of data, populating projects or any type of systematic task that
-would otherwise require lots of clicks using the web app.</p>
-<p>Between "all clicks" and "all code" lies a large gray zone with users somewhere between the hardcore Python gurus and the bash rookies. For this special category
-(i.e. the majority in the research group I belong to) we developed an
-intermediate tool called <a href="https://gitlab.com/xgrg/bx">bx</a> (for BarcelonaBeta +
-  XNAT) covering some of the most frequent tasks (based on reports) as for
-  instance:</p>
-<ul>
-<li>download NIfTI files of a given sequence over a project</li>
-<li>download SPM/FreeSurfer outputs over a projects</li>
-<li>download an Excel table with all FreeSurfer/ASHS measurements over a project</li>
-<li>download a table with acquisition dates from an entire project</li>
-<li>in general, <em>downloading any given resource over an entire project</em>.</li>
-</ul>
-<p>The tool is used as a single command followed by options as in this example:</p>
-<div class="highlight"><pre><span></span><code>bx freesurfer6 aseg &lt;RESOURCE_ID&gt;
-</code></pre></div>
-
-<p>where <code>RESOURCE_ID</code> is a reference either to a experiment or a project. Running
-the command will execute the proper REST calls to achieve the operation. Of
-course, this will strongly depend on how pipelines are mounted in the specific
-XNAT instance (how resources are named and how files are structured in them).
-Still, the process will rely on intermediate calls to <a href="http://pyxnat.github.io/pyxnat"><code>pyxnat</code></a>, hence enabling the implementation of
-new commands/options and/or the adaptation of existing ones (see <a href="https://gitlab.com/xgrg/bx/blob/master/bx/ashs.py">example here</a>).</p>
-<p>The tool also comes with a Python module <code>bx.cache</code> which allows to maintain a local
-cached version of FreeSurfer/ASHS measurements and avoid potential long
-repetitive downloads, in particular when working with Jupyter Notebooks.
-More information on this specific module can be found in <a href="http://xgrg.github.io/caching-freesurfer6-measurements">Caching FreeSurfer
-measurements for faster access</a>.</p>
+<h1>Night #1:</h1>
+<p>First night onboard: Mittlach (Vosges, France) - on the way to the camping area - rainy wheather</p>
+<div class="mapouter"><div class="gmap_canvas"><iframe width="600" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=47.9894292,7.0020924&t=k&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org"></a><br><style>.mapouter{position:relative;text-align:right;height:500px;width:600px;}</style><a href="https://www.embedgooglemap.net">how to embed google map in html</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:600px;}</style></div></div>
     </section>
 
     <section id="applause">

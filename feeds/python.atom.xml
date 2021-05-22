@@ -78,7 +78,7 @@ in the analysis.&lt;/p&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Regressors in the model: &lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;names&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Regressors in the model: &lt;span class="o"&gt;[&lt;/span&gt;age, sex, apoe4&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Regressors &lt;span class="k"&gt;in&lt;/span&gt; the model: &lt;span class="o"&gt;[&lt;/span&gt;age, sex, apoe4&lt;span class="o"&gt;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Contrasts are then defined as tuples.
@@ -512,15 +512,15 @@ in Python.&lt;/p&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mat&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;/NumWaves 3&lt;/span&gt;
-&lt;span class="err"&gt;/NumPoints 114&lt;/span&gt;
-&lt;span class="err"&gt;/Matrix&lt;/span&gt;
-&lt;span class="err"&gt;63.4223134839151 2.0 -7.62&lt;/span&gt;
-&lt;span class="err"&gt;54.757015742642 1.0 -1.84&lt;/span&gt;
-&lt;span class="err"&gt;50.3901437371663 2.0 -0.16&lt;/span&gt;
-&lt;span class="err"&gt;54.1519507186858 1.0 -4.12&lt;/span&gt;
-&lt;span class="err"&gt;52.8788501026694 1.0 -17.65&lt;/span&gt;
-&lt;span class="err"&gt;...&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;/NumWaves 3
+/NumPoints 114
+/Matrix
+63.4223134839151 2.0 -7.62
+54.757015742642 1.0 -1.84
+50.3901437371663 2.0 -0.16
+54.1519507186858 1.0 -4.12
+52.8788501026694 1.0 -17.65
+...
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h2&gt;Application to contrasts:&lt;/h2&gt;
@@ -547,12 +547,12 @@ and negative directions.&lt;/p&gt;
   &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contrasts&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;[(&amp;#39;age(+)&amp;#39;, [1, 0, 0]),&lt;/span&gt;
-&lt;span class="err"&gt; (&amp;#39;age(-)&amp;#39;, [-1, 0, 0]),&lt;/span&gt;
-&lt;span class="err"&gt; (&amp;#39;gender(+)&amp;#39;, [0, 1, 0]),&lt;/span&gt;
-&lt;span class="err"&gt; (&amp;#39;gender(-)&amp;#39;, [0, -1, 0]),&lt;/span&gt;
-&lt;span class="err"&gt; (&amp;#39;centiloids(+)&amp;#39;, [0, 0, 1]),&lt;/span&gt;
-&lt;span class="err"&gt; (&amp;#39;centiloids(-)&amp;#39;, [0, 0, -1])]&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;[(&amp;#39;age(+)&amp;#39;, [1, 0, 0]),
+ (&amp;#39;age(-)&amp;#39;, [-1, 0, 0]),
+ (&amp;#39;gender(+)&amp;#39;, [0, 1, 0]),
+ (&amp;#39;gender(-)&amp;#39;, [0, -1, 0]),
+ (&amp;#39;centiloids(+)&amp;#39;, [0, 0, 1]),
+ (&amp;#39;centiloids(-)&amp;#39;, [0, 0, -1])]
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;In the same approach as with the design matrix, the result can be easily
@@ -576,21 +576,21 @@ converted into a text file ready to give to TBSS.&lt;/p&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;con&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;/NumWaves 3&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName1 age(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName2 age(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName3 gender(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName4 gender(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName5 centiloids(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName6 centiloids(-)&lt;/span&gt;
-&lt;span class="err"&gt;/NumContrasts 6&lt;/span&gt;
-&lt;span class="err"&gt;/Matrix&lt;/span&gt;
-&lt;span class="err"&gt;1 0 0&lt;/span&gt;
-&lt;span class="err"&gt;-1 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 1 0&lt;/span&gt;
-&lt;span class="err"&gt;0 -1 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 1&lt;/span&gt;
-&lt;span class="err"&gt;0 0 -1&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;/NumWaves 3
+/ContrastName1 age(+)
+/ContrastName2 age(-)
+/ContrastName3 gender(+)
+/ContrastName4 gender(-)
+/ContrastName5 centiloids(+)
+/ContrastName6 centiloids(-)
+/NumContrasts 6
+/Matrix
+1 0 0
+-1 0 0
+0 1 0
+0 -1 0
+0 0 1
+0 0 -1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3&gt;Pairwise comparisons:&lt;/h3&gt;
@@ -669,15 +669,15 @@ to the main effects.&lt;/p&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mat&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;/NumWaves 6&lt;/span&gt;
-&lt;span class="err"&gt;/NumPoints 114&lt;/span&gt;
-&lt;span class="err"&gt;/Matrix&lt;/span&gt;
-&lt;span class="err"&gt;63.4223134839151 2.0 -7.62 -7.62 -0.0 -0.0&lt;/span&gt;
-&lt;span class="err"&gt;54.757015742642 1.0 -1.84 -1.84 -0.0 -0.0&lt;/span&gt;
-&lt;span class="err"&gt;50.3901437371663 2.0 -0.16 -0.0 -0.0 -0.16&lt;/span&gt;
-&lt;span class="err"&gt;54.1519507186858 1.0 -4.12 -4.12 -0.0 -0.0&lt;/span&gt;
-&lt;span class="err"&gt;52.8788501026694 1.0 -17.65 -17.65 -0.0 -0.0&lt;/span&gt;
-&lt;span class="err"&gt;...&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;/NumWaves 6
+/NumPoints 114
+/Matrix
+63.4223134839151 2.0 -7.62 -7.62 -0.0 -0.0
+54.757015742642 1.0 -1.84 -1.84 -0.0 -0.0
+50.3901437371663 2.0 -0.16 -0.0 -0.0 -0.16
+54.1519507186858 1.0 -4.12 -4.12 -0.0 -0.0
+52.8788501026694 1.0 -17.65 -17.65 -0.0 -0.0
+...
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Imagine that we are interested in the interaction between the two variables
@@ -774,45 +774,45 @@ to the main effects.&lt;/p&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contrasts&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;/NumWaves 6&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName1 age(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName2 age(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName3 gender(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName4 gender(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName5 centiloids(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName6 centiloids(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName7 centiloids0(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName8 centiloids0(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName9 centiloids1(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName10 centiloids1(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName11 centiloids2(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName12 centiloids2(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName13 centiloids0&amp;gt;centiloids1&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName14 centiloids0&amp;gt;centiloids2&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName15 centiloids1&amp;gt;centiloids0&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName16 centiloids1&amp;gt;centiloids2&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName17 centiloids2&amp;gt;centiloids0&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName18 centiloids2&amp;gt;centiloids1&lt;/span&gt;
-&lt;span class="err"&gt;/NumContrasts 18&lt;/span&gt;
-&lt;span class="err"&gt;/Matrix&lt;/span&gt;
-&lt;span class="err"&gt;1 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;-1 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 1 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 -1 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 1 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 -1 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 1 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 -1 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 1 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 -1 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 1&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 -1&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 1 -1 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 1 0 -1&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 -1 1 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 1 -1&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 -1 0 1&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 -1 1&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;/NumWaves 6
+/ContrastName1 age(+)
+/ContrastName2 age(-)
+/ContrastName3 gender(+)
+/ContrastName4 gender(-)
+/ContrastName5 centiloids(+)
+/ContrastName6 centiloids(-)
+/ContrastName7 centiloids0(+)
+/ContrastName8 centiloids0(-)
+/ContrastName9 centiloids1(+)
+/ContrastName10 centiloids1(-)
+/ContrastName11 centiloids2(+)
+/ContrastName12 centiloids2(-)
+/ContrastName13 centiloids0&amp;gt;centiloids1
+/ContrastName14 centiloids0&amp;gt;centiloids2
+/ContrastName15 centiloids1&amp;gt;centiloids0
+/ContrastName16 centiloids1&amp;gt;centiloids2
+/ContrastName17 centiloids2&amp;gt;centiloids0
+/ContrastName18 centiloids2&amp;gt;centiloids1
+/NumContrasts 18
+/Matrix
+1 0 0 0 0 0
+-1 0 0 0 0 0
+0 1 0 0 0 0
+0 -1 0 0 0 0
+0 0 1 0 0 0
+0 0 -1 0 0 0
+0 0 0 1 0 0
+0 0 0 -1 0 0
+0 0 0 0 1 0
+0 0 0 0 -1 0
+0 0 0 0 0 1
+0 0 0 0 0 -1
+0 0 0 1 -1 0
+0 0 0 1 0 -1
+0 0 0 -1 1 0
+0 0 0 0 1 -1
+0 0 0 -1 0 1
+0 0 0 0 -1 1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;After saving the matrix and the contrasts in &lt;code&gt;.mat&lt;/code&gt; and &lt;code&gt;.con&lt;/code&gt; files, &lt;code&gt;randomise&lt;/code&gt;

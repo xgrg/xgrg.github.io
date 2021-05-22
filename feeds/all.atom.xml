@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/all.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2021-03-02T00:00:00+01:00</updated><entry><title>Voxel-based morphometry / voxel-wise multiple regression in Python</title><link href="http://xgrg.github.io/VBM-voxelwise-multiple-regression-in-Python/" rel="alternate"></link><published>2021-03-02T00:00:00+01:00</published><updated>2021-03-02T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2021-03-02:/VBM-voxelwise-multiple-regression-in-Python/</id><summary type="html">&lt;p&gt;I got to learn Python before using Matlab. Therefore when I needed to run my
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/all.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2021-05-22T00:00:00+02:00</updated><entry><title>A Night in the Van</title><link href="http://xgrg.github.io/a-night-in-the-van/" rel="alternate"></link><published>2021-05-22T00:00:00+02:00</published><updated>2021-05-22T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2021-05-22:/a-night-in-the-van/</id><summary type="html">&lt;p&gt;Some years ago at a time when traveling around the world was still a thing,
+ we made this road trip around Iceland in a rented camper van. That trip was
+ really memorable and would deserve so much more description. We enjoyed it so
+ much that three months later we would …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Some years ago at a time when traveling around the world was still a thing,
+ we made this road trip around Iceland in a rented camper van. That trip was
+ really memorable and would deserve so much more description. We enjoyed it so
+ much that three months later we would buy a small van - a &lt;em&gt;Renault Kangoo Maxi&lt;/em&gt; -
+  to convert it into our own camper. The construction process was a journey
+  by itself as well. In the end it would have little to do with the fancy
+  Volkswagen Westfalia but it would look like us, unpretentious and discrete.&lt;/p&gt;
+&lt;p&gt;Since the beginning we started a tradition consisting in recording in a notebook
+every night spent in the van. Just a few words capturing the place and the
+general atmosphere. Seven years later the tradition still goes on and
+I thought I would pick some random entries and post them here.&lt;/p&gt;
+&lt;hr&gt;
+
+&lt;h1&gt;Night #1:&lt;/h1&gt;
+&lt;p&gt;First night onboard: Mittlach (Vosges, France) - on the way to the camping area - rainy wheather&lt;/p&gt;
+&lt;div class="mapouter"&gt;&lt;div class="gmap_canvas"&gt;&lt;iframe width="600" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=47.9894292,7.0020924&amp;t=k&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"&gt;&lt;/iframe&gt;&lt;a href="https://123movies-to.org"&gt;&lt;/a&gt;&lt;br&gt;&lt;style&gt;.mapouter{position:relative;text-align:right;height:500px;width:600px;}&lt;/style&gt;&lt;a href="https://www.embedgooglemap.net"&gt;how to embed google map in html&lt;/a&gt;&lt;style&gt;.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:600px;}&lt;/style&gt;&lt;/div&gt;&lt;/div&gt;</content><category term="Miscellaneous"></category><category term="vanlife"></category></entry><entry><title>Voxel-based morphometry / voxel-wise multiple regression in Python</title><link href="http://xgrg.github.io/VBM-voxelwise-multiple-regression-in-Python/" rel="alternate"></link><published>2021-03-02T00:00:00+01:00</published><updated>2021-03-02T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2021-03-02:/VBM-voxelwise-multiple-regression-in-Python/</id><summary type="html">&lt;p&gt;I got to learn Python before using Matlab. Therefore when I needed to run my
 first VBM analyses, I quickly looked for a way to do this through
 Python scripts instead of clicking (and misclicking) hundreds of times using
 the graphical interface from SPM. As a summary of this past …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I got to learn Python before using Matlab. Therefore when I needed to run my
@@ -78,7 +96,7 @@ in the analysis.&lt;/p&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Regressors in the model: &lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;names&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Regressors in the model: &lt;span class="o"&gt;[&lt;/span&gt;age, sex, apoe4&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Regressors &lt;span class="k"&gt;in&lt;/span&gt; the model: &lt;span class="o"&gt;[&lt;/span&gt;age, sex, apoe4&lt;span class="o"&gt;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Contrasts are then defined as tuples.
@@ -1113,7 +1131,7 @@ intermediate tool called &lt;a href="https://gitlab.com/xgrg/bx"&gt;bx&lt;/a&gt;
 &lt;li&gt;in general, &lt;em&gt;downloading any given resource over an entire project&lt;/em&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;The tool is used as a single command followed by options as in this example:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;bx freesurfer6 aseg &amp;lt;RESOURCE_ID&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;bx freesurfer6 aseg &amp;lt;RESOURCE_ID&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;where &lt;code&gt;RESOURCE_ID&lt;/code&gt; is a reference either to a experiment or a project. Running
@@ -1566,7 +1584,7 @@ will contain the usual FreeSurfer folders (&lt;code&gt;mri&lt;/code&gt;, &lt;cod
 &lt;p&gt;For the next step we will need a Python dictionary &lt;code&gt;zipfiles&lt;/code&gt; giving for every
 subject the path to the corresponding ZIP file.&lt;/p&gt;
 &lt;p&gt;Example:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;zipfiles = {&amp;#39;subject01&amp;#39;: &amp;#39;/path/to/subject01_FREESURFER6.zip&amp;#39;}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;zipfiles = {&amp;#39;subject01&amp;#39;: &amp;#39;/path/to/subject01_FREESURFER6.zip&amp;#39;}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3&gt;Step 2: create blank project/subjects/experiments and assign resources&lt;/h3&gt;
@@ -1648,9 +1666,9 @@ to make REST API calls from Python code.&lt;/div&gt;&lt;/p&gt;
 &lt;span class="n"&gt;scantypes&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;DWI&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;DWI_ALFA1&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
              &lt;span class="s1"&gt;&amp;#39;rDWI&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;rDWI_ALFA1&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]}&lt;/span&gt;
 
-&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;logging&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;log&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;logging&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;log&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;pyxnat&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Interface&lt;/span&gt;
-&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os.path&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;op&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os.path&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;op&lt;/span&gt;
 &lt;span class="n"&gt;log&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getLogger&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setLevel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;log&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;INFO&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;log&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;info&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;* configuration file: &lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;config_file&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
@@ -1864,25 +1882,25 @@ set of 8 contrasts over 9 independent variables.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The contents of the generated file (following the format from that &lt;a href="../building-design-matrices-for-tbss/"&gt;previous post&lt;/a&gt; will be the following:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;/NumWaves 9&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName1 age(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName2 age(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName3 sex(m&amp;gt;f)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName4 sex(f&amp;gt;m)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName5 apoe4(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName6 apoe4(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName7 sleep(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName8 sleep(-)&lt;/span&gt;
-&lt;span class="err"&gt;/NumContrasts 8&lt;/span&gt;
-&lt;span class="err"&gt;/Matrix&lt;/span&gt;
-&lt;span class="err"&gt;0 0 1 0 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 -1 0 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 1 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 -1 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 0 1&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 0 -1&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 1 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 -1 0&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;/NumWaves 9
+/ContrastName1 age(+)
+/ContrastName2 age(-)
+/ContrastName3 sex(m&amp;gt;f)
+/ContrastName4 sex(f&amp;gt;m)
+/ContrastName5 apoe4(+)
+/ContrastName6 apoe4(-)
+/ContrastName7 sleep(+)
+/ContrastName8 sleep(-)
+/NumContrasts 8
+/Matrix
+0 0 1 0 0 0 0 0 0
+0 0 -1 0 0 0 0 0 0
+0 0 0 1 0 0 0 0 0
+0 0 0 -1 0 0 0 0 0
+0 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 0 -1
+0 0 0 0 0 0 0 1 0
+0 0 0 0 0 0 0 -1 0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Now, let us provide a list of filepaths instead of a single one.&lt;/p&gt;
@@ -1893,25 +1911,25 @@ set of 8 contrasts over 9 independent variables.&lt;/p&gt;
   available), &lt;code&gt;part*.con&lt;/code&gt; would then contain two contrasts from the 8 preceded
   by the right number of dummy constrasts. For  example, the contents of the
   last one will be:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;/NumWaves 9&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName1 mock1&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName2 mock2&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName3 mock3&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName4 mock4&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName5 mock5&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName6 mock6&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName7 sleep(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName8 sleep(-)&lt;/span&gt;
-&lt;span class="err"&gt;/NumContrasts 8&lt;/span&gt;
-&lt;span class="err"&gt;/Matrix&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 1 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 -1 0&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;/NumWaves 9
+/ContrastName1 mock1
+/ContrastName2 mock2
+/ContrastName3 mock3
+/ContrastName4 mock4
+/ContrastName5 mock5
+/ContrastName6 mock6
+/ContrastName7 sleep(+)
+/ContrastName8 sleep(-)
+/NumContrasts 8
+/Matrix
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 1 0
+0 0 0 0 0 0 0 -1 0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;There is also a function called &lt;code&gt;main_effects&lt;/code&gt; to generate all the contrasts
@@ -1937,17 +1955,17 @@ The &lt;code&gt;randomise_parallel&lt;/code&gt; function takes care of all this 
     &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;randomise&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;skeletonized_data&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;output_basename&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;mean_FA_skeleton_mask&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;
-   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;design&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mat&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;part1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;con&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="mi"&gt;5000&lt;/span&gt; &lt;span class="c1"&gt;--T2 --skipTo=1 -V &amp;amp;&amp;gt; /tmp/log1.log&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;randomise -i &amp;lt;skeletonized_data&amp;gt; -o &amp;lt;output_basename&amp;gt; -m &amp;lt;mean_FA_skeleton_mask&amp;gt;\
+   -d &amp;lt;design.mat&amp;gt; -t /tmp/part1.con -n 5000 --T2 --skipTo=1 -V &amp;amp;&amp;gt; /tmp/log1.log
 
-&lt;span class="n"&gt;randomise&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;skeletonized_data&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;output_basename&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;mean_FA_skeleton_mask&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;
-   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;design&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mat&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;part2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;con&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="mi"&gt;5000&lt;/span&gt; &lt;span class="c1"&gt;--T2 --skipTo=3 -V &amp;amp;&amp;gt; /tmp/log2.log&lt;/span&gt;
+randomise -i &amp;lt;skeletonized_data&amp;gt; -o &amp;lt;output_basename&amp;gt; -m &amp;lt;mean_FA_skeleton_mask&amp;gt;\
+   -d &amp;lt;design.mat&amp;gt; -t /tmp/part2.con -n 5000 --T2 --skipTo=3 -V &amp;amp;&amp;gt; /tmp/log2.log
 
-&lt;span class="n"&gt;randomise&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;skeletonized_data&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;output_basename&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;mean_FA_skeleton_mask&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;
-   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;design&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mat&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;part3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;con&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="mi"&gt;5000&lt;/span&gt; &lt;span class="c1"&gt;--T2 --skipTo=5 -V &amp;amp;&amp;gt; /tmp/log3.log&lt;/span&gt;
+randomise -i &amp;lt;skeletonized_data&amp;gt; -o &amp;lt;output_basename&amp;gt; -m &amp;lt;mean_FA_skeleton_mask&amp;gt;\
+   -d &amp;lt;design.mat&amp;gt; -t /tmp/part3.con -n 5000 --T2 --skipTo=5 -V &amp;amp;&amp;gt; /tmp/log3.log
 
-&lt;span class="n"&gt;randomise&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;skeletonized_data&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;output_basename&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;mean_FA_skeleton_mask&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;
-   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;design&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mat&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;part4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;con&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="mi"&gt;5000&lt;/span&gt; &lt;span class="c1"&gt;--T2 --skipTo=7 -V &amp;amp;&amp;gt; /tmp/log4.log&lt;/span&gt;
+randomise -i &amp;lt;skeletonized_data&amp;gt; -o &amp;lt;output_basename&amp;gt; -m &amp;lt;mean_FA_skeleton_mask&amp;gt;\
+   -d &amp;lt;design.mat&amp;gt; -t /tmp/part4.con -n 5000 --T2 --skipTo=7 -V &amp;amp;&amp;gt; /tmp/log4.log
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Eventually these lines may be saved in a script and passed to any tool like &lt;a href="https://www.gnu.org/software/parallel/"&gt;GNU parallel&lt;/a&gt;
@@ -2120,15 +2138,15 @@ in Python.&lt;/p&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mat&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;/NumWaves 3&lt;/span&gt;
-&lt;span class="err"&gt;/NumPoints 114&lt;/span&gt;
-&lt;span class="err"&gt;/Matrix&lt;/span&gt;
-&lt;span class="err"&gt;63.4223134839151 2.0 -7.62&lt;/span&gt;
-&lt;span class="err"&gt;54.757015742642 1.0 -1.84&lt;/span&gt;
-&lt;span class="err"&gt;50.3901437371663 2.0 -0.16&lt;/span&gt;
-&lt;span class="err"&gt;54.1519507186858 1.0 -4.12&lt;/span&gt;
-&lt;span class="err"&gt;52.8788501026694 1.0 -17.65&lt;/span&gt;
-&lt;span class="err"&gt;...&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;/NumWaves 3
+/NumPoints 114
+/Matrix
+63.4223134839151 2.0 -7.62
+54.757015742642 1.0 -1.84
+50.3901437371663 2.0 -0.16
+54.1519507186858 1.0 -4.12
+52.8788501026694 1.0 -17.65
+...
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h2&gt;Application to contrasts:&lt;/h2&gt;
@@ -2155,12 +2173,12 @@ and negative directions.&lt;/p&gt;
   &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contrasts&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;[(&amp;#39;age(+)&amp;#39;, [1, 0, 0]),&lt;/span&gt;
-&lt;span class="err"&gt; (&amp;#39;age(-)&amp;#39;, [-1, 0, 0]),&lt;/span&gt;
-&lt;span class="err"&gt; (&amp;#39;gender(+)&amp;#39;, [0, 1, 0]),&lt;/span&gt;
-&lt;span class="err"&gt; (&amp;#39;gender(-)&amp;#39;, [0, -1, 0]),&lt;/span&gt;
-&lt;span class="err"&gt; (&amp;#39;centiloids(+)&amp;#39;, [0, 0, 1]),&lt;/span&gt;
-&lt;span class="err"&gt; (&amp;#39;centiloids(-)&amp;#39;, [0, 0, -1])]&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;[(&amp;#39;age(+)&amp;#39;, [1, 0, 0]),
+ (&amp;#39;age(-)&amp;#39;, [-1, 0, 0]),
+ (&amp;#39;gender(+)&amp;#39;, [0, 1, 0]),
+ (&amp;#39;gender(-)&amp;#39;, [0, -1, 0]),
+ (&amp;#39;centiloids(+)&amp;#39;, [0, 0, 1]),
+ (&amp;#39;centiloids(-)&amp;#39;, [0, 0, -1])]
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;In the same approach as with the design matrix, the result can be easily
@@ -2184,21 +2202,21 @@ converted into a text file ready to give to TBSS.&lt;/p&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;con&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;/NumWaves 3&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName1 age(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName2 age(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName3 gender(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName4 gender(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName5 centiloids(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName6 centiloids(-)&lt;/span&gt;
-&lt;span class="err"&gt;/NumContrasts 6&lt;/span&gt;
-&lt;span class="err"&gt;/Matrix&lt;/span&gt;
-&lt;span class="err"&gt;1 0 0&lt;/span&gt;
-&lt;span class="err"&gt;-1 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 1 0&lt;/span&gt;
-&lt;span class="err"&gt;0 -1 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 1&lt;/span&gt;
-&lt;span class="err"&gt;0 0 -1&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;/NumWaves 3
+/ContrastName1 age(+)
+/ContrastName2 age(-)
+/ContrastName3 gender(+)
+/ContrastName4 gender(-)
+/ContrastName5 centiloids(+)
+/ContrastName6 centiloids(-)
+/NumContrasts 6
+/Matrix
+1 0 0
+-1 0 0
+0 1 0
+0 -1 0
+0 0 1
+0 0 -1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3&gt;Pairwise comparisons:&lt;/h3&gt;
@@ -2277,15 +2295,15 @@ to the main effects.&lt;/p&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mat&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;/NumWaves 6&lt;/span&gt;
-&lt;span class="err"&gt;/NumPoints 114&lt;/span&gt;
-&lt;span class="err"&gt;/Matrix&lt;/span&gt;
-&lt;span class="err"&gt;63.4223134839151 2.0 -7.62 -7.62 -0.0 -0.0&lt;/span&gt;
-&lt;span class="err"&gt;54.757015742642 1.0 -1.84 -1.84 -0.0 -0.0&lt;/span&gt;
-&lt;span class="err"&gt;50.3901437371663 2.0 -0.16 -0.0 -0.0 -0.16&lt;/span&gt;
-&lt;span class="err"&gt;54.1519507186858 1.0 -4.12 -4.12 -0.0 -0.0&lt;/span&gt;
-&lt;span class="err"&gt;52.8788501026694 1.0 -17.65 -17.65 -0.0 -0.0&lt;/span&gt;
-&lt;span class="err"&gt;...&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;/NumWaves 6
+/NumPoints 114
+/Matrix
+63.4223134839151 2.0 -7.62 -7.62 -0.0 -0.0
+54.757015742642 1.0 -1.84 -1.84 -0.0 -0.0
+50.3901437371663 2.0 -0.16 -0.0 -0.0 -0.16
+54.1519507186858 1.0 -4.12 -4.12 -0.0 -0.0
+52.8788501026694 1.0 -17.65 -17.65 -0.0 -0.0
+...
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Imagine that we are interested in the interaction between the two variables
@@ -2382,45 +2400,45 @@ to the main effects.&lt;/p&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contrasts&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;/NumWaves 6&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName1 age(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName2 age(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName3 gender(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName4 gender(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName5 centiloids(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName6 centiloids(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName7 centiloids0(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName8 centiloids0(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName9 centiloids1(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName10 centiloids1(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName11 centiloids2(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName12 centiloids2(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName13 centiloids0&amp;gt;centiloids1&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName14 centiloids0&amp;gt;centiloids2&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName15 centiloids1&amp;gt;centiloids0&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName16 centiloids1&amp;gt;centiloids2&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName17 centiloids2&amp;gt;centiloids0&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName18 centiloids2&amp;gt;centiloids1&lt;/span&gt;
-&lt;span class="err"&gt;/NumContrasts 18&lt;/span&gt;
-&lt;span class="err"&gt;/Matrix&lt;/span&gt;
-&lt;span class="err"&gt;1 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;-1 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 1 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 -1 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 1 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 -1 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 1 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 -1 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 1 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 -1 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 1&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 -1&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 1 -1 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 1 0 -1&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 -1 1 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 1 -1&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 -1 0 1&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 -1 1&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;/NumWaves 6
+/ContrastName1 age(+)
+/ContrastName2 age(-)
+/ContrastName3 gender(+)
+/ContrastName4 gender(-)
+/ContrastName5 centiloids(+)
+/ContrastName6 centiloids(-)
+/ContrastName7 centiloids0(+)
+/ContrastName8 centiloids0(-)
+/ContrastName9 centiloids1(+)
+/ContrastName10 centiloids1(-)
+/ContrastName11 centiloids2(+)
+/ContrastName12 centiloids2(-)
+/ContrastName13 centiloids0&amp;gt;centiloids1
+/ContrastName14 centiloids0&amp;gt;centiloids2
+/ContrastName15 centiloids1&amp;gt;centiloids0
+/ContrastName16 centiloids1&amp;gt;centiloids2
+/ContrastName17 centiloids2&amp;gt;centiloids0
+/ContrastName18 centiloids2&amp;gt;centiloids1
+/NumContrasts 18
+/Matrix
+1 0 0 0 0 0
+-1 0 0 0 0 0
+0 1 0 0 0 0
+0 -1 0 0 0 0
+0 0 1 0 0 0
+0 0 -1 0 0 0
+0 0 0 1 0 0
+0 0 0 -1 0 0
+0 0 0 0 1 0
+0 0 0 0 -1 0
+0 0 0 0 0 1
+0 0 0 0 0 -1
+0 0 0 1 -1 0
+0 0 0 1 0 -1
+0 0 0 -1 1 0
+0 0 0 0 1 -1
+0 0 0 -1 0 1
+0 0 0 0 -1 1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;After saving the matrix and the contrasts in &lt;code&gt;.mat&lt;/code&gt; and &lt;code&gt;.con&lt;/code&gt; files, &lt;code&gt;randomise&lt;/code&gt;
@@ -2766,14 +2784,14 @@ git push origin master
 &lt;p&gt;Now each commit on the &lt;code&gt;source&lt;/code&gt; branch will trigger Pelican on CircleCI and the resulting build is pushed to the &lt;code&gt;master&lt;/code&gt; branch and get visible on &lt;code&gt;http://username.github.io&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;There should be a much cleaner way to manage the git work.&lt;/p&gt;
 &lt;p&gt;Now blogging from anywhere just requires these few steps:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;virtualenv .&lt;/span&gt;
-&lt;span class="err"&gt;. bin/activate&lt;/span&gt;
-&lt;span class="err"&gt;pip install pelican markdown&lt;/span&gt;
-&lt;span class="err"&gt;git clone https://github.com/username/username.github.io.git&lt;/span&gt;
-&lt;span class="err"&gt;git checkout source&lt;/span&gt;
-&lt;span class="err"&gt;pelican content # to check out the result before publication&lt;/span&gt;
-&lt;span class="err"&gt;./develop_server.sh start # open a browser at http://localhost:8000&lt;/span&gt;
-&lt;span class="err"&gt;# add/modify contents and commit/push&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;virtualenv .
+. bin/activate
+pip install pelican markdown
+git clone https://github.com/username/username.github.io.git
+git checkout source
+pelican content # to check out the result before publication
+./develop_server.sh start # open a browser at http://localhost:8000
+# add/modify contents and commit/push
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;References links:&lt;/p&gt;

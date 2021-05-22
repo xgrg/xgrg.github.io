@@ -198,25 +198,25 @@ set of 8 contrasts over 9 independent variables.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The contents of the generated file (following the format from that &lt;a href="../building-design-matrices-for-tbss/"&gt;previous post&lt;/a&gt; will be the following:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;/NumWaves 9&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName1 age(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName2 age(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName3 sex(m&amp;gt;f)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName4 sex(f&amp;gt;m)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName5 apoe4(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName6 apoe4(-)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName7 sleep(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName8 sleep(-)&lt;/span&gt;
-&lt;span class="err"&gt;/NumContrasts 8&lt;/span&gt;
-&lt;span class="err"&gt;/Matrix&lt;/span&gt;
-&lt;span class="err"&gt;0 0 1 0 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 -1 0 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 1 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 -1 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 0 1&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 0 -1&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 1 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 -1 0&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;/NumWaves 9
+/ContrastName1 age(+)
+/ContrastName2 age(-)
+/ContrastName3 sex(m&amp;gt;f)
+/ContrastName4 sex(f&amp;gt;m)
+/ContrastName5 apoe4(+)
+/ContrastName6 apoe4(-)
+/ContrastName7 sleep(+)
+/ContrastName8 sleep(-)
+/NumContrasts 8
+/Matrix
+0 0 1 0 0 0 0 0 0
+0 0 -1 0 0 0 0 0 0
+0 0 0 1 0 0 0 0 0
+0 0 0 -1 0 0 0 0 0
+0 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 0 -1
+0 0 0 0 0 0 0 1 0
+0 0 0 0 0 0 0 -1 0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Now, let us provide a list of filepaths instead of a single one.&lt;/p&gt;
@@ -227,25 +227,25 @@ set of 8 contrasts over 9 independent variables.&lt;/p&gt;
   available), &lt;code&gt;part*.con&lt;/code&gt; would then contain two contrasts from the 8 preceded
   by the right number of dummy constrasts. For  example, the contents of the
   last one will be:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;/NumWaves 9&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName1 mock1&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName2 mock2&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName3 mock3&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName4 mock4&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName5 mock5&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName6 mock6&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName7 sleep(+)&lt;/span&gt;
-&lt;span class="err"&gt;/ContrastName8 sleep(-)&lt;/span&gt;
-&lt;span class="err"&gt;/NumContrasts 8&lt;/span&gt;
-&lt;span class="err"&gt;/Matrix&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 0 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 1 0&lt;/span&gt;
-&lt;span class="err"&gt;0 0 0 0 0 0 0 -1 0&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;/NumWaves 9
+/ContrastName1 mock1
+/ContrastName2 mock2
+/ContrastName3 mock3
+/ContrastName4 mock4
+/ContrastName5 mock5
+/ContrastName6 mock6
+/ContrastName7 sleep(+)
+/ContrastName8 sleep(-)
+/NumContrasts 8
+/Matrix
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 1 0
+0 0 0 0 0 0 0 -1 0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;There is also a function called &lt;code&gt;main_effects&lt;/code&gt; to generate all the contrasts
@@ -271,17 +271,17 @@ The &lt;code&gt;randomise_parallel&lt;/code&gt; function takes care of all this 
     &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;randomise&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;skeletonized_data&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;output_basename&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;mean_FA_skeleton_mask&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;
-   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;design&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mat&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;part1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;con&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="mi"&gt;5000&lt;/span&gt; &lt;span class="c1"&gt;--T2 --skipTo=1 -V &amp;amp;&amp;gt; /tmp/log1.log&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;randomise -i &amp;lt;skeletonized_data&amp;gt; -o &amp;lt;output_basename&amp;gt; -m &amp;lt;mean_FA_skeleton_mask&amp;gt;\
+   -d &amp;lt;design.mat&amp;gt; -t /tmp/part1.con -n 5000 --T2 --skipTo=1 -V &amp;amp;&amp;gt; /tmp/log1.log
 
-&lt;span class="n"&gt;randomise&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;skeletonized_data&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;output_basename&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;mean_FA_skeleton_mask&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;
-   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;design&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mat&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;part2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;con&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="mi"&gt;5000&lt;/span&gt; &lt;span class="c1"&gt;--T2 --skipTo=3 -V &amp;amp;&amp;gt; /tmp/log2.log&lt;/span&gt;
+randomise -i &amp;lt;skeletonized_data&amp;gt; -o &amp;lt;output_basename&amp;gt; -m &amp;lt;mean_FA_skeleton_mask&amp;gt;\
+   -d &amp;lt;design.mat&amp;gt; -t /tmp/part2.con -n 5000 --T2 --skipTo=3 -V &amp;amp;&amp;gt; /tmp/log2.log
 
-&lt;span class="n"&gt;randomise&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;skeletonized_data&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;output_basename&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;mean_FA_skeleton_mask&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;
-   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;design&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mat&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;part3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;con&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="mi"&gt;5000&lt;/span&gt; &lt;span class="c1"&gt;--T2 --skipTo=5 -V &amp;amp;&amp;gt; /tmp/log3.log&lt;/span&gt;
+randomise -i &amp;lt;skeletonized_data&amp;gt; -o &amp;lt;output_basename&amp;gt; -m &amp;lt;mean_FA_skeleton_mask&amp;gt;\
+   -d &amp;lt;design.mat&amp;gt; -t /tmp/part3.con -n 5000 --T2 --skipTo=5 -V &amp;amp;&amp;gt; /tmp/log3.log
 
-&lt;span class="n"&gt;randomise&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;skeletonized_data&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;output_basename&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;mean_FA_skeleton_mask&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;
-   &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;design&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mat&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;part4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;con&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="mi"&gt;5000&lt;/span&gt; &lt;span class="c1"&gt;--T2 --skipTo=7 -V &amp;amp;&amp;gt; /tmp/log4.log&lt;/span&gt;
+randomise -i &amp;lt;skeletonized_data&amp;gt; -o &amp;lt;output_basename&amp;gt; -m &amp;lt;mean_FA_skeleton_mask&amp;gt;\
+   -d &amp;lt;design.mat&amp;gt; -t /tmp/part4.con -n 5000 --T2 --skipTo=7 -V &amp;amp;&amp;gt; /tmp/log4.log
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Eventually these lines may be saved in a script and passed to any tool like &lt;a href="https://www.gnu.org/software/parallel/"&gt;GNU parallel&lt;/a&gt;

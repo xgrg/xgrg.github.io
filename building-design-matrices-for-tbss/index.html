@@ -190,15 +190,15 @@ in Python.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="err">/NumWaves 3</span>
-<span class="err">/NumPoints 114</span>
-<span class="err">/Matrix</span>
-<span class="err">63.4223134839151 2.0 -7.62</span>
-<span class="err">54.757015742642 1.0 -1.84</span>
-<span class="err">50.3901437371663 2.0 -0.16</span>
-<span class="err">54.1519507186858 1.0 -4.12</span>
-<span class="err">52.8788501026694 1.0 -17.65</span>
-<span class="err">...</span>
+<div class="highlight"><pre><span></span><code>/NumWaves 3
+/NumPoints 114
+/Matrix
+63.4223134839151 2.0 -7.62
+54.757015742642 1.0 -1.84
+50.3901437371663 2.0 -0.16
+54.1519507186858 1.0 -4.12
+52.8788501026694 1.0 -17.65
+...
 </code></pre></div>
 
 <h2>Application to contrasts:</h2>
@@ -225,12 +225,12 @@ and negative directions.</p>
   <span class="nb">print</span><span class="p">(</span><span class="n">contrasts</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="err">[(&#39;age(+)&#39;, [1, 0, 0]),</span>
-<span class="err"> (&#39;age(-)&#39;, [-1, 0, 0]),</span>
-<span class="err"> (&#39;gender(+)&#39;, [0, 1, 0]),</span>
-<span class="err"> (&#39;gender(-)&#39;, [0, -1, 0]),</span>
-<span class="err"> (&#39;centiloids(+)&#39;, [0, 0, 1]),</span>
-<span class="err"> (&#39;centiloids(-)&#39;, [0, 0, -1])]</span>
+<div class="highlight"><pre><span></span><code>[(&#39;age(+)&#39;, [1, 0, 0]),
+ (&#39;age(-)&#39;, [-1, 0, 0]),
+ (&#39;gender(+)&#39;, [0, 1, 0]),
+ (&#39;gender(-)&#39;, [0, -1, 0]),
+ (&#39;centiloids(+)&#39;, [0, 0, 1]),
+ (&#39;centiloids(-)&#39;, [0, 0, -1])]
 </code></pre></div>
 
 <p>In the same approach as with the design matrix, the result can be easily
@@ -254,21 +254,21 @@ converted into a text file ready to give to TBSS.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">con</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="err">/NumWaves 3</span>
-<span class="err">/ContrastName1 age(+)</span>
-<span class="err">/ContrastName2 age(-)</span>
-<span class="err">/ContrastName3 gender(+)</span>
-<span class="err">/ContrastName4 gender(-)</span>
-<span class="err">/ContrastName5 centiloids(+)</span>
-<span class="err">/ContrastName6 centiloids(-)</span>
-<span class="err">/NumContrasts 6</span>
-<span class="err">/Matrix</span>
-<span class="err">1 0 0</span>
-<span class="err">-1 0 0</span>
-<span class="err">0 1 0</span>
-<span class="err">0 -1 0</span>
-<span class="err">0 0 1</span>
-<span class="err">0 0 -1</span>
+<div class="highlight"><pre><span></span><code>/NumWaves 3
+/ContrastName1 age(+)
+/ContrastName2 age(-)
+/ContrastName3 gender(+)
+/ContrastName4 gender(-)
+/ContrastName5 centiloids(+)
+/ContrastName6 centiloids(-)
+/NumContrasts 6
+/Matrix
+1 0 0
+-1 0 0
+0 1 0
+0 -1 0
+0 0 1
+0 0 -1
 </code></pre></div>
 
 <h3>Pairwise comparisons:</h3>
@@ -347,15 +347,15 @@ to the main effects.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="err">/NumWaves 6</span>
-<span class="err">/NumPoints 114</span>
-<span class="err">/Matrix</span>
-<span class="err">63.4223134839151 2.0 -7.62 -7.62 -0.0 -0.0</span>
-<span class="err">54.757015742642 1.0 -1.84 -1.84 -0.0 -0.0</span>
-<span class="err">50.3901437371663 2.0 -0.16 -0.0 -0.0 -0.16</span>
-<span class="err">54.1519507186858 1.0 -4.12 -4.12 -0.0 -0.0</span>
-<span class="err">52.8788501026694 1.0 -17.65 -17.65 -0.0 -0.0</span>
-<span class="err">...</span>
+<div class="highlight"><pre><span></span><code>/NumWaves 6
+/NumPoints 114
+/Matrix
+63.4223134839151 2.0 -7.62 -7.62 -0.0 -0.0
+54.757015742642 1.0 -1.84 -1.84 -0.0 -0.0
+50.3901437371663 2.0 -0.16 -0.0 -0.0 -0.16
+54.1519507186858 1.0 -4.12 -4.12 -0.0 -0.0
+52.8788501026694 1.0 -17.65 -17.65 -0.0 -0.0
+...
 </code></pre></div>
 
 <p>Imagine that we are interested in the interaction between the two variables
@@ -452,45 +452,45 @@ to the main effects.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">contrasts</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="err">/NumWaves 6</span>
-<span class="err">/ContrastName1 age(+)</span>
-<span class="err">/ContrastName2 age(-)</span>
-<span class="err">/ContrastName3 gender(+)</span>
-<span class="err">/ContrastName4 gender(-)</span>
-<span class="err">/ContrastName5 centiloids(+)</span>
-<span class="err">/ContrastName6 centiloids(-)</span>
-<span class="err">/ContrastName7 centiloids0(+)</span>
-<span class="err">/ContrastName8 centiloids0(-)</span>
-<span class="err">/ContrastName9 centiloids1(+)</span>
-<span class="err">/ContrastName10 centiloids1(-)</span>
-<span class="err">/ContrastName11 centiloids2(+)</span>
-<span class="err">/ContrastName12 centiloids2(-)</span>
-<span class="err">/ContrastName13 centiloids0&gt;centiloids1</span>
-<span class="err">/ContrastName14 centiloids0&gt;centiloids2</span>
-<span class="err">/ContrastName15 centiloids1&gt;centiloids0</span>
-<span class="err">/ContrastName16 centiloids1&gt;centiloids2</span>
-<span class="err">/ContrastName17 centiloids2&gt;centiloids0</span>
-<span class="err">/ContrastName18 centiloids2&gt;centiloids1</span>
-<span class="err">/NumContrasts 18</span>
-<span class="err">/Matrix</span>
-<span class="err">1 0 0 0 0 0</span>
-<span class="err">-1 0 0 0 0 0</span>
-<span class="err">0 1 0 0 0 0</span>
-<span class="err">0 -1 0 0 0 0</span>
-<span class="err">0 0 1 0 0 0</span>
-<span class="err">0 0 -1 0 0 0</span>
-<span class="err">0 0 0 1 0 0</span>
-<span class="err">0 0 0 -1 0 0</span>
-<span class="err">0 0 0 0 1 0</span>
-<span class="err">0 0 0 0 -1 0</span>
-<span class="err">0 0 0 0 0 1</span>
-<span class="err">0 0 0 0 0 -1</span>
-<span class="err">0 0 0 1 -1 0</span>
-<span class="err">0 0 0 1 0 -1</span>
-<span class="err">0 0 0 -1 1 0</span>
-<span class="err">0 0 0 0 1 -1</span>
-<span class="err">0 0 0 -1 0 1</span>
-<span class="err">0 0 0 0 -1 1</span>
+<div class="highlight"><pre><span></span><code>/NumWaves 6
+/ContrastName1 age(+)
+/ContrastName2 age(-)
+/ContrastName3 gender(+)
+/ContrastName4 gender(-)
+/ContrastName5 centiloids(+)
+/ContrastName6 centiloids(-)
+/ContrastName7 centiloids0(+)
+/ContrastName8 centiloids0(-)
+/ContrastName9 centiloids1(+)
+/ContrastName10 centiloids1(-)
+/ContrastName11 centiloids2(+)
+/ContrastName12 centiloids2(-)
+/ContrastName13 centiloids0&gt;centiloids1
+/ContrastName14 centiloids0&gt;centiloids2
+/ContrastName15 centiloids1&gt;centiloids0
+/ContrastName16 centiloids1&gt;centiloids2
+/ContrastName17 centiloids2&gt;centiloids0
+/ContrastName18 centiloids2&gt;centiloids1
+/NumContrasts 18
+/Matrix
+1 0 0 0 0 0
+-1 0 0 0 0 0
+0 1 0 0 0 0
+0 -1 0 0 0 0
+0 0 1 0 0 0
+0 0 -1 0 0 0
+0 0 0 1 0 0
+0 0 0 -1 0 0
+0 0 0 0 1 0
+0 0 0 0 -1 0
+0 0 0 0 0 1
+0 0 0 0 0 -1
+0 0 0 1 -1 0
+0 0 0 1 0 -1
+0 0 0 -1 1 0
+0 0 0 0 1 -1
+0 0 0 -1 0 1
+0 0 0 0 -1 1
 </code></pre></div>
 
 <p>After saving the matrix and the contrasts in <code>.mat</code> and <code>.con</code> files, <code>randomise</code>

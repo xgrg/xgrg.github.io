@@ -166,14 +166,14 @@ git push origin master
 <p>Now each commit on the <code>source</code> branch will trigger Pelican on CircleCI and the resulting build is pushed to the <code>master</code> branch and get visible on <code>http://username.github.io</code>.</p>
 <p>There should be a much cleaner way to manage the git work.</p>
 <p>Now blogging from anywhere just requires these few steps:</p>
-<div class="highlight"><pre><span></span><code><span class="err">virtualenv .</span>
-<span class="err">. bin/activate</span>
-<span class="err">pip install pelican markdown</span>
-<span class="err">git clone https://github.com/username/username.github.io.git</span>
-<span class="err">git checkout source</span>
-<span class="err">pelican content # to check out the result before publication</span>
-<span class="err">./develop_server.sh start # open a browser at http://localhost:8000</span>
-<span class="err"># add/modify contents and commit/push</span>
+<div class="highlight"><pre><span></span><code>virtualenv .
+. bin/activate
+pip install pelican markdown
+git clone https://github.com/username/username.github.io.git
+git checkout source
+pelican content # to check out the result before publication
+./develop_server.sh start # open a browser at http://localhost:8000
+# add/modify contents and commit/push
 </code></pre></div>
 
 <p>References links:</p>

@@ -11,7 +11,7 @@
 
         <link rel="alternate"  href="http://xgrg.github.io/feeds/all.atom.xml" type="application/atom+xml" title="Grégory Operto Full Atom Feed"/>
 
-        <title>Grégory Operto - Bulk downloading resources from XNAT</title>
+        <title>Grégory Operto</title>
 
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
@@ -31,9 +31,6 @@
 
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-
-    <script src="/js/responsiveslides.min.js"></script>
 </head>
 
 <body>
@@ -88,80 +85,41 @@
         </nav>
         <section id="content" class="pure-u-1 pure-u-md-3-4">
             <div class="l-box">
+    <section id="posts">
 
-    <header id="post-header">
-        <h1>Bulk downloading resources from XNAT</h1>
-            <div class="post-meta">
-                November 03, 2019
-            </div>
-            <div class="post-tags">
-                <ul>
-                    <li>tags:</li>
-                    <li><a href="/tag/xnat/">xnat</a></li>
-                    <li><a href="/tag/python/">python</a></li>
-                    <li><a href="/tag/pyxnat/">pyxnat</a></li>
-                </ul>
-            </div>
-    </header>
+        <header id="posts-header">
+            <h1>Grégory Operto</h1>
+        </header>
 
-    <section id="post">
-        <p>Interacting with the data on XNAT can be done mainly two ways: either graphically using the web application, or through a REST API. While the former is suited for
-all profiles, the latter is intended for a more technical category of users.</p>
-<!-- PELICAN_END_SUMMARY -->
-
-<p>The <a href="http://pyxnat.github.io/pyxnat"><code>pyxnat</code></a>
-library adds an extra layer over the REST API to allow interfacing an XNAT
-instance in Python (see <a href="http://xgrg.github.io/first-steps-with-pyxnat/">First steps with <code>pyxnat</code></a>).
-This can be of great help to automate bulk operations e.g. downloading large
-collections of data, populating projects or any type of systematic task that
-would otherwise require lots of clicks using the web app.</p>
-<p>Between "all clicks" and "all code" lies a large gray zone with users somewhere between the hardcore Python gurus and the bash rookies. For this special category
-(i.e. the majority in the research group I belong to) we developed an
-intermediate tool called <a href="https://gitlab.com/xgrg/bx">bx</a> (for BarcelonaBeta +
-  XNAT) covering some of the most frequent tasks (based on reports) as for
-  instance:</p>
+    <section class="post">
+        <header class="post-header">
+            <h3><a href="http://xgrg.github.io/publishing-on-github-with-pelican/">Publishing a blog on GitHub using Pelican</a></h3>
+            <p class="sub-header-3">2016-04-19</p>
+            <p class="post-summary"><p>Probably not the cleanest way... and totally inspired from <a href="http://cyrille.rossant.net/pelican-github/">Setting up a blog with Pelican and GitHub Pages</a></p>
+<p><a href="http://github.com">GitHub</a> allows to store websites for your project or your user account. This post gives a rough description of how to :</p>
 <ul>
-<li>download NIfTI files of a given sequence over a project</li>
-<li>download SPM/FreeSurfer outputs over a projects</li>
-<li>download an Excel table with all FreeSurfer/ASHS measurements over a project</li>
-<li>download a table with acquisition dates from an entire project</li>
-<li>in general, <em>downloading any given resource over an entire project</em>.</li>
-</ul>
-<p>The tool is used as a single command followed by options as in this example:</p>
-<div class="highlight"><pre><span></span><code>bx freesurfer6 aseg &lt;RESOURCE_ID&gt;
-</code></pre></div>
-
-<p>where <code>RESOURCE_ID</code> is a reference either to a experiment or a project. Running
-the command will execute the proper REST calls to achieve the operation. Of
-course, this will strongly depend on how pipelines are mounted in the specific
-XNAT instance (how resources are named and how files are structured in them).
-Still, the process will rely on intermediate calls to <a href="http://pyxnat.github.io/pyxnat"><code>pyxnat</code></a>, hence enabling the implementation of
-new commands/options and/or the adaptation of existing ones (see <a href="https://gitlab.com/xgrg/bx/blob/master/bx/ashs.py">example here</a>).</p>
-<p>The tool also comes with a Python module <code>bx.cache</code> which allows to maintain a local
-cached version of FreeSurfer/ASHS measurements and avoid potential long
-repetitive downloads, in particular when working with Jupyter Notebooks.
-More information on this specific module can be found in <a href="http://xgrg.github.io/caching-freesurfer6-measurements">Caching FreeSurfer
-measurements for faster access</a>.</p>
+<li>setup a simple blog using <a href="http://docs.getpelican.com/en/3.6.3/">Pelican</a></li>
+<li>make <a href="https://circleci.com/">CircleCI</a> automatically generate and …</li></ul></p>
+        </header>
+        <!--
+        <div class="read-more">
+            <a class="pure-button" href="http://xgrg.github.io/publishing-on-github-with-pelican/">
+                read on
+            </a>
+        </div>
+        --!>
     </section>
-
-    <section id="applause">
-    <br>
-    Please let me know if you liked this post by clicking the button below.
-    <br><br>
-    &nbsp;&nbsp;<applause-button style="width: 58px; height: 58px;"/>
-    </section>
-
-
 
 <nav class="pagination-wrapper">
     <div class="pagination">
         <div class="pagination-left">
+                <a href="http://xgrg.github.io/index4.html"><span>&larr; previous</span></a>
         </div>
+        <span>Page 5 / 5 &nbsp; (<a href="http://xgrg.github.io/archives/">all</a>)</span>
         <div class="pagination-right">
-                &nbsp;
         </div>
     </div>
-</nav>
+</nav>    </section>
             </div>
         </section>
 
