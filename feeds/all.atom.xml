@@ -9,7 +9,9 @@
   to convert it into our own camper. The construction process was a journey
   by itself as well. In the end it would have little to do with the fancy
   Volkswagen Westfalia but it would look like us, discrete and unpretentious.&lt;/p&gt;
-&lt;p&gt;Since the beginning we kept a tradition consisting in recording in a notebook
+&lt;p&gt;For some time now the van has been exploring the European roads from Tarifa point
+up to the North Cape. It even had its small share of public coverage [&lt;a href="#ref"&gt;1&lt;/a&gt;].
+Since the beginning we kept a tradition consisting in recording in a notebook
 every night spent in the van. Just a few words capturing the place and the
 general atmosphere. Seven years later the tradition still goes on and
 I thought I would pick some random entries and post them here.&lt;/p&gt;
@@ -41,7 +43,12 @@ Prize for the most adventurous 4x4 Kangoo trick. Along the road 7 heading for Be
 
 &lt;iframe height="500" src="https://maps.google.com/maps?q=60.388565,%207.662442&amp;t=k&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"&gt;&lt;/iframe&gt;
 
-&lt;p&gt;&lt;img alt="van034" src="http://xgrg.github.io/images/van/van034.jpg"&gt;&lt;/p&gt;</content><category term="Miscellaneous"></category><category term="vanlife"></category></entry><entry><title>Voxel-based morphometry / voxel-wise multiple regression in Python</title><link href="http://xgrg.github.io/VBM-voxelwise-multiple-regression-in-Python/" rel="alternate"></link><published>2021-03-02T00:00:00+01:00</published><updated>2021-03-02T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2021-03-02:/VBM-voxelwise-multiple-regression-in-Python/</id><summary type="html">&lt;p&gt;I got to learn Python before using Matlab. Therefore when I needed to run my
+&lt;p&gt;&lt;img alt="van034" src="http://xgrg.github.io/images/van/van034.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;References:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a name="ref"&gt;&lt;/a&gt;
+ &lt;em&gt;Com passen les vacances els professionals de la BioRegió?&lt;/em&gt;  (&lt;a href="https://www.biocat.cat/ca/reportatges/com-passen-les-vacances-els-professionals-bioregio"&gt;https://www.biocat.cat/ca/reportatges/com-passen-les-vacances-els-professionals-bioregio&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;</content><category term="Miscellaneous"></category><category term="vanlife"></category></entry><entry><title>Voxel-based morphometry / voxel-wise multiple regression in Python</title><link href="http://xgrg.github.io/VBM-voxelwise-multiple-regression-in-Python/" rel="alternate"></link><published>2021-03-02T00:00:00+01:00</published><updated>2021-03-02T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2021-03-02:/VBM-voxelwise-multiple-regression-in-Python/</id><summary type="html">&lt;p&gt;I got to learn Python before using Matlab. Therefore when I needed to run my
 first VBM analyses, I quickly looked for a way to do this through
 Python scripts instead of clicking (and misclicking) hundreds of times using
 the graphical interface from SPM. As a summary of this past …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I got to learn Python before using Matlab. Therefore when I needed to run my
