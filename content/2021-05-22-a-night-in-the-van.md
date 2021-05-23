@@ -13,6 +13,9 @@ Some years ago at a time when traveling around the world was still a thing,
   Volkswagen Westfalia but it would look like us, discrete and unpretentious.
 
 
+For some time now the van has been exploring the European roads from Tarifa point
+up to the North Cape. It even had its tiny share of public coverage
+<a name="ref1"></a>[[1](#ref)].
 Since the beginning we kept a tradition consisting in recording in a notebook
 every night spent in the van. Just a few words capturing the place and the
 general atmosphere. Seven years later the tradition still goes on and
@@ -56,3 +59,9 @@ Prize for the most adventurous 4x4 Kangoo trick. Along the road 7 heading for Be
 <iframe height="500" src="https://maps.google.com/maps?q=60.388565,%207.662442&t=k&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
 
 ![van034]({filename}images/van/van034.jpg)
+
+
+### References:
+
+1.[↑](#ref1) <a name="ref"></a>
+ _Com passen les vacances els professionals de la BioRegió?_  ([https://www.biocat.cat/ca/reportatges/com-passen-les-vacances-els-professionals-bioregio](https://www.biocat.cat/ca/reportatges/com-passen-les-vacances-els-professionals-bioregio))
