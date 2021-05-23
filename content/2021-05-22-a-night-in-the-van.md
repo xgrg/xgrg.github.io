@@ -61,6 +61,17 @@ Prize for the most adventurous 4x4 Kangoo trick. Along the road 7 heading for Be
 ![van034]({filename}images/van/van034.jpg)
 
 
+## Night #111:
+
+<div style="padding:20px; text-align:justify; background-color:#50453e; color:white">
+On the way to Cape Cavalleria Lighthouse. Next to the cliff. Strong wind blowing and
+a very big storm is announced. Quite warm temperature at night. Cala Viola de Llevant.
+</div>
+
+<iframe height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=40.078065,%204.095175&t=k&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+
+![van111]({filename}images/van/van111.jpg)
+
 ### References:
 
 1.[↑](#ref1) <a name="ref"></a>
