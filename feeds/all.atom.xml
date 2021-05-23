@@ -46,7 +46,7 @@ Prize for the most adventurous 4x4 Kangoo trick. Along the road 7 heading for Be
 
 &lt;p&gt;&lt;img alt="van034" src="http://xgrg.github.io/images/van/van034.jpg"&gt;&lt;/p&gt;
 &lt;h3&gt;References:&lt;/h3&gt;
-&lt;p&gt;[&lt;a href="#ref1"&gt;1&lt;/a&gt;] &lt;a name="ref"&gt;&lt;/a&gt;
+&lt;p&gt;1.&lt;a href="#ref1"&gt;↑&lt;/a&gt; &lt;a name="ref"&gt;&lt;/a&gt;
  &lt;em&gt;Com passen les vacances els professionals de la BioRegió?&lt;/em&gt;  (&lt;a href="https://www.biocat.cat/ca/reportatges/com-passen-les-vacances-els-professionals-bioregio"&gt;https://www.biocat.cat/ca/reportatges/com-passen-les-vacances-els-professionals-bioregio&lt;/a&gt;)&lt;/p&gt;</content><category term="Miscellaneous"></category><category term="vanlife"></category></entry><entry><title>Voxel-based morphometry / voxel-wise multiple regression in Python</title><link href="http://xgrg.github.io/VBM-voxelwise-multiple-regression-in-Python/" rel="alternate"></link><published>2021-03-02T00:00:00+01:00</published><updated>2021-03-02T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2021-03-02:/VBM-voxelwise-multiple-regression-in-Python/</id><summary type="html">&lt;p&gt;I got to learn Python before using Matlab. Therefore when I needed to run my
 first VBM analyses, I quickly looked for a way to do this through
 Python scripts instead of clicking (and misclicking) hundreds of times using
