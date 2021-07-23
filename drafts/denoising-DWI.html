@@ -178,19 +178,20 @@ distortions using topup estimates (<code>FSL eddy</code>)</li>
  <li>Denoising of the resulting volume using `mrtrix` `MPPCA`</li>
  <li>`TOPUP` based on the normal and reverse-encoded B0 maps</li>
  <li>Brain extraction of the distortion-corrected averaged b=0 image (`FSL BET`)</li>
- <li>Correct for eddy currents, subject motion and susceptibility-induced distortions using topup estimates (`FSL eddy`)</li>
- <li>Compute QC metrics derived from TOPUP and eddy tools (`FSL eddyQC`).</li>
+ <li>Correct for eddy currents, subject motion and susceptibility-induced distortions using topup estimates ([`FSL eddy`](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddy))</li>
+ <li>Compute QC metrics derived from TOPUP and eddy tools ([`FSL eddyQC`](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddyqc/UsersGuide)).</li>
  <li>Fit diffusion tensor models and generate parametric maps (`FSL DTIFIT`)</li>
  <li>Compute radial diffusivity map (using `FSL fslmaths`)</li>
 
 </div>
 
-<p>Steps for automatic QC (<code>bbrc-validator</code>):</p>
+<p>Steps for automatic QC (<a href="https://gitlab.com/bbrc/xnat/bbrc-validator"><code>bbrc-validator</code></a>):</p>
 <div style="padding:20px; text-align:justify; background-color:#50453e; color:white">
 
-<li>Count negative voxels and check that they are under a certain limit. (<a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L354"><pre>DTIFITValidator.HasFewNegativeVoxelsInMD</pre></a>)</li>
-<li>Measure SNR/CNR using eddyqc and check that they are within a certain range (<a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L405"><pre>DTIFITValidator.HasAcceptableAverageSNR</pre></a> and <a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L438"><pre>DTIFITValidator.HasAcceptableAverageCNR</pre></a></li>
-<li>Check that the total percentage of outlier slices in the volume (as detected by `eddy`) is under 1% (<a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L461"><pre>DTIFITValidator.HasAcceptableOutliersPercentage</pre></a>)</li>
+<li>Count negative voxels and check that they are under a certain limit.
+<a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L354"><pre>DTIFITValidator.HasFewNegativeVoxelsInMD</pre></a></li>
+<li>Measure SNR/CNR using [`eddyqc`](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddyqc/UsersGuide) and check that they are within a certain range <a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L405"><pre>DTIFITValidator.HasAcceptableAverageSNR</pre></a> <a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L438"><pre>DTIFITValidator.HasAcceptableAverageCNR</pre></a></li>
+<li>Check that the total percentage of outlier slices in the volume (as detected by `eddy`) is under 1% <a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L461"><pre>DTIFITValidator.HasAcceptableOutliersPercentage</pre></a></li>
 
 </div>
 
