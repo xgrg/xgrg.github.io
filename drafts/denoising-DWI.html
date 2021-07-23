@@ -190,12 +190,12 @@ distortions using topup estimates (<code>FSL eddy</code>)</li>
 
 <li>Count negative voxels and check that they are under a certain limit.
 <a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L354"><code>DTIFITValidator.HasFewNegativeVoxelsInMD</code></a></li>
-<li>Measure SNR/CNR using <a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddyqc/UsersGuide"><code>eddyqc</code><a> and check that they are within a certain range <a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L405"><code>DTIFITValidator.HasAcceptableAverageSNR</code></a> <a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L438"><code>DTIFITValidator.HasAcceptableAverageCNR</code></a></li>
+<li>Measure SNR/CNR using <a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddyqc/UsersGuide"><code>eddyqc</code></a> and check that they are within a certain range <a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L405"><code>DTIFITValidator.HasAcceptableAverageSNR</code></a> <a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L438"><code>DTIFITValidator.HasAcceptableAverageCNR</code></a></li>
 <li>Check that the total percentage of outlier slices in the volume (as detected by <code>eddy</code>) is under 1% <a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L461"><code>DTIFITValidator.HasAcceptableOutliersPercentage</code></a></li>
 
 </div>
 
-<p>Huge kudos and most credits to Jordi Huguet who took all the burden of running these tests with those different techniques, extracting metrics for comparison and analyzing them. All the figures in this post are attributed to his work.</p>
+<p>Huge kudos and most credits to Jordi Huguet (<a href="http://barcelonabeta.org">Barcelonaβeta Brain Research Center</a>) who took all the burden of running these tests with those different techniques, extracting metrics for comparison and analyzing them. All the figures in this post are attributed to his work.</p>
 <h3>References</h3>
 <p>1.<a href="#ref1">↑</a> <a name="ref1a"></a>
  <em>J. Manjón, P. Coupé, L. Concha, A. Buades, L. Collins, M. Robles,</em>  <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0073021">Diffusion Weighted Image Denoising Using Overcomplete Local PCA</a>, PLOS One (2013)</p>
