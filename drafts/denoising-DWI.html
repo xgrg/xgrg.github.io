@@ -111,7 +111,7 @@ We opted for this tool using the Rician model, in accordance with the many refer
 <p><img alt="01" src="http://xgrg.github.io/images/dtifit/01.png">
 <img alt="21" src="http://xgrg.github.io/images/dtifit/21.png"></p>
 <p>After some research we finally related this to a cross effect between <code>TOPUP</code> and <code>ANTs</code>' denoising using the Rician model. We switched to Gaussian model and observed that negative areas disappeared from MD maps, which would since then show a more normal profile with positive values. Instead of simply changing models and closing the issue, we took this chance to extend our investigation to some other software and potentially upgrade the pipeline with some more recent techniques.</p>
-<p>In particular, the <a href="https://cai2r.net/resources/denoising-using-marchenko-pastur-principal-component-analysis/">Marchenko-Pastur PCA</a> <a name="ref3"></a>[<a href="#ref3a">3</a>] is regarded as a state-of-the-art technique that outperforms prior overcomplete local PCA. It has implementations in various modern packages such as <a href="">dipy</a> or mrtrix3[], therefore plugging it into any processing workflow is not that of a big concern. We quickly realized that in comparison to our previous pipelines this new type of techniques combined good performance in removing noise and preserving of anatomical details.</p>
+<p>In particular, the <a href="https://cai2r.net/resources/denoising-using-marchenko-pastur-principal-component-analysis/">Marchenko-Pastur PCA</a> <a name="ref3"></a>[<a href="#ref3a">3</a>] is regarded as a state-of-the-art technique that outperforms prior overcomplete local PCA. It has implementations in various modern packages such as <a href="https://dipy.org/documentation/1.4.0./interfaces/denoise_flow/"><code>dipy</code></a> or <a href="https://mrtrix.readthedocs.io/en/latest"><code>mrtrix3</code></a>, therefore plugging it into any processing workflow is not that of a big concern. We quickly realized that in comparison to our previous pipelines this new type of techniques combined good performance in removing noise and preserving of anatomical details.</p>
 <h1>The data</h1>
 <p>Our DWI is acquired according to the following protocol:</p>
 <ul>
@@ -122,24 +122,24 @@ We opted for this tool using the Rician model, in accordance with the many refer
 <li>b-value = 1300s/m2</li>
 <li>65 directions + 8 b0 volumes</li>
 </ul>
-<p>We picked around 20 different subjects and took them through the following processes:</p>
+<p>We picked ~20 random subjects and took them through the following processes:</p>
 <ul>
-<li>Denoising of DWI data by each of the selected techniques</li>
-<li><code>TOPUP</code> based on the normal and reverse-encoded B0 maps</li>
+<li>Denoising of DWI data by each technique in a selected set</li>
+<li><code>TOPUP</code> based on normal and reverse-encoded B0 maps</li>
 <li>Brain extraction of the distortion-corrected averaged b=0
 image (<code>FSL BET</code>)</li>
-<li>Correct for eddy currents, subject motion and susceptibility-induced
+<li>Correction for eddy currents, subject motion and susceptibility-induced
 distortions using topup estimates (<code>FSL eddy</code>)</li>
-<li>Compute QC metrics derived from TOPUP and eddy tools (<code>FSL eddyQC</code>).</li>
-<li>Fit diffusion tensor models and generate parametric maps (<code>FSL DTIFIT</code>)</li>
+<li>QC metric estimation derived from <code>TOPUP</code> and <code>eddy</code> tools (<code>FSL eddyQC</code>).</li>
+<li>Model fitting and creation of parametric maps (<code>FSL DTIFIT</code>)</li>
 </ul>
 <p>We repeated the process in different versions using different software:</p>
 <ul>
-<li>ANTs with Rician model</li>
-<li>ANTs with Gaussian model</li>
-<li>CAT12 with Gaussian model</li>
-<li><a href="https://mrtrix.readthedocs.io/en/latest/">mrtrix3</a></li>
-<li><a href="https://dipy.org/documentation/1.4.0./interfaces/denoise_flow/">dipy</a> (<a href="https://dipy.org/documentation/1.0.0./examples_built/denoise_localpca/">LPCA</a>, [MPPCA], <a href="https://dipy.org/documentation/1.4.1./examples_built/denoise_nlmeans/"><em>NLM</em></a>, <a href="https://dipy.org/documentation/1.4.0./examples_built/denoise_patch2self/">Patch2Self</a>)</li>
+<li><a href="https://manpages.debian.org/experimental/ants/DenoiseImage.1.en.html"><code>ANTs</code></a> with Rician model</li>
+<li><a href="https://manpages.debian.org/experimental/ants/DenoiseImage.1.en.html"><code>ANTs</code></a> with Gaussian model</li>
+<li><a href="http://www.neuro.uni-jena.de/cat/"><code>CAT12</code></a> with Gaussian model</li>
+<li><a href="https://mrtrix.readthedocs.io/en/latest/"><code>mrtrix3</code></a></li>
+<li><a href="https://dipy.org/documentation/1.4.0./interfaces/denoise_flow/"><code>dipy</code></a> (<a href="https://dipy.org/documentation/1.0.0./examples_built/denoise_localpca/"><em>LPCA</em></a>, <a href="https://dipy.org/documentation/1.0.0./examples_built/denoise_mppca/"><em>MPPCA</em></a>, <a href="https://dipy.org/documentation/1.4.1./examples_built/denoise_nlmeans/"><em>NLM</em></a>, <a href="https://dipy.org/documentation/1.4.0./examples_built/denoise_patch2self/"><em>Patch2Self</em></a>)</li>
 <li>No denoising</li>
 </ul>
 <p><img alt="02" src="http://xgrg.github.io/images/dtifit/02.png"></p>
@@ -170,11 +170,12 @@ distortions using topup estimates (<code>FSL eddy</code>)</li>
 
 </div>
 
-<p>Steps for automatic QC (bbrc-validator):</p>
+<p>Steps for automatic QC (<code>bbrc-validator</code>):</p>
 <div style="padding:20px; text-align:justify; background-color:#50453e; color:white">
 
-<li>Count negative voxels and check that they are under a certain limit.</li>
-<li>Measure SNR/CNR using eddyqc and check that they are within a certain range</li>
+<li>Count negative voxels and check that they are under a certain limit. (<a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L354"><pre>DTIFITValidator.HasFewNegativeVoxelsInMD</pre></a>)</li>
+<li>Measure SNR/CNR using eddyqc and check that they are within a certain range (<a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L405"><pre>DTIFITValidator.HasAcceptableAverageSNR</pre></a> and <a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L438"><pre>DTIFITValidator.HasAcceptableAverageCNR</pre></a></li>
+<li>Check that the total percentage of outlier slices in the volume (as detected by `eddy`) is under 1% (<a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L461"><pre>DTIFITValidator.HasAcceptableOutliersPercentage</pre></a>)</li>
 
 </div>
 
