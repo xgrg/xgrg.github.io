@@ -1,5 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto - Image</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/image.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2020-02-03T00:00:00+01:00</updated><entry><title>ROI-based analysis in neuroimaging: a walkthrough in Python</title><link href="http://xgrg.github.io/regions-of-interest/" rel="alternate"></link><published>2020-02-03T00:00:00+01:00</published><updated>2020-02-03T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2020-02-03:/regions-of-interest/</id><summary type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Grégory Operto - Image</title><link href="http://xgrg.github.io/" rel="alternate"></link><link href="http://xgrg.github.io/feeds/image.atom.xml" rel="self"></link><id>http://xgrg.github.io/</id><updated>2021-07-24T00:00:00+02:00</updated><entry><title>Denoising Diffusion-Weighted Imaging Data: some comparative tests</title><link href="http://xgrg.github.io/denoising-DWI/" rel="alternate"></link><published>2021-07-24T00:00:00+02:00</published><updated>2021-07-24T00:00:00+02:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2021-07-24:/denoising-DWI/</id><summary type="html">&lt;p&gt;We have been trying different software packages for the preprocessing of  diffusion-weighted imaging (DWI) and have been comparing their results in application to our cohort. We have focused on denoising in particular. This post is to give some brief feedback on our experience and give some details on the reasoning …&lt;/p&gt;</summary><content type="html">&lt;p&gt;We have been trying different software packages for the preprocessing of  diffusion-weighted imaging (DWI) and have been comparing their results in application to our cohort. We have focused on denoising in particular. This post is to give some brief feedback on our experience and give some details on the reasoning that led to our final selection. Those comparative tests never intended to be a systematic analysis therefore this will unlikely make it to a paper but hopefully that might be of interest to anybody with related methodological questions. This is also an illustration of how we manage upgrades in processing pipelines &amp;mdash; for instance when some issue gets detected &amp;mdash; and how we adapt our &lt;a href="#ref4"&gt;procedures for QC&lt;/a&gt; accordingly.&lt;/p&gt;
+&lt;h1&gt;The history&lt;/h1&gt;
+&lt;p&gt;We began several years ago with overcomplete local PCA as described in &lt;a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0073021"&gt;Manjón et al., 2013&lt;/a&gt;, that has been available for many years as a Matlab toolbox and gave full satisfaction. We then looked for another possible implementation that would free us from Matlab and did some tests with the &lt;a href="https://manpages.debian.org/experimental/ants/DenoiseImage.1.en.html"&gt;&lt;code&gt;DenoiseImage&lt;/code&gt;&lt;/a&gt; command provided by &lt;code&gt;ANTs&lt;/code&gt;, presented as a C++ version of the original spatially adaptive non-local means (&lt;em&gt;NLM&lt;/em&gt;) described in &lt;a href="https://pubmed.ncbi.nlm.nih.gov/20027588/"&gt;Manjón et al., 2010&lt;/a&gt;.
+We opted for this tool using the Rician model, in accordance with the many references describing noise in DWI as being Rician.&lt;/p&gt;
+&lt;p&gt;At some point we revised the preprocessing pipeline and added &lt;a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/topup"&gt;&lt;code&gt;TOPUP&lt;/code&gt;&lt;/a&gt; (see &lt;a href="https://fsl.fmrib.ox.ac.uk/fslcourse/lectures/practicals/fdt1/index.html#topup"&gt;here&lt;/a&gt; and &lt;a href="http://andysbrainblog.blogspot.com/2014/08/dti-analysis-steps-1-2-distortion.html"&gt;there&lt;/a&gt; for some help with it) for susceptibility-induced distortion correction. Since then we started observing some issues such as voxels with negative values in mean diffusivity (MD) maps, which are normally supposed to be positive. Those negative voxels mainly appeared next to the ventricles and other areas close to cerebrospinal fluid, where diffusivity is generally the highest.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="01" src="http://xgrg.github.io/images/dtifit/01.png"&gt;
+&lt;img alt="21" src="http://xgrg.github.io/images/dtifit/21.png"&gt;
+&lt;center&gt; The same DWI volume was applied denoising with &lt;code&gt;ANTs&lt;/code&gt; using Gaussian and Rician model - then the resulting MD map (Rician version) shows a significant amount (visible in the histogram) of voxels with negative values&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;After some research we finally related this to a cross effect between &lt;code&gt;TOPUP&lt;/code&gt; and &lt;code&gt;ANTs&lt;/code&gt;' denoising using the Rician model. We switched to Gaussian model and observed that negative areas disappeared from MD maps, which would since then show a more normal profile with positive values. Instead of simply changing models and closing the issue, we took this chance to extend our investigation to some other software and potentially upgrade the pipeline with some more recent techniques.&lt;/p&gt;
+&lt;p&gt;In particular, the &lt;a href="https://cai2r.net/resources/denoising-using-marchenko-pastur-principal-component-analysis/"&gt;Marchenko-Pastur PCA&lt;/a&gt; &lt;a name="ref3"&gt;&lt;/a&gt;[&lt;a href="#ref3a"&gt;3&lt;/a&gt;] is regarded as a state-of-the-art technique that outperforms prior overcomplete local PCA. It has implementations in various modern packages such as &lt;a href="https://dipy.org/documentation/1.4.0./interfaces/denoise_flow/"&gt;&lt;code&gt;dipy&lt;/code&gt;&lt;/a&gt; or &lt;a href="https://mrtrix.readthedocs.io/en/latest"&gt;&lt;code&gt;mrtrix3&lt;/code&gt;&lt;/a&gt;, therefore plugging it into any processing workflow is not that of a big concern. We quickly realized that in comparison to our previous pipelines this new type of techniques combined good performance in removing noise and preserving of anatomical details.&lt;/p&gt;
+&lt;h1&gt;The data&lt;/h1&gt;
+&lt;p&gt;Our DWI is acquired according to the following protocol:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;2.2 mm&lt;sup&gt;3&lt;/sup&gt; isometric voxel resolution; 66 axial slices&lt;/li&gt;
+&lt;li&gt;FOV 230mm&lt;/li&gt;
+&lt;li&gt;TR = 9000ms&lt;/li&gt;
+&lt;li&gt;TE = 90ms&lt;/li&gt;
+&lt;li&gt;b-value = 1300s/m2&lt;/li&gt;
+&lt;li&gt;65 directions + 8 b0 volumes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We picked ~20 random subjects and took them through the following processes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Denoising of DWI data by each technique in a selected set&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;TOPUP&lt;/code&gt; based on normal and reverse-encoded B0 maps&lt;/li&gt;
+&lt;li&gt;Brain extraction of the distortion-corrected averaged b=0
+image (&lt;code&gt;FSL BET&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Correction for eddy currents, subject motion and susceptibility-induced
+distortions using topup estimates (&lt;code&gt;FSL eddy&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;QC metric estimation derived from &lt;code&gt;TOPUP&lt;/code&gt; and &lt;code&gt;eddy&lt;/code&gt; tools (&lt;code&gt;FSL eddyQC&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Model fitting and creation of parametric maps (&lt;code&gt;FSL DTIFIT&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We repeated the process in different versions using different software:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://manpages.debian.org/experimental/ants/DenoiseImage.1.en.html"&gt;&lt;code&gt;ANTs&lt;/code&gt;&lt;/a&gt; with Rician model&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://manpages.debian.org/experimental/ants/DenoiseImage.1.en.html"&gt;&lt;code&gt;ANTs&lt;/code&gt;&lt;/a&gt; with Gaussian model&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.neuro.uni-jena.de/cat/"&gt;&lt;code&gt;CAT12&lt;/code&gt;&lt;/a&gt; with Gaussian model&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://mrtrix.readthedocs.io/en/latest/"&gt;&lt;code&gt;mrtrix3&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://dipy.org/documentation/1.4.0./interfaces/denoise_flow/"&gt;&lt;code&gt;dipy&lt;/code&gt;&lt;/a&gt; (&lt;a href="https://dipy.org/documentation/1.0.0./examples_built/denoise_localpca/"&gt;&lt;em&gt;LPCA&lt;/em&gt;&lt;/a&gt;, &lt;a href="https://dipy.org/documentation/1.0.0./examples_built/denoise_mppca/"&gt;&lt;em&gt;MPPCA&lt;/em&gt;&lt;/a&gt;, &lt;a href="https://dipy.org/documentation/1.4.1./examples_built/denoise_nlmeans/"&gt;&lt;em&gt;NLM&lt;/em&gt;&lt;/a&gt;, &lt;a href="https://dipy.org/documentation/1.4.0./examples_built/denoise_patch2self/"&gt;&lt;em&gt;Patch2Self&lt;/em&gt;&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;No denoising&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;The results&lt;/h1&gt;
+&lt;p&gt;A general observation is that NLM is good at removing noise but also yields noticeably smoother resulting images. In comparison MPPCA preserves anatomical details although some noise is still visible.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="04" src="http://xgrg.github.io/images/dtifit/04.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="16" src="http://xgrg.github.io/images/dtifit/16.png"&gt;&lt;/p&gt;
+&lt;p&gt;Looking at residual maps confirms that observation as less anatomical traits can be identified using MPPCA (on the right).&lt;/p&gt;
+&lt;p&gt;&lt;img alt="18" src="http://xgrg.github.io/images/dtifit/18.png"&gt;&lt;/p&gt;
+&lt;p&gt;Same observations with FA maps and RGB tensors obtained from NLM-denoised data which looked quite smoother than using MPPCA denoising.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="19" src="http://xgrg.github.io/images/dtifit/19.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="02" src="http://xgrg.github.io/images/dtifit/02.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="06" src="http://xgrg.github.io/images/dtifit/06.png"&gt;&lt;/p&gt;
+&lt;p&gt;One big concern of ours was to make sure resulting MD maps would not include large areas with negative voxels. In that respect, NLM with Gaussian model (orange) systematically gave the lowest number of negative voxels and the minimum value closest to zero, compared to NLM with Rician model (blue) and MPPCA (green).&lt;/p&gt;
+&lt;p&gt;&lt;img alt="12" src="http://xgrg.github.io/images/dtifit/12.png"&gt;&lt;/p&gt;
+&lt;p&gt;In the end NLM with Rician model (orange) was the only method yielding so many negative voxels in MD.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="15" src="http://xgrg.github.io/images/dtifit/15.png"&gt;&lt;/p&gt;
+&lt;p&gt;More techniques: same observation.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="22" src="http://xgrg.github.io/images/dtifit/22.png"&gt;&lt;/p&gt;
+&lt;p&gt;We also made sure that those large initial periventricular negative areas disappeared from the final MD maps.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="20" src="http://xgrg.github.io/images/dtifit/20.png"&gt;&lt;/p&gt;
+&lt;p&gt;Signal-to-noise/carrier-to-noise ratios (SNR/CNR) is also found higher using MPPCA (or CAT12) than using NLM with ANTs Rician and Gaussian (blue and orange respectively).&lt;/p&gt;
+&lt;p&gt;&lt;img alt="17" src="http://xgrg.github.io/images/dtifit/17.png"&gt;&lt;/p&gt;
+&lt;p&gt;Finally we looked at the estimation of outlier slices in each processed volume, as provided by &lt;a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddyqc/UsersGuide"&gt;&lt;code&gt;eddyQC&lt;/code&gt;&lt;/a&gt; to realize that using anything but NLM-Rician improves that QC metric. To some extent NLM-Gaussian could be considered a winner in this test but it might be thought as a logical consequence of the smoother aspect of the resulting images. Less outliers but less anatomical details as well.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="23" src="http://xgrg.github.io/images/dtifit/23.png"&gt;&lt;/p&gt;
+&lt;p&gt;Concatenate both normal and reverse-encoded volumes&lt;/p&gt;
+&lt;h1&gt;The conclusion (current pipeline)&lt;/h1&gt;
+&lt;p&gt;Some modern, mature, maintained and easy-to-plug implementations are now available for denoising of DWI. This includes at least packages such as &lt;a href="https://dipy.org/documentation/1.4.0./interfaces/denoise_flow/"&gt;&lt;code&gt;dipy&lt;/code&gt;&lt;/a&gt;  or &lt;a href="https://mrtrix.readthedocs.io/en/latest/"&gt;&lt;code&gt;mrtrix3&lt;/code&gt;&lt;/a&gt;. In application to our tests they both yielded good results based on QC metrics and visual inspection. Those were primarily designed for DWI, contrary to denoising based on NLM as done in other toolboxes (&lt;code&gt;CAT12&lt;/code&gt;, &lt;code&gt;ANTs&lt;/code&gt;) which are mainly oriented towards T1.&lt;/p&gt;
+&lt;p&gt;We finally selected the following pipeline and implemented a set of systematic checks for quality control, based on validators (as described in  &lt;a name="ref4"&gt;&lt;/a&gt;&lt;a href="#ref4a"&gt;4&lt;/a&gt;).&lt;/p&gt;
+&lt;div style="padding:20px; text-align:justify; background-color:#50453e; color:white"&gt;
+
+ &lt;li&gt;Denoising of the resulting volume using &lt;code&gt;mrtrix&lt;/code&gt; &lt;i&gt;MPPCA&lt;/i&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;code&gt;TOPUP&lt;/code&gt; based on the normal and reverse-encoded B0 maps&lt;/li&gt;
+ &lt;li&gt;Brain extraction of the distortion-corrected averaged b=0 image (&lt;code&gt;FSL BET&lt;/code&gt;)&lt;/li&gt;
+ &lt;li&gt;Correct for eddy currents, subject motion and susceptibility-induced distortions using topup estimates (&lt;a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddy"&gt;&lt;code&gt;FSL eddy&lt;/code&gt;&lt;/a&gt;)&lt;/li&gt;
+ &lt;li&gt;Compute QC metrics derived from &lt;code&gt;TOPUP&lt;/code&gt; and &lt;code&gt;eddy&lt;/code&gt; tools (&lt;a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddyqc/UsersGuide"&gt;&lt;code&gt;FSL eddyQC&lt;/code&gt;&lt;/a&gt;)).&lt;/li&gt;
+ &lt;li&gt;Fit diffusion tensor models and generate parametric maps (&lt;code&gt;FSL DTIFIT&lt;/code&gt;)&lt;/li&gt;
+ &lt;li&gt;Compute radial diffusivity map (using &lt;code&gt;FSL fslmaths&lt;/code&gt;)&lt;/li&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;Steps for automatic QC (&lt;a href="https://gitlab.com/bbrc/xnat/bbrc-validator"&gt;&lt;code&gt;bbrc-validator&lt;/code&gt;&lt;/a&gt;):&lt;/p&gt;
+&lt;div style="padding:20px; text-align:justify; background-color:#50453e; color:white"&gt;
+
+&lt;li&gt;Count negative voxels and check that they are under a certain limit.
+&lt;a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L354"&gt;&lt;code&gt;DTIFITValidator.HasFewNegativeVoxelsInMD&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Measure SNR/CNR using &lt;a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddyqc/UsersGuide"&gt;&lt;code&gt;eddyqc&lt;/code&gt;&lt;/a&gt; and check that they are within a certain range &lt;a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L405"&gt;&lt;code&gt;DTIFITValidator.HasAcceptableAverageSNR&lt;/code&gt;&lt;/a&gt; &lt;a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L438"&gt;&lt;code&gt;DTIFITValidator.HasAcceptableAverageCNR&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Check that the total percentage of outlier slices in the volume (as detected by &lt;code&gt;eddy&lt;/code&gt;) is under 1% &lt;a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L461"&gt;&lt;code&gt;DTIFITValidator.HasAcceptableOutliersPercentage&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;These checks will systematically be performed on any new execution of the DWI processing pipeline. Resulting validators now include the following additional entries, to prevent from any future regression.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="03" src="http://xgrg.github.io/images/dtifit/03.png"&gt;
+&lt;center&gt;
+(obtained using the command &lt;code&gt;&lt;a href="https://gitlab.com/xgrg/bx"&gt;bx&lt;/a&gt; dtifit report BBRC_E00045&lt;/code&gt;)&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;Huge kudos and most credits to Jordi Huguet (&lt;a href="http://barcelonabeta.org"&gt;Barcelonaβeta Brain Research Center&lt;/a&gt;) who took all the burden of running these tests with those different techniques, extracting metrics for comparison and analyzing them. All the figures in this post are attributed to his work.&lt;/p&gt;
+&lt;h3&gt;References&lt;/h3&gt;
+&lt;p&gt;1.&lt;a href="#ref1"&gt;↑&lt;/a&gt; &lt;a name="ref1a"&gt;&lt;/a&gt;
+ &lt;em&gt;J. Manjón, P. Coupé, L. Concha, A. Buades, L. Collins, M. Robles,&lt;/em&gt;  &lt;a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0073021"&gt;Diffusion Weighted Image Denoising Using Overcomplete Local PCA&lt;/a&gt;, PLOS One (2013)&lt;/p&gt;
+&lt;p&gt;2.&lt;a href="#ref2"&gt;↑&lt;/a&gt; &lt;a name="ref2a"&gt;&lt;/a&gt; &lt;em&gt;P. Coupe, J. Manjon, M. Robles, L. Collins&lt;/em&gt;, &lt;a href="https://hal.archives-ouvertes.fr/hal-00645538/document"&gt;Adaptive Multiresolution Non-Local Means Filter for 3D MR Image Denoising&lt;/a&gt;, IET Image Processing, Institution of Engineering and Technology (2011)&lt;/p&gt;
+&lt;p&gt;3.&lt;a href="#ref3"&gt;↑&lt;/a&gt; &lt;a name="ref3a"&gt;&lt;/a&gt; &lt;em&gt;J. Veraart J, DS. Novikov, D. Christiaens, B. Ades-Aron, J. Sijbers, E. Fieremans&lt;/em&gt;,
+&lt;a href="https://www.sciencedirect.com/science/article/abs/pii/S1053811916303949"&gt;Denoising of diffusion MRI using random matrix theory&lt;/a&gt;
+Neuroimage (2016)&lt;/p&gt;
+&lt;p&gt;4.&lt;a href="#ref4"&gt;↑&lt;/a&gt; &lt;a name="ref4a"&gt;&lt;/a&gt; &lt;em&gt;J. Huguet, C. Falcon, D. Fusté, S. Girona, D. Vicente, JL Molinuevo, JD Gispert, G. Operto for the ALFA Study&lt;/em&gt;,
+&lt;a href="https://www.frontiersin.org/articles/10.3389/fnins.2021.633438/full"&gt;Management and Quality Control of Large Neuroimaging Datasets: Developments From the Barcelonaβeta Brain Research Center&lt;/a&gt;, Front. in Neurosc. (2021)&lt;/p&gt;</content><category term="Image"></category><category term="imaging"></category></entry><entry><title>ROI-based analysis in neuroimaging: a walkthrough in Python</title><link href="http://xgrg.github.io/regions-of-interest/" rel="alternate"></link><published>2020-02-03T00:00:00+01:00</published><updated>2020-02-03T00:00:00+01:00</updated><author><name>Grégory Operto</name></author><id>tag:xgrg.github.io,2020-02-03:/regions-of-interest/</id><summary type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
 
 &lt;p&gt;Analyses based on Regions-of-Interest (ROIs) focus
  on a number of parcels with homogeneous characteristics, which are generally
