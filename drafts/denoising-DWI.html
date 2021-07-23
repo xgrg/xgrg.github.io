@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Grégory Operto, ">
+    <link href="/favicon.png" rel="icon">
+
+    <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>  
+    <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css" />
+
+        <link rel="alternate"  href="http://xgrg.github.io/feeds/all.atom.xml" type="application/atom+xml" title="Grégory Operto Full Atom Feed"/>
+
+        <title>Grégory Operto - Denoising Diffusion-Weighted Imaging Data: some comparative tests</title>
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="/theme/css/grids-responsive-min.css">
+    <!--<![endif]-->
+    <link rel="stylesheet" href="/theme/css/styles.css">
+    <link rel="stylesheet" href="/theme/css/slides.css">
+    <link rel="stylesheet" href="/theme/css/pygments.css">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'> -->
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,500" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script src="/js/responsiveslides.min.js"></script>
+</head>
+
+<body>
+
+
+    <header id="header" class="pure-g">
+        <div class="pure-u-1 pure-u-md-3-4">
+             <div id="menu">
+                 <div class="pure-menu pure-menu-open pure-menu-horizontal">
+<ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+</ul>                </div>
+            </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-1-4">
+            <div id="social">
+                <div class="pure-menu pure-menu-open pure-menu-horizontal">
+<ul>
+        <li><a href="https://twitter.com/xgrg"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://github.com/xgrg"><i class="fa fa-github"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/neuroimaging"><i class="fa fa-linkedin"></i></a></li>
+</ul>                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <div id="layout" class="pure-g">
+        <nav id="sidebar" class="pure-u-1 pure-u-md-1-4">
+            <div class="l-box">
+<section>
+	<div class="portrait">
+			<img src="/theme/images/go.jpg" />
+	</div>
+    <div class="name-cv">
+        <div class="name">Grégory Operto, PhD</div>
+        <div class="cv">
+            <a href="/pdfs/cv.pdf"><i class="fa fa-file-pdf-o"></i> CV</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+      <div class="sub-name">brain imaging | data science</div>
+	<div class="contact">goperto@gmail.com</div>
+	<div class="location">Barcelona, Spain</div>
+</section>
+
+<section class="tags">
+</section>            </div>
+        </nav>
+        <section id="content" class="pure-u-1 pure-u-md-3-4">
+            <div class="l-box">
+
+    <header id="post-header">
+        <h1>Denoising Diffusion-Weighted Imaging Data: some comparative tests</h1>
+            <div class="post-meta">
+                July 22, 2021
+            </div>
+            <div class="post-tags">
+                <ul>
+                    <li>tags:</li>
+                    <li><a href="/tag/imaging/">imaging</a></li>
+                </ul>
+            </div>
+    </header>
+
+    <section id="post">
+        <p>We have been trying different software packages for the preprocessing of  diffusion-weighted imaging (DWI) and have been comparing their results in application to our cohort. We have focused on denoising in particular. This post is to give some brief feedback on our experience and give some details on the reasoning that led to our final selection. Those comparative tests never intended to be a systematic analysis therefore this will never make it to a paper but hopefully that might be of interest to anybody with related methodological questions.</p>
+<h1>The history</h1>
+<p>We began several years ago with overcomplete local PCA as described in <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0073021">Manjón et al., 2013</a>, that has been available for many years as a Matlab toolbox and gave full satisfaction. We then looked for another possible implementation that would free us from Matlab and did some tests with the <a href="https://manpages.debian.org/experimental/ants/DenoiseImage.1.en.html"><code>DenoiseImage</code></a> command provided by <code>ANTs</code>, presented as a C++ version of the original spatially adaptive non-local means (<em>NLM</em>) described in <a href="https://pubmed.ncbi.nlm.nih.gov/20027588/">Manjón et al., 2010</a>.
+We opted for this tool using the Rician model, in accordance with the many references describing noise in DWI as being Rician.</p>
+<p>At some point we revised the preprocessing pipeline and added <a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/topup"><code>TOPUP</code></a> (see <a href="https://fsl.fmrib.ox.ac.uk/fslcourse/lectures/practicals/fdt1/index.html#topup">here</a> and <a href="http://andysbrainblog.blogspot.com/2014/08/dti-analysis-steps-1-2-distortion.html">there</a> for tutorials) for susceptibility-induced distortion correction. Since then we started observing some issues such as voxels with negative values in mean diffusivity (MD) maps, which are normally supposed to be positive. Those negative voxels mainly appeared next to the ventricles and other areas close to cerebrospinal fluid, where diffusivity is generally the highest.</p>
+<p>|<img alt="01" src="http://xgrg.github.io/images/dtifit/01.png">|
+|:--:|
+|<img alt="21" src="http://xgrg.github.io/images/dtifit/21.png">|
+|:--:|
+|<b>
+The same DWI volume was applied denoising with <code>ANTs</code> using Gaussian and Rician model - then the resulting MD map (Rician version) shows a significant amount (visible in the histogram) of voxels with negative values
+</b>|</p>
+<p>After some research we finally related this to a cross effect between <code>TOPUP</code> and <code>ANTs</code>' denoising using the Rician model. We switched to Gaussian model and observed that negative areas disappeared from MD maps, which would since then show a more normal profile with positive values. Instead of simply changing models and closing the issue, we took this chance to extend our investigation to some other software and potentially upgrade the pipeline with some more recent techniques.</p>
+<p>In particular, the <a href="https://cai2r.net/resources/denoising-using-marchenko-pastur-principal-component-analysis/">Marchenko-Pastur PCA</a> <a name="ref3"></a>[<a href="#ref3a">3</a>] is regarded as a state-of-the-art technique that outperforms prior overcomplete local PCA. It has implementations in various modern packages such as <a href="https://dipy.org/documentation/1.4.0./interfaces/denoise_flow/"><code>dipy</code></a> or <a href="https://mrtrix.readthedocs.io/en/latest"><code>mrtrix3</code></a>, therefore plugging it into any processing workflow is not that of a big concern. We quickly realized that in comparison to our previous pipelines this new type of techniques combined good performance in removing noise and preserving of anatomical details.</p>
+<h1>The data</h1>
+<p>Our DWI is acquired according to the following protocol:</p>
+<ul>
+<li>2.2 mm<sup>3</sup> isometric voxel resolution; 66 axial slices</li>
+<li>FOV 230mm</li>
+<li>TR = 9000ms</li>
+<li>TE = 90ms</li>
+<li>b-value = 1300s/m2</li>
+<li>65 directions + 8 b0 volumes</li>
+</ul>
+<p>We picked ~20 random subjects and took them through the following processes:</p>
+<ul>
+<li>Denoising of DWI data by each technique in a selected set</li>
+<li><code>TOPUP</code> based on normal and reverse-encoded B0 maps</li>
+<li>Brain extraction of the distortion-corrected averaged b=0
+image (<code>FSL BET</code>)</li>
+<li>Correction for eddy currents, subject motion and susceptibility-induced
+distortions using topup estimates (<code>FSL eddy</code>)</li>
+<li>QC metric estimation derived from <code>TOPUP</code> and <code>eddy</code> tools (<code>FSL eddyQC</code>).</li>
+<li>Model fitting and creation of parametric maps (<code>FSL DTIFIT</code>)</li>
+</ul>
+<p>We repeated the process in different versions using different software:</p>
+<ul>
+<li><a href="https://manpages.debian.org/experimental/ants/DenoiseImage.1.en.html"><code>ANTs</code></a> with Rician model</li>
+<li><a href="https://manpages.debian.org/experimental/ants/DenoiseImage.1.en.html"><code>ANTs</code></a> with Gaussian model</li>
+<li><a href="http://www.neuro.uni-jena.de/cat/"><code>CAT12</code></a> with Gaussian model</li>
+<li><a href="https://mrtrix.readthedocs.io/en/latest/"><code>mrtrix3</code></a></li>
+<li><a href="https://dipy.org/documentation/1.4.0./interfaces/denoise_flow/"><code>dipy</code></a> (<a href="https://dipy.org/documentation/1.0.0./examples_built/denoise_localpca/"><em>LPCA</em></a>, <a href="https://dipy.org/documentation/1.0.0./examples_built/denoise_mppca/"><em>MPPCA</em></a>, <a href="https://dipy.org/documentation/1.4.1./examples_built/denoise_nlmeans/"><em>NLM</em></a>, <a href="https://dipy.org/documentation/1.4.0./examples_built/denoise_patch2self/"><em>Patch2Self</em></a>)</li>
+<li>No denoising</li>
+</ul>
+<h1>The results</h1>
+<p>A general observation is that NLM is good at removing noise but also yields noticeably smoother resulting images. In comparison MPPCA preserves anatomical details although some noise is still visible.</p>
+<p><img alt="04" src="http://xgrg.github.io/images/dtifit/04.png"></p>
+<p><img alt="16" src="http://xgrg.github.io/images/dtifit/16.png"></p>
+<p>Looking at residual maps confirms that observation as less anatomical traits can be identified using MPPCA (on the right).</p>
+<p><img alt="18" src="http://xgrg.github.io/images/dtifit/18.png"></p>
+<p>Same observations with FA maps and RGB tensors obtained from NLM-denoised data which looked quite smoother than using MPPCA denoising.</p>
+<p><img alt="19" src="http://xgrg.github.io/images/dtifit/19.png"></p>
+<p><img alt="02" src="http://xgrg.github.io/images/dtifit/02.png"></p>
+<p><img alt="06" src="http://xgrg.github.io/images/dtifit/06.png"></p>
+<p>One big concern of ours was to make sure resulting MD maps would not include large areas with negative voxels. In that respect, NLM with Gaussian model (orange) systematically gave the lowest number of negative voxels and the minimum value closest to zero, compared to NLM with Rician model (blue) and MPPCA (green).</p>
+<p><img alt="12" src="http://xgrg.github.io/images/dtifit/12.png"></p>
+<p>In the end NLM with Rician model (orange) was the only method yielding so many negative voxels in MD.</p>
+<p><img alt="15" src="http://xgrg.github.io/images/dtifit/15.png"></p>
+<p>More techniques: same observation.</p>
+<p><img alt="22" src="http://xgrg.github.io/images/dtifit/22.png"></p>
+<p>We also made sure that those large initial periventricular negative areas disappeared from the final MD maps.</p>
+<p><img alt="20" src="http://xgrg.github.io/images/dtifit/20.png"></p>
+<p>Signal-to-noise/carrier-to-noise ratios (SNR/CNR) is also found higher using MPPCA (or CAT12) than using NLM with ANTs Rician and Gaussian (blue and orange respectively).</p>
+<p><img alt="17" src="http://xgrg.github.io/images/dtifit/17.png"></p>
+<p>Finally we looked at the estimation of outlier slices in each processed volume, as provided by <a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddyqc/UsersGuide"><code>eddyQC</code></a> to realize that using anything but NLM-Rician improves that QC metric. To some extent NLM-Gaussian could be considered a winner in this test but it might be thought as a logical consequence of the smoother aspect of the resulting images. Less outliers but less anatomical details as well.</p>
+<p><img alt="23" src="http://xgrg.github.io/images/dtifit/23.png"></p>
+<p>Concatenate both normal and reverse-encoded volumes</p>
+<h1>The conclusion (current pipeline)</h1>
+<p>Some modern, mature, maintained and easy-to-plug implementations are now available for denoising of DWI. This includes at least packages such as <a href="https://dipy.org/documentation/1.4.0./interfaces/denoise_flow/"><code>dipy</code></a>  or <a href="https://mrtrix.readthedocs.io/en/latest/"><code>mrtrix3</code></a>. In application to our tests they both yielded good results based on QC metrics and visual inspection. Those were primarily designed for DWI, contrary to denoising based on NLM as done in other toolboxes (<code>CAT12</code>, <code>ANTs</code>) which are mainly oriented towards T1.</p>
+<p>We finally selected the following pipeline and implemented a set of systematic checks for quality control, based on validators (as described in  <a name="ref4"></a><a href="#ref4a">4</a>).</p>
+<div style="padding:20px; text-align:justify; background-color:#50453e; color:white">
+
+ <li>Denoising of the resulting volume using <code>mrtrix</code> <i>MPPCA</i></li>
+ <li><code>TOPUP</code> based on the normal and reverse-encoded B0 maps</li>
+ <li>Brain extraction of the distortion-corrected averaged b=0 image (<code>FSL BET</code>)</li>
+ <li>Correct for eddy currents, subject motion and susceptibility-induced distortions using topup estimates (<a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddy"><code>FSL eddy</code></a>)</li>
+ <li>Compute QC metrics derived from <code>TOPUP</code> and <code>eddy</code> tools (<a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddyqc/UsersGuide"><code>FSL eddyQC</code></a>)).</li>
+ <li>Fit diffusion tensor models and generate parametric maps (<code>FSL DTIFIT</code>)</li>
+ <li>Compute radial diffusivity map (using <code>FSL fslmaths</code>)</li>
+
+</div>
+
+<p>Steps for automatic QC (<a href="https://gitlab.com/bbrc/xnat/bbrc-validator"><code>bbrc-validator</code></a>):</p>
+<div style="padding:20px; text-align:justify; background-color:#50453e; color:white">
+
+<li>Count negative voxels and check that they are under a certain limit.
+<a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L354"><code>DTIFITValidator.HasFewNegativeVoxelsInMD</code></a></li>
+<li>Measure SNR/CNR using <a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddyqc/UsersGuide"><code>eddyqc</code><a> and check that they are within a certain range <a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L405"><code>DTIFITValidator.HasAcceptableAverageSNR</code></a> <a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L438"><code>DTIFITValidator.HasAcceptableAverageCNR</code></a></li>
+<li>Check that the total percentage of outlier slices in the volume (as detected by <code>eddy</code>) is under 1% <a href="https://gitlab.com/bbrc/xnat/bbrc-validator/-/blob/master/bbrc/validation/processing/dtifit.py#L461"><code>DTIFITValidator.HasAcceptableOutliersPercentage</code></a></li>
+
+</div>
+
+<p>Huge kudos and most credits to Jordi Huguet who took all the burden of running these tests with those different techniques, extracting metrics for comparison and analyzing them. All the figures in this post are attributed to his work.</p>
+<h3>References</h3>
+<p>1.<a href="#ref1">↑</a> <a name="ref1a"></a>
+ <em>J. Manjón, P. Coupé, L. Concha, A. Buades, L. Collins, M. Robles,</em>  <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0073021">Diffusion Weighted Image Denoising Using Overcomplete Local PCA</a>, PLOS One (2013)</p>
+<p>2.<a href="#ref2">↑</a> <a name="ref2a"></a> <em>P. Coupe, J. Manjon, M. Robles, L. Collins</em>, <a href="https://hal.archives-ouvertes.fr/hal-00645538/document">Adaptive Multiresolution Non-Local Means Filter for 3D MR Image Denoising</a>, IET Image Processing, Institution of Engineering and Technology (2011)</p>
+<p>3.<a href="#ref3">↑</a> <a name="ref3a"></a> <em>J. Veraart J, DS. Novikov, D. Christiaens, B. Ades-Aron, J. Sijbers, E. Fieremans</em>,
+<a href="https://www.sciencedirect.com/science/article/abs/pii/S1053811916303949">Denoising of diffusion MRI using random matrix theory</a>
+Neuroimage (2016)</p>
+<p>4.<a href="#ref4">↑</a> <a name="ref4a"></a> <em>J. Huguet, C. Falcon, D. Fusté, S. Girona, D. Vicente, JL Molinuevo, JD Gispert, G. Operto for the ALFA Study</em>,
+<a href="https://www.frontiersin.org/articles/10.3389/fnins.2021.633438/full">Management and Quality Control of Large Neuroimaging Datasets: Developments From the Barcelonaβeta Brain Research Center</a>, Front. in Neurosc. (2021)</p>
+    </section>
+
+    <section id="applause">
+    <br>
+    Please let me know if you liked this post by clicking the button below.
+    <br><br>
+    &nbsp;&nbsp;<applause-button style="width: 58px; height: 58px;"/>
+    </section>
+
+
+
+<nav class="pagination-wrapper">
+    <div class="pagination">
+        <div class="pagination-left">
+        </div>
+        <div class="pagination-right">
+                &nbsp;
+        </div>
+    </div>
+</nav>
+            </div>
+        </section>
+
+
+        <footer id="footer" class="pure-u-1 pure-u-md-3-4">
+            <div class="l-box">
+                <div>
+                    <p>&copy; <a href="http://xgrg.github.io">Grégory Operto</a> &ndash;
+                        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+                              for <a href="http://blog.getpelican.com/">Pelican</a> - layout cloned with awe from <a href="http://cyrille.rossant.net">cyrille.rossant.net</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-17275957-2', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+
+</body>
+</html>
+
