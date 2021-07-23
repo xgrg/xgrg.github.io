@@ -108,13 +108,12 @@
 <p>We began several years ago with overcomplete local PCA as described in <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0073021">Manjón et al., 2013</a>, that has been available for many years as a Matlab toolbox and gave full satisfaction. We then looked for another possible implementation that would free us from Matlab and did some tests with the <a href="https://manpages.debian.org/experimental/ants/DenoiseImage.1.en.html"><code>DenoiseImage</code></a> command provided by <code>ANTs</code>, presented as a C++ version of the original spatially adaptive non-local means (<em>NLM</em>) described in <a href="https://pubmed.ncbi.nlm.nih.gov/20027588/">Manjón et al., 2010</a>.
 We opted for this tool using the Rician model, in accordance with the many references describing noise in DWI as being Rician.</p>
 <p>At some point we revised the preprocessing pipeline and added <a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/topup"><code>TOPUP</code></a> (see <a href="https://fsl.fmrib.ox.ac.uk/fslcourse/lectures/practicals/fdt1/index.html#topup">here</a> and <a href="http://andysbrainblog.blogspot.com/2014/08/dti-analysis-steps-1-2-distortion.html">there</a> for tutorials) for susceptibility-induced distortion correction. Since then we started observing some issues such as voxels with negative values in mean diffusivity (MD) maps, which are normally supposed to be positive. Those negative voxels mainly appeared next to the ventricles and other areas close to cerebrospinal fluid, where diffusivity is generally the highest.</p>
-<p>|<img alt="01" src="http://xgrg.github.io/images/dtifit/01.png">|
-|:--:|
-|<img alt="21" src="http://xgrg.github.io/images/dtifit/21.png">|
-|:--:|
-|<b>
+<p>| <img alt="01" src="http://xgrg.github.io/images/dtifit/01.png"> |
+|---|
+| <img alt="21" src="http://xgrg.github.io/images/dtifit/21.png"> |
+| <b>
 The same DWI volume was applied denoising with <code>ANTs</code> using Gaussian and Rician model - then the resulting MD map (Rician version) shows a significant amount (visible in the histogram) of voxels with negative values
-</b>|</p>
+</b> |</p>
 <p>After some research we finally related this to a cross effect between <code>TOPUP</code> and <code>ANTs</code>' denoising using the Rician model. We switched to Gaussian model and observed that negative areas disappeared from MD maps, which would since then show a more normal profile with positive values. Instead of simply changing models and closing the issue, we took this chance to extend our investigation to some other software and potentially upgrade the pipeline with some more recent techniques.</p>
 <p>In particular, the <a href="https://cai2r.net/resources/denoising-using-marchenko-pastur-principal-component-analysis/">Marchenko-Pastur PCA</a> <a name="ref3"></a>[<a href="#ref3a">3</a>] is regarded as a state-of-the-art technique that outperforms prior overcomplete local PCA. It has implementations in various modern packages such as <a href="https://dipy.org/documentation/1.4.0./interfaces/denoise_flow/"><code>dipy</code></a> or <a href="https://mrtrix.readthedocs.io/en/latest"><code>mrtrix3</code></a>, therefore plugging it into any processing workflow is not that of a big concern. We quickly realized that in comparison to our previous pipelines this new type of techniques combined good performance in removing noise and preserving of anatomical details.</p>
 <h1>The data</h1>
@@ -199,12 +198,12 @@ distortions using topup estimates (<code>FSL eddy</code>)</li>
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="03" src="http://xgrg.github.io/images/dtifit/03.png"></th>
+<th><img alt="03" src="http://xgrg.github.io/images/dtifit/03.png"></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">(obtained using the command <code><a href="https://gitlab.com/xgrg/bx">bx</a> dtifit report BBRC_E00045</code>)</td>
+<td>(obtained using the command <code><a href="https://gitlab.com/xgrg/bx">bx</a> dtifit report BBRC_E00045</code>)</td>
 </tr>
 </tbody>
 </table>
