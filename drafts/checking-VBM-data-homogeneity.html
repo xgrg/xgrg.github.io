@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Grégory Operto, ">
+    <link href="/favicon.png" rel="icon">
+
+    <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>  
+    <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css" />
+
+        <link rel="alternate"  href="http://xgrg.github.io/feeds/all.atom.xml" type="application/atom+xml" title="Grégory Operto Full Atom Feed"/>
+
+        <title>Grégory Operto - Checking VBM data homogeneity</title>
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="/theme/css/grids-responsive-min.css">
+    <!--<![endif]-->
+    <link rel="stylesheet" href="/theme/css/styles.css">
+    <link rel="stylesheet" href="/theme/css/slides.css">
+    <link rel="stylesheet" href="/theme/css/pygments.css">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'> -->
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,500" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script src="/js/responsiveslides.min.js"></script>
+</head>
+
+<body>
+
+
+    <header id="header" class="pure-g">
+        <div class="pure-u-1 pure-u-md-3-4">
+             <div id="menu">
+                 <div class="pure-menu pure-menu-open pure-menu-horizontal">
+<ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+</ul>                </div>
+            </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-1-4">
+            <div id="social">
+                <div class="pure-menu pure-menu-open pure-menu-horizontal">
+<ul>
+        <li><a href="https://twitter.com/xgrg"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://github.com/xgrg"><i class="fa fa-github"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/neuroimaging"><i class="fa fa-linkedin"></i></a></li>
+</ul>                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <div id="layout" class="pure-g">
+        <nav id="sidebar" class="pure-u-1 pure-u-md-1-4">
+            <div class="l-box">
+<section>
+	<div class="portrait">
+			<img src="/theme/images/go.jpg" />
+	</div>
+    <div class="name-cv">
+        <div class="name">Grégory Operto, PhD</div>
+        <div class="cv">
+            <a href="/pdfs/cv.pdf"><i class="fa fa-file-pdf-o"></i> CV</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+      <div class="sub-name">brain imaging | data science</div>
+	<div class="contact">goperto@gmail.com</div>
+	<div class="location">Barcelona, Spain</div>
+</section>
+
+<section class="tags">
+</section>            </div>
+        </nav>
+        <section id="content" class="pure-u-1 pure-u-md-3-4">
+            <div class="l-box">
+
+    <header id="post-header">
+        <h1>Checking VBM data homogeneity</h1>
+            <div class="post-meta">
+                August 12, 2021
+            </div>
+            <div class="post-tags">
+                <ul>
+                    <li>tags:</li>
+                    <li><a href="/tag/imaging/">imaging</a></li>
+                    <li><a href="/tag/python/">python</a></li>
+                </ul>
+            </div>
+    </header>
+
+    <section id="post">
+        <p>The <a href="http://www.neuro.uni-jena.de/cat12">CAT12 toolbox</a> includes a module to assess what is called <em>VBM data homogeneity</em>. This post describes how to implement a similar feature in Python.</p>
+<p>Assessing quality on large neuroimaging datasets is still a tedious task, especially combined with complex processing workflows, and as such is an active field of research <a name="ref1"></a>[<a href="#ref1a">1</a>], aiming at making it as much automatic as possible. This relies - as is often the case with automation - on defining target values/intervals for specific metrics that characterize good quality against bad quality data.</p>
+<p>In that respect, processing steps that involve brain anatomy generally require more effort to review as <em>interindividual variability</em> would make by nature  harder to define absolute intervals in which image endpoints would systematically fall. Such processing steps (e.g. segmentation, normalization) are the ones that usually call for visual inspection. Some bit of automation can be added but to date this can only be in order to filter big failures, as compared to what the eye usually picks in the images to take a decision. Note that since the decision strongly depends on the subsequent analysis/study/application, the problem remains clearly ill-framed for any algorithm to be
+trained without more context.</p>
+<p>As an example of tool for controlling quality of anatomically normalized images, the <a href="http://www.neuro.uni-jena.de/cat12">CAT12 toolbox</a> (based on SPM12) has a module for VBM data homogeneity. It provides a cross-correlation measure for each pair of images and as such facilitates the detection of outliers or normalization failures.</p>
+<p><img alt="01" src="http://xgrg.github.io/images/cat12/01.jpg">
+<center><small>Example of visualization provided by CAT12 for VBM data homogeneity assessment</small></center></p>
+<p>In order to reproduce a similar kind of figure, the first step is to generate a
+mean image of the sample. This can be done using any tool for basic array data manipulation. The following example uses commands from FSL:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Concatenate all images along the time axis</span>
+fslmerge -t &lt;output&gt; &lt;file1 file2 .......&gt;
+
+<span class="c1"># Compute the mean across time of the previously created volume</span>
+fslmaths -Tmean &lt;input&gt; &lt;output&gt;
+</code></pre></div>
+
+<p>Once we have the mean image of the sample, the second step is to collect correlation measures between each individual image and that mean image.
+This can be done using the following code:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nib</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+
+<span class="k">def</span> <span class="nf">collect_rr</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">mean_img</span><span class="p">):</span>
+    <span class="n">rr</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">n0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">mean_img</span><span class="p">)</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span>
+    <span class="n">n0</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">n0</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">images</span><span class="p">[:]):</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span>
+        <span class="n">n</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">n0</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+        <span class="n">rr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">rr</span>
+
+<span class="n">images</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;/home/grg/data/s*.nii&#39;</span><span class="p">)</span>
+<span class="n">mean_img</span> <span class="o">=</span> <span class="s1">&#39;/home/grg/data/mean_FDG.nii.gz&#39;</span>
+<span class="n">rr</span> <span class="o">=</span> <span class="n">collect_rr</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">mean_img</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This returns a dictionary giving for each image a measure between 0 and 1 describing how similar the image is to the mean. As explained in the CAT12 manual, <em>"a small overall correlation in the boxplot does not always mean
+that this volume is an outlier or contains an artifact. If there are no artifacts in the image and if the image quality is reasonable you don’t have to exclude this volume from the sample (...) Data with deviating values have not necessarily to be excluded from the sample, but these data should be checked more carefully."</em></p>
+<p>The final step is about rendering the plot. Here we follow an example of <a href="https://stackoverflow.com/questions/7908636/is-it-possible-to-make-labels-appear-when-hovering-mouse-over-a-point-in-matplot">annotated scatter plot</a>.
+In a Jupyter notebook, that would look like the following code:</p>
+<div class="highlight"><pre><span></span><code><span class="o">%</span><span class="n">matplotlib</span> <span class="n">notebook</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="n">labels</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rr</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+<span class="n">norm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">RdYlGn</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">)</span>
+
+<span class="n">annot</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+                    <span class="n">textcoords</span><span class="o">=</span><span class="s2">&quot;offset points&quot;</span><span class="p">,</span>
+                    <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="s2">&quot;round&quot;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">))</span>
+<span class="n">annot</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">update_annot</span><span class="p">(</span><span class="n">ind</span><span class="p">):</span>
+    <span class="n">ind</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[</span><span class="s2">&quot;ind&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">get_offsets</span><span class="p">()[</span><span class="n">ind</span><span class="p">]</span>
+    <span class="n">annot</span><span class="o">.</span><span class="n">xy</span> <span class="o">=</span> <span class="n">pos</span>
+    <span class="n">annot</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">ind</span><span class="p">])</span>
+    <span class="n">annot</span><span class="o">.</span><span class="n">get_bbox_patch</span><span class="p">()</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">ind</span><span class="p">])))</span>
+    <span class="n">annot</span><span class="o">.</span><span class="n">get_bbox_patch</span><span class="p">()</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">hover</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+    <span class="n">vis</span> <span class="o">=</span> <span class="n">annot</span><span class="o">.</span><span class="n">get_visible</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">inaxes</span> <span class="o">==</span> <span class="n">ax</span><span class="p">:</span>
+        <span class="n">cont</span><span class="p">,</span> <span class="n">ind</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cont</span><span class="p">:</span>
+            <span class="n">update_annot</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>
+            <span class="n">annot</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw_idle</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">vis</span><span class="p">:</span>
+                <span class="n">annot</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw_idle</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">mpl_connect</span><span class="p">(</span><span class="s2">&quot;motion_notify_event&quot;</span><span class="p">,</span> <span class="n">hover</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="02" src="http://xgrg.github.io/images/cat12/02.png"></p>
+<p>This is much simpler than what comes with CAT12 (e.g. correlation matrix across each pair of images) but is a basic working example showing how to detect outliers in a collection of spatially normalized image.</p>
+<h3>References</h3>
+<p>1.<a href="#ref1">↑</a> <a name="ref1a"></a> <em>J. Huguet, C. Falcon, D. Fusté, S. Girona, D. Vicente, JL Molinuevo, JD Gispert, G. Operto for the ALFA Study</em>,
+<a href="https://www.frontiersin.org/articles/10.3389/fnins.2021.633438/full">Management and Quality Control of Large Neuroimaging Datasets: Developments From the Barcelonaβeta Brain Research Center</a>, Front. in Neurosc. (2021)</p>
+    </section>
+
+    <section id="applause">
+    <br>
+    Please let me know if you liked this post by clicking the button below.
+    <br><br>
+    &nbsp;&nbsp;<applause-button style="width: 58px; height: 58px;"/>
+    </section>
+
+
+
+<nav class="pagination-wrapper">
+    <div class="pagination">
+        <div class="pagination-left">
+        </div>
+        <div class="pagination-right">
+                &nbsp;
+        </div>
+    </div>
+</nav>
+            </div>
+        </section>
+
+
+        <footer id="footer" class="pure-u-1 pure-u-md-3-4">
+            <div class="l-box">
+                <div>
+                    <p>&copy; <a href="http://xgrg.github.io">Grégory Operto</a> &ndash;
+                        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+                              for <a href="http://blog.getpelican.com/">Pelican</a> - layout cloned with awe from <a href="http://cyrille.rossant.net">cyrille.rossant.net</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-17275957-2', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+
+</body>
+</html>
+
