@@ -93,6 +93,26 @@
 
     <section class="post">
         <header class="post-header">
+            <h3><a href="http://xgrg.github.io/how-to-select-longitudinal-data/">How to select longitudinal data from XNAT</a></h3>
+            <p class="sub-header-3">2019-08-20</p>
+            <p class="post-summary"><p>This is a short example showing how to identify subjects with multiple MR experiments on XNAT, for potential use in the context of a longitudinal analysis. Consider it as an extra tutorial for <a href="http://github.com/pyxnat"><code>pyxnat</code></a>.</p>
+<!-- PELICAN_END_SUMMARY -->
+
+<p>As almost always, everything starts with creating an <code>Interface</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyxnat</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">pyxnat</span><span class="o">.</span><span class="n">Interface</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s1">&#39;/home …</span></code></pre></div></p>
+        </header>
+        <!--
+        <div class="read-more">
+            <a class="pure-button" href="http://xgrg.github.io/how-to-select-longitudinal-data/">
+                read on
+            </a>
+        </div>
+        --!>
+    </section>
+        <hr />
+    <section class="post">
+        <header class="post-header">
             <h3><a href="http://xgrg.github.io/first-steps-with-pyxnat/">First steps with pyxnat</a></h3>
             <p class="sub-header-3">2019-08-19</p>
             <p class="post-summary"><p>A couple of basic commands to get started with <a href="http://github.com/pyxnat/pyxnat"><code>pyxnat</code></a>. This post quickly overviews the XNAT data model by the means of short examples, starting by creating a connection to a running instance. Documentation can be found <a href="http://pyxnat.github.io/pyxnat">there</a>.</p>
@@ -160,28 +180,6 @@ participants, collecting - and re-collecting - the
         <!--
         <div class="read-more">
             <a class="pure-button" href="http://xgrg.github.io/importing-external-resources-to-XNAT/">
-                read on
-            </a>
-        </div>
-        --!>
-    </section>
-        <hr />
-    <section class="post">
-        <header class="post-header">
-            <h3><a href="http://xgrg.github.io/downloading-nifti-resources-from-XNAT/">Downloading NIfTI resources from XNAT</a></h3>
-            <p class="sub-header-3">2018-11-02</p>
-            <p class="post-summary"><p>It is quite common that we use XNAT to download a bunch of NIfTIs to run some
-external analysis.</p>
-<!-- PELICAN_END_SUMMARY -->
-
-<p>This generic example shows how to download NIfTI resources from an XNAT instance.
-In this context, NIFTI resources are stored at the <em>scan</em> level
-(<code>subject</code>/<code>experiment</code>/<code>scan</code>).</p>
-<p>In this example, for …</p></p>
-        </header>
-        <!--
-        <div class="read-more">
-            <a class="pure-button" href="http://xgrg.github.io/downloading-nifti-resources-from-XNAT/">
                 read on
             </a>
         </div>
