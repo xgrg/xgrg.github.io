@@ -120,26 +120,26 @@ fslmaths -Tmean &lt;input&gt; &lt;output&gt;
 </code></pre></div>
 
 <p>Once we have the mean image of the sample, the second step is to collect correlation measures between each individual image and that mean image.
-This can be done using the following code:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+This can be done using the <code>numpy.coerrcoef</code> function as in the following code:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nib</span>
 <span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
 
-<span class="k">def</span> <span class="nf">collect_cc</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">mean_img</span><span class="p">):</span>
-    <span class="n">cc</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">n0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">mean_img</span><span class="p">)</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span>
-    <span class="n">n0</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">n0</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">images</span><span class="p">[:]):</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span>
-        <span class="n">n</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">n0</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
-        <span class="n">cc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">cc</span>
+<span class="n">images_fp</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;/home/grg/data/*.nii&#39;</span><span class="p">)</span>
+<span class="n">mean_img_fp</span> <span class="o">=</span> <span class="s1">&#39;/home/grg/data/mean_FDG.nii.gz&#39;</span>
 
-<span class="n">images</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;/home/grg/data/*.nii&#39;</span><span class="p">)</span>
-<span class="n">mean_img</span> <span class="o">=</span> <span class="s1">&#39;/home/grg/data/mean_FDG.nii.gz&#39;</span>
-<span class="n">rr</span> <span class="o">=</span> <span class="n">collect_cc</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">mean_img</span><span class="p">)</span>
+<span class="c1"># load mean image and remove nans</span>
+<span class="n">mean_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">mean_img_fp</span><span class="p">)</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span>
+<span class="n">mean_img</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">mean_img</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">def</span> <span class="nf">calculate_cc</span><span class="p">(</span><span class="n">img_fp</span><span class="p">,</span> <span class="n">mean_img</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">img_fp</span><span class="p">)</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span>
+    <span class="n">n</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">mean_img</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>    
+    <span class="k">return</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># calculate correlation coefficient on each image</span>
+<span class="n">cc</span> <span class="o">=</span> <span class="p">{</span><span class="n">e</span><span class="p">:</span> <span class="n">calculate_cc</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">mean_img</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">images_fp</span><span class="p">}</span>
 </code></pre></div>
 
 <p>This returns a dictionary giving for each image a measure between 0 and 1 describing how similar the image is to the mean. As explained in the CAT12 manual, <em>"a small overall correlation in the boxplot does not always mean
