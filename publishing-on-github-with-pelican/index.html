@@ -138,29 +138,29 @@ git push origin master
 </code></pre></div>
 
 <p>Now <code>circle.yml</code> :</p>
-<div class="highlight"><pre><span></span><code><span class="n">machine</span><span class="o">:</span>
-  <span class="n">python</span><span class="o">:</span>
-    <span class="n">version</span><span class="o">:</span> <span class="mf">2.7</span><span class="o">.</span><span class="mi">6</span>
-<span class="n">general</span><span class="o">:</span>
-  <span class="n">branches</span><span class="o">:</span>
-    <span class="n">ignore</span><span class="o">:</span>
-      <span class="o">-</span> <span class="n">master</span>
+<div class="highlight"><pre><span></span><code><span class="n">machine</span><span class="o">:</span><span class="w"></span>
+<span class="w">  </span><span class="n">python</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">version</span><span class="o">:</span><span class="w"> </span><span class="mf">2.7</span><span class="o">.</span><span class="mi">6</span><span class="w"></span>
+<span class="n">general</span><span class="o">:</span><span class="w"></span>
+<span class="w">  </span><span class="n">branches</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">ignore</span><span class="o">:</span><span class="w"></span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">master</span><span class="w"></span>
 
-<span class="n">dependencies</span><span class="o">:</span>
-  <span class="n">pre</span><span class="o">:</span>
-     <span class="o">-</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">pip</span>
-     <span class="o">-</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">setuptools</span>
-     <span class="o">-</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">pelican</span> <span class="n">markdown</span> <span class="n">ghp</span><span class="o">-</span><span class="k">import</span>
+<span class="n">dependencies</span><span class="o">:</span><span class="w"></span>
+<span class="w">  </span><span class="n">pre</span><span class="o">:</span><span class="w"></span>
+<span class="w">     </span><span class="o">-</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">--</span><span class="n">upgrade</span><span class="w"> </span><span class="n">pip</span><span class="w"></span>
+<span class="w">     </span><span class="o">-</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">--</span><span class="n">upgrade</span><span class="w"> </span><span class="n">setuptools</span><span class="w"></span>
+<span class="w">     </span><span class="o">-</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">pelican</span><span class="w"> </span><span class="n">markdown</span><span class="w"> </span><span class="n">ghp</span><span class="o">-</span><span class="k">import</span><span class="w"></span>
 
-<span class="nn">test</span><span class="o">:</span>
-   <span class="kd">override</span><span class="o">:</span>
-      <span class="o">-</span> <span class="s2">&quot;true&quot;</span>
+<span class="nn">test</span><span class="o">:</span><span class="w"></span>
+<span class="w">   </span><span class="kd">override</span><span class="o">:</span><span class="w"></span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="s2">&quot;true&quot;</span><span class="w"></span>
 
-<span class="n">deployment</span><span class="o">:</span>
-  <span class="n">production</span><span class="o">:</span>
-     <span class="n">branch</span><span class="o">:</span> <span class="n">source</span>
-     <span class="n">commands</span><span class="o">:</span>
-       <span class="o">-</span> <span class="o">./</span><span class="n">build</span><span class="o">.</span><span class="na">sh</span>
+<span class="n">deployment</span><span class="o">:</span><span class="w"></span>
+<span class="w">  </span><span class="n">production</span><span class="o">:</span><span class="w"></span>
+<span class="w">     </span><span class="n">branch</span><span class="o">:</span><span class="w"> </span><span class="n">source</span><span class="w"></span>
+<span class="w">     </span><span class="n">commands</span><span class="o">:</span><span class="w"></span>
+<span class="w">       </span><span class="o">-</span><span class="w"> </span><span class="o">./</span><span class="n">build</span><span class="o">.</span><span class="na">sh</span><span class="w"></span>
 </code></pre></div>
 
 <p>Now each commit on the <code>source</code> branch will trigger Pelican on CircleCI and the resulting build is pushed to the <code>master</code> branch and get visible on <code>http://username.github.io</code>.</p>
