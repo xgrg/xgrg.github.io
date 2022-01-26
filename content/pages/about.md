@@ -46,9 +46,10 @@ Greg Operto is a neuroimaging research scientist in the field of Alzheimer’s D
 ## Supervision of students
 
 * Mohammad Asif Hashmi (2020 ; [Google Summer of Code](https://summerofcode.withgoogle.com/))
-* Guillem Paris (2018 ; co-supervised Master student)
-* Pauline Bezivin (2012 ; co-supervised Master student)
-* Samuel David (2014 ; supervised Engineering student)
+* Javier Pozo (Universidad Carlos III Madrid, 2020)
+* Guillem Paris (Universitat Politècnica de Catalunya, 2019)
+* Pauline Bezivin (Université de Rennes 1, 2012)
+* Samuel David (ESIEE Paris, 2014)
 * Alberto Redolfi (2014 ; co-supervised Ph.D candidate)
 
 ## Research interests
