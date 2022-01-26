@@ -1,7 +1,7 @@
 ---
 Title: About
 ---
-Greg Operto is a neuroimaging research scientist in the field of Alzheimer’s Disease. After graduating in 2005 from Polytech-Marseille with a major in Biomedical Engineering, he received his PhD in Computer Science from Aix-Marseille University in 2009. He then joined NeuroSpin, the high-field MRI center of the Commissariat à l’Energie Atomique (Atomic Energy Commission). His research interests focus on early detection in Alzheimer's Disease and the aging brain. Between 2011 and 2016, he managed the production unit in charge of computing biomarkers in CATI, the French platform for multicenter neuroimaging studies. In 2016 he joined the neuroimaging group of the [BarcelonaBeta Brain Research Center](http://barcelonabeta.org) as a research scientist in the Alzheimer's Prevention Program, working with large-cohort multimodal imaging datasets. He is also leading the development of the technical platform for the management, processing and quality control of the imaging datasets coming from these large cohort studies.
+Greg Operto is a neuroimaging research scientist in the field of Alzheimer’s Disease. After graduating in 2005 from Polytech-Marseille with a major in Biomedical Engineering, he received his PhD in Computer Science from Aix-Marseille University in 2009. He then joined NeuroSpin, the high-field MRI center of the Commissariat à l’Energie Atomique (Atomic Energy Commission). His research interests focus on early detection in Alzheimer's Disease and the aging brain. Between 2011 and 2016, he managed the production unit in charge of computing biomarkers in CATI, the French platform for multicenter neuroimaging studies. In 2016 he joined the neuroimaging group of the [BarcelonaBeta Brain Research Center](http://barcelonabeta.org) as a research scientist in the Alzheimer's Prevention Program, working with large-cohort multimodal imaging datasets. He also leads the development of the technical platform for the management, processing and quality control of the imaging datasets coming from these large cohort studies.
 
 ## Professional experience
 
@@ -51,12 +51,6 @@ Greg Operto is a neuroimaging research scientist in the field of Alzheimer’s D
 * Samuel David (2014 ; supervised Engineering student)
 * Alberto Redolfi (2014 ; co-supervised Ph.D candidate)
 
-## Reviewer activity
-
-* International Symposium on Biomedical Imaging
-* Neuroimage
-* Organization for Human Brain Mapping (OHBM) annual meeting
-
 ## Research interests
 
 > Alzheimer's Disease and the aging brain -
@@ -74,18 +68,42 @@ Greg Operto is a neuroimaging research scientist in the field of Alzheimer’s D
 
 ## Hobbies
 
-* Travels (Iceland, Norway, Hawai, among the latest <i>pre-pandemics</i>)
-
-* Lightweight hiking, long-distance trekking
-
-* Hacking (Raspberry Pi, Arduino, attending hackathons)
-
-* Aikido, climbing, running
+* Lightweight trekking, table tennis, aikido, hacking/DIY
 
 
 ## Publications and conferences
 
+
+### Book chapters :
+
+* Falcon, C., **Operto, G.**, Molinuevo, J.L., Gispert, J.D., [Neuroimaging methods for MRI analysis in CSF biomarkers studies](http://dx.doi.org/10.1007/978-1-4939-7704-8_11), _Methods in Molecular Biology_, 2018 [doi:10.1007/978-1-4939-7704-8_11](http://dx.doi.org/10.1007/978-1-4939-7704-8_11)
+
+* J-F. Mangin, M. Perrot, **G. Operto**, C. Fischer, J. Lefèvre, D. Rivière, [Sulcus Identification and Labeling](http://dx.doi.org/10.1016/B978-0-12-397025-1.00307-9), In **Brain Mapping**, edited by Arthur W. Toga, _Academic Press_, Waltham, 2015, Pages 365-371, ISBN 9780123973160 [doi:10.1016/B978-0-12-397025-1.00307-9](http://dx.doi.org/10.1016/B978-0-12-397025-1.00307-9)
+
+
+### Invited oral presentations :
+
+* [Getting a @Handle on Big Neuroimaging Datasets - Building Your Pre-Processing Script & Quality Control](https://www.ismrm.org/22/22program.htm), Joint Annual Meeting ISMRM-ESMRMB & ISMRT, London, May 2022 (scheduled)
+
+* [Management and Quality Control of Large Neuroimaging Datasets: Developments From the Barcelonaβeta Brain Research Center](https://twitter.com/xgrg/status/1469588609648971781?s=20), BrainHack Global, Marseille, December 2021
+
+* [La Neuroimagerie pour comprendre et prévenir la Maladie d’Alzheimer](https://twitter.com/fpmaragall/status/1132899744672571392?s=20), Ville de Menton, May 2019
+
+* [Towards a future without Alzheimer - BarcelonaBeta Brain Research Center](https://twitter.com/xgrg/status/843168570112708609?s=20), Project MNC3 kickoff day, Nice, March 2017
+
+* [Structural Group Analysis of Cortical Curvature and Depth Patterns in the Developing Brain](https://ieeexplore.ieee.org/document/6235574), International symposium on biomedical imaging - ISBI, Barcelona, May 2012
+
+
+
 ### Peer-reviewed publications :
+
+* J. Huguet, C. Falcon, D. Fusté, S. Girona, D. Vicente, J.L Molinuevo, J.D Gispert, **G. Operto**, [Management and Quality Control of Large Neuroimaging Datasets: Developments From the Barcelonaβeta Brain Research Center](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8081968/pdf/fnins-15-633438.pdf), Frontiers in Neuroscience, 2021
+
+* N. Vilor-Tejedor, T.E Evans, H.H. Adams, J.M. González-de-Echávarri, J.L. Molinuevo, R. Guigo, J.D. Gispert, **G. Operto**, [Genetic Influences on Hippocampal Subfields: An Emerging Area of Neuroscience Research](https://ng.neurology.org/content/nng/7/3/e591.full.pdf), Neurology Genetics, 2021
+
+* I. Ciampa, **G. Operto**, C. Falcon, C. Minguillon, M. Castro de Moura, D. Piñeyro, M. Esteller, J.L. Molinuevo, R. Guigó, A. Navarro, J.D. Gispert, N. Vilor-Tejedor, [Genetic Predisposition to Alzheimer’s Disease Is Associated with Enlargement of Perivascular Spaces in Centrum Semiovale Region](https://www.mdpi.com/2073-4425/12/6/825/pdf), Genes, 2021
+
+G. Salvadó, D. Ferreira, **G. Operto**, I. Cumplido‐Mayoral, E.M Arenaza‐Urquijo, R. Cacciaglia, C. Falcon, N. Vilor‐Tejedor, C. Minguillon, C. Groot, W. M van der Flier, F. Barkhof, P. Scheltens, R. Ossenkoppele, S. Kern, A. Zettergren, I. Skoog, J. Hort, E. Stomrud, D. van Westen, O. Hansson, J.L Molinuevo, L-O Wahlund, E. Westman, J.D Gispert, ALFA study, BioFINDER, ADNI, [The protective gene dose effect of the APOE ε2 allele on gray matter volume in cognitively unimpaired individuals](https://alz-journals.onlinelibrary.wiley.com/doi/pdf/10.1002/alz.12487), Alzheimer's & Dementia, 2021
 
 * N. Vilor-Tejedor, **G. Operto**, T.E. Evans, C. Falcon, M. Crous-Bou, C. Minguillón, R. Cacciaglia, M. Milà-Alomà, O. Grau-Rivera, M. Suárez-Calvet, D. Garrido-Martín, S. Morán, M. Esteller, H.H. Adams, J.L. Molinuevo, R. Guigó, J.D. Gispert  for the ALFA Study[Effect of BDNF Val66Met on hippocampal subfields volumes and compensatory interaction with APOE-ε4 in middle-age cognitively unimpaired individuals from the ALFA study](https://link.springer.com/article/10.1007/s00429-020-02125-3), Brain Struct Funct, 2020 [doi.org/10.1007/s00429-020-02125-3](https://doi.org/10.1007/s00429-020-02125-3)
 
@@ -141,44 +159,3 @@ Greg Operto is a neuroimaging research scientist in the field of Alzheimer’s D
 
 * **G. Operto**, R. Bulot, J-L. Anton, O. Coulon, Anatomically informed convolution kernels for the projection of fMRI data on the cortical surface, _Medical Image Computing and Computer-Assisted Intervention – MICCAI_, Copenhagen, 2006
 
-### Book chapters :
-
-* Falcon, C., **Operto, G.**, Molinuevo, J.L., Gispert, J.D., [Neuroimaging methods for MRI analysis in CSF biomarkers studies](http://dx.doi.org/10.1007/978-1-4939-7704-8_11), _Methods in Molecular Biology_, 2018 [doi:10.1007/978-1-4939-7704-8_11](http://dx.doi.org/10.1007/978-1-4939-7704-8_11)
-
-* J-F. Mangin, M. Perrot, **G. Operto**, C. Fischer, J. Lefèvre, D. Rivière, [Sulcus Identification and Labeling](http://dx.doi.org/10.1016/B978-0-12-397025-1.00307-9), In **Brain Mapping**, edited by Arthur W. Toga, _Academic Press_, Waltham, 2015, Pages 365-371, ISBN 9780123973160 [doi:10.1016/B978-0-12-397025-1.00307-9](http://dx.doi.org/10.1016/B978-0-12-397025-1.00307-9)
-
-### Abstracts and posters :
-
-* **Operto, G.**, Cacciaglia, R., Falcon, C., Sánchez-Benavides, G., Gramunt, N., Moran, S., Esteller M., Crous-Bou M., Molinuevo J.L., Gispert, J. D. (2017). Effect of age and ApoE genotypes on brain microstructure in cognitively healthy subject as measured by diffusion-weighted imaging, _Alzheimer's & Dementia: The Journal of the Alzheimer's Association_, 2017
-
-* C. Dufouil, J-F Mangin, **G. Operto**, P. Amouyel, B. Dubois, B. Vellas, F. Pasquier, J-F Dartigues, M. Ceccaldi, F. Blanc, A. Gabelle, P. Krolak-Salmon, J. Hugon, O. Hanon, O. Rouaud, R. David, M. Chupin, G. Chêne for the Memento Study group, Are Alzheimer’s Disease Risk Genes related to markers of brain pathology? The Memento cohort, _Alzheimer's Association International Conference_, 2016
-
-* **G. Operto**, C. Fischer, S. David, M. Bouin, L. Fillon, C. Champseix, J-F. Mangin, SnapBase/SnapCheck: Assisting Quality Control of Post-processing Results over Large Cohorts, _Human Brain Mapping annual meeting_, Honolulu, 2015
-
-* C. Dufouil, M.Chupin, S. Auriacombe, H. Savarieau, B. Dubois, F. Pasquier, F. Blanc, J. Hugon, O. Hanon, A. Gabelle, M.  Ceccaldi, O. Beauchet, P. Krolak Salmon, R. David, O. Rouaud, O. Godefroy, C. Belin, I. Rouch, D. Wallon, A. Benetos, M.  Paccalin, M. Sauvée, L. Fillon, C. Hommet, F. Sellal, M. Vercelletto, I. Jalenques, A. Gentric, P. Vandel, V. Bouteloup, **G. Operto**, C. Thomas-Anterion, S. Belliard, J-F Mangin, P-J Ousset, G. Chêne, [Age differences in the association of white matter lesions with the occurrence of dementia: The memento cohort](http://dx.doi.org/10.1016/j.jalz.2015.06.1008), _Alzheimer's & Dementia_, Volume 11, Issue 7, Supplement, July 2015, Pages P678-P679, ISSN 1552-5260 [doi:10.1016/j.jalz.2015.06.1008](http://dx.doi.org/10.1016/j.jalz.2015.06.1008)
-
-* L. Edward, **G. Operto**, S. Poret, Y. Cointepas, N. Cheaib, L. Makkaoui, B. Batrancourt, OntoCATI: Towards an ontology of neuroimaging measures in the CATI Platform, _Frontiers in Neuroinformatics_, Stockholm, 2013
-
-* C. Fischer, **G. Operto**, S. Laguitton, M. Perrot, I. Denghien, D. Rivière, J-F. Mangin, Morphologist 2012: The new morphological pipeline of BrainVisa, _Human Brain Mapping annual meeting_, Beijiing, 2012
-
-* **G. Operto**, G. Auzias, D. Rivière, J. Dubois, P. Hüppi, J-F. Mangin, Finding Stable Sulcal Subunits in Developing Brain: a Group Analysis of Cortical Curvature and Depth Maxima, _Human Brain Mapping annual meeting_, Quebec, 2011
-
-* **G. Operto**, O. Coulon, A. Cachia, D. Rivière, J. Régis, J-F. Mangin, Finding Sulcal Stable Subunits : a Group Analysis of Primal Sketches of the Cortex Mean Curvature, _Human Brain Mapping annual meeting_, Barcelona, 2010
-
-* G. Auzias, O. Colliot, J-A. Glaunès, **G. Operto**, J-F. Mangin, A. Trouvé, S. Baillet, Diffeomorphic registration of functional data using sulcal landmarks : DISCO is born to be alive, _Human Brain Mapping annual meeting_, Barcelona, 2010
-
-* L. Favre, A-L Fouque, T. Vincent, A. Tucholka, M. Keller, **G. Operto**, B. Thyreau, C. Clouchoux, L. Risser, A. Moreno, D.  Geoffroy, Y. Cointepas, O. Coulon, P. Ciuciu, B. Thirion, A. Roche, A Comprehensive fMRI Processing Toolbox for BrainVISA, _Human Brain Mapping annual meeting_, 2009
-
-* P. Kochunov, J. Lancaster, S. Narayana, **G. Operto**, O. Coulon, J-F. Mangin, P. Fox, Relationship between regional FDG uptake and other markers of cerebral health in normal aging, _Human Brain Mapping annual meeting_, 2007
-
-* **G. Operto**, C. Clouchoux, J-L. Anton, A. Cachia, K. Dauchot, A. Sirigu, R. Bulot, O. Coulon, Cortical localization by surface parameterization: a gyrus-based approach, _Human Brain Mapping annual meeting_, Florence, 2006
-
-* O. Coulon, C. Clouchoux, **G. Operto**, K. Dauchot, A. Sirigu, J-L. Anton, Cortical localization by surface parameterization: a sulcus-based approach, _Human Brain Mapping annual meeting_, Florence, 2006
-
-* C. Clouchoux, O. Coulon, **G. Operto**, D. Riviere, K. Dauchot, A. Sirigu, J-L. Anton, J. Regis, Cortical localization via hemisphere surface parameterization, _Human Brain Mapping annual meeting_, Florence, 2006
-
-* P. Havrankova, R. Jech, N. Walker, **G. Operto**, P. Dušek, J. Vymazal, Cortical involvement in active and passive motions in graphospasm, _Human Brain Mapping annual meeting_, Florence, 2006
-
-* P. Havrankova, R. Jech, N. Walker, **G. Operto**, P. Dušek, J. Vymazal, Active and passive motion in patients with graphospasm: an event-related fMRI study, _16th International congress of Parkinson's disease and related disorders_, Berlin, 2005
-
-* R. Jech, L. Nováková, N. Walker, **G. Operto**, J. Roth, J. Vymazal, E. Růžička, Postanoxický Myoklonus v Obraze Event-Related fMRI - Kazuistika, _19th Czech and Slovak Neurological Congress_, Brno, 2004
